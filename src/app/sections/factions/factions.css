@@ -1,0 +1,43 @@
+.houses {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  max-width: 62rem;
+  margin-inline: auto;
+}
+
+/* A thin line down the middle with a cross where the two houses meet. */
+.versus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  font: 600 1.1rem/1 var(--display);
+  color: var(--accent);
+}
+
+.versus::before,
+.versus::after {
+  content: '';
+  flex: 1;
+  width: 1px;
+  background: var(--rule);
+}
+
+.oath {
+  max-width: 40rem;
+  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
+  font: italic 1.35rem/1.5 var(--body);
+  text-align: center;
+}
+
+@media (max-width: 52rem) {
+  .houses {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .versus {
+    display: none;
+  }
+}

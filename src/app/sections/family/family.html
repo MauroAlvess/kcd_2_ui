@@ -1,0 +1,35 @@
+<app-section anchor="familia" tone="dark" labelledBy="familia-title">
+  <div class="layout">
+    <div class="text">
+      <app-section-heading
+        align="start"
+        eyebrow="Família"
+        heading="Crie sua família"
+        titleId="familia-title"
+      >
+        Conquiste casas, terras, fazendas e feudos. Monte a sua árvore genealógica e deixe um
+        sobrenome que o reino vai lembrar.
+      </app-section-heading>
+
+      <ul class="points">
+        @for (point of points; track point) {
+          <li>{{ point }}</li>
+        }
+      </ul>
+    </div>
+
+    <div class="tree reveal">
+      <img
+        class="ornament"
+        src="img/tree-crest.webp"
+        width="440"
+        height="293"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+      <app-family-tree />
+      <p class="note">{{ note }}</p>
+    </div>
+  </div>
+</app-section>

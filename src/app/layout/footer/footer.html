@@ -1,0 +1,37 @@
+<footer class="footer">
+  <div class="inner">
+    <div class="identity">
+      <img
+        class="crest"
+        src="img/logo.webp"
+        width="320"
+        height="320"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+      <p class="name">Kingdom Leon <span class="amp">&amp;</span> Crow</p>
+      <p class="tag">{{ site.game }} · RP Brasil</p>
+    </div>
+
+    <nav class="links" aria-label="Rodapé">
+      <ul>
+        @for (item of nav; track item.href) {
+          <li>
+            <a [href]="item.href">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <app-button class="join" variant="ghost" [href]="site.discord" external
+      >Entrar no Discord</app-button
+    >
+  </div>
+
+  <p class="legal">
+    {{ site.game }} pertence à Warhorse Studios e à Deep Silver. Este é um servidor feito por fãs,
+    sem vínculo oficial com elas. A Marca de Trosky, as casas e os seus senhores são ficção criada
+    para o servidor.
+  </p>
+</footer>

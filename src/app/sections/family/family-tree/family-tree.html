@@ -1,0 +1,12 @@
+<ol class="tree" aria-label="Exemplo de árvore genealógica, dos avós aos netos">
+  @for (row of rows; track row.id) {
+    <li class="generation">
+      <span class="generation-label">{{ row.label }}</span>
+      <ul class="nodes">
+        @for (node of row.nodes; track node.label) {
+          <li class="node" [class.you]="node.you">{{ node.label }}</li>
+        }
+      </ul>
+    </li>
+  }
+</ol>

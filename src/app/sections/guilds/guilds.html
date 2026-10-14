@@ -1,0 +1,14 @@
+<app-section anchor="guildas" tone="light" labelledBy="guildas-title">
+  <app-section-heading eyebrow="Guildas" heading="Escolha sua guilda" titleId="guildas-title">
+    Receba itens para focar no que você quer fazer. Seja ferreiro, caçador, taberneiro, alquimista
+    ou artesão: cada guilda entrega um kit inicial na primeira vez que você a escolhe.
+  </app-section-heading>
+
+  <ul class="grid">
+    @for (guild of guilds; track guild.id) {
+      <li class="reveal">
+        <app-guild-card [guild]="guild" />
+      </li>
+    }
+  </ul>
+</app-section>

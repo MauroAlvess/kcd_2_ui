@@ -1,0 +1,68 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: start;
+}
+
+/* The title waits at the top of the screen while the story scrolls past. */
+.side {
+  position: sticky;
+  top: calc(var(--header-h) + 3rem);
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  max-width: 40rem;
+}
+
+.opening {
+  font: italic 1.45rem/1.6 var(--body);
+}
+
+.chapter {
+  margin-top: 2.2rem;
+  font: 600 1.05rem/1.3 var(--display);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.rivals {
+  display: grid;
+  gap: 1.7rem;
+  margin-block: 0.4rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--bar);
+}
+
+.rival h3 {
+  font: 600 0.95rem/1.3 var(--display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rival p {
+  margin-top: 0.45rem;
+  color: var(--fg-muted);
+}
+
+.question {
+  margin-top: 1.4rem;
+  font: 600 1.35rem/1.3 var(--display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 62rem) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .side {
+    position: static;
+  }
+}

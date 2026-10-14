@@ -1,0 +1,16 @@
+<app-section anchor="faccoes" tone="light" labelledBy="faccoes-title">
+  <app-section-heading eyebrow="Facções" heading="Escolha um lado" titleId="faccoes-title">
+    Jure lealdade aos Leões ou aos Corvos e carregue as cores da sua casa.
+  </app-section-heading>
+
+  <div class="houses">
+    @for (house of houses; track house.id; let last = $last) {
+      <app-house-card class="reveal" [house]="house" />
+      @if (!last) {
+        <span class="versus" aria-hidden="true">×</span>
+      }
+    }
+  </div>
+
+  <p class="oath reveal">Ao jurar lealdade, você recebe o manto e a gola nas cores da sua casa.</p>
+</app-section>

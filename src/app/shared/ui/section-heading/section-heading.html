@@ -1,0 +1,8 @@
+<header class="heading" [class.start]="align() === 'start'">
+  @if (eyebrow(); as label) {
+    <p class="eyebrow">{{ label }}</p>
+  }
+  <h2 [attr.id]="titleId()">{{ heading() }}</h2>
+  <span class="bar" aria-hidden="true"></span>
+  <div class="lead"><ng-content /></div>
+</header>

@@ -1,0 +1,139 @@
+/* Fonts, self-hosted: Cinzel (titles) and EB Garamond (text). The "ext" files carry the Czech letters of the lore (ř, Č)
+   and are only downloaded when the page uses one. */
+@import '@fontsource/cinzel/latin-600.css';
+@import '@fontsource/cinzel/latin-ext-600.css';
+@import '@fontsource/eb-garamond/latin-400.css';
+@import '@fontsource/eb-garamond/latin-400-italic.css';
+@import '@fontsource/eb-garamond/latin-ext-400.css';
+
+/* The palette is the server's own, the one of the in-game panel: black, beige and red. */
+:root {
+  --black: #0d0b09;
+  --ink: #201b17;
+  --paper: #eee4cf;
+  --paper-deep: #e3d4b6;
+  --beige: #d2b38c;
+  --red: #7c0305;
+  --red-hi: #98090c;
+
+  --display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
+  --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
+
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --maxw: 72rem;
+  --header-h: 4.25rem;
+  --section-pad: clamp(4.5rem, 9vw, 8rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--black);
+  scroll-behavior: smooth;
+  /* An anchor lands below the sticky header instead of under it. */
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--paper);
+  font: 1.2rem/1.65 var(--body);
+  font-variant-numeric: lining-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--beige);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--paper);
+}
+
+/* Text for screen readers only. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Things that rise into place as they scroll into view. Browsers without scroll-driven animations (and anybody who asks
+   for less motion) simply see them where they are, so nothing is ever hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 42%;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(1.6rem);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+}

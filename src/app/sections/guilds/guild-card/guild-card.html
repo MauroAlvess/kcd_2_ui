@@ -1,0 +1,15 @@
+<article class="card">
+  <img
+    class="crest"
+    [src]="'img/' + guild().crest"
+    width="300"
+    height="300"
+    [alt]="'Brasão da guilda ' + guild().latin + ' (' + guild().profession + ')'"
+    loading="lazy"
+    decoding="async"
+  />
+  <h3>{{ guild().latin }}</h3>
+  <p class="profession">{{ guild().profession }}</p>
+  <p class="about">{{ guild().description }}</p>
+  <p class="kit"><span class="kit-label">Kit inicial</span>{{ guild().kit }}</p>
+</article>

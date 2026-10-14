@@ -1,0 +1,24 @@
+/* Three to a row, two on a tablet, one on a phone; the last row is centred, so five cards are never four and one. */
+.grid {
+  --gap: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.grid li {
+  flex: 0 1 calc((100% - 2 * var(--gap)) / 3);
+}
+
+@media (max-width: 62rem) {
+  .grid li {
+    flex-basis: calc((100% - var(--gap)) / 2);
+  }
+}
+
+@media (max-width: 38rem) {
+  .grid li {
+    flex-basis: 100%;
+  }
+}

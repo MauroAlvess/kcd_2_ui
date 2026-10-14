@@ -1,0 +1,16 @@
+<article class="house" [attr.data-house]="house().id">
+  <img
+    class="crest"
+    [src]="'img/' + house().crest"
+    width="400"
+    height="400"
+    [alt]="house().crestAlt"
+    loading="lazy"
+    decoding="async"
+  />
+  <h3>{{ house().name }}</h3>
+  <p class="leader">{{ house().leader }}</p>
+  <blockquote class="motto">“{{ house().motto }}”</blockquote>
+  <p class="creed">{{ house().creed }}</p>
+  <p class="colours"><span class="swatch" aria-hidden="true"></span>{{ house().colours }}</p>
+</article>

@@ -1,0 +1,62 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 26rem;
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.7rem;
+}
+
+.generation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+/* The thread from one generation down to the next. */
+.generation + .generation::before {
+  content: '';
+  position: absolute;
+  top: -1.7rem;
+  left: 50%;
+  width: 1px;
+  height: 1.7rem;
+  background: var(--rule);
+}
+
+.generation-label {
+  font: 600 0.6rem/1.2 var(--display);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nodes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.node {
+  padding: 0.5rem 1.05rem;
+  font: 1.05rem/1.2 var(--body);
+  border: 1px solid var(--rule);
+}
+
+.node.you {
+  padding: 0.6rem 1.3rem;
+  font: 600 0.8rem/1.2 var(--display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--red);
+  border-color: var(--red-hi);
+}

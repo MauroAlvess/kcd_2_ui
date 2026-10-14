@@ -1,0 +1,8 @@
+# LF on every machine: Prettier checks for it and the site is built on Linux. Pictures and fonts are left alone.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary

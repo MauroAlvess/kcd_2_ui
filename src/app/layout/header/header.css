@@ -1,0 +1,165 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: block;
+}
+
+.bar {
+  color: var(--paper);
+  background: rgba(13, 11, 9, 0.94);
+  border-bottom: 1px solid rgba(210, 179, 140, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: min(100% - 2 * var(--gutter), 80rem);
+  height: var(--header-h);
+  margin-inline: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+}
+
+.crest {
+  width: auto;
+  height: 2.75rem;
+}
+
+.name {
+  font: 600 0.82rem/1.1 var(--display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.amp {
+  color: var(--beige);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu ul {
+  display: flex;
+  gap: 1.7rem;
+}
+
+.menu li a {
+  padding: 0.5rem 0;
+  font: 600 0.72rem/1.2 var(--display);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.menu li a:hover {
+  border-color: var(--beige);
+}
+
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: 1px solid rgba(210, 179, 140, 0.3);
+  cursor: pointer;
+}
+
+.bars {
+  position: relative;
+  display: block;
+  width: 1.4rem;
+  height: 2px;
+  background: currentColor;
+  transition: background-color 0.2s;
+}
+
+.bars::before,
+.bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.2s;
+}
+
+.bars::before {
+  top: -0.45rem;
+}
+
+.bars::after {
+  top: 0.45rem;
+}
+
+.toggle[aria-expanded='true'] .bars {
+  background: transparent;
+}
+
+.toggle[aria-expanded='true'] .bars::before {
+  transform: translateY(0.45rem) rotate(45deg);
+}
+
+.toggle[aria-expanded='true'] .bars::after {
+  transform: translateY(-0.45rem) rotate(-45deg);
+}
+
+@media (max-width: 62rem) {
+  .toggle {
+    display: inline-flex;
+  }
+
+  .menu {
+    position: absolute;
+    inset: var(--header-h) 0 auto 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6rem;
+    padding: 0.5rem var(--gutter) 2rem;
+    background: var(--black);
+    border-bottom: 1px solid rgba(210, 179, 140, 0.2);
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu li a {
+    display: block;
+    padding: 1.1rem 0;
+    font-size: 0.82rem;
+    border-bottom: 1px solid rgba(210, 179, 140, 0.15);
+  }
+}
+
+@media (max-width: 30rem) {
+  .name {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+}

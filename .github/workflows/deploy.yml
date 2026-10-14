@@ -1,0 +1,63 @@
+# Builds the site and publishes it on GitHub Pages, at every push to main and by hand from the Actions tab.
+#
+# The pages are built for the path of the address in src/site.config.json: /kcd_2_ui/ for
+# https://mauroalvess.github.io/kcd_2_ui, / for a domain of its own. Moving to a domain is changing that address
+# (and the domain in Settings > Pages); nothing here needs to change.
+name: Publicar o site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One publication at a time; one that has started is allowed to finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Testes
+        run: npx ng test --watch=false
+
+      - name: Caminho do site (do endereço em site.config.json)
+        id: base
+        run: |
+          href=$(node -p "new URL(require('./src/site.config.json').url || 'https://localhost').pathname.replace(/\/?$/, '/')")
+          echo "Publicando para o caminho $href"
+          echo "href=$href" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        run: npm run build -- --base-href "${{ steps.base.outputs.href }}"
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist/kcd2-rp-brasil/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

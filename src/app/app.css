@@ -1,0 +1,23 @@
+/* A keyboard user's first Tab lands here: a way past the menu. It is out of sight until it has focus. */
+.skip {
+  position: absolute;
+  top: -5rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.8rem 1.3rem;
+  font: 600 0.74rem/1.2 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--paper);
+  background: var(--red);
+  transition: top 0.2s;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+main:focus {
+  outline: none;
+}

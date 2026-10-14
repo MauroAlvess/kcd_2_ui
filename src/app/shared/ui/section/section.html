@@ -1,0 +1,23 @@
+<section
+  class="section"
+  [class.dark]="tone() === 'dark'"
+  [class.light]="tone() === 'light'"
+  [id]="anchor()"
+  [attr.aria-labelledby]="labelledBy()"
+>
+  @if (image(); as photo) {
+    <div class="photo" aria-hidden="true">
+      <img
+        [src]="photo.src"
+        [attr.srcset]="photo.srcset"
+        sizes="100vw"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  }
+  <div class="wrap">
+    <ng-content />
+  </div>
+</section>

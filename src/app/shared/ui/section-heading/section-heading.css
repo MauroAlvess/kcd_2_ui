@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.heading.start {
+  align-items: flex-start;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.eyebrow {
+  font: 600 0.74rem/1.2 var(--display);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h2 {
+  margin-top: 0.9rem;
+  font: 600 clamp(1.8rem, 4.2vw, 3rem) / 1.14 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.bar {
+  width: 3rem;
+  height: 3px;
+  margin: 1.4rem 0 1.2rem;
+  background: var(--bar, var(--red));
+}
+
+.lead {
+  max-width: 40rem;
+  font-size: 1.28rem;
+  color: var(--fg-muted);
+}
+
+.lead:empty {
+  display: none;
+}

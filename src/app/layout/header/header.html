@@ -1,0 +1,30 @@
+<header class="bar">
+  <div class="inner">
+    <a class="brand" href="#inicio" (click)="close()">
+      <img class="crest" src="img/logo.webp" width="320" height="320" alt="" />
+      <span class="name">Kingdom Leon <span class="amp">&amp;</span> Crow</span>
+    </a>
+
+    <nav id="menu" class="menu" [class.open]="open()" aria-label="Principal">
+      <ul>
+        @for (item of nav; track item.href) {
+          <li>
+            <a [href]="item.href" (click)="close()">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+      <app-button [href]="site.discord" external>Entrar no Discord</app-button>
+    </nav>
+
+    <button
+      class="toggle"
+      type="button"
+      aria-controls="menu"
+      [attr.aria-expanded]="open()"
+      (click)="toggle()"
+    >
+      <span class="sr-only">{{ open() ? 'Fechar o menu' : 'Abrir o menu' }}</span>
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
