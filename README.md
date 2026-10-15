@@ -13,7 +13,7 @@ Precisa de Node **22.22.3 ou mais novo, ou 24.15+** (o Angular 22 exige). Na má
 | `npm install` | instala as dependências |
 | `npm start` | abre o site em `http://localhost:4200`, recarregando ao salvar |
 | `npm run build` | gera o site em `dist/kcd2-rp-brasil/browser` (é essa pasta que se publica) |
-| `npm run build -- --base-href /kcd_2_ui/` | o mesmo, montado para o caminho do GitHub Pages (o que o workflow faz) |
+| `npm run build -- --base-href /kcd_2_ui/` | o mesmo, montado para um caminho (só para testar o endereço antigo do GitHub Pages; o domínio próprio é na raiz) |
 | `npm test` | roda os testes (Vitest) |
 
 O `build` e o `start` rodam antes dois verificadores: `scripts/seo-files.mjs` (escreve `robots.txt` e `sitemap.xml`) e
@@ -21,17 +21,21 @@ O `build` e o `start` rodam antes dois verificadores: `scripts/seo-files.mjs` (e
 
 ## No ar
 
-O site está em **https://mauroalvess.github.io/kcd_2_ui/** (GitHub Pages, HTTPS), publicado do repositório
-`MauroAlvess/kcd_2_ui`. O código do repositório é privado; só o site é público.
+O site está em **https://kingdomrpbrasil.com.br/** (GitHub Pages, HTTPS), publicado do repositório
+`MauroAlvess/kcd_2_ui`. O código do repositório é privado; só o site é público. O endereço antigo,
+`mauroalvess.github.io/kcd_2_ui`, o GitHub redireciona para o domínio.
 
 - **Publicar uma mudança:** é só dar `git push` na branch `main`. O workflow *Publicar o site*
   (`.github/workflows/deploy.yml`) roda os testes, faz o build e publica, em uns 2 minutos. Dá para rodar à mão na aba
   *Actions* do repositório. Se um teste falhar, nada é publicado e o site continua como estava.
 - **Endereço do site:** `"url"` em `src/site.config.json`. É dele que saem o link canônico, o `sitemap.xml`, a imagem de
-  prévia do link no Discord/WhatsApp e o caminho para o qual o site é montado (`/kcd_2_ui/`).
-- **Domínio próprio (quando tiver):** em *Settings → Pages → Custom domain* do repositório, ponha o domínio e crie no
-  provedor do domínio um registro `CNAME` apontando para `mauroalvess.github.io`; depois troque o `"url"` para
-  `"https://seudominio.com.br"` e dê push. O workflow passa a montar o site para `/` sozinho.
+  prévia do link no Discord/WhatsApp e o caminho para o qual o site é montado (`/` no domínio próprio; um endereço com
+  caminho, como `https://mauroalvess.github.io/kcd_2_ui`, monta o site para `/kcd_2_ui/`).
+- **Domínio próprio (já em uso: `kingdomrpbrasil.com.br`):** em *Settings → Pages → Custom domain* do repositório está o
+  domínio, e no provedor há o registro `CNAME` (`www`) e os registros `A` do GitHub para a raiz. **O `"url"` do
+  `site.config.json` tem de ser o mesmo endereço**: com o domínio no ar e o `"url"` ainda sob `/kcd_2_ui`, o site é
+  montado para um caminho que não existe e as imagens e o CSS dão 404 (foi o que aconteceu no primeiro dia). Para trocar de
+  domínio: troque aqui e em *Custom domain*, e dê push.
 - **Convite do Discord permanente:** o convite atual (`"discord"` no mesmo arquivo) **expira em 13/11/2026**. No Discord:
   *Convidar pessoas → Editar link de convite → Expirar depois de: Nunca*, e troque o link no `site.config.json`.
 
@@ -86,9 +90,8 @@ removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comenta
 - Cartões para Discord, WhatsApp e redes (Open Graph e Twitter) e dados estruturados `GameServer`, `Organization` e `WebSite`.
 - Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e a foto do topo pré-carregada.
 - Depois de publicar: cadastre o site no [Google Search Console](https://search.google.com/search-console) (propriedade
-  do tipo *Prefixo do URL*: `https://mauroalvess.github.io/kcd_2_ui/`) e envie o
-  `https://mauroalvess.github.io/kcd_2_ui/sitemap.xml`. Sob um caminho o `robots.txt` não é lido pelos buscadores; o
-  sitemap entregue no Search Console cumpre o papel dele.
+  do tipo *Domínio* ou *Prefixo do URL*: `https://kingdomrpbrasil.com.br/`) e envie o
+  `https://kingdomrpbrasil.com.br/sitemap.xml`. Na raiz do domínio o `robots.txt` já é lido pelos buscadores.
 
 ## Outra hospedagem
 
