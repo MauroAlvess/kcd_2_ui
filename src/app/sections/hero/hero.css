@@ -56,8 +56,8 @@
 }
 
 .crest {
-  width: clamp(6.5rem, 14vw, 9.5rem);
-  height: auto;
+  width: auto;
+  height: clamp(9rem, 22vw, 13rem);
   margin-bottom: 1.6rem;
   filter: drop-shadow(0 0.8rem 1.4rem rgba(0, 0, 0, 0.6));
 }

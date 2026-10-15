@@ -13,6 +13,11 @@ under a dark gradient on the page and can be rougher than the crests, which are 
 
 The site also uses two files that are not WebP, because browsers ask for them: favicon.ico and
 apple-touch-icon.png.
+
+The logo is the project's emblem ("brasão logo.jpg", 2026-10-15), printed in gold on a navy ground. The ground would
+be a blue square on the site's black and its paper, so the gold is lifted off it (lift_from_dark): each pixel's
+transparency is how far its brightness rises above the ground's, and its colour is the emblem's one gold, so the
+speckled print of the gold stays. The game's own panel keeps the lion and raven crest.
 """
 
 import sys
@@ -40,7 +45,7 @@ CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = []
 
 # Crests and ornaments, one width each (twice the size they are drawn at): output, original, width, quality
 CRESTS = [
-    ("logo", "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png", 320, 76),
+    ("logo", "brasão logo.jpg", 320, 80),
     ("guild-ferreiro", "Brasão_do_Ferreiro_em_Fogo-removebg-preview.png", 300, 78),
     ("guild-cacador", "Brasão_Florestal_do_Cervo_Dourado-removebg-preview.png", 300, 78),
     ("guild-taberneiro", "Brasão_Medieval_da_Guilda_da_Cerveja-removebg-preview.png", 300, 78),
@@ -155,6 +160,41 @@ TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro"}
 # Originals whose background removal left dark specks around the figure.
 SPECKLED = {"brasão cavalo.png"}
 
+# Originals that are a figure printed on a dark ground, with no transparency of their own.
+LIFTED = {"brasão logo.jpg"}
+
+
+def lift_from_dark(image: Image.Image) -> Image.Image:
+    """A one-colour figure on a dark ground, as the figure on transparency, cut to it. The ground is the median
+    brightness (the picture is mostly ground), the figure what the brightest 2% reach; between the two the
+    transparency ramps, so the edges and the print's specks stay soft."""
+    rgb = image.convert("RGB")
+    lum = rgb.convert("L")
+    hist = lum.histogram()
+    total_pixels = sum(hist)
+    seen, ground = 0, 0
+    for value, count in enumerate(hist):
+        seen += count
+        if seen >= total_pixels / 2:
+            ground = value
+            break
+    seen, top = 0, 255
+    for value in range(255, -1, -1):
+        seen += hist[value]
+        if seen >= total_pixels * 0.02:
+            top = value
+            break
+    low = ground + 22
+    high = max(low + 1, int(top * 0.82))
+    alpha = lum.point(lambda v: 0 if v <= low else 255 if v >= high else round((v - low) * 255 / (high - low)))
+    full = alpha.point(lambda v: 255 if v == 255 else 0)
+    flat = rgb.get_flattened_data() if hasattr(rgb, "get_flattened_data") else rgb.getdata()
+    covered = [pixel for pixel, mark in zip(flat, full.get_flattened_data() if hasattr(full, "get_flattened_data") else full.getdata()) if mark]
+    colour = tuple(sorted(pixel[channel] for pixel in covered)[len(covered) // 2] for channel in range(3))
+    figure = Image.new("RGBA", rgb.size, colour + (0,))
+    figure.putalpha(alpha)
+    return figure.crop(alpha.point(lambda v: 255 if v > 24 else 0).getbbox())
+
 
 def drop_specks(image: Image.Image, keep_share: float = 0.02) -> Image.Image:
     """Clears the specks a background removal left around a figure: the visible pixels are grouped into patches that
@@ -199,14 +239,20 @@ def drop_specks(image: Image.Image, keep_share: float = 0.02) -> Image.Image:
 
 for name, original, width, quality in CRESTS:
     art = Image.open(SOURCE / original).convert("RGBA")
+    if original in LIFTED:
+        art = lift_from_dark(art)
     if original in SPECKLED:
         art = drop_specks(art)
     if name in TRIMMED:
         art = art.crop(art.getbbox())
     save(resized(art, width), name, quality)
 
-# Icons from the logo: favicon.ico (16, 32, 48) and apple-touch-icon (180).
-logo = Image.open(SOURCE / "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png").convert("RGBA")
+# Icons from the logo: favicon.ico (16, 32, 48) and apple-touch-icon (180). The emblem is taller than wide, so it is
+# centred on a square, a little inside it.
+emblem = lift_from_dark(Image.open(SOURCE / "brasão logo.jpg"))
+side = round(max(emblem.size) * 1.08)
+logo = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+logo.alpha_composite(emblem, ((side - emblem.width) // 2, (side - emblem.height) // 2))
 TARGET.parent.mkdir(parents=True, exist_ok=True)
 square = Image.new("RGBA", logo.size, ICON_BACKGROUND + (255,))
 square.alpha_composite(logo)

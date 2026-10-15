@@ -8,7 +8,7 @@ const SOCIAL_IMAGE = {
   path: '/og-image.jpg',
   width: 1200,
   height: 630,
-  alt: 'Brasão do Leão Dourado e do Corvo sobre fundo preto, com o texto Kingdom Come: Deliverance II, RP Brasil',
+  alt: 'O emblema dourado do RP Brasil sobre fundo preto, com o texto Kingdom Come: Deliverance II, RP Brasil',
 } as const;
 
 const JSON_LD_ID = 'seo-json-ld';
