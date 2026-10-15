@@ -40,6 +40,10 @@ O site está em **https://kingdomrpbrasil.com.br/** (GitHub Pages, HTTPS), publi
   convite tiver prazo, o botão do site passa a levar a um link morto: no Discord, *Convidar pessoas → Editar link de convite →
   Expirar depois de: Nunca*, e troque o link no `site.config.json`.
 
+- **Botão "Baixar launcher"** (abertura da página, ao lado do Discord): `"launcher"` no mesmo arquivo. É o endereço da
+  MafiaHub que responde sempre com a versão mais nova do KCDC (um redirecionamento para o arquivo), então o site não
+  precisa citar versão. O botão abre na mesma aba: o navegador baixa o arquivo e a página continua onde estava.
+
 As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`): assim o mesmo build funciona em
 `/kcd_2_ui/` e na raiz de um domínio. O `check-assets` recusa um caminho que comece com `/img/`.
 
@@ -47,7 +51,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 | Quero mudar | Onde |
 | --- | --- |
-| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
+| nome, link do Discord, link do launcher, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
 | guildas, casas, passos, "mundo", bens (casas, cavalos e cães), os títulos da hierarquia e as regras de nomeação | `src/app/content/*.ts` |

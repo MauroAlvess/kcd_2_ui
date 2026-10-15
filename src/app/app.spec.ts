@@ -97,6 +97,22 @@ describe('App', () => {
     }
   });
 
+  it('offers the launcher in the opening, beside the Discord, and keeps the visitor on the page while it downloads', () => {
+    const actions = Array.from(root.querySelectorAll<HTMLAnchorElement>('#inicio .actions a'));
+
+    expect(actions).toHaveLength(2);
+    expect(actions[0].getAttribute('href')).toBe(SITE.discord);
+    expect(actions[1].textContent).toContain('Baixar launcher');
+    expect(actions[1].getAttribute('href')).toBe(SITE.launcher);
+    // A download leaves the page where it is: no new tab, no blank one left behind.
+    expect(actions[1].hasAttribute('target')).toBe(false);
+    expect(root.querySelector('#inicio')?.textContent).not.toContain('Conhecer o reino');
+  });
+
+  it('downloads the launcher from the address that always answers with the newest release, never from a version', () => {
+    expect(SITE.launcher).toBe('https://api.mafiahub.dev/mods/kcdc/releases/latest/download');
+  });
+
   it('shows the two houses by their crests alone, with no battle picture between them', () => {
     const factions = root.querySelector('#faccoes') as HTMLElement;
     expect(factions.querySelectorAll('img')).toHaveLength(2);
