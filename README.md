@@ -50,7 +50,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
-| guildas, casas, passos, "mundo", bens (casas, cavalos e cães) | `src/app/content/*.ts` |
+| guildas, casas, passos, "mundo", bens (casas, cavalos e cães), os títulos da hierarquia e as regras de nomeação | `src/app/content/*.ts` |
 | textos da lore | `src/app/sections/lore/lore.html` e `src/app/content/lore.ts` |
 | cores, fontes, espaçamentos | `:root` em `src/styles.css` |
 
@@ -58,10 +58,10 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, 8 seções em ordem, rodapé
+  app.*                 a página: cabeçalho, 9 seções em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (menu fixo, com menu móvel) e footer
-  sections/             uma pasta por seção: hero, guilds, family, factions, ascension, lore, world, join
+  sections/             uma pasta por seção: hero, guilds, family, factions, ascension, hierarchy, lore, world, join
   shared/ui/            peças reutilizáveis: button, section (tom claro/escuro, foto de fundo), section-heading, steps
   content/              os textos em listas tipadas, separados do layout
 public/                 imagens (img/), ícones, og-image.jpg
@@ -86,7 +86,7 @@ removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comenta
 
 ## SEO
 
-O nome é **Kingdom RP BRASIL** (era "Kingdom Leon & Crow" até 2026-10-15; não deve sobrar rastro dele em lugar nenhum, e há
+O nome é **Kingdom RP BRASIL** (o nome anterior foi trocado em 2026-10-15; não deve sobrar rastro dele em lugar nenhum, e há
 testes para isso). A frase que se quer ser achado por ela é **"kingdom come deliverance 2 rp brasil"**, e a página a diz
 nos lugares que um buscador lê primeiro:
 

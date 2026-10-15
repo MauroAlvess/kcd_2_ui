@@ -58,6 +58,8 @@ CRESTS = [
     ("prop-crest", "brasão propriedades e chaves.png", 300, 76),
     ("pet-cavalo", "brasão cavalo.png", 300, 76),
     ("pet-cachorro", "brasão cachorro.png", 300, 78),
+    # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (about 28rem tall, 560 px, cleaned of its specks).
+    ("hierarchy-tree", "arvore hierarquica.png", 232, 62),
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
 ]
@@ -155,10 +157,13 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
-TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro"}
+TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro", "hierarchy-tree"}
+
+# Crests whose edge is so intricate that the default transparency quality is most of their weight.
+ALPHA_QUALITY = {"hierarchy-tree": 36}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"brasão cavalo.png", "brasão cachorro.png"}
+SPECKLED = {"brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}
@@ -245,7 +250,7 @@ for name, original, width, quality in CRESTS:
         art = drop_specks(art)
     if name in TRIMMED:
         art = art.crop(art.getbbox())
-    save(resized(art, width), name, quality)
+    save(resized(art, width), name, quality, ALPHA_QUALITY.get(name, 80))
 
 # Icons from the logo: favicon.ico (16, 32, 48) and apple-touch-icon (180). The emblem is taller than wide, so it is
 # centred on a square, a little inside it.

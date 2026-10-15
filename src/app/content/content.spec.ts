@@ -1,6 +1,7 @@
 import { NOBILITY_RULE, RANKS } from './ascension';
 import { FAMILY_NOTE, FAMILY_POINTS, TREE_ROWS } from './family';
 import { HOLDINGS } from './holdings';
+import { RULES, TIERS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
@@ -100,5 +101,75 @@ describe('holdings', () => {
   it('says that a horse that dies is lost and another must be bought', () => {
     const horse = HOLDINGS.find((holding) => holding.id === 'cavalos')!;
     expect(horse.points.join(' ')).toMatch(/morrer.*comprar outro/);
+  });
+});
+
+describe('hierarchy', () => {
+  const titles = TIERS.flatMap((tier) => tier.titles);
+
+  it('has the six tiers of the realm in the order the panel lists them, the commoners last', () => {
+    expect(TIERS.map((tier) => tier.id)).toEqual([
+      'coroa',
+      'grandes',
+      'inferior',
+      'igreja',
+      'cidades',
+      'povo',
+    ]);
+    expect(unique(TIERS.map((tier) => tier.name))).toBe(true);
+    for (const tier of TIERS) {
+      expect(filled(tier.note)).toBe(true);
+      expect(tier.titles.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('describes every title, once, with the Rei alone at the top', () => {
+    expect(TIERS[0].titles.map((title) => title.name)).toEqual(['Rei']);
+    expect(unique(titles.map((title) => title.name))).toBe(true);
+    for (const title of titles) {
+      expect(filled(title.name) && filled(title.text)).toBe(true);
+      expect(title.text.endsWith('.')).toBe(true);
+    }
+    // The 37 titles of the server's catalog, and the plebeians.
+    expect(titles).toHaveLength(37 + 1);
+  });
+
+  it('has the titles the realm is asked for: lords, knights, the Church and the towns', () => {
+    const names = titles.map((title) => title.name);
+    for (const name of [
+      'Lorde',
+      'Cavaleiro',
+      'Escudeiro',
+      'Pequeno nobre',
+      'Burgrave',
+      'Arcebispo',
+      'Bispo',
+      'Padre',
+      'Burgomestre',
+      'Mestre de guilda',
+      'Administrador de hospedaria',
+    ]) {
+      expect(names, name).toContain(name);
+    }
+    expect(titles.find((title) => title.name === 'Lorde')?.native).toBe('pán');
+    expect(titles.find((title) => title.name === 'Cavaleiro')?.native).toBe('rytíř');
+  });
+
+  it('says who names whom, what a title does to a standing, and what is shown over a head', () => {
+    expect(RULES.length).toBe(7);
+    expect(unique(RULES.map((rule) => rule.numeral))).toBe(true);
+    const words = RULES.map((rule) => rule.text)
+      .join(' ')
+      .toLowerCase();
+    for (const phrase of [
+      'só um nobre nomeia',
+      'abaixo do seu',
+      'cônjuge e os descendentes',
+      'nunca aparece sobre a cabeça',
+      'ver hierarquia',
+      'região inteira',
+    ]) {
+      expect(words, phrase).toContain(phrase);
+    }
   });
 });

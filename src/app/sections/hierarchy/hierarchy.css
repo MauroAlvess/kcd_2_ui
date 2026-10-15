@@ -1,0 +1,96 @@
+.order {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+/* The tree stays in view while the titles go by. */
+.tree {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+}
+
+.tree img {
+  width: 100%;
+  max-width: 15rem;
+  height: auto;
+  margin-inline: auto;
+  filter: drop-shadow(0 0.6rem 0.8rem rgba(32, 27, 23, 0.28));
+}
+
+.tiers {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.tier {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+h3 {
+  font: 600 1.15rem/1.3 var(--display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.note {
+  margin-top: 0.35rem;
+  font-style: italic;
+  color: var(--fg-muted);
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.2rem 2.25rem;
+  margin: 1.3rem 0 0;
+}
+
+dt {
+  font: 600 0.92rem/1.35 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.female {
+  color: var(--fg-muted);
+  font-weight: 400;
+}
+
+dt small {
+  margin-left: 0.5rem;
+  font: italic 1rem var(--body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+}
+
+dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.rules-title {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+  margin-bottom: 1.6rem;
+  text-align: center;
+}
+
+@media (max-width: 56rem) {
+  .order {
+    grid-template-columns: 1fr;
+  }
+
+  .tree {
+    position: static;
+  }
+
+  .tree img {
+    max-width: 12rem;
+  }
+}

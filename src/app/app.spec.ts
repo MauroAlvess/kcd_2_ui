@@ -26,7 +26,7 @@ describe('App', () => {
     }
   });
 
-  it('reads as the hero and seven sections in the order the navigation lists them', () => {
+  it('reads as the hero and eight sections in the order the navigation lists them', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
@@ -34,6 +34,7 @@ describe('App', () => {
       'familia',
       'faccoes',
       'ascensao',
+      'hierarquia',
       'lore',
       'mundo',
       'entrar',
@@ -42,7 +43,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(8);
+    expect(sections).toHaveLength(9);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -115,6 +116,8 @@ describe('App', () => {
       'kingdom rp brasil',
       'rp brasil',
       'servidor de roleplay',
+      'hierarquia',
+      'burgrave',
       'whitelist',
       'discord',
       'guilda',

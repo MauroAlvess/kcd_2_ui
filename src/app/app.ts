@@ -6,18 +6,31 @@ import { Ascension } from './sections/ascension/ascension';
 import { Factions } from './sections/factions/factions';
 import { Family } from './sections/family/family';
 import { Guilds } from './sections/guilds/guilds';
+import { Hierarchy } from './sections/hierarchy/hierarchy';
 import { Hero } from './sections/hero/hero';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
 import { World } from './sections/world/world';
 
 /**
- * The whole site is one page: a header, eight sections in the order a visitor reads them, and a footer. Each section is a
+ * The whole site is one page: a header, nine sections in the order a visitor reads them, and a footer. Each section is a
  * component of its own under `sections/`; what is shared lives under `shared/ui/`, the texts under `content/`.
  */
 @Component({
   selector: 'app-root',
-  imports: [Header, Hero, Guilds, Family, Factions, Ascension, Lore, World, Join, Footer],
+  imports: [
+    Header,
+    Hero,
+    Guilds,
+    Family,
+    Factions,
+    Ascension,
+    Hierarchy,
+    Lore,
+    World,
+    Join,
+    Footer,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
