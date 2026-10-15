@@ -1,5 +1,6 @@
 import { NOBILITY_RULE, RANKS } from './ascension';
 import { FAMILY_NOTE, FAMILY_POINTS, TREE_ROWS } from './family';
+import { HOLDINGS } from './holdings';
 import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
@@ -83,5 +84,21 @@ describe('content', () => {
     for (const path of PATHS) {
       expect(path.items.length).toBeGreaterThanOrEqual(3);
     }
+  });
+});
+
+describe('holdings', () => {
+  it('tells of a house, a horse and a dog, each with a crest and what a player can do', () => {
+    expect(HOLDINGS.map((holding) => holding.id)).toEqual(['casas', 'cavalos', 'caes']);
+    for (const holding of HOLDINGS) {
+      expect(holding.crest).toMatch(/^[\w-]+\.webp$/);
+      expect(holding.crestAlt.length).toBeGreaterThan(10);
+      expect(holding.points.length).toBeGreaterThan(1);
+    }
+  });
+
+  it('says that a horse that dies is lost and another must be bought', () => {
+    const horse = HOLDINGS.find((holding) => holding.id === 'cavalos')!;
+    expect(horse.points.join(' ')).toMatch(/morrer.*comprar outro/);
   });
 });

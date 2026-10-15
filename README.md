@@ -45,7 +45,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | link do Discord, endereço, título e descrição do Google | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
-| guildas, casas, passos, "mundo" | `src/app/content/*.ts` |
+| guildas, casas, passos, "mundo", bens (casas, cavalos e cães) | `src/app/content/*.ts` |
 | textos da lore | `src/app/sections/lore/lore.html` e `src/app/content/lore.ts` |
 | cores, fontes, espaçamentos | `:root` em `src/styles.css` |
 

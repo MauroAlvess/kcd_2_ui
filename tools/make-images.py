@@ -18,7 +18,7 @@ apple-touch-icon.png.
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageFilter
+from PIL import Image, ImageChops, ImageFilter
 
 HERE = Path(__file__).resolve().parent
 SOURCE = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parents[1] / "img"
@@ -49,6 +49,10 @@ CRESTS = [
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
+    # What a player owns, under the family tree: a house, a horse, a dog.
+    ("prop-crest", "brasão propriedades e chaves.png", 300, 76),
+    ("pet-cavalo", "brasão cavalo.png", 300, 76),
+    ("pet-cachorro", "brasão cachorro.png", 300, 78),
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
 ]
@@ -145,8 +149,61 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
     for width in widths:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
+# Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
+TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro"}
+
+# Originals whose background removal left dark specks around the figure.
+SPECKLED = {"brasão cavalo.png"}
+
+
+def drop_specks(image: Image.Image, keep_share: float = 0.02) -> Image.Image:
+    """Clears the specks a background removal left around a figure: the visible pixels are grouped into patches that
+    touch (on a half-size copy, grown a little so a thin line still joins what it joins), and a patch smaller than
+    `keep_share` of the largest goes transparent. The same as the game's tools/make-ui-images.py."""
+    alpha = image.getchannel("A")
+    width, height = alpha.size
+    small = alpha.point(lambda value: 255 if value > 16 else 0).filter(ImageFilter.MaxFilter(3)).resize((width // 2, height // 2), Image.NEAREST)
+    sw, sh = small.size
+    pixels = small.load()
+    label = [0] * (sw * sh)
+    sizes = [0]
+    for y in range(sh):
+        for x in range(sw):
+            if not pixels[x, y] or label[y * sw + x]:
+                continue
+            current = len(sizes)
+            label[y * sw + x] = current
+            stack = [(x, y)]
+            count = 0
+            while stack:
+                cx, cy = stack.pop()
+                count += 1
+                for nx, ny in ((cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)):
+                    if 0 <= nx < sw and 0 <= ny < sh and pixels[nx, ny] and not label[ny * sw + nx]:
+                        label[ny * sw + nx] = current
+                        stack.append((nx, ny))
+            sizes.append(count)
+    largest = max(sizes[1:], default=0)
+    keep = {index for index in range(1, len(sizes)) if sizes[index] >= largest * keep_share}
+    mask = Image.new("L", (sw, sh), 0)
+    marks = mask.load()
+    for y in range(sh):
+        for x in range(sw):
+            if label[y * sw + x] in keep:
+                marks[x, y] = 255
+    mask = mask.resize((width, height), Image.NEAREST).filter(ImageFilter.MaxFilter(5))
+    cleaned = image.copy()
+    cleaned.putalpha(ImageChops.darker(alpha, mask))
+    return cleaned
+
+
 for name, original, width, quality in CRESTS:
-    save(resized(Image.open(SOURCE / original).convert("RGBA"), width), name, quality)
+    art = Image.open(SOURCE / original).convert("RGBA")
+    if original in SPECKLED:
+        art = drop_specks(art)
+    if name in TRIMMED:
+        art = art.crop(art.getbbox())
+    save(resized(art, width), name, quality)
 
 # Icons from the logo: favicon.ico (16, 32, 48) and apple-touch-icon (180).
 logo = Image.open(SOURCE / "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png").convert("RGBA")
