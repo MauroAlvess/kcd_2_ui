@@ -1,9 +1,13 @@
 {
-  "name": "Kingdom Leon & Crow",
+  "name": "Kingdom RP BRASIL",
   "game": "Kingdom Come: Deliverance II",
-  "title": "Kingdom Come: Deliverance II RP Brasil | Servidor de Roleplay KCD 2",
-  "description": "Kingdom Come Deliverance II RP Brasil: o primeiro servidor de roleplay de KCD 2 do Brasil. Guildas, famílias, facções e whitelist pelo Discord.",
+  "title": "Kingdom Come: Deliverance 2 RP Brasil | Kingdom RP BRASIL",
+  "description": "Kingdom Come Deliverance 2 RP Brasil: Kingdom RP BRASIL, o primeiro servidor de roleplay de KCD 2 do Brasil. Guildas, famílias, facções e whitelist no Discord.",
   "url": "https://kingdomrpbrasil.com.br",
-  "discord": "https://discord.gg/GDQPkDXBrR",
-  "locale": "pt-BR"
+  "discord": "https://discord.gg/p2wpuaGC3F",
+  "locale": "pt-BR",
+  "verification": {
+    "google": "",
+    "bing": ""
+  }
 }

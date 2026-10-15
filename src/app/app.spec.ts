@@ -102,10 +102,17 @@ describe('App', () => {
     expect(root.firstElementChild).toBe(skip);
   });
 
+  it('does not call the server by its old name any more', () => {
+    expect(root.textContent ?? '').not.toMatch(/Leon\s*&\s*Crow/i);
+  });
+
   it('says in plain text what the site is about, for the searches it wants to be found by', () => {
     const text = (root.textContent ?? '').toLowerCase();
     for (const phrase of [
       'kingdom come: deliverance ii',
+      'deliverance 2',
+      'kcd 2',
+      'kingdom rp brasil',
       'rp brasil',
       'servidor de roleplay',
       'whitelist',

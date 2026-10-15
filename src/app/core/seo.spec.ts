@@ -44,19 +44,24 @@ describe('Seo', () => {
     expect(SITE.description.length).toBeLessThanOrEqual(160);
   });
 
-  it('names the game, the country and the kind of server in the title', () => {
-    expect(SITE.title).toContain('Kingdom Come: Deliverance II');
+  it('names the game, the country and the server in the title', () => {
+    expect(SITE.title).toContain('Kingdom Come: Deliverance 2');
     expect(SITE.title).toContain('RP Brasil');
-    expect(SITE.title).toContain('Roleplay');
+    expect(SITE.title).toContain(SITE.name);
   });
 
-  it('says the main phrase in the description, at the start, and in the title', () => {
-    expect(SITE.description.toLowerCase().startsWith('kingdom come deliverance ii rp brasil')).toBe(
-      true,
-    );
-    expect(SITE.title.toLowerCase().replace(':', '')).toContain(
-      'kingdom come deliverance ii rp brasil',
-    );
+  it('says the main phrase, the way most people search it, at the start of the title and of the description', () => {
+    const main = 'kingdom come deliverance 2 rp brasil';
+    expect(SITE.title.toLowerCase().replace(':', '').startsWith(main)).toBe(true);
+    expect(SITE.description.toLowerCase().replace(':', '').startsWith(main)).toBe(true);
+  });
+
+  it('is called Kingdom RP BRASIL, with no trace of the old name in what a search engine reads', () => {
+    expect(SITE.name).toBe('Kingdom RP BRASIL');
+    expect(SITE.title).toContain('Kingdom RP BRASIL');
+    expect(SITE.description).toContain('Kingdom RP BRASIL');
+    const everything = JSON.stringify([{ ...SITE, discord: '' }, KEYWORDS, ALTERNATE_NAMES]);
+    expect(everything.toLowerCase()).not.toMatch(/leon|crow/);
   });
 
   it('writes the keywords people search for, the main phrase first', () => {
@@ -65,9 +70,10 @@ describe('Seo', () => {
 
     const written = content('meta[name="keywords"]') ?? '';
     expect(written).toBe(KEYWORDS.join(', '));
-    expect(KEYWORDS[0]).toBe('kingdom come deliverance ii rp brasil');
+    expect(KEYWORDS[0]).toBe('kingdom come deliverance 2 rp brasil');
     for (const phrase of [
-      'kingdom come deliverance 2 rp brasil',
+      'kingdom come deliverance ii rp brasil',
+      'kingdom rp brasil',
       'kcd 2 rp brasil',
       'kcd2 rp brasil',
       'whitelist',
@@ -109,6 +115,10 @@ describe('Seo', () => {
     expect(content('meta[name="twitter:image"]')).toBe('https://kcd2rp.example/og-image.jpg');
     expect(content('meta[property="og:image:width"]')).toBe('1200');
     expect(content('meta[property="og:image:height"]')).toBe('630');
+    expect(content('meta[property="og:image:type"]')).toBe('image/jpeg');
+    expect(content('meta[name="twitter:image:alt"]')).toBe(
+      content('meta[property="og:image:alt"]'),
+    );
     expect(doc.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
       'https://kcd2rp.example/',
     );
@@ -161,6 +171,50 @@ describe('Seo', () => {
     expect(page?.['keywords']).toBe(KEYWORDS.join(', '));
     expect(group?.['logo']).toBe('https://kcd2rp.example/apple-touch-icon.png');
     expect(site?.['publisher']).toEqual({ '@id': group?.['@id'] });
+
+    const server = nodes.find((node) => node['@type'] === 'GameServer');
+    expect(server?.['@id']).toBe('https://kcd2rp.example/#server');
+    expect(server?.['provider']).toEqual({ '@id': group?.['@id'] });
+    expect(page?.['about']).toEqual({ '@id': server?.['@id'] });
+  });
+
+  it('gives the server, the group and the site one name, so a search engine shows that name for the site', () => {
+    const { seo, graph } = setup(WITH_ADDRESS);
+    seo.apply();
+
+    const nodes = graph()['@graph'] as Array<Record<string, any>>;
+    for (const type of ['GameServer', 'Organization', 'WebSite']) {
+      expect(nodes.find((node) => node['@type'] === type)?.['name'], type).toBe(SITE.name);
+    }
+    const site = nodes.find((node) => node['@type'] === 'WebSite');
+    expect(site?.['alternateName']).toContain('Kingdom Come Deliverance 2 RP Brasil');
+  });
+
+  it('lets a search engine show the page, a snippet of any length and the large picture', () => {
+    const { seo, content } = setup();
+    seo.apply();
+
+    const robots = content('meta[name="robots"]') ?? '';
+    for (const directive of ['index', 'follow', 'max-snippet:-1', 'max-image-preview:large']) {
+      expect(robots.split(', '), directive).toContain(directive);
+    }
+    expect(robots).not.toContain('noindex');
+  });
+
+  it('writes the search consoles verification codes once the owner has them', () => {
+    const { seo, content } = setup({ ...SITE, verification: { google: 'abc123', bing: 'def456' } });
+    seo.apply();
+
+    expect(content('meta[name="google-site-verification"]')).toBe('abc123');
+    expect(content('meta[name="msvalidate.01"]')).toBe('def456');
+  });
+
+  it('writes no verification tag while there is no code', () => {
+    const { seo, content } = setup({ ...SITE, verification: { google: '', bing: '' } });
+    seo.apply();
+
+    expect(content('meta[name="google-site-verification"]')).toBeNull();
+    expect(content('meta[name="msvalidate.01"]')).toBeNull();
   });
 
   it('keeps the path of an address under a path, the way GitHub Pages serves the site', () => {

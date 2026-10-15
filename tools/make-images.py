@@ -158,7 +158,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro"}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"brasão cavalo.png"}
+SPECKLED = {"brasão cavalo.png", "brasão cachorro.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}

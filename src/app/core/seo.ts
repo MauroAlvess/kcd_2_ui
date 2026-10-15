@@ -8,8 +8,12 @@ const SOCIAL_IMAGE = {
   path: '/og-image.jpg',
   width: 1200,
   height: 630,
-  alt: 'O emblema dourado do RP Brasil sobre fundo preto, com o texto Kingdom Come: Deliverance II, RP Brasil',
+  type: 'image/jpeg',
+  alt: 'O emblema dourado do Kingdom RP BRASIL sobre fundo preto, com o texto Kingdom Come: Deliverance II, RP Brasil',
 } as const;
+
+/** What a search engine may do with the page: index it, follow its links, and show a snippet of any length and the large picture. */
+const ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
 const JSON_LD_ID = 'seo-json-ld';
 
@@ -30,13 +34,22 @@ export class Seo {
 
     this.meta.updateTag({ name: 'description', content: this.site.description });
     this.meta.updateTag({ name: 'keywords', content: KEYWORDS.join(', ') });
-    this.meta.updateTag({ name: 'robots', content: 'index, follow, max-image-preview:large' });
+    this.meta.updateTag({ name: 'robots', content: ROBOTS });
     this.meta.updateTag({ name: 'author', content: this.site.name });
     this.meta.updateTag({ name: 'application-name', content: this.site.name });
     this.meta.updateTag({ name: 'apple-mobile-web-app-title', content: this.site.name });
     this.meta.updateTag({ name: 'referrer', content: 'strict-origin-when-cross-origin' });
     this.meta.updateTag({ name: 'format-detection', content: 'telephone=no' });
     this.meta.updateTag({ name: 'content-language', content: this.site.locale });
+
+    // Proof of ownership for the search consoles: written only once the owner has the code to give.
+    const { google, bing } = this.site.verification;
+    if (google) {
+      this.meta.updateTag({ name: 'google-site-verification', content: google });
+    }
+    if (bing) {
+      this.meta.updateTag({ name: 'msvalidate.01', content: bing });
+    }
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:site_name', content: this.site.name });
@@ -53,10 +66,12 @@ export class Seo {
       const image = `${this.site.url}${SOCIAL_IMAGE.path}`;
       this.meta.updateTag({ property: 'og:url', content: `${this.site.url}/` });
       this.meta.updateTag({ property: 'og:image', content: image });
+      this.meta.updateTag({ property: 'og:image:type', content: SOCIAL_IMAGE.type });
       this.meta.updateTag({ property: 'og:image:width', content: String(SOCIAL_IMAGE.width) });
       this.meta.updateTag({ property: 'og:image:height', content: String(SOCIAL_IMAGE.height) });
       this.meta.updateTag({ property: 'og:image:alt', content: SOCIAL_IMAGE.alt });
       this.meta.updateTag({ name: 'twitter:image', content: image });
+      this.meta.updateTag({ name: 'twitter:image:alt', content: SOCIAL_IMAGE.alt });
       this.canonical(`${this.site.url}/`);
       this.alternates(`${this.site.url}/`);
     }
@@ -64,19 +79,30 @@ export class Seo {
     this.jsonLd();
   }
 
-  /** The structured data that tells a search engine what the page is: a game server, the group behind it and the site. */
+  /**
+   * The structured data that tells a search engine what the page is: a game server, the group behind it and the site.
+   * All three carry the same name, so a search engine can tell they are one thing and show that name for the site.
+   */
   graph(): object {
     const url = this.site.url;
     const organization = `${url}/#organization`;
+    const server = `${url}/#server`;
 
     const keywords = KEYWORDS.join(', ');
 
     const nodes: object[] = [
       {
         '@type': 'GameServer',
-        name: `${this.site.game} — RP Brasil`,
+        ...(url && {
+          '@id': server,
+          url: `${url}/`,
+          image: `${url}${SOCIAL_IMAGE.path}`,
+          provider: { '@id': organization },
+        }),
+        name: this.site.name,
         alternateName: ALTERNATE_NAMES,
         description: this.site.description,
+        serviceType: `Servidor de roleplay (RP) de ${this.site.game}`,
         keywords,
         inLanguage: this.site.locale,
         areaServed: { '@type': 'Country', name: 'Brasil' },
@@ -85,7 +111,6 @@ export class Seo {
           name: this.site.game,
           alternateName: ['Kingdom Come Deliverance 2', 'KCD 2', 'KCD2'],
         },
-        ...(url && { url: `${url}/` }),
       },
       {
         '@type': 'Organization',
@@ -114,6 +139,7 @@ export class Seo {
           keywords,
           inLanguage: this.site.locale,
           primaryImageOfPage: `${url}${SOCIAL_IMAGE.path}`,
+          about: { '@id': server },
           isPartOf: { '@type': 'WebSite', url: `${url}/` },
         },
       );

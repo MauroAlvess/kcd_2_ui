@@ -1,6 +1,6 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom Leon & Crow**: uma página só, minimalista, em preto, bege e vermelho (a paleta do painel do jogo).
+Site do servidor **Kingdom RP BRASIL**: uma página só, minimalista, em preto, bege e vermelho (a paleta do painel do jogo).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
 
@@ -36,8 +36,9 @@ O site está em **https://kingdomrpbrasil.com.br/** (GitHub Pages, HTTPS), publi
   `site.config.json` tem de ser o mesmo endereço**: com o domínio no ar e o `"url"` ainda sob `/kcd_2_ui`, o site é
   montado para um caminho que não existe e as imagens e o CSS dão 404 (foi o que aconteceu no primeiro dia). Para trocar de
   domínio: troque aqui e em *Custom domain*, e dê push.
-- **Convite do Discord permanente:** o convite atual (`"discord"` no mesmo arquivo) **expira em 13/11/2026**. No Discord:
-  *Convidar pessoas → Editar link de convite → Expirar depois de: Nunca*, e troque o link no `site.config.json`.
+- **Convite do Discord:** `"discord"` no mesmo arquivo (o convite de 2026-10-15 é `https://discord.gg/p2wpuaGC3F`). Se o
+  convite tiver prazo, o botão do site passa a levar a um link morto: no Discord, *Convidar pessoas → Editar link de convite →
+  Expirar depois de: Nunca*, e troque o link no `site.config.json`.
 
 As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`): assim o mesmo build funciona em
 `/kcd_2_ui/` e na raiz de um domínio. O `check-assets` recusa um caminho que comece com `/img/`.
@@ -46,7 +47,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 | Quero mudar | Onde |
 | --- | --- |
-| link do Discord, endereço, título e descrição do Google | `src/site.config.json` |
+| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
 | guildas, casas, passos, "mundo", bens (casas, cavalos e cães) | `src/app/content/*.ts` |
@@ -85,13 +86,36 @@ removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comenta
 
 ## SEO
 
-- `<html lang="pt-BR">`, um único `h1` (nome do servidor), um `h2` por seção, texto alternativo em todas as imagens.
-- Título e descrição dentro dos limites do Google (testado); palavras-chave no `meta keywords` **e** escritas no texto da página.
-- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter) e dados estruturados `GameServer`, `Organization` e `WebSite`.
+O nome é **Kingdom RP BRASIL** (era "Kingdom Leon & Crow" até 2026-10-15; não deve sobrar rastro dele em lugar nenhum, e há
+testes para isso). A frase que se quer ser achado por ela é **"kingdom come deliverance 2 rp brasil"**, e a página a diz
+nos lugares que um buscador lê primeiro:
+
+- `<title>`: `Kingdom Come: Deliverance 2 RP Brasil | Kingdom RP BRASIL` (57 caracteres, a frase no começo e a marca no fim);
+  descrição de até 160 caracteres que também começa pela frase. Os dois vêm de `src/site.config.json` e os testes conferem o
+  tamanho e o começo.
+- O `h1` diz "Kingdom Come: Deliverance II RP Brasil" (o nome oficial do jogo) e o texto logo abaixo diz "KCD 2 (Deliverance 2)":
+  quem digita "2" e quem digita "II" acha a mesma página. `KEYWORDS` e `ALTERNATE_NAMES` (em `src/app/core/site.ts`) trazem as
+  duas grafias; o Google ignora o `meta keywords`, mas outros buscadores ainda o leem.
+- `<html lang="pt-BR">`, um único `h1`, um `h2` por seção, texto alternativo em todas as imagens, `canonical` e `hreflang`.
+- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image.jpg` de 1200x630) e dados
+  estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
+  mostrar "Kingdom RP BRASIL" como nome do site.
 - Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e a foto do topo pré-carregada.
-- Depois de publicar: cadastre o site no [Google Search Console](https://search.google.com/search-console) (propriedade
-  do tipo *Domínio* ou *Prefixo do URL*: `https://kingdomrpbrasil.com.br/`) e envie o
-  `https://kingdomrpbrasil.com.br/sitemap.xml`. Na raiz do domínio o `robots.txt` já é lido pelos buscadores.
+
+**Ninguém consegue garantir a posição no Google**: ela depende de o Google ter lido o site (isso se pede, abaixo), da idade do
+domínio e de quantos outros sites apontam para ele. O que dá para fazer, e o que já está feito:
+
+1. Cadastrar o site no [Google Search Console](https://search.google.com/search-console). Propriedade do tipo *Domínio*
+   (`kingdomrpbrasil.com.br`): o Google dá um registro `TXT` para pôr no DNS, sem mexer no site. Ou do tipo *Prefixo do URL*
+   (`https://kingdomrpbrasil.com.br/`): o Google dá uma tag `<meta name="google-site-verification" content="CÓDIGO">`; ponha só
+   o CÓDIGO em `"verification" → "google"` no `site.config.json`, publique, e clique em Verificar. O Bing tem o mesmo (Bing
+   Webmaster Tools, `"verification" → "bing"`).
+2. Em *Sitemaps*, enviar `https://kingdomrpbrasil.com.br/sitemap.xml` (o `robots.txt` já o anuncia). Em *Inspeção de URL*,
+   colar `https://kingdomrpbrasil.com.br/` e clicar em *Solicitar indexação*.
+3. Links vindos de fora: o site no campo de endereço da lista de servidores do MafiaHub, no Discord (descrição e canal de
+   boas-vindas), em posts do KCD 2 no Reddit/Steam/grupos brasileiros. Quanto mais sites sérios apontam para o domínio, mais
+   alto ele sobe, e é a parte que mais pesa.
+4. Daí em diante é esperar: o primeiro rastreio leva de dias a poucas semanas. Para ver como está: no Google, `site:kingdomrpbrasil.com.br`.
 
 ## Outra hospedagem
 
