@@ -47,7 +47,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 | Quero mudar | Onde |
 | --- | --- |
-| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing | `src/site.config.json` |
+| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
 | guildas, casas, passos, "mundo", bens (casas, cavalos e cães), os títulos da hierarquia e as regras de nomeação | `src/app/content/*.ts` |
@@ -83,6 +83,24 @@ python tools/make-og-image.py    # gera public/og-image.jpg, o cartão que apare
 Precisam de Python com Pillow (`pip install pillow`); o segundo também de Edge ou Chrome instalado. O `banner.png` (o duelo
 dos cavaleiros) não está mais na página; ele vem com o xadrez de "fundo transparente" desenhado nos pixels, e o script sabe
 removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comentada em `CUTOUTS`, em `tools/make-images.py`.
+
+## Jogadores online
+
+O contador *"N jogadores online agora de M vagas"* (no topo da página e no cartão de boas-vindas) lê a **lista pública de
+servidores do MafiaHub**, a mesma do navegador de servidores do jogo (`https://masterlist.mafiahub.dev/servers`, que aceita
+ser lida por qualquer página). O servidor é achado pelo **id do cadastro** (`"listing" → "id"` em `src/site.config.json`, o
+mesmo da página do servidor em mafiahub.dev), **nunca pelo endereço**: o site não sabe onde o servidor está, e um teste
+garante que nenhum IP aparece na página nem na configuração.
+
+- A página pronta (a que o Google lê) não traz números. O navegador pergunta quando a página termina de desenhar e depois a
+  cada 45 segundos, só enquanto a aba está à vista (`src/app/core/server-status.ts`). Se a lista não responde, o contador
+  guarda o último número por 5 minutos e depois some; o lugar dele fica reservado, então nada pula na tela.
+- **"Vagas"** é o `max_players` do servidor (512 hoje). Quantos jogadores já entraram, no total, não está na lista: mostrar
+  isso pede um endereço HTTPS no próprio servidor (uma página HTTPS não pode ler um endereço `http://`).
+- Servidor fora do ar: a lista esquece um servidor uns 2 minutos depois do último sinal dele, e o contador passa a dizer
+  *"Servidor fora do ar no momento"*.
+- Para quem visita: o navegador faz um pedido ao `masterlist.mafiahub.dev` (um serviço de terceiros), além do pedido ao site.
+- Se o servidor for cadastrado de novo no MafiaHub, o id muda: troque em `site.config.json`. **Id vazio desliga o contador.**
 
 ## SEO
 

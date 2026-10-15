@@ -6,6 +6,10 @@
   "url": "https://kingdomrpbrasil.com.br",
   "discord": "https://discord.gg/p2wpuaGC3F",
   "locale": "pt-BR",
+  "listing": {
+    "url": "https://masterlist.mafiahub.dev/servers",
+    "id": "30e25247-2500-4449-a7cd-4d563e05b0cc"
+  },
   "verification": {
     "google": "",
     "bing": ""

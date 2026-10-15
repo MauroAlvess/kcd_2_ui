@@ -1,0 +1,21 @@
+<p class="badge" role="status" [attr.data-state]="status().state">
+  @switch (status().state) {
+    @case ('online') {
+      <span class="dot" aria-hidden="true"></span>
+      @if (status().players === 0) {
+        <span class="now">Nenhum jogador online agora</span>
+      } @else {
+        <span class="now">
+          <strong>{{ players() }}</strong>
+          {{ status().players === 1 ? 'jogador online agora' : 'jogadores online agora' }}
+        </span>
+      }
+      <!-- The space in front of "de" is for a screen reader; the eye sees the flex gap. -->
+      <span class="slots"> de {{ max() }} vagas</span>
+    }
+    @case ('offline') {
+      <span class="dot" aria-hidden="true"></span>
+      <span class="now">Servidor fora do ar no momento</span>
+    }
+  }
+</p>

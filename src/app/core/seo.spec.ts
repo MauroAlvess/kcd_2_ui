@@ -234,6 +234,14 @@ describe('Seo', () => {
     expect(group?.['logo']).toBe('https://mauroalvess.github.io/kcd_2_ui/apple-touch-icon.png');
   });
 
+  it('reads the players online from the public master list by the listing id, never by an address', () => {
+    expect(SITE.listing.url).toMatch(/^https:\/\/[^\s/]+\/[\w/-]*$/);
+    expect(SITE.listing.id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
+    );
+    expect(JSON.stringify(SITE)).not.toMatch(/\b(?:\d{1,3}\.){3}\d{1,3}\b/);
+  });
+
   it('is published at an https address with no slash at the end', () => {
     expect(SITE.url).toMatch(/^https:\/\/[^\s]+[^/]$/);
   });

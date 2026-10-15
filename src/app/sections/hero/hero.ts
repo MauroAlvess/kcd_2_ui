@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SITE } from '../../core/site';
 import { Button } from '../../shared/ui/button/button';
+import { ServerBadge } from '../../shared/ui/server-badge/server-badge';
 
 /**
  * The top of the page: the server's name as the page's only h1, what it is in one line, and the two things to do next. The
@@ -9,7 +10,7 @@ import { Button } from '../../shared/ui/button/button';
  */
 @Component({
   selector: 'app-hero',
-  imports: [Button],
+  imports: [Button, ServerBadge],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })

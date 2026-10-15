@@ -10,6 +10,12 @@ export interface SiteConfig {
   readonly url: string;
   readonly discord: string;
   readonly locale: string;
+  /**
+   * Where the players online are read from: the public master list the game's server browser uses, and the id of this
+   * server's entry in it (the listing id of mafiahub.dev, not an address: the site never knows where the server is).
+   * An empty id switches the numbers off.
+   */
+  readonly listing: { readonly url: string; readonly id: string };
   /** The codes a search console gives to prove the site is yours (its "HTML tag" method). Empty until there is one. */
   readonly verification: { readonly google: string; readonly bing: string };
 }
@@ -26,6 +32,7 @@ export const SITE: SiteConfig = {
   url: config.url.replace(/\/+$/, ''),
   discord: config.discord,
   locale: config.locale,
+  listing: { url: config.listing.url.trim(), id: config.listing.id.trim() },
   verification: {
     google: config.verification.google.trim(),
     bing: config.verification.bing.trim(),

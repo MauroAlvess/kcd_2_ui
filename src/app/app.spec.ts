@@ -1,12 +1,20 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { LiveStatus, UNKNOWN } from './core/server-status';
 import { NAV, SITE } from './core/site';
 
 describe('App', () => {
   let root: HTMLElement;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
+    // The numbers come from the network: a test never asks for them.
+    await TestBed.configureTestingModule({
+      imports: [App],
+      providers: [
+        { provide: LiveStatus, useValue: { status: signal(UNKNOWN), start: () => undefined } },
+      ],
+    }).compileComponents();
     const fixture = TestBed.createComponent(App);
     root = fixture.nativeElement;
     await fixture.whenStable();
@@ -101,6 +109,21 @@ describe('App', () => {
     expect(skip?.getAttribute('href')).toBe('#conteudo');
     expect(root.querySelector('main#conteudo')).not.toBeNull();
     expect(root.firstElementChild).toBe(skip);
+  });
+
+  it('shows the players online in the opening and in the welcome card', () => {
+    const badges = Array.from(root.querySelectorAll('app-server-badge'));
+
+    expect(badges).toHaveLength(2);
+    expect(root.querySelector('#inicio app-server-badge')).not.toBeNull();
+    expect(root.querySelector('#entrar app-server-badge')).not.toBeNull();
+    for (const badge of badges) {
+      expect(badge.querySelector('[role="status"]')).not.toBeNull();
+    }
+  });
+
+  it('never writes the address of the server in the page', () => {
+    expect(root.innerHTML).not.toMatch(/\b(?:\d{1,3}\.){3}\d{1,3}\b/);
   });
 
   it('does not call the server by its old name any more', () => {

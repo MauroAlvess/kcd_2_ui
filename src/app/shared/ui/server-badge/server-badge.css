@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  /* The room of one line, kept while there is nothing to say, so the numbers arriving move nothing. */
+  min-height: 2.6rem;
+}
+
+.badge {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.7rem;
+  margin: 0;
+  padding: 0.5rem 1.1rem;
+  font: 600 0.68rem/1.35 var(--display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.badge[data-state='unknown'] {
+  visibility: hidden;
+}
+
+.dot {
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #7bb661;
+  box-shadow: 0 0 0.6rem rgba(123, 182, 97, 0.65);
+}
+
+.badge[data-state='offline'] .dot {
+  background: #8c8174;
+  box-shadow: none;
+}
+
+strong {
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.slots {
+  opacity: 0.72;
+}
