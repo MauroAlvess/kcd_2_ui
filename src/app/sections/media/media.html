@@ -1,0 +1,28 @@
+<app-section anchor="midias" tone="dark" labelledBy="midias-title">
+  <app-section-heading eyebrow="Mídias" heading="Cenas do reino" titleId="midias-title">
+    Duelos no pátio, cavalgadas ao entardecer e partidas de dados nas vilas: o servidor como os
+    jogadores o vivem.
+  </app-section-heading>
+
+  <div class="group">
+    <h3 class="group-title">Vídeos</h3>
+    <div class="clips">
+      @for (clip of clips; track clip.id; let first = $first) {
+        <app-clip-card [clip]="clip" [featured]="first" (played)="pauseOthers(clip.id)" />
+      }
+    </div>
+  </div>
+
+  <div class="group">
+    <h3 class="group-title">Imagens</h3>
+    <div class="shots">
+      @for (shot of shots; track shot.id; let index = $index) {
+        <app-shot-card [shot]="shot" (opened)="viewer.show(index)" />
+      }
+    </div>
+  </div>
+
+  <p class="note reveal">{{ note }}</p>
+
+  <app-lightbox #viewer [pictures]="pictures" />
+</app-section>

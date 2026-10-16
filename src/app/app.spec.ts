@@ -34,7 +34,7 @@ describe('App', () => {
     }
   });
 
-  it('reads as the hero and eight sections in the order the navigation lists them', () => {
+  it('reads as the hero and nine sections in the order the navigation lists them', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
@@ -45,13 +45,14 @@ describe('App', () => {
       'hierarquia',
       'lore',
       'mundo',
+      'midias',
       'entrar',
     ]);
   });
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(9);
+    expect(sections).toHaveLength(10);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -73,6 +74,16 @@ describe('App', () => {
     expect(images.length).toBeGreaterThan(10);
     for (const image of images) {
       expect(image.hasAttribute('alt'), image.getAttribute('src') ?? '').toBe(true);
+    }
+  });
+
+  it('never downloads a video before it is played, and plays none by itself', () => {
+    const videos = Array.from(root.querySelectorAll('video'));
+    expect(videos.length).toBeGreaterThan(0);
+    for (const video of videos) {
+      expect(video.getAttribute('preload')).toBe('none');
+      expect(video.hasAttribute('autoplay')).toBe(false);
+      expect(video.getAttribute('poster'), 'a video shows a frame while it waits').toBeTruthy();
     }
   });
 

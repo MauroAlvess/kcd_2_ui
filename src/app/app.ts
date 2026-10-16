@@ -10,10 +10,11 @@ import { Hierarchy } from './sections/hierarchy/hierarchy';
 import { Hero } from './sections/hero/hero';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
+import { Media } from './sections/media/media';
 import { World } from './sections/world/world';
 
 /**
- * The whole site is one page: a header, nine sections in the order a visitor reads them, and a footer. Each section is a
+ * The whole site is one page: a header, ten sections in the order a visitor reads them, and a footer. Each section is a
  * component of its own under `sections/`; what is shared lives under `shared/ui/`, the texts under `content/`.
  */
 @Component({
@@ -28,6 +29,7 @@ import { World } from './sections/world/world';
     Hierarchy,
     Lore,
     World,
+    Media,
     Join,
     Footer,
   ],

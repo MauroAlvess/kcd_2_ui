@@ -1,0 +1,34 @@
+<dialog
+  #dialog
+  class="lightbox"
+  aria-label="Imagem ampliada"
+  (click)="margin($event)"
+  (keydown)="keys($event)"
+>
+  @if (used() && current(); as picture) {
+    <figure>
+      <img
+        [src]="picture.src"
+        [attr.width]="picture.width"
+        [attr.height]="picture.height"
+        [alt]="picture.alt"
+        decoding="async"
+      />
+      <figcaption>
+        {{ picture.caption }}
+        <span class="count">{{ index() + 1 }} de {{ pictures().length }}</span>
+      </figcaption>
+    </figure>
+  }
+
+  <button class="close" type="button" autofocus (click)="close()">Fechar</button>
+
+  @if (pictures().length > 1) {
+    <button class="step previous" type="button" aria-label="Imagem anterior" (click)="step(-1)">
+      <span aria-hidden="true">‹</span>
+    </button>
+    <button class="step next" type="button" aria-label="Próxima imagem" (click)="step(1)">
+      <span aria-hidden="true">›</span>
+    </button>
+  }
+</dialog>

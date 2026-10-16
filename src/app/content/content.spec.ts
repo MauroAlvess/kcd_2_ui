@@ -5,6 +5,7 @@ import { RULES, TIERS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
+import { CLIPS, MEDIA_NOTE, SHOTS } from './media';
 import { WAR_STEPS } from './lore';
 import { PATHS } from './world';
 
@@ -85,6 +86,39 @@ describe('content', () => {
     for (const path of PATHS) {
       expect(path.items.length).toBeGreaterThanOrEqual(3);
     }
+  });
+});
+
+describe('media', () => {
+  it('has the three videos, the duel first, each with its words, its file, its poster and its length', () => {
+    expect(CLIPS.map((clip) => clip.id)).toEqual(['duelo', 'passeio', 'cavalo']);
+    expect(unique(CLIPS.map((clip) => clip.file))).toBe(true);
+    for (const clip of CLIPS) {
+      expect([clip.title, clip.text, clip.length].every(filled)).toBe(true);
+      expect(clip.file).toMatch(/^video\/[a-z]+\.mp4$/);
+      expect(clip.poster.src).toMatch(/^img\/media-[a-z]+-poster\.webp$/);
+      expect(clip.poster.width).toBe(1280);
+      expect(clip.poster.height).toBeGreaterThan(500);
+      expect(clip.length).toMatch(/^(\d+ min )?\d+ s$/);
+    }
+  });
+
+  it('has the three screenshots, each in two sizes of the same picture, with a description to read', () => {
+    expect(SHOTS.map((shot) => shot.id)).toEqual(['patio', 'cavalgada', 'dados']);
+    for (const shot of SHOTS) {
+      expect([shot.title, shot.text].every(filled)).toBe(true);
+      expect(shot.alt.length).toBeGreaterThan(40);
+      expect(shot.small.src).toMatch(/^img\/media-[a-z]+-960\.webp$/);
+      expect(shot.large.src).toMatch(/^img\/media-[a-z]+-1920\.webp$/);
+      expect([shot.small.width, shot.large.width]).toEqual([960, 1920]);
+      // Half the size, to the pixel the rounding of the smaller one allows.
+      expect(Math.abs(shot.small.height * 2 - shot.large.height)).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('keeps one id for each thing shown, and says where the pictures come from', () => {
+    expect(unique([...CLIPS, ...SHOTS].map((item) => item.id))).toBe(true);
+    expect(filled(MEDIA_NOTE)).toBe(true);
   });
 });
 

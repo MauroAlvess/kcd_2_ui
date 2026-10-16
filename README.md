@@ -55,6 +55,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
 | guildas, casas, passos, "mundo", bens (casas, cavalos e cães), os títulos da hierarquia e as regras de nomeação | `src/app/content/*.ts` |
+| vídeos e imagens da galeria (Mídias): títulos, textos, arquivos | `src/app/content/media.ts` (os arquivos saem de `tools/make-media.py`, abaixo) |
 | textos da lore | `src/app/sections/lore/lore.html` e `src/app/content/lore.ts` |
 | cores, fontes, espaçamentos | `:root` em `src/styles.css` |
 
@@ -62,14 +63,14 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, 9 seções em ordem, rodapé
+  app.*                 a página: cabeçalho, 10 seções em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (menu fixo, com menu móvel) e footer
-  sections/             uma pasta por seção: hero, guilds, family, factions, ascension, hierarchy, lore, world, join
-  shared/ui/            peças reutilizáveis: button, section (tom claro/escuro, foto de fundo), section-heading, steps
+  sections/             uma pasta por seção: hero, guilds, family, factions, ascension, hierarchy, lore, world, media, join
+  shared/ui/            peças reutilizáveis: button, section (tom claro/escuro, foto de fundo), section-heading, steps, lightbox
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), ícones, og-image.jpg
-tools/                  scripts que preparam as imagens (abaixo)
+public/                 imagens (img/), vídeos (video/), ícones, og-image.jpg
+tools/                  scripts que preparam as imagens e os vídeos (abaixo)
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
@@ -87,6 +88,33 @@ python tools/make-og-image.py    # gera public/og-image.jpg, o cartão que apare
 Precisam de Python com Pillow (`pip install pillow`); o segundo também de Edge ou Chrome instalado. O `banner.png` (o duelo
 dos cavaleiros) não está mais na página; ele vem com o xadrez de "fundo transparente" desenhado nos pixels, e o script sabe
 removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comentada em `CUTOUTS`, em `tools/make-images.py`.
+
+## Mídias (vídeos e imagens)
+
+A seção **Mídias** (`#midias`, entre *Mundo* e *Entrar*) mostra três vídeos, o primeiro grande, e três capturas de tela, que
+abrem ampliadas numa janela própria (setas do teclado passam de uma para a outra, `Esc` fecha). Os vídeos só começam a
+baixar quando alguém aperta o play (`preload="none"`; até lá aparece o quadro de capa), e ao começar um os outros param.
+
+As originais ficam na pasta **`../videos e imagens`** (ao lado deste projeto) e **não vão para o site**: um vídeo de 186 MB
+passa dos 100 MB que o GitHub aceita por arquivo, e a página ficaria pesada. O que vai para o ar sai de uma ferramenta:
+
+```
+python tools/make-media.py [pasta das originais] [--ffmpeg caminho] [--only duelo,patio]
+```
+
+- **Vídeos** (`public/video/*.mp4`): sem as tarjas pretas da gravação (cada uma tem a sua, porque a janela do jogo tinha
+  uma altura diferente em cada gravação), 1280 px de largura, H.264 com CRF 26 e áudio AAC de 96 kb/s, com o índice no
+  começo do arquivo para tocar antes de terminar de baixar. São uns 18 MB os três (as originais somam 248 MB). Mais uma
+  capa em WebP para cada um (`public/img/media-<nome>-poster.webp`).
+- **Capturas** (`public/img/media-<nome>-960.webp` e `-1920.webp`): a pequena é a da página, a grande é a da janela ampliada.
+- Precisa de Python com Pillow e de um **ffmpeg** (no `PATH`, em `--ffmpeg`, ou `pip install imageio-ffmpeg`, que traz um).
+- **Trocar ou acrescentar uma mídia:** ponha a original em `../videos e imagens`, acrescente a linha em `VIDEOS` ou `SHOTS`
+  de `tools/make-media.py` (para vídeo: a altura da imagem dentro da gravação e a linha em que ela começa, para cortar as
+  tarjas; o segundo da capa), rode a ferramenta, e copie os tamanhos e a duração que ela imprime para
+  `src/app/content/media.ts`. O `npm run build` falha se o texto aponta para um arquivo que não está em `public/`
+  (`check-assets`, que agora olha também `video/`). O repositório guarda os arquivos prontos, então cada vídeo novo pesa no
+  Git para sempre: vale comprimir antes.
+- Os caminhos são relativos (`video/duelo.mp4`, nunca `/video/...`), como os das imagens.
 
 ## Jogadores online
 
