@@ -11,6 +11,6 @@ export const JOIN_STEPS: readonly Step[] = [
   {
     numeral: '3',
     title: 'Faça o seu personagem',
-    text: 'Escolha uma guilda, jure lealdade a uma casa e comece como plebeu.',
+    text: 'Escolha uma guilda, jure lealdade a uma facção e comece como plebeu.',
   },
 ];
