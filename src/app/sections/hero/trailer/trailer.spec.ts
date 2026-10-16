@@ -39,7 +39,7 @@ describe('Trailer', () => {
     expect(link().getAttribute('href')).toBe('https://www.youtube.com/watch?v=Z5xjWIUd6Uo');
     expect(link().getAttribute('target')).toBe('_blank');
     expect(link().getAttribute('rel')).toContain('noopener');
-    expect(root.querySelector('img')?.getAttribute('src')).toBe('img/trailer-640.webp');
+    expect(root.querySelector('img')?.getAttribute('src')).toBe('img/trailer-1280.webp');
     expect(root.querySelector('.length')?.textContent).toContain('3 min 5 s');
   });
 
