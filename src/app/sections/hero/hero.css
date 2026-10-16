@@ -47,12 +47,21 @@
     );
 }
 
+/* The words, and the trailer: one under the other on a narrow screen, side by side on a wide one. */
 .content {
+  display: grid;
+  justify-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 74rem;
+  animation: arrive 1s ease-out both;
+}
+
+.copy {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 46rem;
-  animation: arrive 1s ease-out both;
 }
 
 .crest {
@@ -118,6 +127,23 @@ h1 {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(238, 228, 207, 0.66);
+}
+
+@media (min-width: 70rem) {
+  .content {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .copy {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
 }
 
 @keyframes arrive {
