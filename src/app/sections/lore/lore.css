@@ -5,10 +5,41 @@
   align-items: start;
 }
 
-/* The title waits at the top of the screen while the story scrolls past. */
+/* The title and the chapters wait at the top of the screen while the story scrolls past. */
 .side {
   position: sticky;
   top: calc(var(--header-h) + 3rem);
+  display: grid;
+  gap: 2rem;
+  /* A short screen scrolls the list instead of cutting it off. */
+  max-height: calc(100dvh - var(--header-h) - 4rem);
+  overflow-y: auto;
+}
+
+.contents ol {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--bar);
+  list-style: none;
+}
+
+.contents a {
+  font: 600 0.74rem/1.4 var(--display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+
+.contents a:hover,
+.contents a:focus-visible {
+  color: var(--accent);
+}
+
+.year {
+  margin-right: 0.45em;
+  color: var(--accent);
 }
 
 .story {
@@ -18,39 +49,44 @@
   max-width: 40rem;
 }
 
-.opening {
-  font: italic 1.45rem/1.6 var(--body);
+.chapter {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
 }
 
-.chapter {
-  margin-top: 2.2rem;
+.chapter + .chapter {
+  margin-top: 1.2rem;
+}
+
+h3 {
+  /* The sticky header must not cover a chapter reached by its link. */
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
   font: 600 1.05rem/1.3 var(--display);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
-.rivals {
+.lead {
+  font: italic 1.45rem/1.6 var(--body);
+}
+
+ul {
   display: grid;
-  gap: 1.7rem;
-  margin-block: 0.4rem;
+  gap: 1rem;
   padding-left: 1.5rem;
   border-left: 3px solid var(--bar);
+  list-style: none;
 }
 
-.rival h3 {
-  font: 600 0.95rem/1.3 var(--display);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.rival p {
-  margin-top: 0.45rem;
-  color: var(--fg-muted);
+.ending {
+  margin-top: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .question {
-  margin-top: 1.4rem;
+  margin-top: 0.6rem;
   font: 600 1.35rem/1.3 var(--display);
   letter-spacing: 0.12em;
   text-transform: uppercase;

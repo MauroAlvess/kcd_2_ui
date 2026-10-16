@@ -88,5 +88,34 @@ export const SHOTS: readonly Shot[] = [
   },
 ];
 
+/**
+ * The server's first trailer, on YouTube. The card in the opening shows its own copy of the thumbnail (`tools/make-trailer.py`
+ * writes it) and builds the player only when it is clicked, so a visitor's browser asks YouTube for nothing until then.
+ */
+export interface Trailer {
+  /** The video's id on YouTube. */
+  readonly id: string;
+  readonly title: string;
+  readonly text: string;
+  /** How long it runs, as a reader would say it, and as a search engine reads it. */
+  readonly length: string;
+  readonly duration: string;
+  /** The day it went up, as a search engine reads it. */
+  readonly uploaded: string;
+  readonly small: Picture;
+  readonly large: Picture;
+}
+
+export const TRAILER: Trailer = {
+  id: 'Z5xjWIUd6Uo',
+  title: 'Trailer de revelação',
+  text: 'O primeiro trailer do servidor: a revelação do Kingdom RP BRASIL.',
+  length: '3 min 5 s',
+  duration: 'PT3M5S',
+  uploaded: '2026-10-16',
+  small: { src: 'img/trailer-640.webp', width: 640, height: 360 },
+  large: { src: 'img/trailer-1280.webp', width: 1280, height: 720 },
+};
+
 /** Said once, under both groups: where the pictures come from. */
 export const MEDIA_NOTE = 'Cenas gravadas no próprio servidor.';

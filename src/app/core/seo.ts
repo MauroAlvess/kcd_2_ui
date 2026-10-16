@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { TRAILER } from '../content/media';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
 /** The picture chat apps and search results show for a link to the site (public/og-image.jpg). */
@@ -80,7 +81,7 @@ export class Seo {
   }
 
   /**
-   * The structured data that tells a search engine what the page is: a game server, the group behind it and the site.
+   * The structured data that tells a search engine what the page is: a game server, the group behind it, the site and its trailer.
    * All three carry the same name, so a search engine can tell they are one thing and show that name for the site.
    */
   graph(): object {
@@ -141,6 +142,18 @@ export class Seo {
           primaryImageOfPage: `${url}${SOCIAL_IMAGE.path}`,
           about: { '@id': server },
           isPartOf: { '@type': 'WebSite', url: `${url}/` },
+        },
+        {
+          '@type': 'VideoObject',
+          name: `${this.site.name}: ${TRAILER.title}`,
+          description: TRAILER.text,
+          thumbnailUrl: `${url}/${TRAILER.large.src}`,
+          uploadDate: TRAILER.uploaded,
+          duration: TRAILER.duration,
+          contentUrl: `https://www.youtube.com/watch?v=${TRAILER.id}`,
+          embedUrl: `https://www.youtube.com/embed/${TRAILER.id}`,
+          inLanguage: this.site.locale,
+          publisher: { '@id': organization },
         },
       );
     }

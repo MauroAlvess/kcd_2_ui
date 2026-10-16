@@ -3,69 +3,58 @@
     <div class="side">
       <app-section-heading
         align="start"
-        eyebrow="Lore · Boêmia, 1403"
-        heading="A origem da guerra"
+        [eyebrow]="eyebrow"
+        [heading]="title"
         titleId="lore-title"
       />
+
+      <nav class="contents" aria-label="Capítulos da lore">
+        <ol>
+          @for (chapter of chapters; track chapter.id) {
+            <li>
+              <a [href]="'#lore-' + chapter.id">
+                @if (chapter.year) {
+                  <span class="year">{{ chapter.year }}</span>
+                }
+                {{ chapter.title }}
+              </a>
+            </li>
+          }
+        </ol>
+      </nav>
     </div>
 
     <div class="story">
-      <p class="opening">
-        Boêmia, ano de 1403. O reino está dividido entre o rei Venceslau IV e Sigismundo, e a crise
-        que sacode a corte escorre pelas estradas até as vilas mais distantes. Foi nesse clima de
-        nervos, longe das cidades grandes, que uma disputa local acendeu uma guerra.
-      </p>
+      @for (chapter of chapters; track chapter.id) {
+        <div class="chapter">
+          <h3 [id]="'lore-' + chapter.id">
+            @if (chapter.year) {
+              <span class="year">{{ chapter.year }}</span>
+            }
+            {{ chapter.title }}
+          </h3>
+          @for (block of chapter.blocks; track $index) {
+            @switch (block.kind) {
+              @case ('lead') {
+                <p class="lead">{{ block.text }}</p>
+              }
+              @case ('list') {
+                <ul>
+                  @for (item of block.items; track $index) {
+                    <li><app-rich [text]="item" /></li>
+                  }
+                </ul>
+              }
+              @default {
+                <p><app-rich [text]="block.text" /></p>
+              }
+            }
+          }
+        </div>
+      }
 
-      <p>
-        No coração dessa tensão fica a Marca de Trosky: pequena no mapa, imensa em importância. Suas
-        terras férteis, florestas, oficinas e rotas de comércio alimentam metade da região, e quem a
-        governa não precisa de um exército para ser respeitado. Seu senhor, Lord Oldřich de Varten,
-        morreu sem aviso, e com ele sumiu o documento que provava quem seria o herdeiro legítimo.
-      </p>
-
-      <p>
-        Sem esse papel, restaram terras, dívidas e títulos sem dono, e dois homens dispostos a
-        reclamá-los.
-      </p>
-
-      <div class="rivals">
-        <section class="rival">
-          <h3>Casa do Leão Dourado</h3>
-          <p>
-            Lord Radovan de Zelený sustenta que o poder pertence ao herdeiro por sangue, tradição e
-            lei. Aceitar outro governante, diz ele, seria destruir a ordem feudal e os juramentos da
-            nobreza.
-          </p>
-        </section>
-        <section class="rival">
-          <h3>Casa do Corvo</h3>
-          <p>
-            Lord Marek de Černý responde que a Marca precisa de quem seja capaz de protegê-la e de
-            mantê-la funcionando. Com influência sobre recursos, aliados e rotas comerciais, defende
-            uma liderança baseada na capacidade, nas alianças e na autonomia local.
-          </p>
-        </section>
-      </div>
-
-      <h3 class="chapter">Como a disputa virou guerra</h3>
-      <app-steps [steps]="warSteps" layout="timeline" />
-
-      <h3 class="chapter">O documento que ninguém quer encontrar</h3>
-      <p>
-        O papel desaparecido virou a peça central da guerra. Alguns juram que ele provaria o direito
-        de Radovan. Outros suspeitam que, uma vez achado, revelaria que nenhuma das duas casas tem
-        uma reivindicação incontestável. O verdadeiro mistério talvez seja outro: que a guerra
-        inteira tenha nascido do sumiço de um documento que alguém não queria ver encontrado.
-      </p>
-
-      <p>
-        E assim nasceu a guerra. O Leão Dourado luta para preservar a legitimidade, a lei e a
-        tradição. O Corvo luta para conquistar o poder que julga necessário para governar e proteger
-        a Marca. Enquanto os nobres derramam sangue, comerciantes, artesãos, camponeses e guildas
-        precisam decidir com quem negociar, ou se devem permanecer independentes.
-      </p>
-
-      <p class="question">E você, de que lado fica?</p>
+      <p class="ending"><app-rich [text]="ending.text" /></p>
+      <p class="question">{{ ending.question }}</p>
     </div>
   </div>
 </app-section>

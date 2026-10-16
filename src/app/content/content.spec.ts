@@ -6,7 +6,7 @@ import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
 import { CLIPS, MEDIA_NOTE, SHOTS } from './media';
-import { WAR_STEPS } from './lore';
+import { CHAPTERS, LORE_ENDING } from './lore';
 import { PATHS } from './world';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
@@ -70,15 +70,63 @@ describe('content', () => {
   });
 
   it('numbers each sequence of steps without repeating a number', () => {
-    for (const steps of [RANKS, WAR_STEPS, JOIN_STEPS]) {
+    for (const steps of [RANKS, JOIN_STEPS]) {
       expect(unique(steps.map((step) => step.numeral))).toBe(true);
       for (const step of steps) {
         expect([step.numeral, step.title, step.text].every(filled)).toBe(true);
       }
     }
     expect(RANKS.map((step) => step.title)).toEqual(['Plebeu', 'Cavaleiro', 'Nobre']);
-    expect(WAR_STEPS).toHaveLength(4);
     expect(JOIN_STEPS).toHaveLength(3);
+  });
+
+  it('tells the lore in seven chapters, each with its own anchor and something to read', () => {
+    expect(CHAPTERS.map((chapter) => chapter.id)).toEqual([
+      'alianca',
+      'morte-do-rei',
+      'carta',
+      'leoes-e-maleshov',
+      'sucessao',
+      'segredo',
+      'nova-guerra',
+    ]);
+    expect(unique(CHAPTERS.map((chapter) => chapter.id))).toBe(true);
+    for (const chapter of CHAPTERS) {
+      expect(filled(chapter.title)).toBe(true);
+      expect(chapter.blocks.length).toBeGreaterThan(0);
+    }
+    expect(CHAPTERS.filter((chapter) => chapter.year).map((chapter) => chapter.year)).toEqual([
+      '1402',
+      '1403',
+    ]);
+  });
+
+  it('keeps the four houses, the two lords and the question the story ends on', () => {
+    const text = CHAPTERS.flatMap((chapter) =>
+      chapter.blocks.flatMap((block) => (block.kind === 'list' ? block.items : [block.text])),
+    ).join(' ');
+    for (const name of [
+      'Casa de Trosky',
+      'Casa dos Leões',
+      'Casa de Schodal',
+      'Casa de Rosoh',
+      'Casa de Maleshov',
+      'Radovan de Zelený',
+      'Gunther von Silberhände',
+    ]) {
+      expect(text, name).toContain(name);
+    }
+    expect(text).toContain('Marquês e Protetor da Coroa');
+    expect(LORE_ENDING.question).toBe('E você, a quem jurará sua lealdade?');
+  });
+
+  it('closes every bold mark it opens', () => {
+    const texts = CHAPTERS.flatMap((chapter) =>
+      chapter.blocks.flatMap((block) => (block.kind === 'list' ? block.items : [block.text])),
+    );
+    for (const text of [...texts, LORE_ENDING.text]) {
+      expect(text.split('**').length % 2, text.slice(0, 40)).toBe(1);
+    }
   });
 
   it('has the road and the fields, with something to say about each', () => {
