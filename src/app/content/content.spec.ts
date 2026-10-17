@@ -109,7 +109,7 @@ describe('content', () => {
       'Casa de Trosky',
       'Casa dos Leões',
       'Casa de Schodal',
-      'Casa de Rosoh',
+      'Casa Raborsch',
       'Casa de Maleshov',
       'Radovan de Zelený',
       'Gunther von Silberhände',
@@ -171,13 +171,26 @@ describe('media', () => {
 });
 
 describe('holdings', () => {
-  it('tells of a house, a horse and a dog, each with a crest and what a player can do', () => {
-    expect(HOLDINGS.map((holding) => holding.id)).toEqual(['casas', 'cavalos', 'caes']);
+  it('tells of a house, a horse, a cart, a dog and a supporter, each with a crest and what a player can do', () => {
+    expect(HOLDINGS.map((holding) => holding.id)).toEqual([
+      'casas',
+      'cavalos',
+      'carrocas',
+      'caes',
+      'apoiador',
+    ]);
     for (const holding of HOLDINGS) {
       expect(holding.crest).toMatch(/^[\w-]+\.webp$/);
       expect(holding.crestAlt.length).toBeGreaterThan(10);
       expect(holding.points.length).toBeGreaterThan(1);
     }
+  });
+
+  it('says a cart is locked to its owner until he leaves it free, and a supporter is given a musket, a hand cannon and ten balls', () => {
+    const cart = HOLDINGS.find((holding) => holding.id === 'carrocas')!;
+    expect(cart.points.join(' ')).toMatch(/Trancada.*livre/);
+    const supporter = HOLDINGS.find((holding) => holding.id === 'apoiador')!;
+    expect(supporter.points.join(' ')).toMatch(/mosquete.*canhão de mão.*10 balas/);
   });
 
   it('says that a horse that dies is lost and another must be bought', () => {

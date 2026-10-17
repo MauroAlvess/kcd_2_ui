@@ -30,7 +30,7 @@ export const CHAPTERS: readonly Chapter[] = [
       },
       {
         kind: 'text',
-        text: 'Foi nesse cenário que quatro casas nobres decidiram unir suas forças a Sigismundo: **a Casa de Trosky, conhecida como a Casa dos Leões; a Casa de Schodal; a Casa de Rosoh; e a Casa de Maleshov.**',
+        text: 'Foi nesse cenário que quatro casas nobres decidiram unir suas forças a Sigismundo: **a Casa de Trosky, conhecida como a Casa dos Leões; a Casa de Schodal; a Casa Raborsch; e a Casa de Maleshov.**',
       },
       {
         kind: 'text',
@@ -202,7 +202,7 @@ export const CHAPTERS: readonly Chapter[] = [
       },
       {
         kind: 'text',
-        text: 'A **Casa dos Leões**, sob Radovan de Zelený, busca cumprir as ordens recebidas e preservar a autoridade da coroa. A **Casa de Maleshov** procura impedir que essa autoridade se transforme em domínio absoluto sobre os demais senhores. A **Casa de Schodal**, ferida pela morte de seu lorde, precisa lidar com o vazio deixado por seu líder. A **Casa de Rosoh** deve decidir se permanecerá fiel à antiga aliança ou se seguirá seus próprios interesses.',
+        text: 'A **Casa dos Leões**, sob Radovan de Zelený, busca cumprir as ordens recebidas e preservar a autoridade da coroa. A **Casa de Maleshov** procura impedir que essa autoridade se transforme em domínio absoluto sobre os demais senhores. A **Casa de Schodal**, ferida pela morte de seu lorde, precisa lidar com o vazio deixado por seu líder. A **Casa Raborsch** deve decidir se permanecerá fiel à antiga aliança ou se seguirá seus próprios interesses.',
       },
       {
         kind: 'text',

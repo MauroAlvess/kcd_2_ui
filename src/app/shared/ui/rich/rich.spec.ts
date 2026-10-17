@@ -30,13 +30,13 @@ describe('parts', () => {
 describe('Rich', () => {
   it('writes the bold words as strong and keeps the punctuation against them', () => {
     const fixture = TestBed.createComponent(Rich);
-    fixture.componentRef.setInput('text', 'A **Casa de Rosoh**, ou a **de Schodal**.');
+    fixture.componentRef.setInput('text', 'A **Casa Raborsch**, ou a **de Schodal**.');
     fixture.detectChanges();
     const element: HTMLElement = fixture.nativeElement;
     expect([...element.querySelectorAll('strong')].map((node) => node.textContent)).toEqual([
-      'Casa de Rosoh',
+      'Casa Raborsch',
       'de Schodal',
     ]);
-    expect(element.textContent).toBe('A Casa de Rosoh, ou a de Schodal.');
+    expect(element.textContent).toBe('A Casa Raborsch, ou a de Schodal.');
   });
 });
