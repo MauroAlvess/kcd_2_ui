@@ -1,38 +1,17 @@
 <app-section anchor="entrar" tone="light" labelledBy="entrar-title">
   <div class="card">
-    <img
-      class="corner lion"
-      src="img/corner-lion.webp"
-      width="360"
-      height="360"
-      alt=""
-      loading="lazy"
-      decoding="async"
-    />
-    <img
-      class="corner raven"
-      src="img/corner-raven.webp"
-      width="360"
-      height="360"
-      alt=""
-      loading="lazy"
-      decoding="async"
-    />
-
     <app-section-heading
       eyebrow="Bem-vindo"
       heading="Sejam todos bem-vindos"
       titleId="entrar-title"
     >
-      {{ site.game }} — RP Brasil, o primeiro servidor de RP de KCD 2 do Brasil. O Kingdom RP BRASIL
-      espera por você.
+      {{ site.game }} — RP Brasil, o primeiro servidor de RP de KCD 2 do Brasil.
     </app-section-heading>
 
     <app-steps [steps]="steps" />
 
     <div class="cta">
       <app-button [href]="site.discord" external>Entrar no Discord</app-button>
-      <p>Junte-se ao Discord e preencha a whitelist</p>
       <app-server-badge />
     </div>
   </div>

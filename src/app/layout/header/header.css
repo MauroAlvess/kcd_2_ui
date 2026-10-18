@@ -7,9 +7,9 @@
 
 .bar {
   color: var(--paper);
-  background: rgba(13, 11, 9, 0.94);
-  border-bottom: 1px solid rgba(210, 179, 140, 0.2);
-  backdrop-filter: blur(10px);
+  background: rgba(13, 11, 9, 0.88);
+  border-bottom: 1px solid rgba(210, 179, 140, 0.14);
+  backdrop-filter: blur(12px);
 }
 
 .inner {
@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  width: min(100% - 2 * var(--gutter), 80rem);
+  width: min(100% - 2 * var(--gutter), 76rem);
   height: var(--header-h);
   margin-inline: auto;
 }
@@ -32,12 +32,12 @@
 
 .crest {
   width: auto;
-  height: 2.75rem;
+  height: 2.5rem;
 }
 
 .name {
-  font: 600 0.82rem/1.1 var(--display);
-  letter-spacing: 0.22em;
+  font: 600 0.78rem/1.1 var(--display);
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -46,70 +46,47 @@
   color: var(--beige);
 }
 
-/* The links are set close at first (the bar has to hold the name, eight links and the Discord button on one line from the
-   width where the menu stops folding); the button keeps its words on one line, so it is the links that give way. */
-.menu {
-  display: flex;
-  align-items: center;
-  gap: 1.4rem;
-}
-
-.menu app-button {
-  flex: none;
-}
-
 .menu ul {
   display: flex;
-  gap: 1rem;
+  gap: clamp(1.4rem, 2.6vw, 2.4rem);
 }
 
 .menu li a {
   padding: 0.5rem 0;
-  font: 600 0.68rem/1.2 var(--display);
-  letter-spacing: 0.14em;
+  font: 600 0.7rem/1.2 var(--display);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   text-decoration: none;
+  color: rgba(238, 228, 207, 0.78);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
-/* Where there is room, the links are set as wide as they were drawn. */
-@media (min-width: 86rem) {
-  .menu {
-    gap: 2rem;
-  }
-
-  .menu ul {
-    gap: 1.45rem;
-  }
-
-  .menu li a {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-  }
-}
-
-.menu li a:hover {
-  border-color: var(--beige);
+.menu li a:hover,
+.menu li a:focus-visible {
+  color: var(--paper);
+  border-color: var(--red-hi);
 }
 
 .toggle {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 2.9rem;
-  height: 2.9rem;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   color: inherit;
   background: none;
-  border: 1px solid rgba(210, 179, 140, 0.3);
+  border: 1px solid rgba(210, 179, 140, 0.28);
   cursor: pointer;
 }
 
 .bars {
   position: relative;
   display: block;
-  width: 1.4rem;
+  width: 1.3rem;
   height: 2px;
   background: currentColor;
   transition: background-color 0.2s;
@@ -127,11 +104,11 @@
 }
 
 .bars::before {
-  top: -0.45rem;
+  top: -0.42rem;
 }
 
 .bars::after {
-  top: 0.45rem;
+  top: 0.42rem;
 }
 
 .toggle[aria-expanded='true'] .bars {
@@ -139,15 +116,15 @@
 }
 
 .toggle[aria-expanded='true'] .bars::before {
-  transform: translateY(0.45rem) rotate(45deg);
+  transform: translateY(0.42rem) rotate(45deg);
 }
 
 .toggle[aria-expanded='true'] .bars::after {
-  transform: translateY(-0.45rem) rotate(-45deg);
+  transform: translateY(-0.42rem) rotate(-45deg);
 }
 
-/* Below this width the bar cannot hold them all on one line: they fold into the menu behind the button. */
-@media (max-width: 77rem) {
+/* Below this width the six links and the name no longer sit on one line: they fold into a menu behind the button. */
+@media (max-width: 56rem) {
   .toggle {
     display: inline-flex;
   }
@@ -156,16 +133,13 @@
     position: absolute;
     inset: var(--header-h) 0 auto 0;
     display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.6rem;
-    padding: 0.5rem var(--gutter) 2rem;
+    padding: 0.25rem var(--gutter) 1.5rem;
     background: var(--black);
-    border-bottom: 1px solid rgba(210, 179, 140, 0.2);
+    border-bottom: 1px solid rgba(210, 179, 140, 0.14);
   }
 
   .menu.open {
-    display: flex;
+    display: block;
   }
 
   .menu ul {
@@ -175,16 +149,15 @@
 
   .menu li a {
     display: block;
-    padding: 1.1rem 0;
-    font-size: 0.82rem;
-    letter-spacing: 0.2em;
-    border-bottom: 1px solid rgba(210, 179, 140, 0.15);
+    padding: 1.05rem 0;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(210, 179, 140, 0.12);
   }
 }
 
 @media (max-width: 30rem) {
   .name {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     letter-spacing: 0.16em;
   }
 }

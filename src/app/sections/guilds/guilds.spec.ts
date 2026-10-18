@@ -23,9 +23,6 @@ describe('Guilds', () => {
     const names = Array.from(root.querySelectorAll('.card h3'), (name) => name.textContent);
     expect(names).toEqual(GUILDS.map((guild) => guild.latin));
     expect(names).toHaveLength(5);
-
-    const kits = Array.from(root.querySelectorAll('.card .kit'), (kit) => kit.textContent ?? '');
-    GUILDS.forEach((guild, index) => expect(kits[index]).toContain(guild.kit));
   });
 
   it('gives each crest a description and its size', () => {

@@ -116,6 +116,3 @@ export const TRAILER: Trailer = {
   small: { src: 'img/trailer-640.webp', width: 640, height: 360 },
   large: { src: 'img/trailer-1280.webp', width: 1280, height: 720 },
 };
-
-/** Said once, under both groups: where the pictures come from. */
-export const MEDIA_NOTE = 'Cenas gravadas no próprio servidor.';

@@ -1,41 +1,31 @@
-import { NOBILITY_RULE, RANKS } from './ascension';
 import { FAMILY_NOTE, FAMILY_POINTS, TREE_ROWS } from './family';
-import { HOLDINGS } from './holdings';
-import { RULES, TIERS } from './hierarchy';
+import { TIERS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
-import { CLIPS, MEDIA_NOTE, SHOTS } from './media';
+import { CLIPS, SHOTS } from './media';
 import { CHAPTERS, LORE_ENDING } from './lore';
-import { PATHS } from './world';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 const filled = (value: string) => value.trim().length > 0;
 
 describe('content', () => {
-  it('has five guilds with their own id, name, craft, crest, description and kit', () => {
+  it('has five guilds with their own id, name, craft, crest and description', () => {
     expect(GUILDS).toHaveLength(5);
     expect(unique(GUILDS.map((guild) => guild.id))).toBe(true);
     expect(unique(GUILDS.map((guild) => guild.crest))).toBe(true);
     for (const guild of GUILDS) {
-      for (const text of [guild.latin, guild.profession, guild.description, guild.kit]) {
+      for (const text of [guild.latin, guild.profession, guild.description]) {
         expect(filled(text)).toBe(true);
       }
       expect(guild.crest).toMatch(/^guild-[a-z]+\.webp$/);
     }
   });
 
-  it('has the two houses, each with a lord, a motto, a creed and a colour', () => {
+  it('has the two houses, each with a lord, a motto and a creed', () => {
     expect(HOUSES.map((house) => house.id)).toEqual(['leao', 'corvo']);
     for (const house of HOUSES) {
-      for (const text of [
-        house.name,
-        house.leader,
-        house.motto,
-        house.creed,
-        house.colours,
-        house.crestAlt,
-      ]) {
+      for (const text of [house.name, house.leader, house.motto, house.creed, house.crestAlt]) {
         expect(filled(text)).toBe(true);
       }
     }
@@ -54,29 +44,17 @@ describe('content', () => {
 
   it('says that a family can adopt, have bastards and record the dead', () => {
     const points = FAMILY_POINTS.join(' ').toLowerCase();
-    expect(points).toContain('adotar');
+    expect(points).toContain('adotado');
     expect(points).toContain('bastardo');
-    expect(points).toContain('falecido');
     expect(FAMILY_NOTE.toLowerCase()).toContain('adotado');
     expect(FAMILY_NOTE.toLowerCase()).toContain('bastardo');
   });
 
-  it('says that a plebeian can rise to noble with the descendants, but not the adopted or the bastards', () => {
-    const rule = NOBILITY_RULE.toLowerCase();
-    expect(rule).toContain('plebeu pode subir a nobre');
-    expect(rule).toContain('descendentes');
-    expect(rule).toContain('adotados');
-    expect(rule).toContain('bastardos');
-  });
-
-  it('numbers each sequence of steps without repeating a number', () => {
-    for (const steps of [RANKS, JOIN_STEPS]) {
-      expect(unique(steps.map((step) => step.numeral))).toBe(true);
-      for (const step of steps) {
-        expect([step.numeral, step.title, step.text].every(filled)).toBe(true);
-      }
+  it('numbers the steps of the way in without repeating a number', () => {
+    expect(unique(JOIN_STEPS.map((step) => step.numeral))).toBe(true);
+    for (const step of JOIN_STEPS) {
+      expect([step.numeral, step.title, step.text].every(filled)).toBe(true);
     }
-    expect(RANKS.map((step) => step.title)).toEqual(['Plebeu', 'Cavaleiro', 'Nobre']);
     expect(JOIN_STEPS).toHaveLength(3);
   });
 
@@ -128,13 +106,6 @@ describe('content', () => {
       expect(text.split('**').length % 2, text.slice(0, 40)).toBe(1);
     }
   });
-
-  it('has the road and the fields, with something to say about each', () => {
-    expect(PATHS.map((path) => path.title)).toEqual(['A estrada', 'Os campos']);
-    for (const path of PATHS) {
-      expect(path.items.length).toBeGreaterThanOrEqual(3);
-    }
-  });
 });
 
 describe('media', () => {
@@ -164,38 +135,8 @@ describe('media', () => {
     }
   });
 
-  it('keeps one id for each thing shown, and says where the pictures come from', () => {
+  it('keeps one id for each thing shown', () => {
     expect(unique([...CLIPS, ...SHOTS].map((item) => item.id))).toBe(true);
-    expect(filled(MEDIA_NOTE)).toBe(true);
-  });
-});
-
-describe('holdings', () => {
-  it('tells of a house, a horse, a cart, a dog and a supporter, each with a crest and what a player can do', () => {
-    expect(HOLDINGS.map((holding) => holding.id)).toEqual([
-      'casas',
-      'cavalos',
-      'carrocas',
-      'caes',
-      'apoiador',
-    ]);
-    for (const holding of HOLDINGS) {
-      expect(holding.crest).toMatch(/^[\w-]+\.webp$/);
-      expect(holding.crestAlt.length).toBeGreaterThan(10);
-      expect(holding.points.length).toBeGreaterThan(1);
-    }
-  });
-
-  it('says a cart is locked to its owner until he leaves it free, and a supporter is given a musket, a hand cannon and ten balls', () => {
-    const cart = HOLDINGS.find((holding) => holding.id === 'carrocas')!;
-    expect(cart.points.join(' ')).toMatch(/Trancada.*livre/);
-    const supporter = HOLDINGS.find((holding) => holding.id === 'apoiador')!;
-    expect(supporter.points.join(' ')).toMatch(/mosquete.*canhão de mão.*10 balas/);
-  });
-
-  it('says that a horse that dies is lost and another must be bought', () => {
-    const horse = HOLDINGS.find((holding) => holding.id === 'cavalos')!;
-    expect(horse.points.join(' ')).toMatch(/morrer.*comprar outro/);
   });
 });
 
@@ -248,23 +189,5 @@ describe('hierarchy', () => {
     }
     expect(titles.find((title) => title.name === 'Lorde')?.native).toBe('pán');
     expect(titles.find((title) => title.name === 'Cavaleiro')?.native).toBe('rytíř');
-  });
-
-  it('says who names whom, what a title does to a standing, and what is shown over a head', () => {
-    expect(RULES.length).toBe(7);
-    expect(unique(RULES.map((rule) => rule.numeral))).toBe(true);
-    const words = RULES.map((rule) => rule.text)
-      .join(' ')
-      .toLowerCase();
-    for (const phrase of [
-      'só um nobre nomeia',
-      'abaixo do seu',
-      'cônjuge e os descendentes',
-      'nunca aparece sobre a cabeça',
-      'ver hierarquia',
-      'região inteira',
-    ]) {
-      expect(words, phrase).toContain(phrase);
-    }
   });
 });

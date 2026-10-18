@@ -34,17 +34,15 @@ describe('App', () => {
     }
   });
 
-  it('reads as the hero and nine sections in the order the navigation lists them', () => {
+  it('reads as the hero and six sections in the order the navigation lists them', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
       'guildas',
       'familia',
       'faccoes',
-      'ascensao',
       'hierarquia',
       'lore',
-      'mundo',
       'midias',
       'entrar',
     ]);
@@ -52,7 +50,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(10);
+    expect(sections).toHaveLength(8);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -97,31 +95,24 @@ describe('App', () => {
     }
   });
 
-  it('sends the Discord link, from the top, the middle and the foot of the page, to a new tab', () => {
+  it('sends the Discord link, from the opening, the welcome card and the foot of the page, to a new tab', () => {
     const discord = Array.from(
       root.querySelectorAll<HTMLAnchorElement>(`a[href="${SITE.discord}"]`),
     );
-    expect(discord.length).toBeGreaterThanOrEqual(4);
+    expect(discord.length).toBeGreaterThanOrEqual(3);
     for (const link of discord) {
       expect(link.getAttribute('target')).toBe('_blank');
       expect(link.getAttribute('rel')).toContain('noopener');
     }
   });
 
-  it('offers the launcher in the opening, beside the Discord, and keeps the visitor on the page while it downloads', () => {
+  it('offers one thing in the opening, the Discord, and keeps the launcher and the Discord button out of the bar', () => {
     const actions = Array.from(root.querySelectorAll<HTMLAnchorElement>('#inicio .actions a'));
 
-    expect(actions).toHaveLength(2);
+    expect(actions).toHaveLength(1);
     expect(actions[0].getAttribute('href')).toBe(SITE.discord);
-    expect(actions[1].textContent).toContain('Baixar launcher');
-    expect(actions[1].getAttribute('href')).toBe(SITE.launcher);
-    // A download leaves the page where it is: no new tab, no blank one left behind.
-    expect(actions[1].hasAttribute('target')).toBe(false);
-    expect(root.querySelector('#inicio')?.textContent).not.toContain('Conhecer o reino');
-  });
-
-  it('downloads the launcher from the address that always answers with the newest release, never from a version', () => {
-    expect(SITE.launcher).toBe('https://api.mafiahub.dev/mods/kcdc/releases/latest/download');
+    expect(root.querySelector('app-header a[href="' + SITE.discord + '"]')).toBeNull();
+    expect(root.textContent ?? '').not.toContain('Baixar launcher');
   });
 
   it('shows the two houses by their crests alone, with no battle picture between them', () => {
@@ -173,7 +164,6 @@ describe('App', () => {
       'guilda',
       'kuttenberg',
       'boêmia',
-      'lobos',
     ]) {
       expect(text, phrase).toContain(phrase);
     }

@@ -1,38 +1,16 @@
 <app-section anchor="lore" tone="light" labelledBy="lore-title">
-  <div class="layout">
-    <div class="side">
-      <app-section-heading
-        align="start"
-        [eyebrow]="eyebrow"
-        [heading]="title"
-        titleId="lore-title"
-      />
+  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="lore-title" />
 
-      <nav class="contents" aria-label="Capítulos da lore">
-        <ol>
-          @for (chapter of chapters; track chapter.id) {
-            <li>
-              <a [href]="'#lore-' + chapter.id">
-                @if (chapter.year) {
-                  <span class="year">{{ chapter.year }}</span>
-                }
-                {{ chapter.title }}
-              </a>
-            </li>
+  <div class="story">
+    @for (chapter of chapters; track chapter.id; let first = $first) {
+      <details class="chapter" [open]="first" name="lore">
+        <summary>
+          @if (chapter.year) {
+            <span class="year">{{ chapter.year }}</span>
           }
-        </ol>
-      </nav>
-    </div>
-
-    <div class="story">
-      @for (chapter of chapters; track chapter.id) {
-        <div class="chapter">
-          <h3 [id]="'lore-' + chapter.id">
-            @if (chapter.year) {
-              <span class="year">{{ chapter.year }}</span>
-            }
-            {{ chapter.title }}
-          </h3>
+          <span class="chapter-title">{{ chapter.title }}</span>
+        </summary>
+        <div class="body">
           @for (block of chapter.blocks; track $index) {
             @switch (block.kind) {
               @case ('lead') {
@@ -51,9 +29,11 @@
             }
           }
         </div>
-      }
+      </details>
+    }
 
-      <p class="ending"><app-rich [text]="ending.text" /></p>
+    <div class="ending">
+      <p><app-rich [text]="ending.text" /></p>
       <p class="question">{{ ending.question }}</p>
     </div>
   </div>

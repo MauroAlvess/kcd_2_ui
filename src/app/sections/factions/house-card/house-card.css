@@ -9,15 +9,6 @@
   text-align: center;
 }
 
-/* The colour the oath puts on a character's mantle and collar. */
-.house[data-house='leao'] {
-  --swatch: var(--red-hi);
-}
-
-.house[data-house='corvo'] {
-  --swatch: #2b4a7a;
-}
-
 .crest {
   width: clamp(11rem, 26vw, 15rem);
   height: auto;
@@ -48,21 +39,4 @@ h3 {
   max-width: 24rem;
   margin-top: 0.9rem;
   color: var(--fg-muted);
-}
-
-.colours {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1.3rem;
-  font: 600 0.68rem/1.2 var(--display);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.swatch {
-  width: 0.7rem;
-  height: 0.7rem;
-  background: var(--swatch);
-  transform: rotate(45deg);
 }

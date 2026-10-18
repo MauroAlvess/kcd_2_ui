@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NAV, SITE } from '../../core/site';
-import { Button } from '../../shared/ui/button/button';
 
-/** The closing band: who we are, the section links again, the Discord button and the small print. */
+/** The closing band: who we are, the section links and the Discord, and the small print. */
 @Component({
   selector: 'app-footer',
-  imports: [Button],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })

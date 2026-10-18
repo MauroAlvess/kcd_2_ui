@@ -11,7 +11,6 @@
         decoding="async"
       />
       <p class="name">Kingdom <span class="accent">RP BRASIL</span></p>
-      <p class="tag">{{ site.game }} · RP Brasil</p>
     </div>
 
     <nav class="links" aria-label="Rodapé">
@@ -21,17 +20,15 @@
             <a [href]="item.href">{{ item.label }}</a>
           </li>
         }
+        <li>
+          <a [href]="site.discord" target="_blank" rel="noopener">Discord</a>
+        </li>
       </ul>
     </nav>
-
-    <app-button class="join" variant="ghost" [href]="site.discord" external
-      >Entrar no Discord</app-button
-    >
   </div>
 
   <p class="legal">
-    {{ site.game }} pertence à Warhorse Studios e à Deep Silver. Este é um servidor feito por fãs,
-    sem vínculo oficial com elas. As casas, os seus senhores e a guerra pela coroa de Kuttenberg são
-    ficção criada para o servidor.
+    {{ site.game }} pertence à Warhorse Studios e à Deep Silver. Servidor feito por fãs, sem vínculo
+    oficial. As casas, os senhores e a guerra pela coroa são ficção criada para o servidor.
   </p>
 </footer>

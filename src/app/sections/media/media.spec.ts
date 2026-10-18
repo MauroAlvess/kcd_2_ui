@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CLIPS, MEDIA_NOTE, SHOTS } from '../../content/media';
+import { CLIPS, SHOTS } from '../../content/media';
 import { Media } from './media';
 
 const proto = HTMLDialogElement.prototype as unknown as Record<string, unknown>;
@@ -123,9 +123,5 @@ describe('Media', () => {
     expect(large?.getAttribute('src')).toBe(SHOTS[2]?.large.src);
     expect(large?.getAttribute('alt')).toBe(SHOTS[2]?.alt);
     expect(dialog().querySelector('figcaption')?.textContent).toContain(SHOTS[2]?.title);
-  });
-
-  it('says where the pictures come from, once', () => {
-    expect(root.querySelector('.note')?.textContent).toBe(MEDIA_NOTE);
   });
 });

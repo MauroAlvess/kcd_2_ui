@@ -1,104 +1,87 @@
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(2.5rem, 7vw, 6rem);
-  align-items: start;
-}
-
-/* The title and the chapters wait at the top of the screen while the story scrolls past. */
-.side {
-  position: sticky;
-  top: calc(var(--header-h) + 3rem);
-  display: grid;
-  gap: 2rem;
-  /* A short screen scrolls the list instead of cutting it off. */
-  max-height: calc(100dvh - var(--header-h) - 4rem);
-  overflow-y: auto;
-}
-
-.contents ol {
-  display: grid;
-  gap: 0.55rem;
-  padding-left: 1.2rem;
-  border-left: 3px solid var(--bar);
-  list-style: none;
-}
-
-.contents a {
-  font: 600 0.74rem/1.4 var(--display);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  text-decoration: none;
-}
-
-.contents a:hover,
-.contents a:focus-visible {
-  color: var(--accent);
-}
-
-.year {
-  margin-right: 0.45em;
-  color: var(--accent);
-}
-
 .story {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  max-width: 40rem;
+  max-width: 44rem;
+  margin-inline: auto;
 }
 
 .chapter {
+  border-top: 1px solid var(--rule);
+}
+
+.chapter:last-of-type {
+  border-bottom: 1px solid var(--rule);
+}
+
+summary {
   display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  list-style: none;
+  cursor: pointer;
 }
 
-.chapter + .chapter {
-  margin-top: 1.2rem;
+summary::-webkit-details-marker {
+  display: none;
 }
 
-h3 {
-  /* The sticky header must not cover a chapter reached by its link. */
-  scroll-margin-top: calc(var(--header-h) + 1.5rem);
-  font: 600 1.05rem/1.3 var(--display);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+/* A plus that turns into a minus when the chapter is open. */
+summary::after {
+  content: '+';
+  margin-left: auto;
+  font: 400 1.6rem/1 var(--body);
   color: var(--accent);
 }
 
+.chapter[open] summary::after {
+  content: '\2212';
+}
+
+.year {
+  flex: none;
+  font: 600 0.74rem/1.4 var(--display);
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.chapter-title {
+  font: 600 0.92rem/1.4 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+summary:hover .chapter-title,
+summary:focus-visible .chapter-title {
+  color: var(--accent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 0.25rem 0 2rem;
+}
+
 .lead {
-  font: italic 1.45rem/1.6 var(--body);
+  font: italic 1.35rem/1.6 var(--body);
 }
 
 ul {
   display: grid;
-  gap: 1rem;
-  padding-left: 1.5rem;
-  border-left: 3px solid var(--bar);
+  gap: 0.9rem;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--bar);
   list-style: none;
 }
 
 .ending {
-  margin-top: 1.4rem;
-  font-size: 1.2rem;
+  margin-top: 2.5rem;
+  text-align: center;
 }
 
 .question {
-  margin-top: 0.6rem;
-  font: 600 1.35rem/1.3 var(--display);
-  letter-spacing: 0.12em;
+  margin-top: 0.8rem;
+  font: 600 1.15rem/1.4 var(--display);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-}
-
-@media (max-width: 62rem) {
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .side {
-    position: static;
-  }
+  color: var(--accent);
 }

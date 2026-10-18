@@ -1,10 +1,10 @@
 @keyframes ring {
   from {
-    box-shadow: 0 0 0 0 rgba(152, 9, 12, 0.7);
+    box-shadow: 0 0 0 0 rgba(152, 9, 12, 0.55);
   }
 
   to {
-    box-shadow: 0 0 0 1.6rem rgba(152, 9, 12, 0);
+    box-shadow: 0 0 0 1.4rem rgba(152, 9, 12, 0);
   }
 }
 
@@ -14,46 +14,26 @@
   max-width: 28rem;
 }
 
-/* The opening's showpiece: a large picture with a double gold edge and a glow, and a play button that pulses. */
+/* The opening's showpiece, kept plain: the picture with one thin line round it, a play button, and two short lines. */
 .card {
   display: grid;
-  gap: 0.9rem;
-  padding: 0.7rem 0.7rem 1rem;
+  gap: 1rem;
   text-align: left;
   color: var(--paper);
   text-decoration: none;
-  background: rgba(13, 11, 9, 0.8);
-  border: 1px solid rgba(210, 179, 140, 0.45);
-  box-shadow:
-    0 1.4rem 3.4rem rgba(0, 0, 0, 0.65),
-    0 0 4rem rgba(152, 9, 12, 0.28);
-  backdrop-filter: blur(3px);
-  transition:
-    transform 0.3s,
-    border-color 0.3s,
-    box-shadow 0.3s;
-}
-
-.card:hover,
-.card:focus-visible {
-  transform: translateY(-0.3rem);
-  border-color: var(--beige);
-  box-shadow:
-    0 1.8rem 4rem rgba(0, 0, 0, 0.7),
-    0 0 5rem rgba(152, 9, 12, 0.45);
-}
-
-.card:focus-visible {
-  outline: 2px solid var(--beige);
-  outline-offset: 4px;
 }
 
 .thumb {
   position: relative;
   display: block;
   aspect-ratio: 16 / 9;
+  overflow: hidden;
   background: var(--black);
-  border: 4px double rgba(210, 179, 140, 0.6);
+  border: 1px solid rgba(210, 179, 140, 0.4);
+  box-shadow: 0 1.6rem 3.4rem rgba(0, 0, 0, 0.6);
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
 }
 
 .thumb img {
@@ -61,19 +41,22 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s;
 }
 
-.new {
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
-  padding: 0.3rem 0.65rem;
-  font: 600 0.62rem/1 var(--display);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--paper);
-  background: var(--red-hi);
-  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.5);
+.card:hover .thumb,
+.card:focus-visible .thumb {
+  border-color: var(--beige);
+}
+
+.card:hover .thumb img,
+.card:focus-visible .thumb img {
+  transform: scale(1.04);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--beige);
+  outline-offset: 4px;
 }
 
 .play {
@@ -82,38 +65,30 @@
   margin: auto;
   display: grid;
   place-items: center;
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 4rem;
+  height: 4rem;
   padding-left: 0.2rem;
   color: var(--paper);
-  background: rgba(124, 3, 5, 0.94);
-  border: 2px solid rgba(238, 228, 207, 0.85);
+  background: rgba(124, 3, 5, 0.92);
+  border: 1px solid rgba(238, 228, 207, 0.8);
   border-radius: 50%;
-  animation: ring 2s ease-out infinite;
+  animation: ring 2.4s ease-out infinite;
   transition: transform 0.3s;
 }
 
 .card:hover .play,
 .card:focus-visible .play {
-  transform: scale(1.12);
+  transform: scale(1.1);
 }
 
 .text {
   display: grid;
-  gap: 0.35rem;
-  padding: 0 0.4rem;
-}
-
-.kicker {
-  font: 600 0.66rem/1.3 var(--display);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--beige);
+  gap: 0.3rem;
 }
 
 .title {
-  font: 600 1.35rem/1.2 var(--display);
-  letter-spacing: 0.1em;
+  font: 600 1.2rem/1.2 var(--display);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -121,8 +96,8 @@
   display: flex;
   gap: 0.8rem;
   align-items: baseline;
-  font: 600 0.7rem/1.2 var(--display);
-  letter-spacing: 0.2em;
+  font: 600 0.68rem/1.2 var(--display);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--beige);
 }
@@ -131,7 +106,7 @@
   font: 1rem/1.2 var(--body);
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(238, 228, 207, 0.75);
+  color: rgba(238, 228, 207, 0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -139,7 +114,8 @@
     animation: none;
   }
 
-  .card,
+  .thumb,
+  .thumb img,
   .play {
     transition: none;
   }

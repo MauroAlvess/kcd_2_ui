@@ -1,5 +1,3 @@
-import type { Step } from '../shared/ui/steps/steps';
-
 export interface Title {
   /** As a man is called. */
   readonly name: string;
@@ -251,44 +249,5 @@ export const TIERS: readonly Tier[] = [
         text: 'Camponeses, artesãos, caçadores, mercadores e todos os que vivem de um ofício. É daqui que se sobe: um título de nobreza ou um cargo muda o lugar de qualquer um.',
       },
     ],
-  },
-];
-
-/** How a title is given, and what it shows of a player: the rules of the in-game panel's Nomeação section. */
-export const RULES: readonly Step[] = [
-  {
-    numeral: 'I',
-    title: 'Quem nomeia',
-    text: 'Só um nobre nomeia, e só quem recebeu um título que dá esse direito: um lorde nomeia cavaleiros e oficiais, um bispo nomeia padres e monges. Os primeiros títulos vêm da Coroa, a administração do servidor.',
-  },
-  {
-    numeral: 'II',
-    title: 'Sempre para baixo',
-    text: 'Ninguém dá um título igual ou acima do seu. O Rei é um só e só a Coroa o nomeia; um cavaleiro nomeia escudeiros; quem não tem posto abaixo do seu para dar, não nomeia.',
-  },
-  {
-    numeral: 'III',
-    title: 'Nobres e plebeus',
-    text: 'Um nobre pode nomear um plebeu. Só se nomeia quem já se apresentou: no painel, na categoria Nobre, a seção Nomeação lista essas pessoas.',
-  },
-  {
-    numeral: 'IV',
-    title: 'Título e cargo',
-    text: 'Um título de nobreza (rei, príncipe, marquês, lorde, cavaleiro, escudeiro, pequeno nobre) ou do alto clero (arcebispo, bispo, abade, prior) faz do nomeado um nobre, e o cônjuge e os descendentes legítimos sobem junto. Um cargo (burgrave, burgomestre, padre) não muda a condição social.',
-  },
-  {
-    numeral: 'V',
-    title: 'Sobre a cabeça',
-    text: 'Plebeu ou nobre nunca aparece sobre a cabeça. O título só aparece se o jogador quiser: em Opções ele escolhe mostrar lorde, cavaleiro ou outro dos seus títulos, em dourado, no lugar do nome.',
-  },
-  {
-    numeral: 'VI',
-    title: 'A hierarquia à vista',
-    text: 'O botão Ver hierarquia mostra o reino como esta árvore: cada título, quem o ocupa, e a guilda, a casa e as terras de cada um. Nada que diga onde a pessoa está ou como está: o reino sabe o nome e o título, não a vida do jogador.',
-  },
-  {
-    numeral: 'VII',
-    title: 'Terras',
-    text: 'A Coroa pode ceder uma região inteira a um jogador: ele recebe as propriedades dela e decide sozinho o que fazer. As casas de NPC aparecem na lista dele, mas continuam dos moradores.',
   },
 ];

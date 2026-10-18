@@ -1,5 +1,5 @@
 import { Component, viewChildren } from '@angular/core';
-import { CLIPS, MEDIA_NOTE, SHOTS } from '../../content/media';
+import { CLIPS, SHOTS } from '../../content/media';
 import { Lightbox, type LightboxPicture } from '../../shared/ui/lightbox/lightbox';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
@@ -19,7 +19,6 @@ import { ShotCard } from './shot-card/shot-card';
 export class Media {
   protected readonly clips = CLIPS;
   protected readonly shots = SHOTS;
-  protected readonly note = MEDIA_NOTE;
   /** What the enlarged view shows: the large file of each screenshot, under its title. */
   protected readonly pictures: readonly LightboxPicture[] = SHOTS.map((shot) => ({
     src: shot.large.src,

@@ -23,10 +23,9 @@ describe('Header', () => {
     expect(hrefs).toEqual(NAV.map((item) => item.href));
   });
 
-  it('has the Discord button, in a new tab', () => {
-    const discord = root.querySelector<HTMLAnchorElement>(`.menu a[href="${SITE.discord}"]`);
-    expect(discord).not.toBeNull();
-    expect(discord?.getAttribute('target')).toBe('_blank');
+  it('keeps the bar to the name and the section links: no Discord button in it', () => {
+    expect(root.querySelector(`a[href="${SITE.discord}"]`)).toBeNull();
+    expect(root.querySelector('app-button')).toBeNull();
   });
 
   it('starts with the menu closed and the button saying it will open it', () => {

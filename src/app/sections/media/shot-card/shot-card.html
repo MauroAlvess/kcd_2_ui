@@ -8,11 +8,7 @@
       loading="lazy"
       decoding="async"
     />
-    <span class="zoom" aria-hidden="true">Ampliar</span>
+    <span class="title" aria-hidden="true">{{ shot().title }}</span>
     <span class="sr-only">Ampliar a imagem: {{ shot().title }}</span>
   </button>
-  <figcaption>
-    <h4>{{ shot().title }}</h4>
-    <p>{{ shot().text }}</p>
-  </figcaption>
 </figure>

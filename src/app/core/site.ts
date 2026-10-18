@@ -9,11 +9,6 @@ export interface SiteConfig {
   /** The public address without a trailing slash. Empty until the domain is known: canonical and social-card links wait for it. */
   readonly url: string;
   readonly discord: string;
-  /**
-   * Where the launcher is downloaded from: the MafiaHub address that always answers with the newest release of the mod
-   * (a redirect to the file), so the site never has to name a version.
-   */
-  readonly launcher: string;
   readonly locale: string;
   /**
    * Where the players online are read from: the public master list the game's server browser uses, and the id of this
@@ -36,7 +31,6 @@ export const SITE: SiteConfig = {
   description: config.description,
   url: config.url.replace(/\/+$/, ''),
   discord: config.discord,
-  launcher: config.launcher.trim(),
   locale: config.locale,
   listing: { url: config.listing.url.trim(), id: config.listing.id.trim() },
   verification: {
@@ -61,10 +55,8 @@ export const NAV: readonly NavItem[] = [
   { label: 'Guildas', href: '#guildas' },
   { label: 'Família', href: '#familia' },
   { label: 'Facções', href: '#faccoes' },
-  { label: 'Ascensão', href: '#ascensao' },
   { label: 'Hierarquia', href: '#hierarquia' },
-  { label: 'Lore', href: '#lore' },
-  { label: 'Mundo', href: '#mundo' },
+  { label: 'História', href: '#lore' },
   { label: 'Mídias', href: '#midias' },
 ];
 

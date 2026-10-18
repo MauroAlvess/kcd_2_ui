@@ -1,8 +1,7 @@
-<app-section anchor="hierarquia" tone="light" labelledBy="hierarquia-title">
+<app-section anchor="hierarquia" tone="dark" labelledBy="hierarquia-title">
   <app-section-heading eyebrow="Hierarquia" heading="A ordem do reino" titleId="hierarquia-title">
-    Cada posto do reino tem um nome, e quem o ocupa responde a quem o nomeou. Do Rei aos plebeus, é
-    assim que a ordem do Kingdom RP BRASIL está montada: títulos de verdade da Boêmia do século XV,
-    e cada um deles dado por alguém.
+    Todos começam como plebeus. Do Rei ao povo, cada posto tem um nome, e quem o ocupa responde a
+    quem o nomeou.
   </app-section-heading>
 
   <div class="order">
@@ -21,28 +20,18 @@
       @for (tier of tiers; track tier.id) {
         <li class="tier reveal">
           <h3>{{ tier.name }}</h3>
-          <p class="note">{{ tier.note }}</p>
-          <dl>
+          <ul class="titles">
             @for (title of tier.titles; track title.name) {
-              <div class="title">
-                <dt>
-                  {{ title.name }}
-                  @if (title.female) {
-                    <span class="female">· {{ title.female }}</span>
-                  }
-                  @if (title.native) {
-                    <small>{{ title.native }}</small>
-                  }
-                </dt>
-                <dd>{{ title.text }}</dd>
-              </div>
+              <li [attr.title]="title.text">
+                {{ title.name }}
+                @if (title.female) {
+                  <span class="female"> / {{ title.female }}</span>
+                }
+              </li>
             }
-          </dl>
+          </ul>
         </li>
       }
     </ol>
   </div>
-
-  <h3 class="rules-title reveal">Como se nomeia</h3>
-  <app-steps [steps]="rules" />
 </app-section>

@@ -24,13 +24,6 @@
   background: var(--rule);
 }
 
-.oath {
-  max-width: 40rem;
-  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
-  font: italic 1.35rem/1.5 var(--body);
-  text-align: center;
-}
-
 @media (max-width: 52rem) {
   .houses {
     grid-template-columns: 1fr;
