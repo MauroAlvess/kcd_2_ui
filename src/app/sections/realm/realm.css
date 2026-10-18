@@ -1,0 +1,199 @@
+:host {
+  display: block;
+}
+
+.realm {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(17rem, 1fr);
+  gap: clamp(2rem, 4.5vw, 4rem);
+  align-items: center;
+}
+
+/* The map lies on the parchment a little askew, in a gold-edged mount, like a chart pinned to a table. */
+.map {
+  position: relative;
+  margin: 0;
+  padding: clamp(0.45rem, 0.9vw, 0.75rem);
+  background: #2b241a;
+  border: 1px solid var(--gold-deep);
+  box-shadow:
+    0 0 0 4px var(--paper),
+    0 0 0 5px rgba(124, 3, 5, 0.35),
+    0 1.8rem 3.2rem rgba(70, 44, 18, 0.38);
+  rotate: -0.6deg;
+}
+
+.terrain {
+  width: 100%;
+  height: auto;
+}
+
+.pin {
+  position: absolute;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  translate: -50% -50%;
+  filter: drop-shadow(0 0.3rem 0.35rem rgba(0, 0, 0, 0.6)) saturate(0.88) brightness(0.94);
+  transition:
+    scale 0.25s,
+    filter 0.25s;
+}
+
+.pin img {
+  width: 100%;
+  height: auto;
+}
+
+.pin:hover,
+.pin:focus-visible {
+  scale: 1.12;
+  filter: drop-shadow(0 0.4rem 0.5rem rgba(0, 0, 0, 0.65));
+}
+
+.pin.active {
+  z-index: 2;
+  scale: 1.18;
+  filter: drop-shadow(0 0 0.8rem rgba(236, 210, 138, 0.9))
+    drop-shadow(0 0.4rem 0.5rem rgba(0, 0, 0, 0.6));
+}
+
+/* A ring of gold that keeps spreading from the house that is being read. */
+.pin.active::before {
+  content: '';
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 150%;
+  aspect-ratio: 1;
+  border: 2px solid var(--gold-hi);
+  border-radius: 50%;
+  translate: -50% -50%;
+  pointer-events: none;
+  animation: ripple 2.4s ease-out infinite;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.85;
+    scale: 0.55;
+  }
+
+  to {
+    opacity: 0;
+    scale: 1.25;
+  }
+}
+
+/* The house read: a letter on the parchment, edged in red. */
+.dossier {
+  padding: clamp(1.6rem, 3vw, 2.4rem) clamp(1.3rem, 2.6vw, 2rem);
+  text-align: center;
+  background: rgba(255, 251, 238, 0.42);
+  border: 1px solid var(--frame);
+  box-shadow:
+    inset 0 0 0 5px transparent,
+    inset 0 0 0 6px rgba(124, 3, 5, 0.14);
+}
+
+.house {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: arrive 0.5s ease-out both;
+}
+
+.house[hidden] {
+  display: none;
+}
+
+.crest {
+  width: auto;
+  height: clamp(8.5rem, 15vw, 11.5rem);
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 0.7rem 0.8rem rgba(48, 30, 10, 0.35));
+}
+
+.kicker {
+  font: 600 0.68rem/1.2 var(--display);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h3 {
+  margin-top: 0.45rem;
+  font: 600 clamp(1.7rem, 3vw, 2.2rem) / 1.1 var(--display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.holder {
+  margin-top: 0.4rem;
+  font-style: italic;
+  color: var(--fg-muted);
+}
+
+.text {
+  max-width: 26rem;
+  margin-top: 0.9rem;
+  text-wrap: pretty;
+}
+
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.7rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.picker button {
+  padding: 0.55rem 0.85rem;
+  font: 600 0.62rem/1.2 var(--display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.picker button:hover {
+  border-color: var(--accent);
+}
+
+.picker button[aria-pressed='true'] {
+  color: var(--paper);
+  background: var(--red);
+  border-color: var(--red);
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 60rem) {
+  .realm {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    rotate: none;
+  }
+}

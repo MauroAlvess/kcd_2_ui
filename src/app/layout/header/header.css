@@ -1,14 +1,24 @@
 :host {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto 0;
   z-index: 50;
   display: block;
 }
 
+/* Over the opening: a shade at the top only, so the moving picture shows through. Scrolled: solid, with a gold hairline. */
 .bar {
   color: var(--paper);
-  background: rgba(13, 11, 9, 0.88);
-  border-bottom: 1px solid rgba(210, 179, 140, 0.14);
+  background: linear-gradient(to bottom, rgba(13, 11, 9, 0.72), rgba(13, 11, 9, 0));
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.35s,
+    border-color 0.35s,
+    backdrop-filter 0.35s;
+}
+
+.bar.solid {
+  background: rgba(13, 11, 9, 0.92);
+  border-bottom-color: rgba(201, 162, 74, 0.22);
   backdrop-filter: blur(12px);
 }
 
@@ -17,7 +27,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  width: min(100% - 2 * var(--gutter), 76rem);
+  width: min(100% - 2 * var(--gutter), 78rem);
   height: var(--header-h);
   margin-inline: auto;
 }
@@ -32,42 +42,60 @@
 
 .crest {
   width: auto;
-  height: 2.5rem;
+  height: 2.6rem;
+  filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.5));
 }
 
 .name {
-  font: 600 0.78rem/1.1 var(--display);
+  font: 600 0.8rem/1.1 var(--display);
   letter-spacing: 0.24em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .accent {
-  color: var(--beige);
+  color: var(--gold);
 }
 
 .menu ul {
   display: flex;
-  gap: clamp(1.4rem, 2.6vw, 2.4rem);
+  gap: clamp(1.1rem, 2.1vw, 2.1rem);
 }
 
 .menu li a {
+  position: relative;
   padding: 0.5rem 0;
-  font: 600 0.7rem/1.2 var(--display);
-  letter-spacing: 0.22em;
+  font: 600 0.68rem/1.2 var(--display);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  color: rgba(238, 228, 207, 0.78);
-  border-bottom: 1px solid transparent;
+  color: rgba(238, 228, 207, 0.8);
+  transition: color 0.2s;
+}
+
+/* A short red stroke grows under the link that is pointed at. */
+.menu li a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--red-hi);
   transition:
-    color 0.2s,
-    border-color 0.2s;
+    width 0.25s,
+    left 0.25s;
 }
 
 .menu li a:hover,
 .menu li a:focus-visible {
   color: var(--paper);
-  border-color: var(--red-hi);
+}
+
+.menu li a:hover::after,
+.menu li a:focus-visible::after {
+  left: 0;
+  width: 100%;
 }
 
 .toggle {
@@ -78,8 +106,8 @@
   height: 2.75rem;
   padding: 0;
   color: inherit;
-  background: none;
-  border: 1px solid rgba(210, 179, 140, 0.28);
+  background: rgba(13, 11, 9, 0.4);
+  border: 1px solid rgba(201, 162, 74, 0.4);
   cursor: pointer;
 }
 
@@ -123,8 +151,8 @@
   transform: translateY(-0.42rem) rotate(-45deg);
 }
 
-/* Below this width the six links and the name no longer sit on one line: they fold into a menu behind the button. */
-@media (max-width: 56rem) {
+/* Below this width the seven links and the name no longer sit on one line: they fold into a menu behind the button. */
+@media (max-width: 64rem) {
   .toggle {
     display: inline-flex;
   }
@@ -135,7 +163,7 @@
     display: none;
     padding: 0.25rem var(--gutter) 1.5rem;
     background: var(--black);
-    border-bottom: 1px solid rgba(210, 179, 140, 0.14);
+    border-bottom: 1px solid rgba(201, 162, 74, 0.22);
   }
 
   .menu.open {
@@ -152,6 +180,10 @@
     padding: 1.05rem 0;
     font-size: 0.8rem;
     border-bottom: 1px solid rgba(210, 179, 140, 0.12);
+  }
+
+  .menu li a::after {
+    content: none;
   }
 }
 

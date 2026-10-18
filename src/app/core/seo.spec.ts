@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { Seo } from './seo';
+import { SLOGAN, Seo } from './seo';
 import { ALTERNATE_NAMES, KEYWORDS, SITE, SITE_CONFIG, type SiteConfig } from './site';
 
 const WITH_ADDRESS: SiteConfig = { ...SITE, url: 'https://kcd2rp.example' };
@@ -143,6 +143,17 @@ describe('Seo', () => {
     expect(group?.['name']).toBe(SITE.name);
     expect(group?.['sameAs']).toEqual([SITE.discord]);
     expect(nodes.some((node) => node['@type'] === 'WebSite')).toBe(false);
+  });
+
+  it('gives the server and its group the line the opening tells', () => {
+    const { seo, graph } = setup(WITH_ADDRESS);
+    seo.apply();
+
+    const nodes = graph()['@graph'] as Array<Record<string, any>>;
+    for (const type of ['GameServer', 'Organization']) {
+      expect(nodes.find((node) => node['@type'] === type)?.['slogan'], type).toBe(SLOGAN);
+    }
+    expect(SLOGAN).toContain('Kuttenberg');
   });
 
   it('names the server and the game by their other spellings in the structured data', () => {

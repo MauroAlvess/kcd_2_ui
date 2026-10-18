@@ -1,34 +1,66 @@
 <section class="hero" id="inicio" aria-labelledby="hero-title">
-  <div class="photo" aria-hidden="true">
+  <div class="media" aria-hidden="true">
     <img
-      src="img/scene-cidade-1920.webp"
-      srcset="img/scene-cidade-960.webp 960w, img/scene-cidade-1920.webp 1920w"
+      class="still"
+      src="img/hero-poster-1920.webp"
+      srcset="img/hero-poster-960.webp 960w, img/hero-poster-1920.webp 1920w"
       sizes="100vw"
       width="1920"
       height="1080"
       fetchpriority="high"
       alt=""
     />
+    <video
+      #video
+      class="video"
+      [class.playing]="playing()"
+      muted
+      loop
+      playsinline
+      preload="none"
+      disablepictureinpicture
+      disableremoteplayback
+      tabindex="-1"
+    >
+      <source src="video/hero-720.webm" type="video/webm" media="(max-width: 56rem)" />
+      <source src="video/hero-720.mp4" type="video/mp4" media="(max-width: 56rem)" />
+      <source src="video/hero-1080.webm" type="video/webm" />
+      <source src="video/hero-1080.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="frame" aria-hidden="true">
+    <img class="corner lion" src="img/corner-lion.webp" width="360" height="360" alt="" />
+    <img class="corner raven" src="img/corner-raven.webp" width="360" height="360" alt="" />
   </div>
 
   <div class="content">
-    <div class="copy">
-      <img
-        class="crest"
-        src="img/logo.webp"
-        width="320"
-        height="501"
-        alt="Emblema do Kingdom RP BRASIL: as iniciais KCD e o II sob uma coroa, com Roleplay Brasileiro no arco"
-      />
-      <h1 id="hero-title">
-        <span class="game">Kingdom Come: Deliverance II</span>
-        <span class="name">RP Brasil</span>
-      </h1>
-      <p class="tagline">O primeiro servidor de roleplay de KCD 2 (Deliverance 2) do Brasil.</p>
-      <div class="actions">
-        <app-button [href]="site.discord" external>Entrar no Discord</app-button>
-      </div>
-      <app-server-badge class="live" />
+    <img
+      class="emblem"
+      src="img/logo.webp"
+      width="320"
+      height="501"
+      alt="Emblema do Kingdom RP BRASIL: as iniciais KCD e o II sob uma coroa, com Roleplay Brasileiro no arco"
+    />
+    <h1 id="hero-title">
+      <span class="game">Kingdom Come: Deliverance II</span>
+      <span class="name">RP Brasil</span>
+    </h1>
+    <p class="claim">
+      O rei está morto. <span class="crown">A coroa de Kuttenberg</span> espera um nome.
+    </p>
+    <p class="tagline">
+      O primeiro servidor de roleplay de KCD 2 (Deliverance 2) do Brasil. Jure lealdade, erga a sua
+      família e escreva o seu nome na história da Boêmia.
+    </p>
+    <div class="actions">
+      <app-button [href]="site.discord" external large>Entrar no Discord</app-button>
     </div>
+    <app-server-badge class="live" />
   </div>
+
+  <a class="cue" href="#reino">
+    <span>Conheça o reino</span>
+    <i aria-hidden="true"></i>
+  </a>
 </section>

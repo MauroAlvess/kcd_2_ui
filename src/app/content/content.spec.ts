@@ -4,6 +4,8 @@ import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
+import { REALM_HOUSES } from './realm';
+import { RULES, RULES_MOTTO, ZERO_TOLERANCE } from './rules';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 const filled = (value: string) => value.trim().length > 0;
@@ -104,6 +106,85 @@ describe('content', () => {
     for (const text of [...texts, LORE_ENDING.text]) {
       expect(text.split('**').length % 2, text.slice(0, 40)).toBe(1);
     }
+  });
+});
+
+describe('realm', () => {
+  it('has the five houses of the map, the crown first, each with its crest and something to say', () => {
+    expect(REALM_HOUSES.map((house) => house.id)).toEqual([
+      'kuttenberg',
+      'trosky',
+      'raborsch',
+      'suchdol',
+      'maleshov',
+    ]);
+    expect(unique(REALM_HOUSES.map((house) => house.crest))).toBe(true);
+    for (const house of REALM_HOUSES) {
+      for (const text of [house.place, house.house, house.holder, house.text, house.crestAlt]) {
+        expect(filled(text), house.id).toBe(true);
+      }
+      expect(house.crest).toMatch(/^house-[a-z]+\.webp$/);
+      expect(house.crestWidth > 0 && house.crestHeight > 0).toBe(true);
+    }
+  });
+
+  it('puts every crest on the map, none on top of another', () => {
+    for (const house of REALM_HOUSES) {
+      expect(house.x, house.id).toBeGreaterThan(0);
+      expect(house.x, house.id).toBeLessThan(100);
+      expect(house.y, house.id).toBeGreaterThan(0);
+      expect(house.y, house.id).toBeLessThan(100);
+      expect(house.size, house.id).toBeGreaterThan(3);
+    }
+    for (const a of REALM_HOUSES) {
+      for (const b of REALM_HOUSES) {
+        if (a !== b) {
+          expect(Math.hypot(a.x - b.x, a.y - b.y), `${a.id} ${b.id}`).toBeGreaterThan(8);
+        }
+      }
+    }
+  });
+
+  it('tells the same story as the lore: the Lions and Radovan, Gunther, the lordless Schodal, the plot of Maleshov', () => {
+    const text = REALM_HOUSES.map((house) => `${house.house} ${house.holder} ${house.text}`).join(
+      ' ',
+    );
+    for (const name of [
+      'Casa dos Leões',
+      'Radovan de Zelený',
+      'Gunther von Silberhände',
+      'Casa de Schodal',
+      'Casa de Maleshov',
+    ]) {
+      expect(text, name).toContain(name);
+    }
+  });
+});
+
+describe('rules', () => {
+  it('has the six terms of the parchment of rules, each once, with what it forbids or asks', () => {
+    expect(RULES.map((rule) => rule.id)).toEqual([
+      'rdm',
+      'hdm',
+      'anti-rp',
+      'fear-rp',
+      'metagaming',
+      'powergaming',
+    ]);
+    for (const rule of RULES) {
+      expect(filled(rule.name) && filled(rule.text)).toBe(true);
+    }
+    expect(RULES.filter((rule) => rule.kind === 'expected').map((rule) => rule.id)).toEqual([
+      'fear-rp',
+    ]);
+  });
+
+  it('keeps the rule with the most weight and the motto', () => {
+    expect(ZERO_TOLERANCE.text.toLowerCase()).toContain('assédio');
+    expect(ZERO_TOLERANCE.text).toContain('Naquela época era assim');
+    expect(RULES_MOTTO).toBe(
+      'Viva a época. Interprete o seu personagem. Respeite quem está por trás dele.',
+    );
   });
 });
 

@@ -1,4 +1,4 @@
-<header class="bar">
+<header class="bar" [class.solid]="scrolled() || open()">
   <div class="inner">
     <a class="brand" href="#inicio" (click)="close()">
       <img class="crest" src="img/logo.webp" width="320" height="501" alt="" />

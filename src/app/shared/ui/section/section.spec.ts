@@ -28,6 +28,11 @@ describe('Section', () => {
     expect(dark.classList.contains('light')).toBe(false);
   });
 
+  it('tears the edges of a light band unless told not to', async () => {
+    expect((await render({ anchor: 'a' })).classList.contains('flat')).toBe(false);
+    expect((await render({ anchor: 'b', edges: false })).classList.contains('flat')).toBe(true);
+  });
+
   it('has no photograph unless it is given one', async () => {
     expect((await render({ anchor: 'a' })).querySelector('.photo')).toBeNull();
   });

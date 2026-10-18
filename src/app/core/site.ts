@@ -51,12 +51,15 @@ export interface NavItem {
   readonly href: string;
 }
 
+/** The sections in the order the page tells them: the realm and its houses first, the way in last (it has its own buttons). */
 export const NAV: readonly NavItem[] = [
+  { label: 'Reino', href: '#reino' },
+  { label: 'Facções', href: '#faccoes' },
   { label: 'Guildas', href: '#guildas' },
   { label: 'Família', href: '#familia' },
-  { label: 'Facções', href: '#faccoes' },
   { label: 'Hierarquia', href: '#hierarquia' },
   { label: 'História', href: '#lore' },
+  { label: 'Regras', href: '#regras' },
 ];
 
 /**

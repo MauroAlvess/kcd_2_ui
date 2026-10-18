@@ -17,6 +17,9 @@ export function parts(text: string): readonly Part[] {
 /**
  * A text with some words in bold, marked `**like this**` in the content: it writes the bold ones as `strong` and the rest
  * as they are, with no space added between them, so a comma after a bold name stays against it.
+ *
+ * The page's text font comes in one weight, and the bold a browser draws over it smudges: the `strong` words keep the
+ * weight and stand out by the colour the place they are in gives `--strong`.
  */
 @Component({
   selector: 'app-rich',
@@ -27,7 +30,16 @@ export function parts(text: string): readonly Part[] {
       <ng-container>{{ part.text }}</ng-container>
     }
   }`,
-  styles: ':host { display: contents; }',
+  styles: `
+    :host {
+      display: contents;
+    }
+
+    strong {
+      font-weight: inherit;
+      color: var(--strong, inherit);
+    }
+  `,
 })
 export class Rich {
   readonly text = input.required<string>();

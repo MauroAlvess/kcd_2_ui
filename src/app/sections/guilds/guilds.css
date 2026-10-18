@@ -1,6 +1,6 @@
-/* Three to a row, two on a tablet, one on a phone; the last row is centred, so five cards are never four and one. */
+/* Five in a row on a wide screen, three and two on a tablet, two and one below; a short row is centred. */
 .grid {
-  --gap: 1.75rem;
+  --gap: clamp(1rem, 1.6vw, 1.5rem);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -8,16 +8,24 @@
 }
 
 .grid li {
-  flex: 0 1 calc((100% - 2 * var(--gap)) / 3);
+  flex: 0 1 calc((100% - 4 * var(--gap)) / 5);
+  min-width: 12.5rem;
 }
 
-@media (max-width: 62rem) {
+@media (max-width: 72rem) {
   .grid li {
-    flex-basis: calc((100% - var(--gap)) / 2);
+    flex-basis: calc((100% - 2 * var(--gap)) / 3);
   }
 }
 
-@media (max-width: 38rem) {
+@media (max-width: 46rem) {
+  .grid li {
+    flex-basis: calc((100% - var(--gap)) / 2);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 30rem) {
   .grid li {
     flex-basis: 100%;
   }

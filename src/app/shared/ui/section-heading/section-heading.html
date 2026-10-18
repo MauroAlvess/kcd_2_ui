@@ -1,8 +1,13 @@
 <header class="heading" [class.start]="align() === 'start'">
   @if (eyebrow(); as label) {
-    <p class="eyebrow">{{ label }}</p>
+    <p class="eyebrow">
+      @if (numeral(); as number) {
+        <span class="numeral" aria-hidden="true">{{ number }}</span>
+      }
+      <span>{{ label }}</span>
+    </p>
   }
   <h2 [attr.id]="titleId()">{{ heading() }}</h2>
-  <span class="bar" aria-hidden="true"></span>
+  <span class="ornament" aria-hidden="true"><i></i><b></b><i></i></span>
   <div class="lead"><ng-content /></div>
 </header>

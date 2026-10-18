@@ -7,10 +7,11 @@ export interface SectionImage {
 }
 
 /**
- * One band of the page. It is either `light` (beige paper, dark ink, red accents) or `dark` (black, beige text), and it
- * hands that choice to everything inside it as custom properties (`--fg`, `--fg-muted`, `--rule`, `--accent`), so a
- * component written for one works on the other without knowing. A dark band can carry a photograph, kept under a
- * gradient so the text above it stays readable.
+ * One band of the page. It is either `light` (parchment: beige paper with its grain, dark ink, red accents, torn at the top
+ * and the bottom where the black bands bite into it) or `dark` (black, beige text, gold accents), and it hands that choice
+ * to everything inside it as custom properties (`--fg`, `--fg-muted`, `--rule`, `--accent`, `--frame`), so a component
+ * written for one works on the other without knowing. A dark band can carry a photograph, kept under a gradient so the
+ * text above it stays readable; anything given the `backdrop` attribute is laid behind the content instead of in it.
  */
 @Component({
   selector: 'app-section',
@@ -24,4 +25,6 @@ export class Section {
   /** The id of the heading that names this section, for screen readers. */
   readonly labelledBy = input<string>();
   readonly image = input<SectionImage>();
+  /** The torn edges of a light band. Off for one that has no black band on either side. */
+  readonly edges = input(true);
 }

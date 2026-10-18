@@ -90,7 +90,7 @@ for (const file of sources) {
   }
   if (where === 'src/index.html') {
     for (const match of text.matchAll(
-      /<link[^>]*rel="(?:icon|apple-touch-icon)"[^>]*href="([^"/]+)"/g,
+      /<link[^>]*rel="(?:icon|apple-touch-icon|manifest)"[^>]*href="([^"/]+)"/g,
     )) {
       expectRootFile(match[1], where);
     }

@@ -6,7 +6,7 @@
   padding: clamp(3rem, 6vw, 4.5rem) var(--gutter) 2.25rem;
   color: var(--paper);
   background: var(--black);
-  border-top: 1px solid rgba(210, 179, 140, 0.16);
+  border-top: 1px solid rgba(201, 162, 74, 0.2);
 }
 
 .inner {
@@ -27,7 +27,8 @@
 
 .crest {
   width: auto;
-  height: 3.4rem;
+  height: 3.6rem;
+  filter: drop-shadow(0 0.4rem 0.6rem rgba(0, 0, 0, 0.6));
 }
 
 .name {
@@ -37,7 +38,13 @@
 }
 
 .accent {
-  color: var(--beige);
+  color: var(--gold);
+}
+
+.motto {
+  margin-top: 0.3rem;
+  font: italic 1rem/1.4 var(--body);
+  color: rgba(238, 228, 207, 0.6);
 }
 
 .links ul {

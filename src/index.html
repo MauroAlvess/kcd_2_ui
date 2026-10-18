@@ -4,21 +4,27 @@
     <meta charset="utf-8" />
     <title>Kingdom Come: Deliverance 2 RP Brasil | Kingdom RP BRASIL</title>
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0d0b09" />
+    <meta name="color-scheme" content="dark" />
     <!-- Description, keywords, social cards and structured data are written by the Seo service (src/app/core/seo.ts)
        while the site is prerendered, from src/site.config.json. -->
-    <!-- The photograph at the top is the largest thing on the page: ask for it before the page has finished building. -->
+    <!-- The still of the opening's video is the largest thing on the page: ask for it before the page has finished
+       building. The video itself waits for the page (src/app/sections/hero). -->
     <link
       rel="preload"
       as="image"
-      href="img/scene-cidade-1920.webp"
+      href="img/hero-poster-1920.webp"
       fetchpriority="high"
       imagesizes="100vw"
-      imagesrcset="img/scene-cidade-960.webp 960w, img/scene-cidade-1920.webp 1920w"
+      imagesrcset="img/hero-poster-960.webp 960w, img/hero-poster-1920.webp 1920w"
     />
+    <!-- The players online are read from the server list in the visitor's browser (src/app/core/server-status.ts). -->
+    <link rel="preconnect" href="https://masterlist.mafiahub.dev" crossorigin />
     <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
   </head>
   <body>
     <app-root></app-root>

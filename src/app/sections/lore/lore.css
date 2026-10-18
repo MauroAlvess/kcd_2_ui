@@ -1,10 +1,21 @@
+/* The story's title is the longest of the page: two lines on a wide screen, not four. */
+app-section-heading {
+  --heading-measure: 34ch;
+}
+
+/* The names the story turns on stand out in the gold of the crests (see app-rich). */
 .story {
+  --strong: var(--gold-hi);
   max-width: 44rem;
   margin-inline: auto;
 }
 
 .chapter {
   border-top: 1px solid var(--rule);
+}
+
+.chapter[open] {
+  background: linear-gradient(to right, rgba(124, 3, 5, 0.1), transparent 70%);
 }
 
 .chapter:last-of-type {
@@ -15,7 +26,7 @@ summary {
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  padding: 1.35rem 0;
+  padding: 1.35rem 1rem;
   list-style: none;
   cursor: pointer;
 }
@@ -58,11 +69,22 @@ summary:focus-visible .chapter-title {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  padding: 0.25rem 0 2rem;
+  padding: 0.25rem 1rem 2rem;
 }
 
 .lead {
   font: italic 1.35rem/1.6 var(--body);
+}
+
+/* The chapter opens with an illuminated initial, in gold, like a manuscript. */
+.lead::first-letter {
+  float: left;
+  margin: 0.08em 0.12em 0 0;
+  padding: 0 0.1em;
+  font: 600 3.4em/0.8 var(--display);
+  font-style: normal;
+  color: var(--gold-hi);
+  text-shadow: 0 0 1.2rem rgba(201, 162, 74, 0.35);
 }
 
 ul {
@@ -73,15 +95,20 @@ ul {
   list-style: none;
 }
 
+/* The last words in italics, in the colour of the page; the question under them in gold. */
 .ending {
+  --strong: var(--paper);
   margin-top: 2.5rem;
+  font: italic 1.32rem/1.55 var(--body);
   text-align: center;
+  text-wrap: balance;
 }
 
 .question {
-  margin-top: 0.8rem;
-  font: 600 1.15rem/1.4 var(--display);
-  letter-spacing: 0.14em;
+  margin-top: 1rem;
+  font: 600 clamp(1.3rem, 2.6vw, 1.75rem) / 1.35 var(--display);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--gold-hi);
+  text-wrap: balance;
 }

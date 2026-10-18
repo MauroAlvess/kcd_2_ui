@@ -1,19 +1,51 @@
+/* The band split in two: the Lion's red rising from the left, the Raven's blue from the right. */
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 75% at 0% 55%, rgba(124, 3, 5, 0.5), transparent 70%),
+    radial-gradient(ellipse 60% 75% at 100% 55%, rgba(29, 58, 110, 0.6), transparent 70%);
+}
+
+.duel {
+  position: relative;
+  width: min(100%, 46rem);
+  margin: -1rem auto 0;
+}
+
+/* A warm light behind the two knights, so the embroidery stands off the dark. */
+.duel::before {
+  content: '';
+  position: absolute;
+  inset: 12% 10% 8%;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 55%, rgba(201, 162, 74, 0.22), transparent 70%);
+  filter: blur(8px);
+}
+
+.knights {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1.4rem 2rem rgba(0, 0, 0, 0.6));
+}
+
 .houses {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  max-width: 62rem;
-  margin-inline: auto;
+  max-width: 64rem;
+  margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
 }
 
-/* A thin line down the middle with a cross where the two houses meet. */
+/* A thin gold line down the middle with the choice written where the two houses meet. */
 .versus {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.9rem;
-  font: 600 1.1rem/1 var(--display);
-  color: var(--accent);
+  font: italic 1.4rem/1 var(--body);
+  color: var(--gold);
 }
 
 .versus::before,
@@ -21,16 +53,17 @@
   content: '';
   flex: 1;
   width: 1px;
-  background: var(--rule);
+  background: linear-gradient(to bottom, transparent, rgba(201, 162, 74, 0.5), transparent);
 }
 
 @media (max-width: 52rem) {
   .houses {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
-  .versus {
-    display: none;
+  .versus::before,
+  .versus::after {
+    content: none;
   }
 }

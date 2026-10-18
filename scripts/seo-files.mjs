@@ -33,9 +33,22 @@ if (url === '') {
 } else {
   writeFileSync(robots, `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`);
   const today = new Date().toISOString().slice(0, 10);
+  // The page's own pictures, for the image search: the card a link shows, the opening's still, the map of the realm and
+  // the two knights of the factions.
+  const images = [
+    'og-image.jpg',
+    'img/hero-poster-1920.webp',
+    'img/map-1800.webp',
+    'img/knights-1280.webp',
+  ]
+    .map(
+      (path) =>
+        `    <image:image>\n      <image:loc>${url}/${path}</image:loc>\n    </image:image>\n`,
+    )
+    .join('');
   writeFileSync(
     sitemap,
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${url}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n  <url>\n    <loc>${url}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n${images}  </url>\n</urlset>\n`,
   );
   console.log(`seo-files: robots.txt and sitemap.xml written for ${url}`);
 }

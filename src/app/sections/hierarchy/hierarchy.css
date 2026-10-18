@@ -18,7 +18,7 @@
   max-width: 12rem;
   height: auto;
   margin-inline: auto;
-  opacity: 0.92;
+  filter: drop-shadow(0 0.8rem 1rem rgba(70, 44, 18, 0.3));
 }
 
 .tiers {
@@ -41,21 +41,24 @@ h3 {
   color: var(--accent);
 }
 
-/* The titles run on in a line, set apart by a small diamond. */
+/* The titles run on in a line, set apart by a small diamond. Every title carries one before it, and the list sits one
+   diamond's width (0.85 + 0.28 + 0.85rem) to the left with that strip cut off: a line never starts with a diamond, however
+   the titles wrap. */
 .titles {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem 0;
-  margin-top: 0.8rem;
+  margin: 0.8rem 0 0 -1.98rem;
   font-size: 1.15rem;
   line-height: 1.5;
+  clip-path: inset(0 0 0 1.98rem);
 }
 
 .titles li {
   cursor: default;
 }
 
-.titles li + li::before {
+.titles li::before {
   content: '';
   display: inline-block;
   width: 0.28rem;

@@ -1,5 +1,7 @@
-<app-section anchor="lore" tone="light" labelledBy="lore-title">
-  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="lore-title" />
+<app-section anchor="lore" tone="dark" labelledBy="lore-title">
+  <app-section-heading numeral="VI" [eyebrow]="eyebrow" [heading]="title" titleId="lore-title">
+    Uma aliança, um rei morto, uma carta que quase não chegou. É daqui que o servidor começa.
+  </app-section-heading>
 
   <div class="story">
     @for (chapter of chapters; track chapter.id; let first = $first) {

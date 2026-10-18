@@ -6,23 +6,41 @@
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-ext-400.css';
 
-/* The palette is the server's own, the one of the in-game panel: black, beige and red. */
+/* The palette is the server's own, the one of the in-game panel: black, beige and red; with the gold of the embroidered
+   crests for the ornaments, and the Raven's blue, which only its side of the factions wears. */
 :root {
   --black: #0d0b09;
+  --black-soft: #15110d;
   --ink: #201b17;
   --paper: #eee4cf;
   --paper-deep: #e3d4b6;
   --beige: #d2b38c;
   --red: #7c0305;
   --red-hi: #98090c;
+  --gold: #c9a24a;
+  --gold-hi: #ecd28a;
+  --gold-deep: #8a6424;
+  --blue: #1d3a6e;
+  --blue-deep: #0d1a33;
 
   --display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
   --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
 
   --gutter: clamp(1.25rem, 5vw, 3rem);
-  --maxw: 72rem;
-  --header-h: 4.25rem;
-  --section-pad: clamp(4.5rem, 9vw, 7.5rem);
+  --maxw: 74rem;
+  --header-h: 4.5rem;
+  --section-pad: clamp(5rem, 10vw, 8.5rem);
+
+  /* The grain of the parchment: a fine noise of brown fibres laid over the paper colour, drawn by the browser itself. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* The gold of the embroidery, as a gradient: the large titles of the opening are written in it. */
+  --gilt: linear-gradient(
+    176deg,
+    #fbeec0 0%,
+    var(--gold-hi) 34%,
+    var(--gold) 58%,
+    var(--gold-deep) 100%
+  );
 }
 
 *,
@@ -34,8 +52,8 @@
 html {
   background: var(--black);
   scroll-behavior: smooth;
-  /* An anchor lands below the sticky header instead of under it. */
-  scroll-padding-top: calc(var(--header-h) + 1rem);
+  /* An anchor lands below the fixed header instead of under it. */
+  scroll-padding-top: calc(var(--header-h) + 0.5rem);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -67,7 +85,8 @@ ol {
   list-style: none;
 }
 
-img {
+img,
+video {
   display: block;
   max-width: 100%;
   height: auto;
@@ -77,8 +96,13 @@ a {
   color: inherit;
 }
 
+button {
+  font: inherit;
+  color: inherit;
+}
+
 :focus-visible {
-  outline: 2px solid var(--beige);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
 
@@ -107,13 +131,13 @@ a {
     .reveal {
       animation: reveal linear both;
       animation-timeline: view();
-      animation-range: entry 4% entry 42%;
+      animation-range: entry 4% entry 38%;
     }
 
     @keyframes reveal {
       from {
         opacity: 0;
-        transform: translateY(1.6rem);
+        transform: translateY(1.8rem);
       }
 
       to {
@@ -134,6 +158,7 @@ a {
   *::after {
     animation-duration: 0.001ms !important;
     animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }

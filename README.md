@@ -1,6 +1,9 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom RP BRASIL**: uma página só, minimalista, em preto, bege e vermelho (a paleta do painel do jogo).
+Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), com o dourado
+dos brasões bordados nos ornamentos. Abre com o vídeo do menu do jogo, Kuttenberg no alto do morro com a fumaça subindo, e
+segue em capítulos numerados em algarismos romanos, alternando pergaminho e noite: o mapa das cinco casas, as facções, as
+guildas, a família, a hierarquia, a lore, as regras e como entrar.
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
 
@@ -50,26 +53,32 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
-| guildas, casas, passos, "mundo", bens (casas, cavalos e cães), os títulos da hierarquia e as regras de nomeação | `src/app/content/*.ts` |
-| textos da lore | `src/app/sections/lore/lore.html` e `src/app/content/lore.ts` |
+| as cinco casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura) | `REALM_HOUSES` em `src/app/content/realm.ts` |
+| as regras (ambientação, tolerância zero, os seis termos, o lema) | `src/app/content/rules.ts` |
+| guildas, facções, passos para entrar, a árvore da família e os títulos da hierarquia | `src/app/content/*.ts` |
+| textos da lore | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
+| a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral) | o `.html` de cada seção em `src/app/sections/` |
 | cores, fontes, espaçamentos | `:root` em `src/styles.css` |
 
 ## Como está organizado
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, 10 seções em ordem, rodapé
+  app.*                 a página: cabeçalho, a abertura, os 8 capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
-  layout/               header (menu fixo, com menu móvel) e footer
-  sections/             uma pasta por seção: hero, guilds, family, factions, hierarchy, lore, join
-  shared/ui/            peças reutilizáveis: button, section (tom claro/escuro, foto de fundo), section-heading, steps, lightbox
+  layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
+  sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
+  shared/ui/            peças reutilizáveis: button, section (pergaminho/noite, bordas rasgadas), section-heading
+                        (numeral romano, ornamento), steps, rich (negrito da lore), server-badge (jogadores online)
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), ícones, og-image.jpg
-tools/                  scripts que preparam as imagens (abaixo)
+public/                 imagens (img/), vídeo do topo (video/), ícones, site.webmanifest, og-image.jpg
+tools/                  scripts que preparam as imagens e o vídeo (abaixo)
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos.
+`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. O que
+sobe ao entrar na tela (classe `reveal`) usa as animações por rolagem do próprio CSS: um navegador sem elas, ou quem pede
+menos movimento, vê tudo no lugar, nada fica escondido.
 
 ## Imagens
 
@@ -77,12 +86,23 @@ As originais ficam na pasta `img` ao lado deste projeto (`../img`). Elas são gr
 
 ```
 python tools/make-images.py      # gera public/img/*.webp (e os ícones) a partir de ../img, nos tamanhos de uso
+python tools/make-hero-video.py  # gera o vídeo do topo (public/video/) e o quadro parado dele (public/img/hero-poster-*)
 python tools/make-og-image.py    # gera public/og-image.jpg, o cartão que aparece quando o link é colado no Discord
 ```
 
-Precisam de Python com Pillow (`pip install pillow`); o segundo também de Edge ou Chrome instalado. O `banner.png` (o duelo
-dos cavaleiros) não está mais na página; ele vem com o xadrez de "fundo transparente" desenhado nos pixels, e o script sabe
-removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comentada em `CUTOUTS`, em `tools/make-images.py`.
+Precisam de Python com Pillow (`pip install pillow`); o do vídeo também do ffmpeg (as instruções estão no começo do
+script) e o do cartão, de Edge ou Chrome instalado.
+
+- **O vídeo do topo** sai de `Main Menu Kutnohorsko.mp4` (4K, 51 MB): 1080p e 720p, cada um em WebM (VP9) e MP4 (H.264),
+  sem som, 24 quadros, com o último segundo fundido no primeiro para o laço não dar pulo (uns 7 MB os quatro). A página
+  chega com o primeiro quadro como imagem (a maior da página, pedida primeiro) e só baixa o vídeo depois de pronta, o de
+  720p nas telas estreitas; quem pede menos movimento ou economia de dados fica só com a imagem. O vídeo para quando o topo
+  sai da tela.
+- **O mapa** é o `mapa puro.jpeg` (sem os brasões); os brasões são botões por cima dele, nas posições que o `mapa.png`
+  mostrava, e cada um abre a ficha da sua casa.
+- O `banner.png` (o duelo dos cavaleiros) não está mais na página; ele vem com o xadrez de "fundo transparente" desenhado
+  nos pixels, e o script sabe removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comentada em
+  `CUTOUTS`, em `tools/make-images.py`.
 
 ## Jogadores online
 
@@ -118,7 +138,10 @@ nos lugares que um buscador lê primeiro:
 - Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image.jpg` de 1200x630) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
-- Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e a foto do topo pré-carregada.
+- O lema do servidor (*"O rei está morto. A coroa de Kuttenberg espera um nome."*) como `slogan` do `GameServer` e da
+  `Organization`; um `site.webmanifest` com os ícones de 192 e 512 px (o site salvo na tela do celular); o `sitemap.xml` com
+  as imagens principais (cartão, topo, mapa, cavaleiros), para a busca de imagens.
+- Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e o quadro do vídeo do topo pré-carregado.
 
 **Ninguém consegue garantir a posição no Google**: ela depende de o Google ter lido o site (isso se pede, abaixo), da idade do
 domínio e de quantos outros sites apontam para ele. O que dá para fazer, e o que já está feito:

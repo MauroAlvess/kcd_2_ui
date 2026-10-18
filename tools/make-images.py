@@ -31,17 +31,23 @@ TARGET = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE.parent / "public" / "i
 TARGET.mkdir(parents=True, exist_ok=True)
 
 # output name, original file, widths (one file per width), quality
+# The opening's picture is not here: it is the first frame of the hero video (tools/make-hero-video.py).
 PHOTOS = [
-    ("scene-cidade", "background cidade players.jpg", (960, 1920), 58),
-    ("scene-forja", "background ferreiro.jpg", (960, 1920), 58),
-    ("scene-cacada", "background caça.jpg", (960, 1600), 58),
+    # The realm's map with no crest on it (the page puts the five houses' crests over it, as buttons):
+    # "mapa puro.jpeg" is the same map as "mapa.png" three times larger, without the crests.
+    ("map", "mapa puro.jpeg", (900, 1800), 62),
+    # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
+    ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
 # original's "transparency" is really a checkerboard painted into its pixels (see knock_out_checkerboard).
 # The knights' duel (banner.png, one of the checkerboard ones) is not on the page any more; this line brings it back:
 #     ("duelo", "banner.png", (700, 1400), 72, 70, True),
-CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = []
+CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
+    # The two embroidered knights, the Lion's and the Raven's, back to back (hero.png, 2026-10-17): the Facções section.
+    ("knights", "hero.png", (640, 1280), 74, 72, False),
+]
 
 # Crests and ornaments, one width each (twice the size they are drawn at): output, original, width, quality
 CRESTS = [
@@ -54,14 +60,17 @@ CRESTS = [
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
-    # What a player owns, under the family tree: a house, a horse, a dog.
-    ("prop-crest", "brasão propriedades e chaves.png", 300, 76),
-    ("pet-cavalo", "brasão cavalo.png", 300, 76),
-    ("pet-cachorro", "brasão cachorro.png", 300, 78),
     # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (about 28rem tall, 560 px, cleaned of its specks).
     ("hierarchy-tree", "arvore hierarquica.png", 232, 62),
+    # The in-game panel's frame corners, the lion's and the raven's, on the frame of the opening.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
+    # The five houses of the lore, embroidered with their names on a ribbon (2026-10-16/17): on the map of the realm.
+    ("house-kuttenberg", "Brasão Medieval de Kuttenberg.png", 320, 76),
+    ("house-trosky", "Brasão Medieval Bordado Trosky.png", 320, 76),
+    ("house-raborsch", "Brasão Medieval com Rocha de Prata.png", 320, 76),
+    ("house-maleshov", "Brasão Medieval do Corvo Dourado.png", 320, 76),
+    ("house-suchdol", "Brasão Bordado Medieval de Suchdol.png", 320, 76),
 ]
 
 # The icon sits on the site's black, so it is flattened onto it: iOS paints transparency black anyway.
@@ -157,7 +166,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
-TRIMMED = {"prop-crest", "pet-cavalo", "pet-cachorro", "hierarchy-tree"}
+TRIMMED = {"hierarchy-tree", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol"}
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 36}
@@ -264,7 +273,14 @@ square.alpha_composite(logo)
 square = square.convert("RGB")
 square.resize((180, 180), Image.LANCZOS).save(TARGET.parent / "apple-touch-icon.png", optimize=True)
 logo.resize((48, 48), Image.LANCZOS).save(TARGET.parent / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
-for icon in ("apple-touch-icon.png", "favicon.ico"):
+# The installable icons the web manifest (public/site.webmanifest) names: the emblem kept inside the middle 70% of a
+# black square, the part a phone's mask (a circle, a rounded square) always shows.
+padded_side = round(max(emblem.size) / 0.7)
+padded = Image.new("RGBA", (padded_side, padded_side), ICON_BACKGROUND + (255,))
+padded.alpha_composite(emblem, ((padded_side - emblem.width) // 2, (padded_side - emblem.height) // 2))
+for px in (192, 512):
+    padded.convert("RGB").resize((px, px), Image.LANCZOS).save(TARGET.parent / f"icon-{px}.png", optimize=True)
+for icon in ("apple-touch-icon.png", "favicon.ico", "icon-192.png", "icon-512.png"):
     size = (TARGET.parent / icon).stat().st_size
     total += size
     print(f"{icon:28} {'':11} {size / 1024:7.1f} KB")

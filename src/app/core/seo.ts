@@ -3,14 +3,17 @@ import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
-/** The picture chat apps and search results show for a link to the site (public/og-image.jpg). */
+/** The picture chat apps and search results show for a link to the site (public/og-image.jpg, tools/make-og-image.py). */
 const SOCIAL_IMAGE = {
   path: '/og-image.jpg',
   width: 1200,
   height: 630,
   type: 'image/jpeg',
-  alt: 'O emblema dourado do Kingdom RP BRASIL sobre fundo preto, com o texto Kingdom Come: Deliverance II, RP Brasil',
+  alt: 'Kuttenberg no alto do morro, entre fumaça e névoa, com o emblema dourado do Kingdom RP BRASIL e os dizeres: Kingdom Come: Deliverance II, RP Brasil, o rei está morto, a coroa de Kuttenberg espera um nome',
 } as const;
+
+/** The line the server goes by, in the structured data as in the opening of the page. */
+export const SLOGAN = 'O rei está morto. A coroa de Kuttenberg espera um nome.';
 
 /** What a search engine may do with the page: index it, follow its links, and show a snippet of any length and the large picture. */
 const ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
@@ -103,6 +106,7 @@ export class Seo {
         alternateName: ALTERNATE_NAMES,
         description: this.site.description,
         serviceType: `Servidor de roleplay (RP) de ${this.site.game}`,
+        slogan: SLOGAN,
         keywords,
         inLanguage: this.site.locale,
         areaServed: { '@type': 'Country', name: 'Brasil' },
@@ -117,6 +121,7 @@ export class Seo {
         ...(url && { '@id': organization, url: `${url}/`, logo: `${url}/apple-touch-icon.png` }),
         name: this.site.name,
         alternateName: ALTERNATE_NAMES,
+        slogan: SLOGAN,
         sameAs: [this.site.discord],
       },
     ];

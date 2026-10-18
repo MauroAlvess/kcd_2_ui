@@ -37,9 +37,9 @@ export const TREE_ROWS: readonly TreeRow[] = [
 ];
 
 export const FAMILY_POINTS: readonly string[] = [
-  'Casas, terras e feudos para chamar de seus',
-  'Uma árvore genealógica por gerações: esposa, filhos, netos, até um bastardo ou um filho adotado',
-  'Um sobrenome que o reino vai lembrar',
+  'Casas, terras e quartos de castelo para a sua linhagem',
+  'Uma árvore por gerações: esposa, filhos e netos, até um bastardo ou um filho adotado',
+  'Um sobrenome que o reino vai lembrar, ou temer',
 ];
 
 /** What the tree says about children, under it. */

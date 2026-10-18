@@ -8,6 +8,9 @@ describe('App', () => {
   let root: HTMLElement;
 
   beforeEach(async () => {
+    // The test's browser cannot play the opening's video: it is only asked to.
+    vi.spyOn(HTMLMediaElement.prototype, 'play').mockImplementation(async () => undefined);
+    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
     // The numbers come from the network: a test never asks for them.
     await TestBed.configureTestingModule({
       imports: [App],
@@ -19,6 +22,8 @@ describe('App', () => {
     root = fixture.nativeElement;
     await fixture.whenStable();
   });
+
+  afterEach(() => vi.restoreAllMocks());
 
   it('has one h1, the name of the server, and it is the first heading', () => {
     const h1 = root.querySelectorAll('h1');
@@ -34,22 +39,35 @@ describe('App', () => {
     }
   });
 
-  it('reads as the hero and five sections in the order the navigation lists them', () => {
+  it('reads as the opening, the seven chapters in the order the navigation lists them, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
+      'reino',
+      'faccoes',
       'guildas',
       'familia',
-      'faccoes',
       'hierarquia',
       'lore',
+      'regras',
       'entrar',
     ]);
+    expect(ids.slice(1, -1).map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
+  });
+
+  it('numbers its chapters in Roman numerals, in order, for the eye only', () => {
+    const numerals = Array.from(root.querySelectorAll('main .numeral'), (mark) =>
+      mark.textContent?.trim(),
+    );
+    expect(numerals.slice(0, 8)).toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
+    for (const mark of Array.from(root.querySelectorAll('.heading .numeral'))) {
+      expect(mark.getAttribute('aria-hidden')).toBe('true');
+    }
   });
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(7);
+    expect(sections).toHaveLength(9);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -104,11 +122,19 @@ describe('App', () => {
     expect(root.textContent ?? '').not.toContain('Baixar launcher');
   });
 
-  it('shows the two houses by their crests alone, with no battle picture between them', () => {
+  it('shows the two knights of the factions over the two houses, each with its crest', () => {
     const factions = root.querySelector('#faccoes') as HTMLElement;
-    expect(factions.querySelectorAll('img')).toHaveLength(2);
-    expect(factions.querySelector('.duel')).toBeNull();
+    const knights = factions.querySelector<HTMLImageElement>('.duel img.knights');
+    expect(knights?.getAttribute('alt')).toContain('Leão');
+    expect(knights?.getAttribute('alt')).toContain('Corvo');
     expect(factions.querySelectorAll('app-house-card')).toHaveLength(2);
+    expect(factions.querySelectorAll('app-house-card img.crest')).toHaveLength(2);
+  });
+
+  it('leads from the opening down to the realm, outside the one action it offers', () => {
+    const cue = root.querySelector<HTMLAnchorElement>('#inicio a.cue');
+    expect(cue?.getAttribute('href')).toBe('#reino');
+    expect(cue?.closest('.actions')).toBeNull();
   });
 
   it('has a way past the menu for a keyboard, as the first thing to land on', () => {

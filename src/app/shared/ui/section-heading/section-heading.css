@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: clamp(2.75rem, 5vw, 4rem);
+  margin-bottom: clamp(3rem, 5.5vw, 4.5rem);
   text-align: center;
 }
 
@@ -17,31 +17,80 @@
 }
 
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
   font: 600 0.7rem/1.2 var(--display);
-  letter-spacing: 0.4em;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
+/* The chapter's number in a small diamond frame, like a seal. */
+.numeral {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.35rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  border: 1px solid currentColor;
+  outline: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  outline-offset: 2px;
+}
+
+/* Two short lines, like a title on a banner; a long title sets --heading-measure so it keeps to two as well. */
 h2 {
-  margin-top: 0.9rem;
-  font: 600 clamp(1.6rem, 3.4vw, 2.5rem) / 1.18 var(--display);
-  letter-spacing: 0.12em;
+  max-width: var(--heading-measure, 22ch);
+  margin-top: 1rem;
+  font: 600 clamp(1.9rem, 4.4vw, 3.25rem) / 1.12 var(--display);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-wrap: balance;
   overflow-wrap: anywhere;
 }
 
-.bar {
-  width: 2.25rem;
-  height: 2px;
-  margin: 1.4rem 0 1.3rem;
-  background: var(--bar, var(--red));
+/* A line, a diamond and a line, in the band's red: where a title would get a flourish in a manuscript. */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.35rem 0 1.25rem;
+  color: var(--bar, var(--red));
+}
+
+.ornament i {
+  display: block;
+  width: 2.6rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.heading:not(.start) .ornament i:first-child {
+  background: linear-gradient(to left, currentColor, transparent);
+}
+
+.ornament i:last-child {
+  background: linear-gradient(to right, currentColor, transparent);
+}
+
+.ornament b {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.heading.start .ornament i:first-child {
+  display: none;
 }
 
 .lead {
-  max-width: 36rem;
-  font-size: 1.2rem;
+  max-width: 38rem;
+  font: italic clamp(1.2rem, 1.9vw, 1.42rem) / 1.5 var(--body);
   color: var(--fg-muted);
+  text-wrap: pretty;
 }
 
 .lead:empty {

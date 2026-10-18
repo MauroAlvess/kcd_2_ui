@@ -3,14 +3,18 @@ import type { Step } from '../shared/ui/steps/steps';
 /** What a newcomer does, in order. The server's whitelist is filled in on Discord. */
 export const JOIN_STEPS: readonly Step[] = [
   {
-    numeral: '1',
+    numeral: 'I',
     title: 'Entre no Discord',
-    text: 'É lá que a comunidade vive e que o servidor se organiza.',
+    text: 'É lá que a comunidade vive, que os anúncios saem e que as alianças começam.',
   },
-  { numeral: '2', title: 'Preencha a whitelist', text: 'O acesso ao servidor é por whitelist.' },
   {
-    numeral: '3',
-    title: 'Faça o seu personagem',
-    text: 'Escolha uma guilda, jure lealdade a uma facção e comece como plebeu.',
+    numeral: 'II',
+    title: 'Faça a whitelist',
+    text: 'O reino só abre os portões para quem passa pela whitelist.',
+  },
+  {
+    numeral: 'III',
+    title: 'Nasça plebeu',
+    text: 'Crie o seu personagem, escolha uma guilda, jure lealdade a uma facção e comece a subir.',
   },
 ];

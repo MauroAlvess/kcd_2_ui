@@ -1,13 +1,35 @@
-<app-section anchor="faccoes" tone="light" labelledBy="faccoes-title">
-  <app-section-heading eyebrow="Facções" heading="Escolha um lado" titleId="faccoes-title">
-    Jure lealdade ao Leão ou ao Corvo.
+<app-section anchor="faccoes" tone="dark" labelledBy="faccoes-title">
+  <div class="field" backdrop aria-hidden="true"></div>
+
+  <app-section-heading
+    numeral="II"
+    eyebrow="Facções"
+    heading="Leão ou Corvo?"
+    titleId="faccoes-title"
+  >
+    Duas facções disputam o futuro do reino. Você vai jurar lealdade a uma delas, e viver com a
+    escolha.
   </app-section-heading>
+
+  <figure class="duel reveal">
+    <img
+      class="knights"
+      src="img/knights-1280.webp"
+      srcset="img/knights-640.webp 640w, img/knights-1280.webp 1280w"
+      sizes="(min-width: 56rem) 46rem, 94vw"
+      width="1280"
+      height="853"
+      alt="Dois cavaleiros bordados, de costas um para o outro: à esquerda o do Leão, de vermelho, com o estandarte do leão dourado; à direita o do Corvo, de azul e dourado, sob os estandartes do corvo"
+      loading="lazy"
+      decoding="async"
+    />
+  </figure>
 
   <div class="houses">
     @for (house of houses; track house.id; let last = $last) {
       <app-house-card class="reveal" [house]="house" />
       @if (!last) {
-        <span class="versus" aria-hidden="true">×</span>
+        <span class="versus" aria-hidden="true">ou</span>
       }
     }
   </div>
