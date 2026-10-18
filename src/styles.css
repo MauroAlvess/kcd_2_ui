@@ -87,11 +87,6 @@ a {
   color: var(--paper);
 }
 
-/* A picture shown large (shared/ui/lightbox) leaves the page behind it where it is. */
-html:has(dialog.lightbox[open]) {
-  overflow: hidden;
-}
-
 /* Text for screen readers only. */
 .sr-only {
   position: absolute;

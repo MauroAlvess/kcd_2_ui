@@ -47,7 +47,7 @@
     );
 }
 
-/* The words, and the trailer: one under the other on a narrow screen, side by side on a wide one. */
+/* The words, centred. */
 .content {
   display: grid;
   justify-items: center;
@@ -109,23 +109,6 @@ h1 {
 
 .live {
   margin-top: 1.4rem;
-}
-
-@media (min-width: 70rem) {
-  .content {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
-    gap: clamp(2.5rem, 5vw, 5rem);
-    align-items: center;
-  }
-
-  .copy {
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .actions {
-    justify-content: flex-start;
-  }
 }
 
 @keyframes arrive {

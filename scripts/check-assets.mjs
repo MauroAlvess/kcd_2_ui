@@ -14,7 +14,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const pictures = readdirSync(join(root, 'public', 'img'));
-const videos = readdirSync(join(root, 'public', 'video'));
+const videoDir = join(root, 'public', 'video');
+const videos = existsSync(videoDir) ? readdirSync(videoDir) : [];
 
 /** Every file under `dir` whose name ends with one of `extensions`, specs left out. */
 function walk(dir, extensions) {

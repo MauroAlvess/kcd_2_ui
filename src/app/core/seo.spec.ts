@@ -178,28 +178,6 @@ describe('Seo', () => {
     expect(page?.['about']).toEqual({ '@id': server?.['@id'] });
   });
 
-  it('describes the trailer as a video, with its picture on the site and its own address on YouTube', () => {
-    const { seo, graph } = setup(WITH_ADDRESS);
-    seo.apply();
-
-    const nodes = graph()['@graph'] as Array<Record<string, any>>;
-    const video = nodes.find((node) => node['@type'] === 'VideoObject');
-    expect(video?.['thumbnailUrl']).toBe('https://kcd2rp.example/img/trailer-1280.webp');
-    expect(video?.['contentUrl']).toBe('https://www.youtube.com/watch?v=Z5xjWIUd6Uo');
-    expect(video?.['embedUrl']).toBe('https://www.youtube.com/embed/Z5xjWIUd6Uo');
-    expect([video?.['uploadDate'], video?.['duration']]).toEqual(['2026-10-16', 'PT3M5S']);
-    expect(video?.['publisher']).toEqual({ '@id': 'https://kcd2rp.example/#organization' });
-
-    TestBed.resetTestingModule();
-    const bare = setup(NO_ADDRESS);
-    bare.seo.apply();
-    expect(
-      (bare.graph()['@graph'] as Array<Record<string, any>>).some(
-        (node) => node['@type'] === 'VideoObject',
-      ),
-    ).toBe(false);
-  });
-
   it('gives the server, the group and the site one name, so a search engine shows that name for the site', () => {
     const { seo, graph } = setup(WITH_ADDRESS);
     seo.apply();

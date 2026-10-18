@@ -9,7 +9,6 @@ import { Hierarchy } from './sections/hierarchy/hierarchy';
 import { Hero } from './sections/hero/hero';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
-import { Media } from './sections/media/media';
 
 /**
  * The whole site is one page: a header, seven sections in the order a visitor reads them, and a footer. Each section is a
@@ -17,7 +16,7 @@ import { Media } from './sections/media/media';
  */
 @Component({
   selector: 'app-root',
-  imports: [Header, Hero, Guilds, Family, Factions, Hierarchy, Lore, Media, Join, Footer],
+  imports: [Header, Hero, Guilds, Family, Factions, Hierarchy, Lore, Join, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

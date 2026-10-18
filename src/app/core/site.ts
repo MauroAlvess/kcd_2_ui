@@ -57,7 +57,6 @@ export const NAV: readonly NavItem[] = [
   { label: 'Facções', href: '#faccoes' },
   { label: 'Hierarquia', href: '#hierarquia' },
   { label: 'História', href: '#lore' },
-  { label: 'Mídias', href: '#midias' },
 ];
 
 /**
