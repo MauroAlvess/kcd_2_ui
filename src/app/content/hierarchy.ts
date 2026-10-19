@@ -213,10 +213,6 @@ export const TIERS: readonly Tier[] = [
         text: 'Cobra a passagem em pontes, portões e estradas.',
       },
       {
-        name: 'Guarda dos portões',
-        text: 'Vigia as entradas da cidade e controla quem passa.',
-      },
-      {
         name: 'Capitão da milícia urbana',
         female: 'Capitã da milícia urbana',
         text: 'Comanda os cidadãos armados que defendem a cidade.',
@@ -235,6 +231,10 @@ export const TIERS: readonly Tier[] = [
         name: 'Administrador de hospedaria',
         female: 'Administradora de hospedaria',
         text: 'Tem a seu cargo uma hospedaria: os quartos, a cozinha e os criados.',
+      },
+      {
+        name: 'Guarda dos portões',
+        text: 'Vigia as entradas da cidade e controla quem passa. Responde ao capitão da milícia, ou ao capitão da guarda.',
       },
     ],
   },
