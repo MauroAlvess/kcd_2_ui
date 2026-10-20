@@ -1,6 +1,7 @@
 import { FAMILY_NOTE, FAMILY_POINTS, FAMILY_TREE, branchesOf } from './family';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
+import { GIFTS, HOLDINGS, SUPPORT_HOW } from './holdings';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
@@ -78,6 +79,38 @@ describe('content', () => {
     expect(points).toContain('bastardo');
     expect(FAMILY_NOTE.toLowerCase()).toContain('adotado');
     expect(FAMILY_NOTE.toLowerCase()).toContain('bastardo');
+  });
+
+  it('has four things a player can have, each with its crest, its size and its words, and four gifts for a supporter', () => {
+    expect(HOLDINGS.map((holding) => holding.id)).toEqual([
+      'terras',
+      'cavalos',
+      'carrocas',
+      'cachorros',
+    ]);
+    expect(unique(HOLDINGS.map((holding) => holding.crest))).toBe(true);
+    for (const holding of HOLDINGS) {
+      expect(holding.crest).toMatch(/^(?:prop|pet)-[a-z]+\.webp$/);
+      expect(holding.crestWidth).toBeGreaterThan(0);
+      expect(holding.crestHeight).toBeGreaterThan(0);
+      for (const text of [holding.title, holding.text, holding.crestAlt]) {
+        expect(filled(text)).toBe(true);
+      }
+    }
+    expect(GIFTS.map((gift) => gift.id)).toEqual(['cavalo', 'cachorro', 'arma', 'roupas']);
+    for (const gift of GIFTS) {
+      expect(filled(gift.title) && filled(gift.text)).toBe(true);
+    }
+  });
+
+  it('sends a supporter to the game and to the Discord, and carries no payment data', () => {
+    const everything = [
+      SUPPORT_HOW,
+      ...HOLDINGS.flatMap((holding) => [holding.title, holding.text]),
+      ...GIFTS.flatMap((gift) => [gift.title, gift.text]),
+    ].join(' ');
+    expect(SUPPORT_HOW).toContain('Discord');
+    expect(everything).not.toMatch(/\bpix\b|\bqr\b|R\$/i);
   });
 
   it('numbers the steps of the way in without repeating a number', () => {

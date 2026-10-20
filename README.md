@@ -73,7 +73,7 @@ src/app/
   shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo, título,
                         introdução), steps, rich (negrito da lore), server-badge (jogadores online)
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), ícones, site.webmanifest, og-image.jpg
+public/                 imagens (img/), ícones, site.webmanifest, og-image-2.jpg
 tools/                  scripts que preparam as imagens e o vídeo (abaixo)
 ```
 
@@ -88,7 +88,7 @@ As originais ficam na pasta `img` ao lado deste projeto (`../img`). Elas são gr
 
 ```
 python tools/make-images.py      # gera public/img/*.webp (e os ícones) a partir de ../img, nos tamanhos de uso
-python tools/make-og-image.py    # gera public/og-image.jpg, o cartão que aparece quando o link é colado no Discord
+python tools/make-og-image.py    # gera public/og-image-2.jpg, o cartão que aparece quando o link é colado no Discord
 ```
 
 Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou Chrome instalado.
@@ -135,7 +135,7 @@ nos lugares que um buscador lê primeiro:
   quem digita "2" e quem digita "II" acha a mesma página. `KEYWORDS` e `ALTERNATE_NAMES` (em `src/app/core/site.ts`) trazem as
   duas grafias; o Google ignora o `meta keywords`, mas outros buscadores ainda o leem.
 - `<html lang="pt-BR">`, um único `h1`, um `h2` por seção, texto alternativo em todas as imagens, `canonical` e `hreflang`.
-- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image.jpg` de 1200x630) e dados
+- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-2.jpg` de 1200x630) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
 - O lema do servidor (*"O rei está morto. A coroa de Kuttenberg espera um nome."*) como `slogan` do `GameServer` e da

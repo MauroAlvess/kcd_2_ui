@@ -36,7 +36,7 @@ describe('App', () => {
     }
   });
 
-  it('reads as the opening, the seven chapters in the order the navigation lists them, and the way in', () => {
+  it('reads as the opening, the chapters in the order the navigation lists them, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
@@ -45,11 +45,15 @@ describe('App', () => {
       'guildas',
       'familia',
       'hierarquia',
+      'posses',
+      'apoio',
       'lore',
       'regras',
       'entrar',
     ]);
-    expect(ids.slice(1, -1).map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
+    // "Apoio" is the second half of "Posses": a band of its own, with no link of its own.
+    const linked = ids.slice(1, -1).filter((id) => id !== 'apoio');
+    expect(linked.map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
   });
 
   it('keeps its chapter headings plain: a small label, the title, no numerals or ornaments', () => {
@@ -63,7 +67,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(9);
+    expect(sections).toHaveLength(11);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -135,6 +139,62 @@ describe('App', () => {
     expect(crest?.getAttribute('src')).toBe('img/lion-raven.webp');
     expect(crest?.getAttribute('alt')).toContain('Leão');
     expect(crest?.getAttribute('alt')).toContain('Corvo');
+  });
+
+  it('tells what a player can have, one row each with its crest, and what a supporter receives, in two bands', () => {
+    const have = root.querySelector('#posses') as HTMLElement;
+    expect(have.classList.contains('dark')).toBe(true);
+    expect(have.querySelector('h2')?.textContent).toBe('Tenha ou receba');
+    expect(Array.from(have.querySelectorAll('.item h3'), (title) => title.textContent)).toEqual([
+      'Terras, casas, fazendas e castelos',
+      'Cavalos',
+      'Carroças',
+      'Cachorros',
+    ]);
+    expect(
+      Array.from(have.querySelectorAll('.item img'), (image) => image.getAttribute('src')),
+    ).toEqual([
+      'img/prop-crest.webp',
+      'img/pet-cavalo.webp',
+      'img/pet-carroca.webp',
+      'img/pet-cachorro.webp',
+    ]);
+
+    const support = root.querySelector('#apoio') as HTMLElement;
+    expect(support.classList.contains('light')).toBe(true);
+    expect(support.textContent).toContain('totalmente free');
+    expect(Array.from(support.querySelectorAll('.gifts h3'), (gift) => gift.textContent)).toEqual([
+      'Um cavalo',
+      'Um cachorro',
+      'Uma arma',
+      'Roupas de nobre',
+    ]);
+    expect(support.querySelector('img.art')?.getAttribute('src')).toBe('img/apoiador.webp');
+    expect(support.querySelector(`a[href="${SITE.discord}"]`)?.getAttribute('target')).toBe(
+      '_blank',
+    );
+  });
+
+  it('alternates dark and light bands all the way down, so no two neighbours run into each other', () => {
+    const tones = Array.from(root.querySelectorAll('main section.section'), (section) =>
+      section.classList.contains('dark') ? 'dark' : 'light',
+    );
+    expect(tones.length).toBe(10);
+    for (let at = 1; at < tones.length; at++) {
+      expect(tones[at], `section ${at}`).not.toBe(tones[at - 1]);
+    }
+  });
+
+  it('keeps the payment out of the page: no Pix, no QR, no amount', () => {
+    const text = root.textContent ?? '';
+    expect(text).not.toMatch(/\bpix\b/i);
+    expect(text).not.toMatch(/\bqr\b/i);
+    expect(text).not.toMatch(/R\$\s*\d/);
+  });
+
+  it('puts a circle with a down arrow in the corner, pointing at the first chapter', () => {
+    const hint = root.querySelector<HTMLAnchorElement>('app-scroll-hint a.hint');
+    expect(hint?.getAttribute('href')).toBe('#reino');
   });
 
   it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {

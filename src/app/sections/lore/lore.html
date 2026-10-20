@@ -16,35 +16,55 @@
   </div>
 
   <div class="story">
-    @for (chapter of chapters; track chapter.id; let first = $first) {
-      <details class="chapter" [open]="first" name="lore">
-        <summary>
-          @if (chapter.year) {
-            <span class="year">{{ chapter.year }}</span>
-          }
-          <span class="chapter-title">{{ chapter.title }}</span>
-        </summary>
-        <div class="body">
-          @for (block of chapter.blocks; track $index) {
-            @switch (block.kind) {
-              @case ('lead') {
-                <p class="lead">{{ block.text }}</p>
+    <div class="chapters">
+      @for (chapter of chapters; track chapter.id) {
+        <div class="chapter" [class.open]="open() === chapter.id">
+          <h3>
+            <button
+              type="button"
+              class="head"
+              [id]="'lore-' + chapter.id"
+              [attr.aria-expanded]="open() === chapter.id"
+              [attr.aria-controls]="'lore-' + chapter.id + '-text'"
+              (click)="toggle(chapter.id)"
+            >
+              @if (chapter.year) {
+                <span class="year">{{ chapter.year }}</span>
               }
-              @case ('list') {
-                <ul>
-                  @for (item of block.items; track $index) {
-                    <li><app-rich [text]="item" /></li>
+              <span class="chapter-title">{{ chapter.title }}</span>
+              <span class="mark" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div
+            class="panel"
+            [id]="'lore-' + chapter.id + '-text'"
+            [attr.inert]="open() === chapter.id ? null : ''"
+          >
+            <div class="fold">
+              <div class="body">
+                @for (block of chapter.blocks; track $index) {
+                  @switch (block.kind) {
+                    @case ('lead') {
+                      <p class="lead">{{ block.text }}</p>
+                    }
+                    @case ('list') {
+                      <ul>
+                        @for (item of block.items; track $index) {
+                          <li><app-rich [text]="item" /></li>
+                        }
+                      </ul>
+                    }
+                    @default {
+                      <p><app-rich [text]="block.text" /></p>
+                    }
                   }
-                </ul>
-              }
-              @default {
-                <p><app-rich [text]="block.text" /></p>
-              }
-            }
-          }
+                }
+              </div>
+            </div>
+          </div>
         </div>
-      </details>
-    }
+      }
+    </div>
 
     <div class="ending">
       <p><app-rich [text]="ending.text" /></p>

@@ -61,6 +61,7 @@ export const NAV: readonly NavItem[] = [
   { label: 'Guildas', href: '#guildas' },
   { label: 'Família', href: '#familia' },
   { label: 'Hierarquia', href: '#hierarquia' },
+  { label: 'Posses', href: '#posses' },
   { label: 'História', href: '#lore' },
   { label: 'Regras', href: '#regras' },
 ];

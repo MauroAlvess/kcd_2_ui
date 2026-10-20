@@ -1,4 +1,4 @@
-"""Renders the card that chat apps and search results show for a link to the site: public/og-image.jpg.
+"""Renders the card that chat apps and search results show for a link to the site: public/og-image-2.jpg.
 
     python tools/make-og-image.py
 
@@ -18,7 +18,10 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "og-image.html"
-TARGET = HERE.parent / "public" / "og-image.jpg"
+# The card has a number in its name (og-image-2.jpg since 2026-10-20, the page of the new look): chat apps keep a link's picture by its
+# address for days, so a new picture needs a new address. Change the number here, in src/app/core/seo.ts, in
+# scripts/seo-files.mjs and in the specs when the card is redrawn.
+TARGET = HERE.parent / "public" / "og-image-2.jpg"
 
 BROWSERS = [
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
@@ -36,7 +39,7 @@ browser = next((path for path in BROWSERS if os.path.exists(path)), None)
 if browser is None:
     sys.exit("No Edge or Chrome found. Install one, or screenshot tools/og-image.html at 1200x630 yourself.")
 
-fonts = HERE.parent / "node_modules" / "@fontsource" / "cinzel"
+fonts = HERE.parent / "node_modules" / "@fontsource" / "eb-garamond"
 if not fonts.exists():
     sys.exit("The fonts are not installed: run `npm install` in the site folder first.")
 

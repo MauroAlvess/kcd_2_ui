@@ -111,8 +111,8 @@ describe('Seo', () => {
     seo.apply();
 
     expect(content('meta[property="og:url"]')).toBe('https://kcd2rp.example/');
-    expect(content('meta[property="og:image"]')).toBe('https://kcd2rp.example/og-image.jpg');
-    expect(content('meta[name="twitter:image"]')).toBe('https://kcd2rp.example/og-image.jpg');
+    expect(content('meta[property="og:image"]')).toBe('https://kcd2rp.example/og-image-2.jpg');
+    expect(content('meta[name="twitter:image"]')).toBe('https://kcd2rp.example/og-image-2.jpg');
     expect(content('meta[property="og:image:width"]')).toBe('1200');
     expect(content('meta[property="og:image:height"]')).toBe('630');
     expect(content('meta[property="og:image:type"]')).toBe('image/jpeg');
@@ -178,7 +178,7 @@ describe('Seo', () => {
     const group = nodes.find((node) => node['@type'] === 'Organization');
 
     expect(site?.['url']).toBe('https://kcd2rp.example/');
-    expect(page?.['primaryImageOfPage']).toBe('https://kcd2rp.example/og-image.jpg');
+    expect(page?.['primaryImageOfPage']).toBe('https://kcd2rp.example/og-image-2.jpg');
     expect(page?.['keywords']).toBe(KEYWORDS.join(', '));
     expect(group?.['logo']).toBe('https://kcd2rp.example/apple-touch-icon.png');
     expect(site?.['publisher']).toEqual({ '@id': group?.['@id'] });
@@ -234,7 +234,7 @@ describe('Seo', () => {
 
     expect(content('meta[property="og:url"]')).toBe('https://mauroalvess.github.io/kcd_2_ui/');
     expect(content('meta[property="og:image"]')).toBe(
-      'https://mauroalvess.github.io/kcd_2_ui/og-image.jpg',
+      'https://mauroalvess.github.io/kcd_2_ui/og-image-2.jpg',
     );
     expect(doc.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
       'https://mauroalvess.github.io/kcd_2_ui/',

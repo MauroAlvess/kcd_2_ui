@@ -1,0 +1,61 @@
+<app-section anchor="posses" tone="dark" labelledBy="posses-title">
+  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="posses-title">
+    {{ lead }}
+  </app-section-heading>
+
+  <ul class="have">
+    @for (holding of holdings; track holding.id) {
+      <li class="item">
+        <img
+          class="crest"
+          [src]="'img/' + holding.crest"
+          [attr.width]="holding.crestWidth"
+          [attr.height]="holding.crestHeight"
+          [alt]="holding.crestAlt"
+          loading="lazy"
+          decoding="async"
+        />
+        <h3>{{ holding.title }}</h3>
+        <p>{{ holding.text }}</p>
+      </li>
+    }
+  </ul>
+</app-section>
+
+<app-section anchor="apoio" tone="light" labelledBy="apoio-title">
+  <div class="support">
+    <div class="words">
+      <app-section-heading
+        [eyebrow]="supportEyebrow"
+        [heading]="supportTitle"
+        titleId="apoio-title"
+      >
+        {{ supportLead }}
+      </app-section-heading>
+
+      <ul class="gifts">
+        @for (gift of gifts; track gift.id) {
+          <li>
+            <h3>{{ gift.title }}</h3>
+            <p>{{ gift.text }}</p>
+          </li>
+        }
+      </ul>
+
+      <p class="how">{{ how }}</p>
+      <app-button [href]="site.discord" variant="ghost" external>
+        Falar com a administração
+      </app-button>
+    </div>
+
+    <img
+      class="art"
+      src="img/apoiador.webp"
+      width="900"
+      height="730"
+      [alt]="artAlt"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</app-section>

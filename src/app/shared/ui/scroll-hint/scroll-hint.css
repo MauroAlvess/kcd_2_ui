@@ -1,0 +1,57 @@
+/* Fixed in the bottom left corner, above the page and under the bar. */
+.hint {
+  position: fixed;
+  left: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 3vh, 2rem);
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--paper);
+  background: rgba(15, 13, 11, 0.5);
+  border: 1px solid rgba(236, 230, 218, 0.55);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition:
+    opacity 0.35s,
+    transform 0.35s,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.hint:hover,
+.hint:focus-visible {
+  background: rgba(15, 13, 11, 0.8);
+  border-color: var(--paper);
+}
+
+.hint svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+
+/* The arrow lets itself down and up, slowly, so the corner is not a still thing. */
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(-0.14rem);
+  }
+
+  50% {
+    transform: translateY(0.18rem);
+  }
+}
+
+/* Scrolled: it fades and sinks, and stops being a thing to press or to land on. */
+.hint.gone {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.6rem);
+  pointer-events: none;
+  transition:
+    opacity 0.35s,
+    transform 0.35s,
+    visibility 0s 0.35s;
+}

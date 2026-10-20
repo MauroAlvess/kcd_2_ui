@@ -3,13 +3,16 @@ import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
-/** The picture chat apps and search results show for a link to the site (public/og-image.jpg, tools/make-og-image.py). */
+/**
+ * The picture chat apps and search results show for a link to the site (public/og-image-2.jpg, tools/make-og-image.py). Chat apps
+ * keep a link's picture by its address for days, so the redrawn card of 2026-10-20 has a new name: the number goes up with the card.
+ */
 const SOCIAL_IMAGE = {
-  path: '/og-image.jpg',
+  path: '/og-image-2.jpg',
   width: 1200,
   height: 630,
   type: 'image/jpeg',
-  alt: 'Kuttenberg no alto do morro, entre fumaça e névoa, com o emblema dourado do Kingdom RP BRASIL e os dizeres: Kingdom Come: Deliverance II, RP Brasil, o rei está morto, a coroa de Kuttenberg espera um nome',
+  alt: 'Uma torre de pedra e madeira sobre um rochedo, olhando o vale, com o nome Kingdom RP Brasil e os dizeres: Kingdom Come: Deliverance II, RP Brasil, o rei está morto, a coroa de Kuttenberg espera um nome',
 } as const;
 
 /** The line the server goes by, in the structured data as in the opening of the page. */

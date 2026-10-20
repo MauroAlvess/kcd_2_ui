@@ -34,11 +34,18 @@
 
 html {
   background: var(--black);
+  /* The page still scrolls with the wheel, the keys and a finger; its bar is not drawn (2026-10-20: "o scroll do site vamos
+     retirar"). A circle with an arrow in the corner (shared/ui/scroll-hint) tells a visitor at the top that there is more. */
+  scrollbar-width: none;
   scroll-behavior: smooth;
   /* An anchor lands below the fixed header instead of under it. */
   scroll-padding-top: calc(var(--header-h) + 0.5rem);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {

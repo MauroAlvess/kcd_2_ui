@@ -69,6 +69,13 @@ CRESTS = [
     # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (2026-10-20: "uma árvore vertical completa"): about
     # 20rem wide, 560 px, cleaned of its specks.
     ("hierarchy-tree", "arvore hierarquica.png", 560, 56),
+    # What a player can have, and what a supporter is given (2026-10-20: the "Tenha ou receba" section): the castle with its keys, the
+    # horse, the horse with its cart, the dog, and the noble with his hand cannon, his horse and his dog.
+    ("prop-crest", "brasão propriedades e chaves.png", 360, 76),
+    ("pet-cavalo", "brasão cavalo.png", 250, 76),
+    ("pet-carroca", "brasão cavalo e carroça.png", 480, 76),
+    ("pet-cachorro", "brasão cachorro.png", 250, 76),
+    ("apoiador", "apoiador.png", 900, 70),
     # The in-game panel's frame corners, the lion's and the raven's, on the frame of the opening.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
@@ -173,13 +180,16 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
-TRIMMED = {"hierarchy-tree", "lion-raven", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol"}
+TRIMMED = {
+    "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol",
+    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador",
+}
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png"}
+SPECKLED = {"brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}
