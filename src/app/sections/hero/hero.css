@@ -2,66 +2,58 @@
   display: block;
 }
 
-/* The game's view of Kuttenberg in a frame of the video's own shape (16:9) and of a modest size, under the bar and centred on the black
-   of the page (user, 2026-10-20: "a abertura está muito grande, não precisa pegar a tela toda porque distorce o vídeo"): the
-   picture is shown whole, never cropped or stretched, and the window is not filled by it. The words may make the frame taller,
-   never shorter. */
-:host {
-  background: var(--black);
-}
-
+/* The picture across the whole window, the words at the foot on the left. */
 .hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: flex-end;
-  width: min(100% - 2 * var(--gutter), 64rem);
-  aspect-ratio: 16 / 9;
-  margin: var(--header-h) auto clamp(2rem, 5vw, 3.5rem);
-  padding: 2rem clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.25rem);
+  min-height: max(100svh, 38rem);
+  padding: calc(var(--header-h) + 3rem) var(--gutter) clamp(4rem, 12vh, 7rem);
   overflow: clip;
   color: var(--paper);
   background: var(--black);
 }
 
-/* The still and the video over it: the same frame, so the video fading in changes nothing but the smoke starting to move. */
 .media {
   position: absolute;
   inset: 0;
   z-index: -1;
 }
 
-.still,
-.video {
+.still {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 40%;
+  object-position: 68% 40%;
 }
 
-.video {
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-.video.playing {
-  opacity: 1;
-}
-
-/* Darker where the words are: the left and the foot. */
+/* Darker where the words are (the picture is a bright day): the left, the foot and the top where the bar is. */
 .media::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, rgba(15, 13, 11, 0.78), rgba(15, 13, 11, 0.2) 70%),
-    linear-gradient(to bottom, rgba(15, 13, 11, 0.35), transparent 30%, rgba(15, 13, 11, 0.6));
+    linear-gradient(
+      to right,
+      rgba(15, 13, 11, 0.86),
+      rgba(15, 13, 11, 0.45) 55%,
+      rgba(15, 13, 11, 0.1)
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(15, 13, 11, 0.55),
+      transparent 22%,
+      transparent 55%,
+      rgba(15, 13, 11, 0.78)
+    );
 }
 
 .content {
-  width: 100%;
+  width: min(100%, var(--maxw));
+  margin-inline: auto;
 }
 
 h1 {
@@ -71,29 +63,29 @@ h1 {
 
 .game {
   font: 500 0.95rem/1.3 var(--sans);
-  color: rgba(236, 230, 218, 0.78);
+  color: rgba(236, 230, 218, 0.82);
 }
 
 .name {
   margin-top: 0.4rem;
-  font: 400 clamp(3rem, 8vw, 6rem) / 1 var(--body);
+  font: 400 clamp(3.2rem, 9vw, 6.4rem) / 1 var(--body);
   letter-spacing: -0.015em;
 }
 
 .claim {
   max-width: 30ch;
-  margin-top: 1.1rem;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  margin-top: 1.25rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   line-height: 1.3;
   text-wrap: balance;
 }
 
 .tagline {
   max-width: 34rem;
-  margin-top: 0.8rem;
+  margin-top: 0.9rem;
   font-size: clamp(1.05rem, 1.5vw, 1.2rem);
   line-height: 1.55;
-  color: rgba(236, 230, 218, 0.78);
+  color: rgba(236, 230, 218, 0.84);
   text-wrap: pretty;
 }
 
@@ -101,41 +93,9 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  margin-top: 1.8rem;
+  margin-top: 2rem;
 }
 
 .live {
   margin-top: 1rem;
-}
-
-/* A narrow screen: the video keeps its own shape as a band across the top, and the words stand under it on black. */
-@media (max-width: 64rem) {
-  .hero {
-    display: block;
-    width: 100%;
-    aspect-ratio: auto;
-    margin: 0;
-    padding: 0;
-  }
-
-  .media {
-    position: relative;
-    inset: auto;
-    z-index: 0;
-    aspect-ratio: 16 / 9;
-  }
-
-  .media::after {
-    background: linear-gradient(
-      to bottom,
-      rgba(15, 13, 11, 0.55),
-      transparent 28%,
-      transparent 70%,
-      var(--black)
-    );
-  }
-
-  .content {
-    padding: 1.5rem var(--gutter) 3rem;
-  }
 }

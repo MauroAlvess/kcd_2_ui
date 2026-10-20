@@ -8,9 +8,6 @@ describe('App', () => {
   let root: HTMLElement;
 
   beforeEach(async () => {
-    // The test's browser cannot play the opening's video: it is only asked to.
-    vi.spyOn(HTMLMediaElement.prototype, 'play').mockImplementation(async () => undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
     // The numbers come from the network: a test never asks for them.
     await TestBed.configureTestingModule({
       imports: [App],

@@ -31,16 +31,14 @@ TARGET = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE.parent / "public" / "i
 TARGET.mkdir(parents=True, exist_ok=True)
 
 # output name, original file, widths (one file per width), quality
-# The opening's picture is not here: it is the first frame of the hero video (tools/make-hero-video.py).
 PHOTOS = [
     # The realm's map with no crest on it (the page puts the five houses' crests over it, as buttons):
     # "mapa puro.jpeg" is the same map as "mapa.png" three times larger, without the crests.
     ("map", "mapa puro.jpeg", (900, 1800), 62),
     # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
     ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
-    # The server's basic rules, the whole embroidered poster (2026-10-20: "na seção de regras coloque a imagem"): beside the rules,
-    # the larger one opened from it.
-    ("rules", "Regras Básicas de RP Medieval.png", (640, 1024), 62),
+    # The opening's picture (2026-10-20: the video was dropped; "background hud H" takes its place, the whole window again).
+    ("hero", "background hud H.jpg", (960, 1920), 76),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -48,6 +46,9 @@ PHOTOS = [
 # The knights' duel (banner.png, one of the checkerboard ones) is not on the page any more; this line brings it back:
 #     ("duelo", "banner.png", (700, 1400), 72, 70, True),
 CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
+    # The server's basic rules, the whole embroidered poster (2026-10-20: "na seção de regras coloque a imagem"), beside the rules, the
+    # larger one opened from it. It is a PNG with no background: its transparency is kept.
+    ("rules", "Regras Básicas de RP Medieval.png", (640, 1024), 62, 60, False),
     # The two embroidered knights, the Lion's and the Raven's, back to back (hero.png, 2026-10-17): the Facções section.
     ("knights", "hero.png", (640, 1280), 74, 72, False),
 ]

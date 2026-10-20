@@ -73,7 +73,7 @@ src/app/
   shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo, título,
                         introdução), steps, rich (negrito da lore), server-badge (jogadores online)
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), vídeo do topo (video/), ícones, site.webmanifest, og-image.jpg
+public/                 imagens (img/), ícones, site.webmanifest, og-image.jpg
 tools/                  scripts que preparam as imagens e o vídeo (abaixo)
 ```
 
@@ -88,12 +88,10 @@ As originais ficam na pasta `img` ao lado deste projeto (`../img`). Elas são gr
 
 ```
 python tools/make-images.py      # gera public/img/*.webp (e os ícones) a partir de ../img, nos tamanhos de uso
-python tools/make-hero-video.py  # gera o vídeo do topo (public/video/) e o quadro parado dele (public/img/hero-poster-*)
 python tools/make-og-image.py    # gera public/og-image.jpg, o cartão que aparece quando o link é colado no Discord
 ```
 
-Precisam de Python com Pillow (`pip install pillow`); o do vídeo também do ffmpeg (as instruções estão no começo do
-script) e o do cartão, de Edge ou Chrome instalado.
+Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou Chrome instalado.
 
 - **O vídeo do topo** sai de `Main Menu Kutnohorsko.mp4` (4K, 51 MB): 1080p e 720p, cada um em WebM (VP9) e MP4 (H.264),
   sem som, 24 quadros, com o último segundo fundido no primeiro para o laço não dar pulo (uns 7 MB os quatro). A página

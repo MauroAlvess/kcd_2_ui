@@ -2,31 +2,14 @@
   <div class="media" aria-hidden="true">
     <img
       class="still"
-      src="img/hero-poster-1920.webp"
-      srcset="img/hero-poster-960.webp 960w, img/hero-poster-1920.webp 1920w"
-      sizes="(min-width: 64rem) 64rem, 100vw"
+      src="img/hero-1920.webp"
+      srcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w"
+      sizes="100vw"
       width="1920"
       height="1080"
       fetchpriority="high"
       alt=""
     />
-    <video
-      #video
-      class="video"
-      [class.playing]="playing()"
-      muted
-      loop
-      playsinline
-      preload="none"
-      disablepictureinpicture
-      disableremoteplayback
-      tabindex="-1"
-    >
-      <source src="video/hero-720.webm" type="video/webm" media="(max-width: 64rem)" />
-      <source src="video/hero-720.mp4" type="video/mp4" media="(max-width: 64rem)" />
-      <source src="video/hero-1080.webm" type="video/webm" />
-      <source src="video/hero-1080.mp4" type="video/mp4" />
-    </video>
   </div>
 
   <div class="content">

@@ -15,6 +15,16 @@
   margin: 0;
 }
 
+/* A thin line round the map, a little way off it, the corners of the frame lying over its ends (user, 2026-10-20: "a borda em linha
+   também em volta do mapa"). */
+.map::before {
+  content: '';
+  position: absolute;
+  inset: clamp(-0.9rem, -1.4vw, -0.55rem);
+  border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  pointer-events: none;
+}
+
 .terrain {
   width: 100%;
   height: auto;
