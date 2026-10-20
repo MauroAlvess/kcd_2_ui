@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { TIERS } from '../../content/hierarchy';
+import { TIERS, TREE_LEVELS } from '../../content/hierarchy';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
 /**
- * The order of the realm, from the Rei down to the commoners: every tier with the titles it holds, and the tree that draws
- * it. The sentence of each title is its tooltip, so the page stays light. The same catalog as the in-game panel's Nomeação
- * section.
+ * The order of the realm as a whole tree, from the Rei at the top to the people at the roots (the embroidered picture), each
+ * row named beside it with examples of who stands there; and, folded under it, every title one by one, with the sentence of each
+ * as its tooltip. The same catalog as the in-game panel's Nomeação section.
  */
 @Component({
   selector: 'app-hierarchy',
@@ -16,4 +16,5 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
 })
 export class Hierarchy {
   protected readonly tiers = TIERS;
+  protected readonly levels = TREE_LEVELS;
 }

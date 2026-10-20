@@ -5,6 +5,7 @@ moldura, sem ornamento e sem brilho (2026-10-20: "muita cara de IA, menos enfeit
 rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com o vídeo do menu do jogo, Kuttenberg no alto do
 morro com a fumaça subindo, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
 família, a hierarquia, a lore, as regras e como entrar.
+Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
 

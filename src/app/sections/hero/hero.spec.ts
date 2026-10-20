@@ -87,12 +87,15 @@ describe('Hero', () => {
     expect(still.getAttribute('loading')).toBeNull();
   });
 
-  it('says the story in one line and offers the Discord as its one action', async () => {
+  it('says the story in one line and offers two things: the Discord, and the launcher to download', async () => {
     const root = await render(true);
     expect(root.querySelector('.claim')?.textContent).toContain('A coroa de Kuttenberg');
     const actions = root.querySelectorAll<HTMLAnchorElement>('.actions a');
-    expect(actions).toHaveLength(1);
+    expect(actions).toHaveLength(2);
     expect(actions[0].getAttribute('href')).toBe(SITE.discord);
+    expect(actions[1].getAttribute('href')).toBe(SITE.launcher);
+    expect(actions[1].textContent).toContain('Baixar launcher');
+    expect(actions[1].getAttribute('target')).toBeNull();
   });
 
   it('moves only for a browser that neither asks for less motion nor saves data', () => {

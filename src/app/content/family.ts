@@ -4,37 +4,56 @@ export interface TreeNode {
   readonly you?: boolean;
 }
 
-export interface TreeRow {
+/** One branch of the tree: a person or a couple, and the branches that come down from them. */
+export interface TreeBranch {
   readonly id: string;
-  readonly label: string;
-  readonly nodes: readonly TreeNode[];
+  readonly people: readonly TreeNode[];
+  readonly children?: readonly TreeBranch[];
 }
 
-/** The generations of the family tree, top to bottom, as the server's own tree lays them out. */
-export const TREE_ROWS: readonly TreeRow[] = [
-  { id: 'avos', label: 'Avós', nodes: [{ label: 'Avô' }, { label: 'Avó' }] },
-  {
-    id: 'pais',
-    label: 'Pais e tios',
-    nodes: [{ label: 'Pai' }, { label: 'Mãe' }, { label: 'Tios' }],
-  },
-  {
-    id: 'geracao',
-    label: 'Sua geração',
-    nodes: [
-      { label: 'Irmãos' },
-      { label: 'Você', you: true },
-      { label: 'Esposa' },
-      { label: 'Primos' },
-    ],
-  },
-  {
-    id: 'filhos',
-    label: 'Filhos e sobrinhos',
-    nodes: [{ label: 'Filhos' }, { label: 'Sobrinhos' }],
-  },
-  { id: 'netos', label: 'Netos', nodes: [{ label: 'Netos' }] },
-];
+/**
+ * The family tree drawn as a tree (2026-10-20: "melhorar a seção família melhorando a árvore"): the grandparents at the top, the
+ * parents (and the uncles, who are the parents' siblings) below them, then the player with their spouse and their siblings, their
+ * children and nephews, and the grandchildren, each generation joined to the one before by a line.
+ */
+export const FAMILY_TREE: TreeBranch = {
+  id: 'avos',
+  people: [{ label: 'Avô' }, { label: 'Avó' }],
+  children: [
+    {
+      id: 'pais',
+      people: [{ label: 'Pai' }, { label: 'Mãe' }],
+      children: [
+        {
+          id: 'irmaos',
+          people: [{ label: 'Irmãos' }],
+          children: [{ id: 'sobrinhos', people: [{ label: 'Sobrinhos' }] }],
+        },
+        {
+          id: 'voce',
+          people: [{ label: 'Você', you: true }, { label: 'Esposa' }],
+          children: [
+            {
+              id: 'filhos',
+              people: [{ label: 'Filhos' }],
+              children: [{ id: 'netos', people: [{ label: 'Netos' }] }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'tios',
+      people: [{ label: 'Tios' }],
+      children: [{ id: 'primos', people: [{ label: 'Primos' }] }],
+    },
+  ],
+};
+
+/** Every branch of the tree, top to bottom and left to right. */
+export function branchesOf(branch: TreeBranch): TreeBranch[] {
+  return [branch, ...(branch.children ?? []).flatMap((child) => branchesOf(child))];
+}
 
 export const FAMILY_POINTS: readonly string[] = [
   'Casas, terras e quartos de castelo para a sua linhagem',

@@ -9,6 +9,8 @@ export interface SiteConfig {
   /** The public address without a trailing slash. Empty until the domain is known: canonical and social-card links wait for it. */
   readonly url: string;
   readonly discord: string;
+  /** The launcher's download: the latest release of the game's mod, whatever its version (the address answers with the file). */
+  readonly launcher: string;
   readonly locale: string;
   /**
    * Where the players online are read from: the public master list the game's server browser uses, and the id of this
@@ -31,6 +33,7 @@ export const SITE: SiteConfig = {
   description: config.description,
   url: config.url.replace(/\/+$/, ''),
   discord: config.discord,
+  launcher: config.launcher,
   locale: config.locale,
   listing: { url: config.listing.url.trim(), id: config.listing.id.trim() },
   verification: {

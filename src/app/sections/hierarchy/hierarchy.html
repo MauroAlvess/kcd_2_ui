@@ -3,21 +3,46 @@
     Todo mundo começa plebeu. Um título muda tudo, e quem o dá responde por quem o recebe.
   </app-section-heading>
 
-  <ol class="tiers">
-    @for (tier of tiers; track tier.id) {
-      <li class="tier">
-        <h3>{{ tier.name }}</h3>
-        <ul class="titles">
-          @for (title of tier.titles; track title.name) {
-            <li [attr.title]="title.text">
-              <span>{{ title.name }}</span>
-              @if (title.female) {
-                <span class="female"> / {{ title.female }}</span>
-              }
-            </li>
-          }
-        </ul>
-      </li>
-    }
-  </ol>
+  <div class="order">
+    <figure class="tree">
+      <img
+        src="img/hierarchy-tree.webp"
+        width="560"
+        height="1371"
+        alt="A árvore da hierarquia do reino, bordada: no alto o brasão do Rei, abaixo as casas, os senhores, os oficiais, a Igreja e as guildas, até as raízes"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+
+    <ol class="levels">
+      @for (level of levels; track level.id) {
+        <li class="level" [style.--at]="level.at">
+          <h3>{{ level.name }}</h3>
+          <p>{{ level.example }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+
+  <details class="all">
+    <summary>Todos os títulos, um a um</summary>
+    <ol class="tiers">
+      @for (tier of tiers; track tier.id) {
+        <li class="tier">
+          <h3>{{ tier.name }}</h3>
+          <ul class="titles">
+            @for (title of tier.titles; track title.name) {
+              <li [attr.title]="title.text">
+                <span>{{ title.name }}</span>
+                @if (title.female) {
+                  <span class="female"> / {{ title.female }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </li>
+      }
+    </ol>
+  </details>
 </app-section>

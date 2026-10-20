@@ -8,6 +8,43 @@ export interface Title {
   readonly text: string;
 }
 
+/**
+ * A level of the embroidered tree, drawn beside the picture where the picture has it (2026-10-20: "uma árvore vertical completa
+ * com exemplo"): `at` is how far down the picture's height the row of crests lies, from 0 to 1.
+ */
+export interface TreeLevel {
+  readonly id: string;
+  readonly at: number;
+  readonly name: string;
+  /** Examples of who stands there, as the page writes them. */
+  readonly example: string;
+}
+
+export const TREE_LEVELS: readonly TreeLevel[] = [
+  { id: 'coroa', at: 0.13, name: 'A Coroa', example: 'Rei · Rainha' },
+  { id: 'casas', at: 0.32, name: 'As duas casas', example: 'Casa do Leão Dourado · Casa do Corvo' },
+  { id: 'alta', at: 0.47, name: 'Alta nobreza', example: 'Príncipe · Marquês · Lorde' },
+  {
+    id: 'oficiais',
+    at: 0.6,
+    name: 'Oficiais, Igreja e cidade',
+    example: 'Burgrave · Juiz senhorial · Bispo · Burgomestre',
+  },
+  {
+    id: 'mestres',
+    at: 0.71,
+    name: 'Mestres de guilda e de ofício',
+    example: 'Mestre de guilda · Mestre de ofício · Chefe de mercado',
+  },
+  {
+    id: 'oficios',
+    at: 0.81,
+    name: 'Os ofícios',
+    example: 'Ferreiro · Caçador · Taberneiro · Alquimista · Artesão',
+  },
+  { id: 'povo', at: 0.89, name: 'O povo', example: 'Plebeu: todo mundo começa aqui' },
+];
+
 export interface Tier {
   readonly id: string;
   readonly name: string;

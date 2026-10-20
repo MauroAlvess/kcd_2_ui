@@ -4,6 +4,8 @@ import { Component, input } from '@angular/core';
 export interface SectionImage {
   readonly src: string;
   readonly srcset: string;
+  /** Which part of the picture stays in view when the band is shaped differently (`object-position`). */
+  readonly position?: string;
 }
 
 /**

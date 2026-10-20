@@ -1,5 +1,5 @@
-import { FAMILY_NOTE, FAMILY_POINTS, TREE_ROWS } from './family';
-import { TIERS } from './hierarchy';
+import { FAMILY_NOTE, FAMILY_POINTS, FAMILY_TREE, branchesOf } from './family';
+import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
@@ -32,15 +32,44 @@ describe('content', () => {
     }
   });
 
-  it('puts the player once in the family tree, with their own row between the elders and the children', () => {
-    const rows = TREE_ROWS.map((row) => row.id);
-    expect(rows).toEqual(['avos', 'pais', 'geracao', 'filhos', 'netos']);
+  it('puts the player once in the family tree, below the elders and above the children', () => {
+    const branches = branchesOf(FAMILY_TREE);
+    expect(branches.map((branch) => branch.id)).toEqual([
+      'avos',
+      'pais',
+      'irmaos',
+      'sobrinhos',
+      'voce',
+      'filhos',
+      'netos',
+      'tios',
+      'primos',
+    ]);
 
-    const players = TREE_ROWS.flatMap((row) =>
-      row.nodes.filter((node) => node.you).map(() => row.id),
+    const players = branches.flatMap((branch) =>
+      branch.people.filter((person) => person.you).map(() => branch.id),
     );
-    expect(players).toEqual(['geracao']);
+    expect(players).toEqual(['voce']);
+    expect(FAMILY_TREE.people.map((person) => person.label)).toEqual(['Avô', 'Avó']);
     expect(FAMILY_POINTS.length).toBeGreaterThan(0);
+  });
+
+  it('lays the levels of the hierarchy tree top to bottom inside the picture, naming real titles as examples', () => {
+    const at = TREE_LEVELS.map((level) => level.at);
+    expect(at).toEqual([...at].sort((a, b) => a - b));
+    expect(at.every((one) => one > 0 && one < 1)).toBe(true);
+    expect(new Set(TREE_LEVELS.map((level) => level.id)).size).toBe(TREE_LEVELS.length);
+    const titles = new Set(
+      TIERS.flatMap((tier) =>
+        tier.titles.flatMap((title) => [title.name, title.female ?? title.name]),
+      ),
+    );
+    for (const id of ['coroa', 'alta', 'oficiais', 'mestres']) {
+      const level = TREE_LEVELS.find((one) => one.id === id)!;
+      for (const name of level.example.split(' · ')) {
+        expect(titles.has(name), `${id}: ${name}`).toBe(true);
+      }
+    }
   });
 
   it('says that a family can adopt, have bastards and record the dead', () => {

@@ -112,13 +112,12 @@ describe('App', () => {
     }
   });
 
-  it('offers one thing in the opening, the Discord, and keeps the launcher and the Discord button out of the bar', () => {
+  it('offers two things in the opening, the Discord and the launcher, and keeps both out of the bar', () => {
     const actions = Array.from(root.querySelectorAll<HTMLAnchorElement>('#inicio .actions a'));
 
-    expect(actions).toHaveLength(1);
-    expect(actions[0].getAttribute('href')).toBe(SITE.discord);
+    expect(actions.map((link) => link.getAttribute('href'))).toEqual([SITE.discord, SITE.launcher]);
     expect(root.querySelector('app-header a[href="' + SITE.discord + '"]')).toBeNull();
-    expect(root.textContent ?? '').not.toContain('Baixar launcher');
+    expect(root.querySelector('app-header a[href="' + SITE.launcher + '"]')).toBeNull();
   });
 
   it('shows the two houses of the factions side by side, each with its crest, and nothing but the words and the crests', () => {

@@ -1,12 +1,25 @@
-<ol class="tree" aria-label="Exemplo de árvore genealógica, dos avós aos netos">
-  @for (row of rows; track row.id) {
-    <li class="generation">
-      <span class="generation-label">{{ row.label }}</span>
-      <ul class="nodes">
-        @for (node of row.nodes; track node.label) {
-          <li class="node" [class.you]="node.you">{{ node.label }}</li>
+<ng-template #branch let-node>
+  <li>
+    <div class="unit">
+      @for (person of node.people; track person.label) {
+        <span class="person" [class.you]="person.you">{{ person.label }}</span>
+      }
+    </div>
+    @if (node.children?.length) {
+      <ul>
+        @for (child of node.children; track child.id) {
+          <ng-container
+            [ngTemplateOutlet]="branch"
+            [ngTemplateOutletContext]="{ $implicit: child }"
+          />
         }
       </ul>
-    </li>
-  }
-</ol>
+    }
+  </li>
+</ng-template>
+
+<div class="scroll">
+  <ul class="tree" aria-label="Exemplo de árvore genealógica, dos avós aos netos">
+    <ng-container [ngTemplateOutlet]="branch" [ngTemplateOutletContext]="{ $implicit: tree }" />
+  </ul>
+</div>

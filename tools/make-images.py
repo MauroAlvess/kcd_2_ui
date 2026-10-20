@@ -60,8 +60,9 @@ CRESTS = [
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
-    # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (about 28rem tall, 560 px, cleaned of its specks).
-    ("hierarchy-tree", "arvore hierarquica.png", 232, 62),
+    # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (2026-10-20: "uma árvore vertical completa"): about
+    # 20rem wide, 560 px, cleaned of its specks.
+    ("hierarchy-tree", "arvore hierarquica.png", 560, 56),
     # The in-game panel's frame corners, the lion's and the raven's, on the frame of the opening.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
@@ -169,7 +170,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 TRIMMED = {"hierarchy-tree", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol"}
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
-ALPHA_QUALITY = {"hierarchy-tree": 36}
+ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
 SPECKLED = {"brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png"}

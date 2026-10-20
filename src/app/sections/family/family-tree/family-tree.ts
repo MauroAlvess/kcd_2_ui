@@ -1,15 +1,18 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
-import { TREE_ROWS } from '../../../content/family';
+import { FAMILY_TREE } from '../../../content/family';
 
 /**
- * A small family tree drawn in plain HTML and CSS, one row per generation, the way the server's own tree lays it out. It is
- * an example, not data: the player's row is in the middle, with a spouse, siblings and cousins around them.
+ * A family tree drawn in plain HTML and CSS, with its branches (nested lists whose lines are the borders of the items). It is
+ * an example, not data: the player is in the middle with a spouse, their siblings beside them and their children below, and
+ * the uncles and cousins on the other branch.
  */
 @Component({
   selector: 'app-family-tree',
+  imports: [NgTemplateOutlet],
   templateUrl: './family-tree.html',
   styleUrl: './family-tree.css',
 })
 export class FamilyTree {
-  protected readonly rows = TREE_ROWS;
+  protected readonly tree = FAMILY_TREE;
 }

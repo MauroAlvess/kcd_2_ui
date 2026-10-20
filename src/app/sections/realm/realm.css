@@ -20,6 +20,27 @@
   height: auto;
 }
 
+/* The game's own frame corners, the lion's above on the left and the raven's below on the right, over the map's corners
+   (user, 2026-10-20: "usar as molduras que temos, superior e inferior"). */
+.corner {
+  position: absolute;
+  z-index: 3;
+  width: clamp(5rem, 14vw, 9rem);
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.4));
+}
+
+.lion {
+  top: clamp(-1.6rem, -2vw, -0.8rem);
+  left: clamp(-1.6rem, -2vw, -0.8rem);
+}
+
+.raven {
+  right: clamp(-1.6rem, -2vw, -0.8rem);
+  bottom: clamp(-1.6rem, -2vw, -0.8rem);
+}
+
 .pin {
   position: absolute;
   padding: 0;
