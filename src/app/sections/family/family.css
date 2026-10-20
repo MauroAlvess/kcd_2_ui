@@ -5,6 +5,14 @@
   align-items: center;
 }
 
+/* The branch with the family's shield over the title (user, 2026-10-20: "coloca o ramo na parte de cima"). */
+.emblem {
+  display: block;
+  width: clamp(9rem, 16vw, 12rem);
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
 .points {
   display: grid;
   gap: 0.9rem;

@@ -2,15 +2,15 @@
   display: block;
 }
 
-/* The game's view of Kuttenberg at the shape it was filmed in: the opening is as tall as the video is for its width (16:9), never
-   taller than the window, so the picture is shown whole, not cropped or stretched (2026-10-20). */
+/* The game's view of Kuttenberg at the natural height of the video (16:9) for the width of the page, whatever the height of the
+   window (user, 2026-10-20: "o hero não precisa ser do tamanho da tela, vamos deixar na altura natural"): the picture is shown
+   whole, never cropped or stretched. The words may make it taller, never shorter. */
 .hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: flex-end;
-  height: min(56.25vw, 100svh);
-  min-height: 34rem;
+  aspect-ratio: 16 / 9;
   padding: calc(var(--header-h) + 2rem) var(--gutter) clamp(2.5rem, 8vh, 5rem);
   overflow: clip;
   color: var(--paper);
@@ -103,11 +103,10 @@ h1 {
 }
 
 /* A narrow screen: the video keeps its own shape as a band at the top, and the words stand under it on black. */
-@media (max-width: 56rem) {
+@media (max-width: 62rem) {
   .hero {
     display: block;
-    height: auto;
-    min-height: 0;
+    aspect-ratio: auto;
     padding: 0;
   }
 
