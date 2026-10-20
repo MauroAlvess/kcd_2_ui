@@ -2,6 +2,24 @@
   display: block;
 }
 
+/* The words on the left, the embroidered poster of the rules on the right (it opens larger). */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+.poster {
+  display: block;
+}
+
+.poster img {
+  width: 100%;
+  height: auto;
+}
+
 .charter {
   display: grid;
   gap: 1rem;
@@ -14,7 +32,7 @@
 /* The rule with the most weight: a line of red down its side. */
 .zero {
   max-width: 40rem;
-  margin: 2.5rem 0 3rem;
+  margin: 2.5rem 0 0;
   padding-left: 1.4rem;
   border-left: 3px solid var(--red);
 }
@@ -77,4 +95,14 @@
   margin-top: 2rem;
   font: 400 clamp(1.3rem, 2.4vw, 1.7rem) / 1.35 var(--body);
   text-wrap: balance;
+}
+
+@media (max-width: 56rem) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .poster {
+    max-width: 22rem;
+  }
 }

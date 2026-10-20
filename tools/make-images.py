@@ -38,6 +38,9 @@ PHOTOS = [
     ("map", "mapa puro.jpeg", (900, 1800), 62),
     # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
     ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
+    # The server's basic rules, the whole embroidered poster (2026-10-20: "na seção de regras coloque a imagem"): beside the rules,
+    # the larger one opened from it.
+    ("rules", "Regras Básicas de RP Medieval.png", (640, 1024), 62),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -60,6 +63,8 @@ CRESTS = [
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
+    # The Lion's and the Raven's crest in one shield (2026-10-20: "na seção da história"): the lore.
+    ("lion-raven", "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png", 440, 76),
     # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (2026-10-20: "uma árvore vertical completa"): about
     # 20rem wide, 560 px, cleaned of its specks.
     ("hierarchy-tree", "arvore hierarquica.png", 560, 56),
@@ -167,7 +172,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
-TRIMMED = {"hierarchy-tree", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol"}
+TRIMMED = {"hierarchy-tree", "lion-raven", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol"}
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}

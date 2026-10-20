@@ -72,8 +72,8 @@ describe('Hero', () => {
       source.getAttribute('media'),
     ]);
     expect(sources).toEqual([
-      ['video/hero-720.webm', 'video/webm', '(max-width: 56rem)'],
-      ['video/hero-720.mp4', 'video/mp4', '(max-width: 56rem)'],
+      ['video/hero-720.webm', 'video/webm', '(max-width: 64rem)'],
+      ['video/hero-720.mp4', 'video/mp4', '(max-width: 64rem)'],
       ['video/hero-1080.webm', 'video/webm', null],
       ['video/hero-1080.mp4', 'video/mp4', null],
     ]);

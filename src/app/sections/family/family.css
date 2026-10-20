@@ -5,12 +5,11 @@
   align-items: center;
 }
 
-/* The branch with the family's shield over the title (user, 2026-10-20: "coloca o ramo na parte de cima"). */
+/* The branch with the family's shield, on the right, over the tree (user, 2026-10-20: "o ramo era na direita em cima da árvore"). */
 .emblem {
   display: block;
   width: clamp(9rem, 16vw, 12rem);
   height: auto;
-  margin-bottom: 1.5rem;
 }
 
 .points {
@@ -28,12 +27,13 @@
 .tree {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 1.5rem;
 }
 
 .note {
   max-width: 26rem;
+  text-align: center;
   font-style: italic;
   color: var(--fg-muted);
 }

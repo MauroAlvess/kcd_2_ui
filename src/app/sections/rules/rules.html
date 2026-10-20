@@ -3,15 +3,38 @@
     Conflitos entre personagens fazem parte do RP. Entre jogadores, não.
   </app-section-heading>
 
-  <div class="charter">
-    <p>{{ setting }}</p>
-    <p>{{ inCharacter }}</p>
-  </div>
+  <div class="top">
+    <div class="words">
+      <div class="charter">
+        <p>{{ setting }}</p>
+        <p>{{ inCharacter }}</p>
+      </div>
 
-  <aside class="zero" aria-labelledby="regras-zero">
-    <h3 id="regras-zero">{{ zero.title }}</h3>
-    <p>{{ zero.text }}</p>
-  </aside>
+      <aside class="zero" aria-labelledby="regras-zero">
+        <h3 id="regras-zero">{{ zero.title }}</h3>
+        <p>{{ zero.text }}</p>
+      </aside>
+    </div>
+
+    <a
+      class="poster"
+      href="img/rules-1024.webp"
+      target="_blank"
+      rel="noopener"
+      aria-label="Abrir o cartaz das regras básicas em tamanho maior (abre em uma nova aba)"
+    >
+      <img
+        src="img/rules-640.webp"
+        srcset="img/rules-640.webp 640w, img/rules-1024.webp 1024w"
+        sizes="(min-width: 56rem) 22rem, 90vw"
+        width="640"
+        height="960"
+        alt="Cartaz bordado das Regras Básicas de RP Medieval: o servidor se passa em 1403; o que acontece no RP fica no RP; tolerância zero para abuso; e as seis regras, RDM, HDM, Anti-RP, Fear RP, Metagaming e Powergaming"
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+  </div>
 
   <ul class="rules">
     @for (rule of rules; track rule.id) {

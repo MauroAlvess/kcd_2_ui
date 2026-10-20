@@ -2,16 +2,23 @@
   display: block;
 }
 
-/* The game's view of Kuttenberg at the natural height of the video (16:9) for the width of the page, whatever the height of the
-   window (user, 2026-10-20: "o hero não precisa ser do tamanho da tela, vamos deixar na altura natural"): the picture is shown
-   whole, never cropped or stretched. The words may make it taller, never shorter. */
+/* The game's view of Kuttenberg in a frame of the video's own shape (16:9) and of a modest size, under the bar and centred on the black
+   of the page (user, 2026-10-20: "a abertura está muito grande, não precisa pegar a tela toda porque distorce o vídeo"): the
+   picture is shown whole, never cropped or stretched, and the window is not filled by it. The words may make the frame taller,
+   never shorter. */
+:host {
+  background: var(--black);
+}
+
 .hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: flex-end;
+  width: min(100% - 2 * var(--gutter), 64rem);
   aspect-ratio: 16 / 9;
-  padding: calc(var(--header-h) + 2rem) var(--gutter) clamp(2.5rem, 8vh, 5rem);
+  margin: var(--header-h) auto clamp(2rem, 5vw, 3.5rem);
+  padding: 2rem clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.25rem);
   overflow: clip;
   color: var(--paper);
   background: var(--black);
@@ -54,8 +61,7 @@
 }
 
 .content {
-  width: min(100%, var(--maxw));
-  margin-inline: auto;
+  width: 100%;
 }
 
 h1 {
@@ -102,11 +108,13 @@ h1 {
   margin-top: 1rem;
 }
 
-/* A narrow screen: the video keeps its own shape as a band at the top, and the words stand under it on black. */
-@media (max-width: 62rem) {
+/* A narrow screen: the video keeps its own shape as a band across the top, and the words stand under it on black. */
+@media (max-width: 64rem) {
   .hero {
     display: block;
+    width: 100%;
     aspect-ratio: auto;
+    margin: 0;
     padding: 0;
   }
 

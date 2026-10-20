@@ -127,6 +127,19 @@ describe('App', () => {
     expect(factions.querySelectorAll('img')).toHaveLength(2);
   });
 
+  it('shows the poster of the basic rules in the rules, and the shield of the two houses in the history', () => {
+    const poster = root.querySelector<HTMLImageElement>('#regras a.poster img');
+    expect(poster?.getAttribute('src')).toBe('img/rules-640.webp');
+    expect(poster?.getAttribute('alt')).toContain('Regras Básicas');
+    expect(root.querySelector('#regras a.poster')?.getAttribute('href')).toBe(
+      'img/rules-1024.webp',
+    );
+    const crest = root.querySelector<HTMLImageElement>('#lore img.crest');
+    expect(crest?.getAttribute('src')).toBe('img/lion-raven.webp');
+    expect(crest?.getAttribute('alt')).toContain('Leão');
+    expect(crest?.getAttribute('alt')).toContain('Corvo');
+  });
+
   it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {
     const hero = root.querySelector('#inicio') as HTMLElement;
     expect(hero.querySelector('.frame, .corner, a.cue, img.emblem')).toBeNull();
