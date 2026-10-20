@@ -1,10 +1,10 @@
 import { Component, booleanAttribute, input } from '@angular/core';
 
 /**
- * A link that looks like a button. `primary` is the red one, edged in gold like the embroidered crests, for the single
- * thing a section wants you to do; `ghost` is an outline in the colour of the surrounding text, so it works on both the
- * black and the parchment bands. `large` is for the calls that close the opening and the page. A link that leaves the
- * site opens in a new tab and says so to screen readers.
+ * A link that looks like a button. `primary` is the flat red one, for the single thing a section wants you to do; `ghost`
+ * is an outline in the colour of the surrounding text, so it works on both the black and the paper bands. `large` is for
+ * the calls that close the opening and the page. A link that leaves the site opens in a new tab and says so to screen
+ * readers.
  */
 @Component({
   selector: 'app-button',
@@ -29,61 +29,43 @@ import { Component, booleanAttribute, input } from '@angular/core';
     }
 
     .button {
-      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      min-height: 3.25rem;
-      padding: 0.9rem 2.1rem;
-      font: 600 0.8rem/1.2 var(--display);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      min-height: 2.9rem;
+      padding: 0.75rem 1.4rem;
+      font: 500 0.98rem/1.2 var(--sans);
       text-decoration: none;
       text-align: center;
       border: 1px solid transparent;
+      border-radius: 2px;
       transition:
-        background-color 0.2s,
-        border-color 0.2s,
-        box-shadow 0.25s,
-        transform 0.2s;
+        background-color 0.15s,
+        border-color 0.15s;
     }
 
     .large {
-      min-height: 3.9rem;
-      padding: 1.1rem 2.8rem;
-      font-size: 0.88rem;
-      letter-spacing: 0.24em;
+      min-height: 3.2rem;
+      padding: 0.85rem 1.7rem;
+      font-size: 1.02rem;
     }
 
     .button[data-variant='primary'] {
-      color: var(--paper);
-      background: linear-gradient(to bottom, var(--red-hi), var(--red));
-      border-color: var(--gold-deep);
-      box-shadow:
-        inset 0 0 0 3px var(--red),
-        inset 0 0 0 4px rgba(236, 210, 138, 0.42),
-        0 0.7rem 1.6rem rgba(0, 0, 0, 0.35);
+      color: #fff;
+      background: var(--red);
     }
 
     .button[data-variant='primary']:hover {
-      background: linear-gradient(to bottom, #ad0e12, var(--red-hi));
-      border-color: var(--gold);
-      box-shadow:
-        inset 0 0 0 3px var(--red-hi),
-        inset 0 0 0 4px rgba(236, 210, 138, 0.7),
-        0 0 1.6rem rgba(152, 9, 12, 0.55),
-        0 0.7rem 1.6rem rgba(0, 0, 0, 0.35);
-      transform: translateY(-1px);
+      background: var(--red-hi);
     }
 
     .button[data-variant='ghost'] {
       color: inherit;
-      border-color: currentColor;
+      border-color: color-mix(in srgb, currentColor 40%, transparent);
     }
 
     .button[data-variant='ghost']:hover {
-      background: color-mix(in srgb, currentColor 12%, transparent);
+      border-color: currentColor;
     }
   `,
 })

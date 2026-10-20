@@ -5,90 +5,34 @@
 .heading {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.heading.center {
   align-items: center;
-  margin-bottom: clamp(3rem, 5.5vw, 4.5rem);
   text-align: center;
 }
 
-.heading.start {
-  align-items: flex-start;
-  margin-bottom: 0;
-  text-align: left;
-}
-
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  font: 600 0.7rem/1.2 var(--display);
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: var(--accent);
+  font: 500 0.85rem/1.3 var(--sans);
+  color: var(--fg-muted);
 }
 
-/* The chapter's number in a small diamond frame, like a seal. */
-.numeral {
-  display: inline-grid;
-  place-items: center;
-  min-width: 2.1rem;
-  height: 2.1rem;
-  padding: 0 0.35rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  border: 1px solid currentColor;
-  outline: 1px solid color-mix(in srgb, currentColor 40%, transparent);
-  outline-offset: 2px;
-}
-
-/* Two short lines, like a title on a banner; a long title sets --heading-measure so it keeps to two as well. */
 h2 {
-  max-width: var(--heading-measure, 22ch);
-  margin-top: 1rem;
-  font: 600 clamp(1.9rem, 4.4vw, 3.25rem) / 1.12 var(--display);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  max-width: var(--heading-measure, 20ch);
+  margin-top: 0.6rem;
+  font: 400 clamp(2.2rem, 4.6vw, 3.4rem) / 1.08 var(--body);
+  letter-spacing: -0.01em;
   text-wrap: balance;
   overflow-wrap: anywhere;
 }
 
-/* A line, a diamond and a line, in the band's red: where a title would get a flourish in a manuscript. */
-.ornament {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 1.35rem 0 1.25rem;
-  color: var(--bar, var(--red));
-}
-
-.ornament i {
-  display: block;
-  width: 2.6rem;
-  height: 1px;
-  background: currentColor;
-}
-
-.heading:not(.start) .ornament i:first-child {
-  background: linear-gradient(to left, currentColor, transparent);
-}
-
-.ornament i:last-child {
-  background: linear-gradient(to right, currentColor, transparent);
-}
-
-.ornament b {
-  width: 0.5rem;
-  height: 0.5rem;
-  border: 1px solid currentColor;
-  transform: rotate(45deg);
-}
-
-.heading.start .ornament i:first-child {
-  display: none;
-}
-
 .lead {
-  max-width: 38rem;
-  font: italic clamp(1.2rem, 1.9vw, 1.42rem) / 1.5 var(--body);
+  max-width: 36rem;
+  margin-top: 1.1rem;
+  font-size: clamp(1.15rem, 1.7vw, 1.3rem);
+  line-height: 1.5;
   color: var(--fg-muted);
   text-wrap: pretty;
 }

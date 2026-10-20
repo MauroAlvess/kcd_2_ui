@@ -1,9 +1,10 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), com o dourado
-dos brasões bordados nos ornamentos. Abre com o vídeo do menu do jogo, Kuttenberg no alto do morro com a fumaça subindo, e
-segue em capítulos numerados em algarismos romanos, alternando pergaminho e noite: o mapa das cinco casas, as facções, as
-guildas, a família, a hierarquia, a lore, as regras e como entrar.
+Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
+moldura, sem ornamento e sem brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): texto em EB Garamond,
+rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com o vídeo do menu do jogo, Kuttenberg no alto do
+morro com a fumaça subindo, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
+família, a hierarquia, a lore, as regras e como entrar.
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
 
@@ -68,8 +69,8 @@ src/app/
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
   sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
-  shared/ui/            peças reutilizáveis: button, section (pergaminho/noite, bordas rasgadas), section-heading
-                        (numeral romano, ornamento), steps, rich (negrito da lore), server-badge (jogadores online)
+  shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo, título,
+                        introdução), steps, rich (negrito da lore), server-badge (jogadores online)
   content/              os textos em listas tipadas, separados do layout
 public/                 imagens (img/), vídeo do topo (video/), ícones, site.webmanifest, og-image.jpg
 tools/                  scripts que preparam as imagens e o vídeo (abaixo)

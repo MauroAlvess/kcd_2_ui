@@ -1,46 +1,29 @@
-/* Fonts, self-hosted: Cinzel (titles) and EB Garamond (text). The "ext" files carry the Czech letters of the lore (ř, Č)
-   and are only downloaded when the page uses one. */
-@import '@fontsource/cinzel/latin-600.css';
-@import '@fontsource/cinzel/latin-ext-600.css';
+/* One typeface for the words, self-hosted: EB Garamond. The "ext" file carries the Czech letters of the lore (ř, Č) and is
+   only downloaded when the page uses one. Small interface words (the menu, buttons, labels) are in the system's own sans.
+   2026-10-20, the user: "ficou com muita cara de IA, deixe menos enfeitado e mais minimalista". */
 @import '@fontsource/eb-garamond/latin-400.css';
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-ext-400.css';
 
-/* The palette is the server's own, the one of the in-game panel: black, beige and red; with the gold of the embroidered
-   crests for the ornaments, and the Raven's blue, which only its side of the factions wears. */
+/* Black, beige and red: the server's own colours, flat. */
 :root {
-  --black: #0d0b09;
-  --black-soft: #15110d;
-  --ink: #201b17;
-  --paper: #eee4cf;
-  --paper-deep: #e3d4b6;
-  --beige: #d2b38c;
-  --red: #7c0305;
-  --red-hi: #98090c;
-  --gold: #c9a24a;
-  --gold-hi: #ecd28a;
-  --gold-deep: #8a6424;
-  --blue: #1d3a6e;
-  --blue-deep: #0d1a33;
+  --black: #0f0d0b;
+  --ink: #1d1915;
+  --paper: #ece6da;
+  --beige: #cbb69a;
+  --red: #8a1b1b;
+  --red-hi: #a3262a;
+  --blue: #2f4a78;
 
-  --display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
   --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
+  --display: var(--body);
+  --sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --gutter: clamp(1.25rem, 5vw, 3rem);
-  --maxw: 74rem;
-  --header-h: 4.5rem;
-  --section-pad: clamp(5rem, 10vw, 8.5rem);
-
-  /* The grain of the parchment: a fine noise of brown fibres laid over the paper colour, drawn by the browser itself. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* The gold of the embroidery, as a gradient: the large titles of the opening are written in it. */
-  --gilt: linear-gradient(
-    176deg,
-    #fbeec0 0%,
-    var(--gold-hi) 34%,
-    var(--gold) 58%,
-    var(--gold-deep) 100%
-  );
+  --maxw: 68rem;
+  --header-h: 4.25rem;
+  --section-pad: clamp(4.5rem, 9vw, 7rem);
 }
 
 *,
@@ -62,7 +45,7 @@ body {
   margin: 0;
   background: var(--black);
   color: var(--paper);
-  font: 1.2rem/1.65 var(--body);
+  font: 1.2rem/1.6 var(--body);
   font-variant-numeric: lining-nums;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -77,6 +60,12 @@ ol,
 figure,
 blockquote {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
 }
 
 ul,
@@ -102,7 +91,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid currentColor;
   outline-offset: 3px;
 }
 
@@ -122,30 +111,6 @@ button {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-
-/* Things that rise into place as they scroll into view. Browsers without scroll-driven animations (and anybody who asks
-   for less motion) simply see them where they are, so nothing is ever hidden. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 4% entry 38%;
-    }
-
-    @keyframes reveal {
-      from {
-        opacity: 0;
-        transform: translateY(1.8rem);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

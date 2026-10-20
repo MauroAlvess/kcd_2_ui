@@ -55,13 +55,12 @@ describe('App', () => {
     expect(ids.slice(1, -1).map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
   });
 
-  it('numbers its chapters in Roman numerals, in order, for the eye only', () => {
-    const numerals = Array.from(root.querySelectorAll('main .numeral'), (mark) =>
-      mark.textContent?.trim(),
-    );
-    expect(numerals.slice(0, 8)).toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
-    for (const mark of Array.from(root.querySelectorAll('.heading .numeral'))) {
-      expect(mark.getAttribute('aria-hidden')).toBe('true');
+  it('keeps its chapter headings plain: a small label, the title, no numerals or ornaments', () => {
+    const headings = Array.from(root.querySelectorAll('main .heading'));
+    expect(headings.length).toBeGreaterThanOrEqual(8);
+    for (const heading of headings) {
+      expect(heading.querySelector('.numeral, .ornament')).toBeNull();
+      expect(heading.querySelector('h2')).not.toBeNull();
     }
   });
 
@@ -122,19 +121,16 @@ describe('App', () => {
     expect(root.textContent ?? '').not.toContain('Baixar launcher');
   });
 
-  it('shows the two knights of the factions over the two houses, each with its crest', () => {
+  it('shows the two houses of the factions side by side, each with its crest, and nothing but the words and the crests', () => {
     const factions = root.querySelector('#faccoes') as HTMLElement;
-    const knights = factions.querySelector<HTMLImageElement>('.duel img.knights');
-    expect(knights?.getAttribute('alt')).toContain('Leão');
-    expect(knights?.getAttribute('alt')).toContain('Corvo');
     expect(factions.querySelectorAll('app-house-card')).toHaveLength(2);
     expect(factions.querySelectorAll('app-house-card img.crest')).toHaveLength(2);
+    expect(factions.querySelectorAll('img')).toHaveLength(2);
   });
 
-  it('leads from the opening down to the realm, outside the one action it offers', () => {
-    const cue = root.querySelector<HTMLAnchorElement>('#inicio a.cue');
-    expect(cue?.getAttribute('href')).toBe('#reino');
-    expect(cue?.closest('.actions')).toBeNull();
+  it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {
+    const hero = root.querySelector('#inicio') as HTMLElement;
+    expect(hero.querySelector('.frame, .corner, a.cue, img.emblem')).toBeNull();
   });
 
   it('has a way past the menu for a keyboard, as the first thing to land on', () => {

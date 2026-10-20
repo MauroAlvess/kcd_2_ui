@@ -1,6 +1,5 @@
 <app-section anchor="guildas" tone="light" labelledBy="guildas-title">
   <app-section-heading
-    numeral="III"
     eyebrow="Guildas"
     heading="Ninguém vive só de espada"
     titleId="guildas-title"
@@ -11,7 +10,7 @@
 
   <ul class="grid">
     @for (guild of guilds; track guild.id) {
-      <li class="reveal">
+      <li>
         <app-guild-card [guild]="guild" />
       </li>
     }

@@ -9,60 +9,26 @@
   overflow: clip;
 }
 
-/* Parchment: the paper colour, a light falling from above, a darker foot and the grain of the fibres. */
+/* Paper: flat, dark ink, the red for the few things that call. A hairline parts one paper band from the next. */
 .light {
   --fg: var(--ink);
-  --fg-muted: rgba(32, 27, 23, 0.74);
-  --rule: rgba(32, 27, 23, 0.2);
+  --fg-muted: rgba(29, 25, 21, 0.68);
+  --rule: rgba(29, 25, 21, 0.16);
   --accent: var(--red);
-  --bar: var(--red);
-  --frame: rgba(124, 3, 5, 0.32);
-  background-color: var(--paper);
-  background-image:
-    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(255, 251, 238, 0.6), transparent 70%),
-    radial-gradient(ellipse 120% 80% at 50% 105%, rgba(140, 96, 48, 0.16), transparent 62%),
-    var(--grain);
+  --strong: var(--red);
+  background: var(--paper);
   color: var(--fg);
+  border-top: 1px solid var(--rule);
 }
 
-/* The torn edge of the parchment, top and bottom: the black of the bands around bites into it. */
-.light::before,
-.light::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: 10px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 10' preserveAspectRatio='none'%3E%3Cpath fill='%230d0b09' d='M0 0H600V8L586 10 571 6 556 9 541 5 527 8 512 6 497 10 483 6 469 8 452 4 438 7 425 9 409 5 394 7 381 3 366 6 349 9 337 5 322 8 306 4 291 6 279 9 263 5 248 8 236 3 219 7 206 5 190 9 177 6 162 8 149 4 133 7 118 5 104 10 92 6 79 8 61 3 48 7 37 5 22 9 14 6 0 8Z'/%3E%3C/svg%3E")
-    repeat-x 0 0 / 600px 10px;
-  pointer-events: none;
-}
-
-.light::before {
-  top: 0;
-}
-
-.light::after {
-  bottom: 0;
-  transform: scaleY(-1);
-}
-
-.light.flat::before,
-.light.flat::after {
-  content: none;
-}
-
-/* Night: black, with the faint red of a fire somewhere above. */
+/* Night: flat black, beige text. */
 .dark {
   --fg: var(--paper);
-  --fg-muted: rgba(238, 228, 207, 0.74);
-  --rule: rgba(210, 179, 140, 0.26);
-  --accent: var(--gold);
-  --bar: var(--red-hi);
-  --frame: rgba(201, 162, 74, 0.34);
-  background:
-    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(124, 3, 5, 0.12), transparent 72%), var(--black);
+  --fg-muted: rgba(236, 230, 218, 0.66);
+  --rule: rgba(236, 230, 218, 0.16);
+  --accent: var(--beige);
+  --strong: var(--beige);
+  background: var(--black);
   color: var(--fg);
 }
 
@@ -73,7 +39,7 @@
   margin-inline: auto;
 }
 
-/* The photograph sits under a black gradient that is solid at both edges, so a dark band melts into the ones around it. */
+/* A photograph behind a dark band, darkened evenly so the words above it stay readable. */
 .photo {
   position: absolute;
   inset: 0;
@@ -86,18 +52,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(0.25) saturate(0.78) brightness(0.8);
 }
 
 .photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--black) 0%,
-    rgba(13, 11, 9, 0.72) 24%,
-    rgba(13, 11, 9, 0.72) 76%,
-    var(--black) 100%
-  );
+  background: rgba(15, 13, 11, 0.72);
 }

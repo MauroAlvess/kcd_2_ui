@@ -24,7 +24,7 @@ describe('Rules', () => {
     expect(zero?.getAttribute('aria-labelledby')).toBe(zero?.querySelector('h3')?.id);
   });
 
-  it('lists the six terms, each marked forbidden or required, with a drawing a screen reader skips', () => {
+  it('lists the six terms, each marked forbidden or required, in words alone (no drawing)', () => {
     const rules = Array.from(root.querySelectorAll<HTMLElement>('.rules .rule'));
     expect(rules.map((rule) => rule.querySelector('h3')?.textContent)).toEqual(
       RULES.map((rule) => rule.name),
@@ -33,8 +33,7 @@ describe('Rules', () => {
       RULES.map((rule) => (rule.kind === 'forbidden' ? 'Proibido' : 'Exigido')),
     );
     for (const rule of rules) {
-      expect(rule.querySelector('.icon')?.getAttribute('aria-hidden')).toBe('true');
-      expect(rule.querySelector('.icon svg path, .icon svg circle')).not.toBeNull();
+      expect(rule.querySelector('svg, img')).toBeNull();
     }
   });
 

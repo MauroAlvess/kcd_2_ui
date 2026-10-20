@@ -1,22 +1,19 @@
 :host {
   display: block;
   /* The room of one line, kept while there is nothing to say, so the numbers arriving move nothing. */
-  min-height: 2.6rem;
+  min-height: 1.6rem;
 }
 
+/* One quiet line: a dot, the players online and the slots. */
 .badge {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 0.35rem 0.7rem;
+  gap: 0.25rem 0.5rem;
   margin: 0;
-  padding: 0.5rem 1.1rem;
-  font: 600 0.68rem/1.35 var(--display);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
-  background: color-mix(in srgb, currentColor 6%, transparent);
+  font: 400 0.92rem/1.4 var(--sans);
+  color: inherit;
+  opacity: 0.85;
 }
 
 .badge[data-state='unknown'] {
@@ -25,23 +22,20 @@
 
 .dot {
   flex: none;
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 50%;
-  background: #7bb661;
-  box-shadow: 0 0 0.6rem rgba(123, 182, 97, 0.65);
+  background: #6fa35a;
 }
 
 .badge[data-state='offline'] .dot {
   background: #8c8174;
-  box-shadow: none;
 }
 
 strong {
-  font-size: 1rem;
-  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 .slots {
-  opacity: 0.72;
+  opacity: 0.7;
 }

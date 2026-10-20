@@ -1,32 +1,11 @@
-/* Five in a row on a wide screen, three and two on a tablet, two and one below; a short row is centred. */
+/* Five in a row on a wide screen, then fewer; each under a line. */
 .grid {
-  --gap: clamp(1rem, 1.6vw, 1.5rem);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--gap);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .grid li {
-  flex: 0 1 calc((100% - 4 * var(--gap)) / 5);
-  min-width: 12.5rem;
-}
-
-@media (max-width: 72rem) {
-  .grid li {
-    flex-basis: calc((100% - 2 * var(--gap)) / 3);
-  }
-}
-
-@media (max-width: 46rem) {
-  .grid li {
-    flex-basis: calc((100% - var(--gap)) / 2);
-    min-width: 0;
-  }
-}
-
-@media (max-width: 30rem) {
-  .grid li {
-    flex-basis: 100%;
-  }
+  border-top: 1px solid var(--rule);
+  padding-top: 1.6rem;
 }

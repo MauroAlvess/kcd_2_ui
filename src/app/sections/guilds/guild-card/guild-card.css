@@ -3,107 +3,32 @@
   height: 100%;
 }
 
-/* A guild's charter: a double frame, the crest as its seal at the top. */
 .card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
-  padding: 1.8rem 1.25rem 1.9rem;
-  text-align: center;
-  background: rgba(255, 251, 238, 0.38);
-  border: 1px solid var(--frame);
-  box-shadow:
-    inset 0 0 0 5px transparent,
-    inset 0 0 0 6px rgba(124, 3, 5, 0.12),
-    0 0.6rem 1.4rem rgba(70, 44, 18, 0.08);
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s,
-    border-color 0.3s;
-}
-
-.card:hover {
-  border-color: var(--accent);
-  transform: translateY(-0.35rem);
-  box-shadow:
-    inset 0 0 0 5px transparent,
-    inset 0 0 0 6px rgba(124, 3, 5, 0.22),
-    0 1.2rem 2.2rem rgba(70, 44, 18, 0.18);
+  align-items: flex-start;
 }
 
 .crest {
-  width: 7.5rem;
+  width: 5.2rem;
   height: auto;
-  margin-bottom: 1.2rem;
-  filter: drop-shadow(0 0.55rem 0.6rem rgba(48, 30, 10, 0.32));
-  transition: transform 0.4s;
-}
-
-.card:hover .crest {
-  transform: scale(1.06) rotate(-2deg);
+  margin-bottom: 1.1rem;
 }
 
 h3 {
-  font: 600 0.92rem/1.25 var(--display);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font: 400 1.35rem/1.2 var(--body);
 }
 
 .profession {
-  margin-top: 0.3rem;
-  font: italic 1.15rem/1.3 var(--body);
+  margin-top: 0.15rem;
+  font-style: italic;
   color: var(--accent);
 }
 
-/* A short red stroke between the name and what the guild does. */
-.profession::after {
-  content: '';
-  display: block;
-  width: 1.6rem;
-  height: 1px;
-  margin: 0.85rem auto 0;
-  background: var(--accent);
-  opacity: 0.6;
-}
-
 .about {
-  margin-top: 0.85rem;
+  margin-top: 0.7rem;
   font-size: 1.05rem;
   line-height: 1.5;
   color: var(--fg-muted);
   text-wrap: pretty;
-}
-
-/* On a phone, one charter to a row: the seal beside the words, so the five fit in the height of two. */
-@media (max-width: 30rem) {
-  .card {
-    display: grid;
-    grid-template-columns: 5.4rem minmax(0, 1fr);
-    align-content: center;
-    column-gap: 1.2rem;
-    padding: 1.3rem 1.2rem;
-    text-align: left;
-  }
-
-  .crest {
-    grid-row: 1 / span 3;
-    align-self: center;
-    width: 100%;
-    margin: 0;
-  }
-
-  .card > :not(.crest) {
-    grid-column: 2;
-  }
-
-  .profession::after {
-    margin: 0.6rem 0 0;
-  }
-
-  .about {
-    margin-top: 0.6rem;
-    font-size: 1rem;
-  }
 }

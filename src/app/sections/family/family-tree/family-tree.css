@@ -7,56 +7,35 @@
 .tree {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.7rem;
+  gap: 1.3rem;
 }
 
 .generation {
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.65rem;
-  width: 100%;
-}
-
-/* The thread from one generation down to the next. */
-.generation + .generation::before {
-  content: '';
-  position: absolute;
-  top: -1.7rem;
-  left: 50%;
-  width: 1px;
-  height: 1.7rem;
-  background: var(--rule);
+  gap: 0.5rem;
 }
 
 .generation-label {
-  font: 600 0.6rem/1.2 var(--display);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
+  font: 500 0.8rem/1.2 var(--sans);
+  color: var(--fg-muted);
 }
 
 .nodes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .node {
-  padding: 0.5rem 1.05rem;
+  padding: 0.35rem 0.9rem;
   font: 1.05rem/1.2 var(--body);
   border: 1px solid var(--rule);
+  border-radius: 2px;
 }
 
 .node.you {
-  padding: 0.6rem 1.3rem;
-  font: 600 0.8rem/1.2 var(--display);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--paper);
+  color: #fff;
   background: var(--red);
-  border-color: var(--red-hi);
+  border-color: var(--red);
 }

@@ -1,32 +1,13 @@
-.order {
-  display: grid;
-  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
-  gap: clamp(2.5rem, 6vw, 5rem);
-  align-items: start;
-  max-width: 60rem;
-  margin-inline: auto;
-}
-
-/* The tree stays in view while the tiers go by. */
-.tree {
-  position: sticky;
-  top: calc(var(--header-h) + 2rem);
-}
-
-.tree img {
-  width: 100%;
-  max-width: 12rem;
-  height: auto;
-  margin-inline: auto;
-  filter: drop-shadow(0 0.8rem 1rem rgba(70, 44, 18, 0.3));
-}
-
 .tiers {
   display: grid;
+  max-width: 48rem;
 }
 
 .tier {
-  padding-block: 1.6rem;
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 1rem 2rem;
+  padding-block: 1.3rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -35,49 +16,29 @@
 }
 
 h3 {
-  font: 600 0.86rem/1.3 var(--display);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font: 500 0.9rem/1.5 var(--sans);
   color: var(--accent);
 }
 
-/* The titles run on in a line, set apart by a small diamond. Every title carries one before it, and the list sits one
-   diamond's width (0.85 + 0.28 + 0.85rem) to the left with that strip cut off: a line never starts with a diamond, however
-   the titles wrap. */
 .titles {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem 0;
-  margin: 0.8rem 0 0 -1.98rem;
+  gap: 0.2rem 1.3rem;
   font-size: 1.15rem;
   line-height: 1.5;
-  clip-path: inset(0 0 0 1.98rem);
 }
 
 .titles li {
   cursor: default;
 }
 
-.titles li::before {
-  content: '';
-  display: inline-block;
-  width: 0.28rem;
-  height: 0.28rem;
-  margin: 0 0.85rem 0.18rem;
-  background: var(--red-hi);
-  transform: rotate(45deg);
-}
-
 .female {
   color: var(--fg-muted);
 }
 
-@media (max-width: 48rem) {
-  .order {
+@media (max-width: 40rem) {
+  .tier {
     grid-template-columns: 1fr;
-  }
-
-  .tree {
-    position: static;
+    gap: 0.5rem;
   }
 }

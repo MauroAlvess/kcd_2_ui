@@ -1,6 +1,6 @@
 <ol class="steps" [attr.data-layout]="layout()">
   @for (step of steps(); track step.numeral) {
-    <li class="step reveal">
+    <li class="step">
       <span class="numeral" aria-hidden="true">{{ step.numeral }}</span>
       <h3>{{ step.title }}</h3>
       <p>{{ step.text }}</p>

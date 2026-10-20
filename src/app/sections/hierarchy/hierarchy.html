@@ -1,42 +1,23 @@
 <app-section anchor="hierarquia" tone="light" labelledBy="hierarquia-title">
-  <app-section-heading
-    numeral="V"
-    eyebrow="Hierarquia"
-    heading="Do arado ao trono"
-    titleId="hierarquia-title"
-  >
+  <app-section-heading eyebrow="Hierarquia" heading="Do arado ao trono" titleId="hierarquia-title">
     Todo mundo começa plebeu. Um título muda tudo, e quem o dá responde por quem o recebe.
   </app-section-heading>
 
-  <div class="order">
-    <figure class="tree reveal">
-      <img
-        src="img/hierarchy-tree.webp"
-        width="232"
-        height="560"
-        alt="A árvore da hierarquia do reino, bordada: no alto o brasão do Rei, abaixo as casas, os senhores, os oficiais, a Igreja e as guildas, até as raízes"
-        loading="lazy"
-        decoding="async"
-      />
-    </figure>
-
-    <ol class="tiers">
-      @for (tier of tiers; track tier.id) {
-        <li class="tier reveal">
-          <h3>{{ tier.name }}</h3>
-          <ul class="titles">
-            @for (title of tier.titles; track title.name) {
-              <!-- The name in its own span: no space between it and the diamond before it. -->
-              <li [attr.title]="title.text">
-                <span>{{ title.name }}</span>
-                @if (title.female) {
-                  <span class="female"> / {{ title.female }}</span>
-                }
-              </li>
-            }
-          </ul>
-        </li>
-      }
-    </ol>
-  </div>
+  <ol class="tiers">
+    @for (tier of tiers; track tier.id) {
+      <li class="tier">
+        <h3>{{ tier.name }}</h3>
+        <ul class="titles">
+          @for (title of tier.titles; track title.name) {
+            <li [attr.title]="title.text">
+              <span>{{ title.name }}</span>
+              @if (title.female) {
+                <span class="female"> / {{ title.female }}</span>
+              }
+            </li>
+          }
+        </ul>
+      </li>
+    }
+  </ol>
 </app-section>
