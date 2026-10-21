@@ -79,9 +79,9 @@ CRESTS = [
     # The in-game panel's frame corners, the lion's and the raven's, on the frame of the opening.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
-    # The five houses of the lore, embroidered with their names on a ribbon (2026-10-16/17): on the map of the realm.
+    # The houses of the lore, embroidered with their names on a ribbon (2026-10-16/17): on the map of the realm. Trosky's was taken
+    # off the map on 2026-10-21 (its file is gone from public/img).
     ("house-kuttenberg", "Brasão Medieval de Kuttenberg.png", 320, 76),
-    ("house-trosky", "Brasão Medieval Bordado Trosky.png", 320, 76),
     ("house-raborsch", "Brasão Medieval com Rocha de Prata.png", 320, 76),
     ("house-maleshov", "Brasão Medieval do Corvo Dourado.png", 320, 76),
     ("house-suchdol", "Brasão Bordado Medieval de Suchdol.png", 320, 76),
@@ -181,7 +181,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
-    "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-trosky", "house-raborsch", "house-maleshov", "house-suchdol",
+    "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-raborsch", "house-maleshov", "house-suchdol",
     "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador",
 }
 

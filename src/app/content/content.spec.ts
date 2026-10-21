@@ -5,7 +5,7 @@ import { GIFTS, HOLDINGS, SUPPORT_HOW } from './holdings';
 import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
-import { REALM_HOUSES } from './realm';
+import { MAP_ALT, REALM_HOUSES } from './realm';
 import { RULES, RULES_MOTTO, ZERO_TOLERANCE } from './rules';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
@@ -172,10 +172,9 @@ describe('content', () => {
 });
 
 describe('realm', () => {
-  it('has the five houses of the map, the crown first, each with its crest and something to say', () => {
+  it('has the four houses of the map, the crown first, each with its crest and something to say (Trosky has no crest on it)', () => {
     expect(REALM_HOUSES.map((house) => house.id)).toEqual([
       'kuttenberg',
-      'trosky',
       'raborsch',
       'suchdol',
       'maleshov',
@@ -207,19 +206,27 @@ describe('realm', () => {
     }
   });
 
-  it('tells the same story as the lore: the Lions and Radovan, Gunther, the lordless Schodal, the plot of Maleshov', () => {
+  it('tells the same story as the lore: Gunther, the lordless Schodal, the plot of Maleshov', () => {
     const text = REALM_HOUSES.map((house) => `${house.house} ${house.holder} ${house.text}`).join(
       ' ',
     );
-    for (const name of [
-      'Casa dos Leões',
-      'Radovan de Zelený',
-      'Gunther von Silberhände',
-      'Casa de Schodal',
-      'Casa de Maleshov',
-    ]) {
+    for (const name of ['Gunther von Silberhände', 'Casa de Schodal', 'Casa de Maleshov']) {
       expect(text, name).toContain(name);
     }
+  });
+
+  it('has no crest of Trosky on the map (user, 2026-10-21); the Lions and Radovan stay in the lore', () => {
+    for (const house of REALM_HOUSES) {
+      expect(`${house.id} ${house.place} ${house.crest} ${house.crestAlt}`, house.id).not.toMatch(
+        /trosky/i,
+      );
+    }
+    expect(MAP_ALT).not.toMatch(/trosky/i);
+    const lore = CHAPTERS.flatMap((chapter) =>
+      chapter.blocks.flatMap((block) => (block.kind === 'list' ? block.items : [block.text])),
+    ).join(' ');
+    expect(lore).toContain('Casa dos Leões');
+    expect(lore).toContain('Radovan de Zelený');
   });
 });
 

@@ -1,4 +1,4 @@
-export type RealmHouseId = 'kuttenberg' | 'trosky' | 'raborsch' | 'suchdol' | 'maleshov';
+export type RealmHouseId = 'kuttenberg' | 'raborsch' | 'suchdol' | 'maleshov';
 
 export interface RealmHouse {
   readonly id: RealmHouseId;
@@ -26,12 +26,13 @@ export interface RealmHouse {
 
 /** What the map says, for anybody who cannot see it. */
 export const MAP_ALT =
-  'Mapa da região de Kuttenberg, entre florestas, campos e nuvens escuras: Kuttenberg e Trosky a leste, Raborsch e Suchdol a oeste e Maleshov ao sul';
+  'Mapa da região de Kuttenberg, entre florestas, campos e nuvens escuras: Kuttenberg a leste, Raborsch e Suchdol a oeste e Maleshov ao sul';
 
 /**
- * The five houses of the lore on the map of the realm, the crown first. Their texts follow the user's story of the
- * crown of Kuttenberg (`lore.ts`): Trosky is the House of the Lions of Radovan de Zelený, Raborsch Gunther von
- * Silberhände's, Suchdol the House of Schodal that lost its lord with the king, and Maleshov the one that conspired.
+ * The houses of the lore on the map of the realm, the crown first. Their texts follow the user's story of the crown of
+ * Kuttenberg (`lore.ts`): Raborsch is Gunther von Silberhände's, Suchdol the House of Schodal that lost its lord with
+ * the king, and Maleshov the one that conspired. Trosky, the House of the Lions of Radovan de Zelený, is in the story
+ * but its crest is not on the map (the user, 2026-10-21: "no mapa no site retire o brasão de trosky").
  */
 export const REALM_HOUSES: readonly RealmHouse[] = [
   {
@@ -47,20 +48,6 @@ export const REALM_HOUSES: readonly RealmHouse[] = [
     x: 80.47,
     y: 23.91,
     size: 10.2,
-  },
-  {
-    id: 'trosky',
-    place: 'Trosky',
-    house: 'Casa dos Leões',
-    holder: 'Radovan de Zelený, Marquês e Protetor da Coroa',
-    text: 'Guarda a única carta que o rei deixou, e com ela o direito de marchar sobre Kuttenberg. Muitos querem saber o que mais ela dizia.',
-    crest: 'house-trosky.webp',
-    crestWidth: 320,
-    crestHeight: 324,
-    crestAlt: 'Brasão de Trosky: o leão branco coroado sobre o campo vermelho',
-    x: 70.12,
-    y: 45.94,
-    size: 6.8,
   },
   {
     id: 'raborsch',

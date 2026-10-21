@@ -26,8 +26,8 @@ describe('Realm', () => {
     expect(root.querySelector(`#${section?.getAttribute('aria-labelledby')}`)?.tagName).toBe('H2');
   });
 
-  it('puts the five crests on the map, where the houses rule, as buttons a screen reader can name', () => {
-    expect(pins()).toHaveLength(5);
+  it('puts the four crests on the map, where the houses rule, as buttons a screen reader can name', () => {
+    expect(pins()).toHaveLength(4);
     pins().forEach((pin, index) => {
       const house = REALM_HOUSES[index];
       expect(pin.style.left).toBe(`${house.x}%`);
@@ -45,18 +45,18 @@ describe('Realm', () => {
     pins()[1].click();
     await fixture.whenStable();
 
-    expect(shown()).toEqual(['trosky']);
+    expect(shown()).toEqual(['raborsch']);
     expect(pins()[1].getAttribute('aria-pressed')).toBe('true');
     expect(pins()[0].getAttribute('aria-pressed')).toBe('false');
     expect(picker()[1].getAttribute('aria-pressed')).toBe('true');
   });
 
   it('lets the row of names do the same, for a thumb that misses a crest', async () => {
-    picker()[4].click();
+    picker()[3].click();
     await fixture.whenStable();
 
     expect(shown()).toEqual(['maleshov']);
-    expect(pins()[4].getAttribute('aria-pressed')).toBe('true');
+    expect(pins()[3].getAttribute('aria-pressed')).toBe('true');
   });
 
   it('keeps every house in the page, so a search engine reads them all', () => {

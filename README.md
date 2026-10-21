@@ -3,7 +3,7 @@
 Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
 moldura, sem ornamento e sem brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): texto em EB Garamond,
 rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com o vídeo do menu do jogo, Kuttenberg no alto do
-morro com a fumaça subindo, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
+morro com a fumaça subindo, e segue em capítulos que alternam papel e noite: o mapa das quatro casas, as facções, as guildas, a
 família, a hierarquia, a lore, as regras e como entrar.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
@@ -55,7 +55,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
 | palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
 | itens do menu | `NAV` em `src/app/core/site.ts` |
-| as cinco casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura) | `REALM_HOUSES` em `src/app/content/realm.ts` |
+| as quatro casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura) | `REALM_HOUSES` em `src/app/content/realm.ts` |
 | as regras (ambientação, tolerância zero, os seis termos, o lema) | `src/app/content/rules.ts` |
 | guildas, facções, passos para entrar, a árvore da família e os títulos da hierarquia | `src/app/content/*.ts` |
 | textos da lore | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
