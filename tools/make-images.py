@@ -54,8 +54,9 @@ CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
     # The two ornamental frames of dark clouds (2026-10-21), each heaped in one corner: the pieces of the curtain that closes the screen
     # and opens to the four corners when the page is entered (shared/ui/curtain). One size each, their own: they are drawn about 1.4 times
     # the window, so a larger file would only be heavier.
-    ("cloud-a", "Moldura Ornamental de Nuvens Espiraladas.png", (1774,), 70, 70, False),
-    ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 70, 70, False),
+    # Drawn up to 1.5 times their size, so they are kept at the quality of the art (2026-10-21: "perderam qualidade": 70/70 was soft).
+    ("cloud-a", "Moldura Ornamental de Nuvens Espiraladas.png", (1774,), 88, 95, False),
+    ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 88, 95, False),
 ]
 
 # Crests and ornaments, one width each (twice the size they are drawn at): output, original, width, quality

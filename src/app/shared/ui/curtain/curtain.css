@@ -1,8 +1,10 @@
 /*
  * The time line, from the moment the pictures are in (`.go`): the clouds come in from their corners and close over the screen (0 to
  * .75 s), hold (to .95 s), and while they draw back out to the corners (.95 to 2.65 s) the page is open to the pointer.
- * Each piece is 140% of the window on both sides, anchored at its corner: with the four of them the whole screen is covered
- * (measured on the pictures' own transparency at five window shapes, 16:9, 21:9, 4:3, square and a phone held upright).
+ * Each piece keeps the proportions of its picture (2026-10-21, the user: "perderam qualidade e proporções": they had been stretched to
+ * 140% of the window on both sides) and is anchored at its corner. A window wider than 5:4 gets the piece 1.5 times what fits in it,
+ * a narrower one (a phone upright) 1.2 times what covers it; the four pieces then cover the whole screen (measured on the pictures' own
+ * transparency at 13 window shapes, from 21:9 to 9:21).
  */
 .curtain {
   position: fixed;
@@ -16,14 +18,28 @@
 
 .cloud {
   position: absolute;
-  width: 140vw;
-  height: 140vh;
+  /* How many times wider than tall the picture is (cloud-a is 1774x887, cloud-b 1375x1144). */
+  --aspect: 2;
+  --c: 1.2;
+  width: max(calc(var(--c) * 100vw), calc(var(--c) * 100vh * var(--aspect)));
+  height: auto;
   /* The page's picture rule would hold them to the window's width. */
   max-width: none;
-  object-fit: fill;
   opacity: 0;
   pointer-events: none;
   user-select: none;
+}
+
+.tl,
+.br {
+  --aspect: 1.2019;
+}
+
+@media (min-aspect-ratio: 5/4) {
+  .cloud {
+    --c: 1.5;
+    width: min(calc(var(--c) * 100vw), calc(var(--c) * 100vh * var(--aspect)));
+  }
 }
 
 /* Each piece starts at the corner it will leave by: dx and dy are its own size, so it is clear of the screen there. */

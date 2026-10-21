@@ -18,6 +18,19 @@
       imagesizes="100vw"
       imagesrcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w"
     />
+    <!-- The clouds of the entrance (shared/ui/curtain): the first thing seen, so they are asked for at once. -->
+    <link
+      rel="preload"
+      as="image"
+      href="img/cloud-a-1774.webp"
+      media="(prefers-reduced-motion: no-preference)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="img/cloud-b-1375.webp"
+      media="(prefers-reduced-motion: no-preference)"
+    />
     <!-- The players online are read from the server list in the visitor's browser (src/app/core/server-status.ts). -->
     <link rel="preconnect" href="https://masterlist.mafiahub.dev" crossorigin />
     <link rel="icon" href="favicon.ico" sizes="48x48" />
