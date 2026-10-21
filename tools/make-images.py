@@ -67,6 +67,8 @@ CRESTS = [
     ("guild-taberneiro", "Brasão_Medieval_da_Guilda_da_Cerveja-removebg-preview.png", 300, 78),
     ("guild-alquimista", "Emblema_Heráldico_da_Alquimia_Verde-removebg-preview.png", 300, 78),
     ("guild-artesao", "Brasão_do_Alfaiate_Dourado-removebg-preview.png", 300, 78),
+    # The Coletores (2026-10-21): the user's own art, a large square with a margin round it, so trimmed to the figure.
+    ("guild-coletor", "Brasão Coletor.png", 300, 78),
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
@@ -188,14 +190,14 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
     "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-raborsch", "house-maleshov", "house-suchdol",
-    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador",
+    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor",
 }
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png"}
+SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}

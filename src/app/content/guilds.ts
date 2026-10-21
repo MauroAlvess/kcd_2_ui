@@ -44,4 +44,11 @@ export const GUILDS: readonly Guild[] = [
     crest: 'guild-artesao.webp',
     description: 'Linha, couro e tecido. Vestem do camponês ao marquês.',
   },
+  {
+    id: 'collectores',
+    latin: 'Collectores',
+    profession: 'Coletor',
+    crest: 'guild-coletor.webp',
+    description: 'Machado e picareta. Da mata vem a lenha; da pedra, quase sempre cascalho, às vezes ferro e, muito raramente, prata.',
+  },
 ];
