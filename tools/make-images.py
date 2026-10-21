@@ -51,6 +51,11 @@ CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
     ("rules", "Regras Básicas de RP Medieval.png", (640, 1024), 62, 60, False),
     # The two embroidered knights, the Lion's and the Raven's, back to back (hero.png, 2026-10-17): the Facções section.
     ("knights", "hero.png", (640, 1280), 74, 72, False),
+    # The two ornamental frames of dark clouds (2026-10-21), each heaped in one corner: the pieces of the curtain that closes the screen
+    # and opens to the four corners when the page is entered (shared/ui/curtain). One size each, their own: they are drawn about 1.4 times
+    # the window, so a larger file would only be heavier.
+    ("cloud-a", "Moldura Ornamental de Nuvens Espiraladas.png", (1774,), 70, 70, False),
+    ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 70, 70, False),
 ]
 
 # Crests and ornaments, one width each (twice the size they are drawn at): output, original, width, quality

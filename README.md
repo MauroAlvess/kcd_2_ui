@@ -71,7 +71,9 @@ src/app/
   layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
   sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
   shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo, título,
-                        introdução), steps, rich (negrito da lore), server-badge (jogadores online)
+                        introdução), steps, rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
+                        curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
+                        movimento reduzido nem scripts não há cortina; as duas molduras vêm de `tools/make-images.py`)
   content/              os textos em listas tipadas, separados do layout
 public/                 imagens (img/), ícones, site.webmanifest, og-image-2.jpg
 tools/                  scripts que preparam as imagens e o vídeo (abaixo)

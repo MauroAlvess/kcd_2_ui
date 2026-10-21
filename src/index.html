@@ -24,6 +24,14 @@
     <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
+    <!-- With no scripts the clouds of the entrance would never open: there is no curtain then (shared/ui/curtain). -->
+    <noscript
+      ><style>
+        app-curtain {
+          display: none;
+        }
+      </style></noscript
+    >
   </head>
   <body>
     <app-root></app-root>

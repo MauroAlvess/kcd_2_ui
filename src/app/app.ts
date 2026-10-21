@@ -12,6 +12,7 @@ import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
 import { Realm } from './sections/realm/realm';
 import { Rules } from './sections/rules/rules';
+import { Curtain } from './shared/ui/curtain/curtain';
 import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
 
 /**
@@ -23,6 +24,7 @@ import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
 @Component({
   selector: 'app-root',
   imports: [
+    Curtain,
     Header,
     Hero,
     Realm,
