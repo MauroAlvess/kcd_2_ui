@@ -69,6 +69,8 @@ CRESTS = [
     ("guild-artesao", "Brasão_do_Alfaiate_Dourado-removebg-preview.png", 300, 78),
     # The Coletores (2026-10-21): the user's own art, a large square with a margin round it, so trimmed to the figure.
     ("guild-coletor", "Brasão Coletor.png", 300, 78),
+    # The Agricultores (2026-10-22): the user's own art, painted on a checkerboard (see CHECKERED), trimmed to the figure.
+    ("guild-agricultor", "brasão agricultor.png", 300, 78),
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
@@ -190,7 +192,7 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
     "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-raborsch", "house-maleshov", "house-suchdol",
-    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor",
+    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor", "guild-agricultor",
 }
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
@@ -201,6 +203,9 @@ SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png",
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}
+
+# Crests whose "transparency" is a checkerboard painted into the pixels (see knock_out_checkerboard).
+CHECKERED = {"brasão agricultor.png"}
 
 
 def lift_from_dark(image: Image.Image) -> Image.Image:
@@ -280,6 +285,8 @@ for name, original, width, quality in CRESTS:
     art = Image.open(SOURCE / original).convert("RGBA")
     if original in LIFTED:
         art = lift_from_dark(art)
+    if original in CHECKERED:
+        art = knock_out_checkerboard(art)
     if original in SPECKLED:
         art = drop_specks(art)
     if name in TRIMMED:

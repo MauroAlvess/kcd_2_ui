@@ -51,4 +51,11 @@ export const GUILDS: readonly Guild[] = [
     crest: 'guild-coletor.webp',
     description: 'Machado e picareta. Da mata vem a lenha; da pedra, quase sempre cascalho, às vezes ferro e, muito raramente, prata.',
   },
+  {
+    id: 'agricolae',
+    latin: 'Agricolae',
+    profession: 'Agricultor',
+    crest: 'guild-agricultor.webp',
+    description: 'Pá, semente e paciência. Da horta vem o que a taverna cozinha; dos campos abertos, o cavalo que aprende a confiar.',
+  },
 ];

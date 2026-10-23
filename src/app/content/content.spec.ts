@@ -12,8 +12,8 @@ const unique = (values: readonly string[]) => new Set(values).size === values.le
 const filled = (value: string) => value.trim().length > 0;
 
 describe('content', () => {
-  it('has six guilds with their own id, name, craft, crest and description', () => {
-    expect(GUILDS).toHaveLength(6);
+  it('has seven guilds with their own id, name, craft, crest and description', () => {
+    expect(GUILDS).toHaveLength(7);
     expect(unique(GUILDS.map((guild) => guild.id))).toBe(true);
     expect(unique(GUILDS.map((guild) => guild.crest))).toBe(true);
     for (const guild of GUILDS) {
