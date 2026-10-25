@@ -19,15 +19,15 @@ describe('Guilds', () => {
     expect(heading?.tagName).toBe('H2');
   });
 
-  it('shows the seven guilds, in order, each with what a new member is handed', () => {
+  it('shows the eight guilds, in order, each with what a new member is handed', () => {
     const names = Array.from(root.querySelectorAll('.card h3'), (name) => name.textContent);
     expect(names).toEqual(GUILDS.map((guild) => guild.latin));
-    expect(names).toHaveLength(7);
+    expect(names).toHaveLength(8);
   });
 
   it('gives each crest a description and its size', () => {
     const crests = Array.from(root.querySelectorAll<HTMLImageElement>('.card .crest'));
-    expect(crests).toHaveLength(7);
+    expect(crests).toHaveLength(8);
     for (const crest of crests) {
       expect(crest.getAttribute('alt')).toContain('Brasão da guilda');
       expect(crest.getAttribute('width')).toBeTruthy();

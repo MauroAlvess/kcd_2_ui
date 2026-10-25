@@ -12,8 +12,8 @@ const unique = (values: readonly string[]) => new Set(values).size === values.le
 const filled = (value: string) => value.trim().length > 0;
 
 describe('content', () => {
-  it('has seven guilds with their own id, name, craft, crest and description', () => {
-    expect(GUILDS).toHaveLength(7);
+  it('has eight guilds with their own id, name, craft, crest and description', () => {
+    expect(GUILDS).toHaveLength(8);
     expect(unique(GUILDS.map((guild) => guild.id))).toBe(true);
     expect(unique(GUILDS.map((guild) => guild.crest))).toBe(true);
     for (const guild of GUILDS) {
@@ -172,12 +172,13 @@ describe('content', () => {
 });
 
 describe('realm', () => {
-  it('has the four houses of the map, the crown first, each with its crest and something to say (Trosky has no crest on it)', () => {
+  it('has the five houses of the map, the crown first, each with its crest and something to say (Trosky has no crest on it)', () => {
     expect(REALM_HOUSES.map((house) => house.id)).toEqual([
       'kuttenberg',
       'raborsch',
       'suchdol',
       'maleshov',
+      'pschitoky',
     ]);
     expect(unique(REALM_HOUSES.map((house) => house.crest))).toBe(true);
     for (const house of REALM_HOUSES) {

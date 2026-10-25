@@ -49,13 +49,23 @@ export const GUILDS: readonly Guild[] = [
     latin: 'Collectores',
     profession: 'Coletor',
     crest: 'guild-coletor.webp',
-    description: 'Machado e picareta. Da mata vem a lenha; da pedra, quase sempre cascalho, às vezes ferro e, muito raramente, prata.',
+    description:
+      'Machado e picareta. Da mata vem a lenha; da pedra, quase sempre cascalho, às vezes ferro e, muito raramente, prata.',
   },
   {
     id: 'agricolae',
     latin: 'Agricolae',
     profession: 'Agricultor',
     crest: 'guild-agricultor.webp',
-    description: 'Pá, semente e paciência. Da horta vem o que a taverna cozinha; dos campos abertos, o cavalo que aprende a confiar.',
+    description:
+      'Pá, semente e paciência. Da horta vem o que a taverna cozinha, colhido quando a planta está pronta.',
+  },
+  {
+    id: 'domitores',
+    latin: 'Domitores',
+    profession: 'Domador',
+    crest: 'guild-domador.webp',
+    description:
+      'Cenoura na mão, passo lento e paciência. O cavalo selvagem dos campos abertos só confia em quem não corre.',
   },
 ];

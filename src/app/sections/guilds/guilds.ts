@@ -4,7 +4,7 @@ import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 import { GuildCard } from './guild-card/guild-card';
 
-/** The five guilds: choose a craft and start with what it needs. */
+/** The guilds: choose a craft and start with what it needs. */
 @Component({
   selector: 'app-guilds',
   imports: [Section, SectionHeading, GuildCard],

@@ -1,4 +1,4 @@
-export type RealmHouseId = 'kuttenberg' | 'raborsch' | 'suchdol' | 'maleshov';
+export type RealmHouseId = 'kuttenberg' | 'raborsch' | 'suchdol' | 'maleshov' | 'pschitoky';
 
 export interface RealmHouse {
   readonly id: RealmHouseId;
@@ -26,13 +26,15 @@ export interface RealmHouse {
 
 /** What the map says, for anybody who cannot see it. */
 export const MAP_ALT =
-  'Mapa da região de Kuttenberg, entre florestas, campos e nuvens escuras: Kuttenberg a leste, Raborsch e Suchdol a oeste e Maleshov ao sul';
+  'Mapa da região de Kuttenberg, entre florestas, campos e nuvens escuras: Kuttenberg a leste, Raborsch e Suchdol a oeste, Pschitoky ao centro e Maleshov ao sul';
 
 /**
  * The houses of the lore on the map of the realm, the crown first. Their texts follow the user's story of the crown of
  * Kuttenberg (`lore.ts`): Raborsch is Gunther von Silberhände's, Suchdol the House of Schodal that lost its lord with
  * the king, and Maleshov the one that conspired. Trosky, the House of the Lions of Radovan de Zelený, is in the story
- * but its crest is not on the map (the user, 2026-10-21: "no mapa no site retire o brasão de trosky").
+ * but its crest is not on the map (the user, 2026-10-21: "no mapa no site retire o brasão de trosky"). Pschitoky, the fifth town
+ * of the game's Cidadania, came on 2026-10-25 ("no mapa adicionar o novo brasão na cidade do site"): the story has nothing of it, so
+ * its card says only what the server and the map know (a village between Raborsch and Kuttenberg, with a lord and a Lady).
  */
 export const REALM_HOUSES: readonly RealmHouse[] = [
   {
@@ -91,5 +93,21 @@ export const REALM_HOUSES: readonly RealmHouse[] = [
     x: 56.15,
     y: 80.4,
     size: 7.2,
+  },
+  {
+    id: 'pschitoky',
+    place: 'Pschitoky',
+    house: 'Terras de Pschitoky',
+    holder: 'Terra de um lorde e de sua Lady',
+    text: 'Aldeia de campos e de estrada, a meio caminho entre Raborsch e Kuttenberg. Tem senhor, tem Lady e tem brasão; a quem jurará lealdade, só o tempo dirá.',
+    crest: 'house-pschitoky.webp',
+    crestWidth: 320,
+    crestHeight: 371,
+    crestAlt:
+      'Brasão de Pschitoky: três torres amarelas sobre o campo vermelho e um portão aberto sobre o campo dourado, entre dois leões brancos coroados',
+    // The village on the map has its roofs at about 56% and 38% to 41%; the crest stands just above them, its foot on the roofs, as the others stand over their towns.
+    x: 56,
+    y: 33.5,
+    size: 6.8,
   },
 ];

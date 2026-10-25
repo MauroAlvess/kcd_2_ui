@@ -71,6 +71,8 @@ CRESTS = [
     ("guild-coletor", "Brasão Coletor.png", 300, 78),
     # The Agricultores (2026-10-22): the user's own art, painted on a checkerboard (see CHECKERED), trimmed to the figure.
     ("guild-agricultor", "brasão agricultor.png", 300, 78),
+    # The Domadores (2026-10-25): the user's own art, a PNG with its own transparency and a few specks round it (see SPECKLED), trimmed to the figure.
+    ("guild-domador", "brasão domador.png", 300, 78),
     ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
     ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
@@ -95,6 +97,8 @@ CRESTS = [
     ("house-raborsch", "Brasão Medieval com Rocha de Prata.png", 320, 76),
     ("house-maleshov", "Brasão Medieval do Corvo Dourado.png", 320, 76),
     ("house-suchdol", "Brasão Bordado Medieval de Suchdol.png", 320, 76),
+    # Pschitoky (2026-10-25: "no mapa adicionar o novo brasão na cidade"): the fifth town of the game's Cidadania, on the map at its village.
+    ("house-pschitoky", "Brasão Pschitoky.png", 320, 76),
 ]
 
 # The icon sits on the site's black, so it is flattened onto it: iOS paints transparency black anyway.
@@ -192,14 +196,15 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
     "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-raborsch", "house-maleshov", "house-suchdol",
-    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor", "guild-agricultor",
+    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor", "guild-agricultor", "guild-domador",
+    "house-pschitoky",
 }
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png"}
+SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png", "brasão domador.png", "Brasão Pschitoky.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}
