@@ -58,6 +58,17 @@
   border-top: 1px solid var(--rule);
 }
 
+/* The drawing of the rule, in the colour of its tag: red for what is punished, blue for what every character must do. */
+.mark {
+  --icon-size: 1.9rem;
+  margin-bottom: 0.7rem;
+  color: var(--red);
+}
+
+.rule[data-kind='expected'] .mark {
+  color: var(--blue);
+}
+
 .tag {
   font: 500 0.8rem/1.2 var(--sans);
   color: var(--red);

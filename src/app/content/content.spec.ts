@@ -7,6 +7,8 @@ import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
 import { MAP_ALT, REALM_HOUSES } from './realm';
 import { RULES, RULES_MOTTO, ZERO_TOLERANCE } from './rules';
+import { NAV } from '../core/site';
+import { ICONS } from '../shared/ui/icon/icons';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 const filled = (value: string) => value.trim().length > 0;
@@ -101,6 +103,19 @@ describe('content', () => {
     for (const gift of GIFTS) {
       expect(filled(gift.title) && filled(gift.text)).toBe(true);
     }
+  });
+
+  it('draws what it can with icons that exist: the gifts, the steps of the way in, the rules and the menu', () => {
+    const drawn = [
+      ...GIFTS.map((gift) => gift.icon),
+      ...JOIN_STEPS.map((step) => step.icon),
+      ...RULES.map((rule) => rule.icon),
+      ...NAV.map((item) => item.icon),
+    ];
+    expect(drawn.every((icon) => icon !== undefined && icon in ICONS)).toBe(true);
+    expect(unique(GIFTS.map((gift) => gift.icon))).toBe(true);
+    expect(unique(JOIN_STEPS.map((step) => step.icon ?? ''))).toBe(true);
+    expect(unique(NAV.map((item) => item.icon))).toBe(true);
   });
 
   it('sends a supporter to the game and to the Discord, and carries no payment data', () => {

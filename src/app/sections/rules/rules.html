@@ -1,5 +1,10 @@
 <app-section anchor="regras" tone="light" labelledBy="regras-title">
-  <app-section-heading eyebrow="Regras" heading="As leis do reino" titleId="regras-title">
+  <app-section-heading
+    eyebrow="Regras"
+    icon="scales"
+    heading="As leis do reino"
+    titleId="regras-title"
+  >
     Conflitos entre personagens fazem parte do RP. Entre jogadores, não.
   </app-section-heading>
 
@@ -39,6 +44,7 @@
   <ul class="rules">
     @for (rule of rules; track rule.id) {
       <li class="rule" [attr.data-kind]="rule.kind">
+        <app-icon class="mark" [name]="rule.icon" />
         <p class="tag">{{ rule.kind === 'forbidden' ? 'Proibido' : 'Exigido' }}</p>
         <h3>{{ rule.name }}</h3>
         @if (rule.full) {

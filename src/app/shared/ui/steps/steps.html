@@ -1,7 +1,12 @@
 <ol class="steps" [attr.data-layout]="layout()">
   @for (step of steps(); track step.numeral) {
     <li class="step">
-      <span class="numeral" aria-hidden="true">{{ step.numeral }}</span>
+      <div class="mark">
+        @if (step.icon; as drawing) {
+          <app-icon [name]="drawing" />
+        }
+        <span class="numeral" aria-hidden="true">{{ step.numeral }}</span>
+      </div>
       <h3>{{ step.title }}</h3>
       <p>{{ step.text }}</p>
     </li>

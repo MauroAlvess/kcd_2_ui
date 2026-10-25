@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { ICONS } from '../icon/icons';
 import { Button } from './button';
 
 async function link(inputs: Record<string, unknown>): Promise<HTMLAnchorElement> {
@@ -26,6 +27,15 @@ describe('Button', () => {
     expect(anchor.getAttribute('target')).toBe('_blank');
     expect(anchor.getAttribute('rel')).toBe('noopener noreferrer');
     expect(anchor.querySelector('.sr-only')?.textContent).toContain('nova aba');
+  });
+
+  it('has no drawing unless it is given one, and then shows it before the words', async () => {
+    expect((await link({ href: '#a' })).querySelector('app-icon')).toBeNull();
+
+    const anchor = await link({ href: '#a', icon: 'download' });
+    expect(anchor.querySelector('app-icon path')?.getAttribute('d')).toBe(ICONS.download[0]);
+    expect(anchor.firstElementChild?.tagName).toBe('APP-ICON');
+    expect(anchor.querySelector('app-icon svg')?.getAttribute('aria-hidden')).toBe('true');
   });
 
   it('is the red one unless it asks for the outline', async () => {

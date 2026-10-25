@@ -1,6 +1,11 @@
 <app-section anchor="entrar" tone="dark" labelledBy="entrar-title" [image]="painting">
   <div class="card">
-    <app-section-heading eyebrow="Entrar" heading="Sua lenda começa hoje" titleId="entrar-title">
+    <app-section-heading
+      eyebrow="Entrar"
+      icon="enter"
+      heading="Sua lenda começa hoje"
+      titleId="entrar-title"
+    >
       {{ site.game }}, RP Brasil: o primeiro servidor de RP de KCD 2 do Brasil. Três passos separam
       você de Kuttenberg.
     </app-section-heading>
@@ -8,7 +13,7 @@
     <app-steps [steps]="steps" />
 
     <div class="cta">
-      <app-button [href]="site.discord" external large>Entrar no Discord</app-button>
+      <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
       <app-server-badge />
     </div>
   </div>

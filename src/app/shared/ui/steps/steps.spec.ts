@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { ICONS } from '../icon/icons';
 import { Steps, type Step } from './steps';
 
 const STEPS: readonly Step[] = [
@@ -31,6 +32,20 @@ describe('Steps', () => {
 
     expect(numerals.map((numeral) => numeral.textContent)).toEqual(['I', 'II']);
     expect(numerals.every((numeral) => numeral.getAttribute('aria-hidden') === 'true')).toBe(true);
+  });
+
+  it('draws the icon of a step before its numeral, and nothing for a step without one', async () => {
+    const fixture = TestBed.createComponent(Steps);
+    fixture.componentRef.setInput('steps', [
+      { numeral: 'I', icon: 'chat', title: 'Primeiro', text: 'Um.' },
+      { numeral: 'II', title: 'Segundo', text: 'Dois.' },
+    ] satisfies readonly Step[]);
+    await fixture.whenStable();
+    const marks = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.mark'));
+
+    expect(marks[0].querySelector('app-icon path')?.getAttribute('d')).toBe(ICONS.chat[0]);
+    expect(marks[0].firstElementChild?.tagName).toBe('APP-ICON');
+    expect(marks[1].querySelector('app-icon')).toBeNull();
   });
 
   it('lays the steps out side by side unless it is asked for a timeline', async () => {

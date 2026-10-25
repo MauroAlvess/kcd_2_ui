@@ -1,5 +1,10 @@
-/** The picture each rule is drawn with (an inline line drawing in the Rules section). */
-export type RuleIcon = 'swords' | 'horseshoe' | 'broken' | 'shield' | 'eye' | 'fist';
+import type { IconName } from '../shared/ui/icon/icons';
+
+/** The line drawing each rule is marked with in the Rules section (one of the site's icons). */
+export type RuleIcon = Extract<
+  IconName,
+  'swords' | 'horseshoe' | 'broken' | 'shield' | 'eye' | 'fist'
+>;
 
 export interface Rule {
   readonly id: string;

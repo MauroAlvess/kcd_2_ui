@@ -13,6 +13,7 @@ import {
 } from '../../content/holdings';
 import { SITE } from '../../core/site';
 import { Button } from '../../shared/ui/button/button';
+import { Icon } from '../../shared/ui/icon/icon';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
@@ -24,7 +25,7 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
  */
 @Component({
   selector: 'app-holdings',
-  imports: [Button, Section, SectionHeading],
+  imports: [Button, Icon, Section, SectionHeading],
   templateUrl: './holdings.html',
   styleUrl: './holdings.css',
 })

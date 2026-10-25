@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NAV, SITE } from '../../core/site';
+import { ICONS } from '../../shared/ui/icon/icons';
 import { Header } from './header';
 
 describe('Header', () => {
@@ -21,6 +22,16 @@ describe('Header', () => {
       anchor.getAttribute('href'),
     );
     expect(hrefs).toEqual(NAV.map((item) => item.href));
+  });
+
+  it('puts the drawing of its section in front of every link, for the folded menu', () => {
+    const icons = Array.from(root.querySelectorAll('.menu li a app-icon'));
+    expect(icons).toHaveLength(NAV.length);
+    NAV.forEach((item, at) => {
+      expect(icons[at].querySelector('path')?.getAttribute('d'), item.label).toBe(
+        ICONS[item.icon][0],
+      );
+    });
   });
 
   it('keeps the bar to the name and the section links: no Discord button in it', () => {

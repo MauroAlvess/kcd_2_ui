@@ -70,19 +70,23 @@ src/app/
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
   sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
-  shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo, título,
-                        introdução), steps, rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
+  shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo com o seu
+                        desenho, título, introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
+                        guarda todos), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
                         movimento reduzido nem scripts não há cortina; as duas molduras vêm de `tools/make-images.py`)
   content/              os textos em listas tipadas, separados do layout
 public/                 imagens (img/), ícones, site.webmanifest, og-image-3.jpg
-tools/                  scripts que preparam as imagens e o vídeo (abaixo)
+tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `make-icon-sheet.mjs`, que mostra todos os ícones
+                        juntos (`node tools/make-icon-sheet.mjs folha.html`, Node 24) antes de um novo entrar numa página
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. O que
-sobe ao entrar na tela (classe `reveal`) usa as animações por rolagem do próprio CSS: um navegador sem elas, ou quem pede
-menos movimento, vê tudo no lugar, nada fica escondido.
+`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. Entre
+uma faixa e a outra não há quina: a cor da faixa de cima cede à desta ao longo do espaço do topo (o `::before` de
+`<app-section>`; as faixas se alternam, e o teste da página garante isso), e a abertura e a foto da última faixa descem para o
+preto, de onde a descida seguinte parte. O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
+(`animation-timeline: view()`): um navegador sem elas, ou quem pede menos movimento, vê tudo no lugar, nada fica escondido.
 
 ## Imagens
 

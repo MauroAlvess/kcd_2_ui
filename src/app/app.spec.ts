@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { LiveStatus, UNKNOWN } from './core/server-status';
 import { NAV, SITE } from './core/site';
+import { ICONS } from './shared/ui/icon/icons';
 
 describe('App', () => {
   let root: HTMLElement;
@@ -63,6 +64,18 @@ describe('App', () => {
     for (const heading of headings) {
       expect(heading.querySelector('.numeral, .ornament')).toBeNull();
       expect(heading.querySelector('h2')).not.toBeNull();
+    }
+  });
+
+  it('marks the small label of every section with a line drawing, the one its entry in the menu has', () => {
+    const labels = Array.from(root.querySelectorAll('main section.section .eyebrow'));
+    expect(labels).toHaveLength(10);
+    for (const label of labels) {
+      expect(label.querySelector('app-icon svg path'), label.textContent ?? '').not.toBeNull();
+    }
+    for (const item of NAV) {
+      const label = root.querySelector(`main section${item.href} .eyebrow`);
+      expect(label?.querySelector('path')?.getAttribute('d'), item.label).toBe(ICONS[item.icon][0]);
     }
   });
 

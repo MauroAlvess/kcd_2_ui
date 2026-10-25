@@ -32,8 +32,10 @@
       família e escreva o seu nome na história da Boêmia.
     </p>
     <div class="actions">
-      <app-button [href]="site.discord" external large>Entrar no Discord</app-button>
-      <app-button [href]="site.launcher" variant="ghost" large>Baixar launcher</app-button>
+      <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
+      <app-button [href]="site.launcher" variant="ghost" icon="download" large>
+        Baixar launcher
+      </app-button>
     </div>
     <app-server-badge class="live" />
   </div>

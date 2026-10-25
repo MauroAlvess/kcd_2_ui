@@ -1,3 +1,5 @@
+import type { IconName } from '../shared/ui/icon/icons';
+
 /** One thing a player can have: its picture (a file of public/img) and what the server does with it. */
 export interface Holding {
   readonly id: string;
@@ -13,6 +15,8 @@ export interface Holding {
 /** What a supporter is given: one line each, as the game server hands them over. */
 export interface Gift {
   readonly id: string;
+  /** The line drawing beside it (one of the site's icons). */
+  readonly icon: IconName;
   readonly title: string;
   readonly text: string;
 }
@@ -71,10 +75,30 @@ export const SUPPORT_TITLE = 'O servidor é totalmente free';
 export const SUPPORT_LEAD = 'Quem quiser ajudar a manter o reino de pé pode apoiar, e recebe:';
 
 export const GIFTS: readonly Gift[] = [
-  { id: 'cavalo', title: 'Um cavalo', text: 'Em arreios de nobre, à sua espera.' },
-  { id: 'cachorro', title: 'Um cachorro', text: 'Um cão fiel, que volta com você a cada entrada.' },
-  { id: 'arma', title: 'Uma arma', text: 'Uma bombarda de mão, a píšťala, com dez balas.' },
-  { id: 'roupas', title: 'Roupas de nobre', text: 'Um traje completo, das botas ao capuz.' },
+  {
+    id: 'cavalo',
+    icon: 'horseshoe',
+    title: 'Um cavalo',
+    text: 'Em arreios de nobre, à sua espera.',
+  },
+  {
+    id: 'cachorro',
+    icon: 'paw',
+    title: 'Um cachorro',
+    text: 'Um cão fiel, que volta com você a cada entrada.',
+  },
+  {
+    id: 'arma',
+    icon: 'handgonne',
+    title: 'Uma arma',
+    text: 'Uma bombarda de mão, a píšťala, com dez balas.',
+  },
+  {
+    id: 'roupas',
+    icon: 'tunic',
+    title: 'Roupas de nobre',
+    text: 'Um traje completo, das botas ao capuz.',
+  },
 ];
 
 /** Where to go to support: the game's own panel says how; the staff hand the rest over. No payment data lives on the site. */

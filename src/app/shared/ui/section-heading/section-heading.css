@@ -15,8 +15,17 @@
 }
 
 .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font: 500 0.85rem/1.3 var(--sans);
   color: var(--fg-muted);
+}
+
+/* The drawing takes the band's accent: red on paper, beige on black. */
+.eyebrow app-icon {
+  --icon-size: 1.3rem;
+  color: var(--accent);
 }
 
 h2 {

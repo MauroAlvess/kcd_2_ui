@@ -54,6 +54,18 @@
     );
 }
 
+/* The foot of the picture goes down into black, where the slope of the next band (the paper of the realm) begins: the page leaves the
+   picture without an edge (user, 2026-10-25: "transição melhor entre as seções"). */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: clamp(5rem, 14vh, 9rem);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--black));
+}
+
 .content {
   width: min(100%, var(--maxw));
   margin-inline: auto;

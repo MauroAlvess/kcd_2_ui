@@ -66,6 +66,11 @@
   color: var(--paper);
 }
 
+/* The drawings come with the folded menu only: the bar itself has no room for them. */
+.ico {
+  display: none;
+}
+
 .toggle {
   display: none;
   align-items: center;
@@ -145,10 +150,18 @@
   }
 
   .menu li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
     padding: 1rem 0;
     font-size: 1rem;
     border-bottom: 1px solid rgba(236, 230, 218, 0.1);
+  }
+
+  .ico {
+    display: inline-flex;
+    --icon-size: 1.3rem;
+    color: var(--beige);
   }
 }
 

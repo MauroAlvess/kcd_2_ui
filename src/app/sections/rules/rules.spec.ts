@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RULES } from '../../content/rules';
+import { ICONS } from '../../shared/ui/icon/icons';
 import { Rules } from './rules';
 
 describe('Rules', () => {
@@ -24,7 +25,7 @@ describe('Rules', () => {
     expect(zero?.getAttribute('aria-labelledby')).toBe(zero?.querySelector('h3')?.id);
   });
 
-  it('lists the six terms, each marked forbidden or required, in words alone (no drawing)', () => {
+  it('lists the six terms, each marked forbidden or required and drawn with its own line drawing', () => {
     const rules = Array.from(root.querySelectorAll<HTMLElement>('.rules .rule'));
     expect(rules.map((rule) => rule.querySelector('h3')?.textContent)).toEqual(
       RULES.map((rule) => rule.name),
@@ -32,9 +33,15 @@ describe('Rules', () => {
     expect(rules.map((rule) => rule.querySelector('.tag')?.textContent)).toEqual(
       RULES.map((rule) => (rule.kind === 'forbidden' ? 'Proibido' : 'Exigido')),
     );
-    for (const rule of rules) {
-      expect(rule.querySelector('svg, img')).toBeNull();
-    }
+    rules.forEach((rule, at) => {
+      const drawing = rule.querySelector('app-icon svg');
+      expect(drawing?.getAttribute('aria-hidden'), RULES[at].id).toBe('true');
+      expect(drawing?.querySelector('path')?.getAttribute('d'), RULES[at].id).toBe(
+        ICONS[RULES[at].icon][0],
+      );
+      expect(rule.querySelector('img')).toBeNull();
+    });
+    expect(new Set(RULES.map((rule) => rule.icon)).size).toBe(RULES.length);
   });
 
   it('ends on the motto', () => {

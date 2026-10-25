@@ -7,6 +7,7 @@ import {
   RULES_STAFF,
   ZERO_TOLERANCE,
 } from '../../content/rules';
+import { Icon } from '../../shared/ui/icon/icon';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
@@ -17,7 +18,7 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
  */
 @Component({
   selector: 'app-rules',
-  imports: [Section, SectionHeading],
+  imports: [Icon, Section, SectionHeading],
   templateUrl: './rules.html',
   styleUrl: './rules.css',
 })
