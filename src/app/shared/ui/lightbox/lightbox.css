@@ -1,0 +1,114 @@
+:host {
+  display: contents;
+}
+
+/* Only an open dialog is laid out (a closed one stays out of the page, as the browser says), so `display` is set on
+   `[open]` and never on the dialog itself. */
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  color: var(--paper);
+  background: transparent;
+  border: 0;
+}
+
+.lightbox::backdrop {
+  background: rgba(13, 11, 9, 0.93);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+  padding: 4.5rem var(--gutter) 2.5rem;
+}
+
+figure {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  max-height: calc(100dvh - 10.5rem);
+  width: auto;
+  height: auto;
+  border: 4px double rgba(210, 179, 140, 0.55);
+  background: var(--black);
+}
+
+figcaption {
+  font: 600 0.78rem/1.3 var(--display);
+  letter-spacing: 0.22em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--beige);
+}
+
+.count {
+  margin-left: 1rem;
+  letter-spacing: 0.14em;
+  color: var(--paper);
+  opacity: 0.6;
+}
+
+.close,
+.step {
+  position: fixed;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--paper);
+  background: rgba(13, 11, 9, 0.6);
+  border: 1px solid rgba(210, 179, 140, 0.5);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.close:hover,
+.step:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.close {
+  top: 1rem;
+  right: var(--gutter);
+  min-height: 2.75rem;
+  padding: 0 1.4rem;
+  font: 600 0.72rem/1 var(--display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.step {
+  top: 50%;
+  width: 3rem;
+  height: 4rem;
+  font: 400 2.4rem/1 var(--body);
+  transform: translateY(-50%);
+}
+
+.previous {
+  left: max(0.5rem, calc(var(--gutter) / 2));
+}
+
+.next {
+  right: max(0.5rem, calc(var(--gutter) / 2));
+}
+
+@media (max-width: 40rem) {
+  .step {
+    top: auto;
+    bottom: 0.75rem;
+    transform: none;
+  }
+}

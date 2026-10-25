@@ -1,0 +1,26 @@
+<app-section anchor="fotos" tone="light" labelledBy="fotos-title">
+  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="fotos-title">
+    {{ lead }}
+  </app-section-heading>
+
+  <ul class="wall">
+    @for (photo of photos; track photo.id; let index = $index) {
+      <li>
+        <button class="open" type="button" (click)="viewer.show(index)">
+          <img
+            [src]="photo.small.src"
+            [attr.width]="photo.small.width"
+            [attr.height]="photo.small.height"
+            [alt]="photo.alt"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="title" aria-hidden="true">{{ photo.title }}</span>
+          <span class="sr-only">Ampliar a foto: {{ photo.title }}</span>
+        </button>
+      </li>
+    }
+  </ul>
+
+  <app-lightbox #viewer [pictures]="pictures" />
+</app-section>

@@ -64,6 +64,7 @@ export const NAV: readonly NavItem[] = [
   { label: 'Posses', href: '#posses' },
   { label: 'História', href: '#lore' },
   { label: 'Regras', href: '#regras' },
+  { label: 'Fotos', href: '#fotos' },
 ];
 
 /**
