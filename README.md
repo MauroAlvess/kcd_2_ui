@@ -82,10 +82,8 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. Entre
-uma faixa e a outra não há quina: a cor da faixa de cima cede à desta ao longo do espaço do topo (o `::before` de
-`<app-section>`; as faixas se alternam, e o teste da página garante isso), e a abertura e a foto da última faixa descem para o
-preto, de onde a descida seguinte parte. O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
+`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. Cada faixa de papel tem a moldura do mapa (uma linha fina um pouco para dentro da borda, o canto do leão em cima à esquerda e o do
+corvo embaixo à direita) e uma linha fina no topo; a descida suave entre as faixas foi tentada e tirada a pedido do dono (2026-10-25). O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
 (`animation-timeline: view()`): um navegador sem elas, ou quem pede menos movimento, vê tudo no lugar, nada fica escondido.
 
 ## Imagens

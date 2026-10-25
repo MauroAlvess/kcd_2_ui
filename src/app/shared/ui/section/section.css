@@ -9,16 +9,16 @@
   overflow: clip;
 }
 
-/* Paper: flat, dark ink, the red for the few things that call. */
+/* Paper: flat, dark ink, the red for the few things that call. A hairline parts one paper band from the next. */
 .light {
   --fg: var(--ink);
   --fg-muted: rgba(29, 25, 21, 0.68);
   --rule: rgba(29, 25, 21, 0.16);
   --accent: var(--red);
   --strong: var(--red);
-  --seam: var(--black);
   background: var(--paper);
   color: var(--fg);
+  border-top: 1px solid var(--rule);
 }
 
 /* Night: flat black, beige text. */
@@ -28,31 +28,8 @@
   --rule: rgba(236, 230, 218, 0.16);
   --accent: var(--beige);
   --strong: var(--beige);
-  --seam: var(--paper);
   background: var(--black);
   color: var(--fg);
-}
-
-/* Where one band meets the next (user, 2026-10-25: "coloque transição melhor entre as seções"): instead of stopping at an edge, the
-   colour of the band above gives way to this one's over the stretch of padding at its top, so the page goes from black to paper and
-   back as a slope and not a step. The bands alternate (the page's test sees to it), so the band above is always the other tone; the
-   padding is as tall as the slope, so no word stands on it. */
-.section::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 1;
-  height: var(--section-pad);
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    var(--seam),
-    color-mix(in srgb, var(--seam) 80%, transparent) 14%,
-    color-mix(in srgb, var(--seam) 56%, transparent) 34%,
-    color-mix(in srgb, var(--seam) 30%, transparent) 56%,
-    color-mix(in srgb, var(--seam) 11%, transparent) 78%,
-    transparent
-  );
 }
 
 .wrap {
@@ -62,9 +39,8 @@
   margin-inline: auto;
 }
 
-/* What a band holds rises into place as the band comes into view, a little way and softly, so the slope above it and the words on it
-   arrive together. Browsers without scroll-driven animations, and anybody who asks for less motion, see it where it stands: nothing
-   is ever hidden for them. */
+/* What a band holds rises into place as the band comes into view, a little way and softly. Browsers without scroll-driven animations, and
+   anybody who asks for less motion, see it where it stands: nothing is ever hidden for them. */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .wrap {
@@ -102,12 +78,36 @@
   object-fit: cover;
 }
 
-/* The foot of the picture goes down into black, which is the colour the next band's slope (or the foot of the page) starts from. */
 .photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, transparent calc(100% - var(--section-pad)), var(--black)),
-    rgba(15, 13, 11, 0.66);
+  background: rgba(15, 13, 11, 0.66);
+}
+
+/* Every paper band is framed like the map: a thin line a little inside its edge, the lion's corner above on the left and the raven's below
+   on the right (user, 2026-10-25: "em toda seção bege colocar as bordas de imagem"). */
+.frame {
+  position: absolute;
+  inset: clamp(0.5rem, 2.2vw, 1.8rem);
+  z-index: 1;
+  border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: clamp(3.4rem, 9vw, 7rem);
+  height: auto;
+  filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.4));
+}
+
+.lion {
+  top: clamp(-1.2rem, -1.4vw, -0.4rem);
+  left: clamp(-1.2rem, -1.4vw, -0.4rem);
+}
+
+.raven {
+  right: clamp(-1.2rem, -1.4vw, -0.4rem);
+  bottom: clamp(-1.2rem, -1.4vw, -0.4rem);
 }

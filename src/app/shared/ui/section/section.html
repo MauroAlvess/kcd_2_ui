@@ -18,6 +18,28 @@
       />
     </div>
   }
+  @if (tone() === 'light') {
+    <div class="frame" aria-hidden="true">
+      <img
+        class="corner lion"
+        src="img/corner-lion.webp"
+        width="360"
+        height="360"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        class="corner raven"
+        src="img/corner-raven.webp"
+        width="360"
+        height="360"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  }
   <ng-content select="[backdrop]" />
   <div class="wrap">
     <ng-content />

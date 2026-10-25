@@ -42,7 +42,6 @@ describe('App', () => {
     expect(ids).toEqual([
       'inicio',
       'reino',
-      'faccoes',
       'guildas',
       'familia',
       'hierarquia',
@@ -69,7 +68,7 @@ describe('App', () => {
 
   it('marks the small label of every section with a line drawing, the one its entry in the menu has', () => {
     const labels = Array.from(root.querySelectorAll('main section.section .eyebrow'));
-    expect(labels).toHaveLength(10);
+    expect(labels).toHaveLength(9);
     for (const label of labels) {
       expect(label.querySelector('app-icon svg path'), label.textContent ?? '').not.toBeNull();
     }
@@ -81,7 +80,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(11);
+    expect(sections).toHaveLength(10);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -135,13 +134,6 @@ describe('App', () => {
     expect(root.querySelector('app-header a[href="' + SITE.launcher + '"]')).toBeNull();
   });
 
-  it('shows the two houses of the factions side by side, each with its crest, and nothing but the words and the crests', () => {
-    const factions = root.querySelector('#faccoes') as HTMLElement;
-    expect(factions.querySelectorAll('app-house-card')).toHaveLength(2);
-    expect(factions.querySelectorAll('app-house-card img.crest')).toHaveLength(2);
-    expect(factions.querySelectorAll('img')).toHaveLength(2);
-  });
-
   it('shows the poster of the basic rules in the rules, and the shield of the two houses in the history', () => {
     const poster = root.querySelector<HTMLImageElement>('#regras a.poster img');
     expect(poster?.getAttribute('src')).toBe('img/rules-640.webp');
@@ -189,13 +181,13 @@ describe('App', () => {
     );
   });
 
-  it('alternates dark and light bands all the way down, so no two neighbours run into each other', () => {
+  it('never puts two dark bands side by side (two paper ones are parted by their hairline and frames)', () => {
     const tones = Array.from(root.querySelectorAll('main section.section'), (section) =>
       section.classList.contains('dark') ? 'dark' : 'light',
     );
-    expect(tones.length).toBe(10);
+    expect(tones.length).toBe(9);
     for (let at = 1; at < tones.length; at++) {
-      expect(tones[at], `section ${at}`).not.toBe(tones[at - 1]);
+      expect(tones[at] === 'dark' && tones[at - 1] === 'dark', `section ${at}`).toBe(false);
     }
   });
 

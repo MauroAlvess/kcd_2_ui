@@ -2,7 +2,6 @@ import { FAMILY_NOTE, FAMILY_POINTS, FAMILY_TREE, branchesOf } from './family';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { GIFTS, HOLDINGS, SUPPORT_HOW } from './holdings';
-import { HOUSES } from './houses';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
 import { MAP_ALT, REALM_HOUSES } from './realm';
@@ -23,15 +22,6 @@ describe('content', () => {
         expect(filled(text)).toBe(true);
       }
       expect(guild.crest).toMatch(/^guild-[a-z]+\.webp$/);
-    }
-  });
-
-  it('has the two houses, each with a lord, a motto and a creed', () => {
-    expect(HOUSES.map((house) => house.id)).toEqual(['leao', 'corvo']);
-    for (const house of HOUSES) {
-      for (const text of [house.name, house.leader, house.motto, house.creed, house.crestAlt]) {
-        expect(filled(text)).toBe(true);
-      }
     }
   });
 
