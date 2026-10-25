@@ -10,7 +10,6 @@ import { Hierarchy } from './sections/hierarchy/hierarchy';
 import { Holdings } from './sections/holdings/holdings';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
-import { Photos } from './sections/photos/photos';
 import { Realm } from './sections/realm/realm';
 import { Rules } from './sections/rules/rules';
 import { Curtain } from './shared/ui/curtain/curtain';
@@ -37,7 +36,6 @@ import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
     Lore,
     Rules,
     Join,
-    Photos,
     Footer,
     ScrollHint,
   ],

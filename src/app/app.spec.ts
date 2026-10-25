@@ -36,7 +36,7 @@ describe('App', () => {
     }
   });
 
-  it('reads as the opening, the chapters in the order the navigation lists them, the way in and the photos', () => {
+  it('reads as the opening, the chapters in the order the navigation lists them, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
     expect(ids).toEqual([
       'inicio',
@@ -50,10 +50,9 @@ describe('App', () => {
       'lore',
       'regras',
       'entrar',
-      'fotos',
     ]);
     // "Apoio" is the second half of "Posses": a band of its own, with no link of its own.
-    // "Entrar" has its own buttons, and the photos close the page after it.
+    // "Entrar" has its own buttons, and it closes the page.
     const linked = ids.slice(1).filter((id) => id !== 'apoio' && id !== 'entrar');
     expect(linked.map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
   });
@@ -69,7 +68,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(12);
+    expect(sections).toHaveLength(11);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -181,7 +180,7 @@ describe('App', () => {
     const tones = Array.from(root.querySelectorAll('main section.section'), (section) =>
       section.classList.contains('dark') ? 'dark' : 'light',
     );
-    expect(tones.length).toBe(11);
+    expect(tones.length).toBe(10);
     for (let at = 1; at < tones.length; at++) {
       expect(tones[at], `section ${at}`).not.toBe(tones[at - 1]);
     }

@@ -120,7 +120,7 @@
   transform: translateY(-0.42rem) rotate(-45deg);
 }
 
-/* Below this width the seven links and the name no longer sit on one line: they fold into a menu behind the button. */
+/* Below this width the eight links and the name no longer sit on one line: they fold into a menu behind the button. */
 @media (max-width: 64rem) {
   .toggle {
     display: inline-flex;
