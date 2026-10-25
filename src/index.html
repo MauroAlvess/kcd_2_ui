@@ -16,7 +16,16 @@
       href="img/hero-1920.webp"
       fetchpriority="high"
       imagesizes="100vw"
-      imagesrcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w"
+      imagesrcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w, img/hero-2560.webp 2560w"
+    />
+    <!-- And the lettering over it, which is what the visitor reads first. -->
+    <link
+      rel="preload"
+      as="image"
+      href="img/title-1280.webp"
+      fetchpriority="high"
+      imagesizes="(min-width: 56rem) 34rem, 86vw"
+      imagesrcset="img/title-640.webp 640w, img/title-1280.webp 1280w"
     />
     <!-- The clouds of the entrance (shared/ui/curtain): the first thing seen, so they are asked for at once. -->
     <link

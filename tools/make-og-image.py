@@ -1,4 +1,4 @@
-"""Renders the card that chat apps and search results show for a link to the site: public/og-image-2.jpg.
+"""Renders the card that chat apps and search results show for a link to the site: public/og-image-3.jpg.
 
     python tools/make-og-image.py
 
@@ -18,10 +18,10 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "og-image.html"
-# The card has a number in its name (og-image-2.jpg since 2026-10-20, the page of the new look): chat apps keep a link's picture by its
-# address for days, so a new picture needs a new address. Change the number here, in src/app/core/seo.ts, in
-# scripts/seo-files.mjs and in the specs when the card is redrawn.
-TARGET = HERE.parent / "public" / "og-image-2.jpg"
+# The card has a number in its name (og-image-2.jpg from 2026-10-20, og-image-3.jpg since 2026-10-25, the duel and the lettering): chat apps
+# keep a link's picture by its address for days, so a new picture needs a new address. Change the number here, in src/app/core/seo.ts, in
+# scripts/seo-files.mjs, in the README and in the specs when the card is redrawn, and delete the old file.
+TARGET = HERE.parent / "public" / "og-image-3.jpg"
 
 BROWSERS = [
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",

@@ -2,8 +2,8 @@
 
 Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
 moldura, sem ornamento e sem brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): texto em EB Garamond,
-rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com o vídeo do menu do jogo, Kuttenberg no alto do
-morro com a fumaça subindo, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
+rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
+estandartes amarelos) e o letreiro "Kingdom Come: Deliverance II RP Brasil" em ouro e osso, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
 família, a hierarquia, a lore, as regras e como entrar.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
@@ -75,7 +75,7 @@ src/app/
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
                         movimento reduzido nem scripts não há cortina; as duas molduras vêm de `tools/make-images.py`)
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), ícones, site.webmanifest, og-image-2.jpg
+public/                 imagens (img/), ícones, site.webmanifest, og-image-3.jpg
 tools/                  scripts que preparam as imagens e o vídeo (abaixo)
 ```
 
@@ -90,7 +90,7 @@ As originais ficam na pasta `img` ao lado deste projeto (`../img`). Elas são gr
 
 ```
 python tools/make-images.py      # gera public/img/*.webp (e os ícones) a partir de ../img, nos tamanhos de uso
-python tools/make-og-image.py    # gera public/og-image-2.jpg, o cartão que aparece quando o link é colado no Discord
+python tools/make-og-image.py    # gera public/og-image-3.jpg, o cartão que aparece quando o link é colado no Discord
 ```
 
 Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou Chrome instalado.
@@ -137,7 +137,7 @@ nos lugares que um buscador lê primeiro:
   quem digita "2" e quem digita "II" acha a mesma página. `KEYWORDS` e `ALTERNATE_NAMES` (em `src/app/core/site.ts`) trazem as
   duas grafias; o Google ignora o `meta keywords`, mas outros buscadores ainda o leem.
 - `<html lang="pt-BR">`, um único `h1`, um `h2` por seção, texto alternativo em todas as imagens, `canonical` e `hreflang`.
-- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-2.jpg` de 1200x630) e dados
+- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-3.jpg` de 1200x630) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
 - O lema do servidor (*"O rei está morto. A coroa de Kuttenberg espera um nome."*) como `slogan` do `GameServer` e da

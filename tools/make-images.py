@@ -37,8 +37,10 @@ PHOTOS = [
     ("map", "mapa puro.jpeg", (900, 1800), 62),
     # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
     ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
-    # The opening's picture (2026-10-20: the video was dropped; "background hud H" takes its place, the whole window again).
-    ("hero", "background hud H.jpg", (960, 1920), 76),
+    # The opening's picture: "background hud H" (the tower over the valley) from 2026-10-20, and since 2026-10-25 "new hero" (the duel in the
+    # tourney yard, a 4049 x 2310 screenshot: "coloque essa imagem no lugar da atual na hero inicial"). A third size, 2560, is kept for the big
+    # and the sharp screens, which the 1920 of the first picture could not have given.
+    ("hero", "new hero.jpg", (960, 1920, 2560), 74),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -56,6 +58,9 @@ CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
     # the window, so a larger file would only be heavier.
     # Drawn up to 1.5 times their size, so they are kept at the quality of the art (2026-10-21: "perderam qualidade": 70/70 was soft).
     ("cloud-a", "Moldura Ornamental de Nuvens Espiraladas.png", (1774,), 88, 95, False),
+    # The lettering of the opening (2026-10-25, "titulo site": "Kingdom Come: Deliverance II RP Brasil" in gold and bone, with its own soft shadow):
+    # drawn up to 36rem wide, so two sizes; trimmed to what is drawn (TRIMMED_CUTOUTS) so its left edge is the text's left edge.
+    ("title", "titulo site.png", (640, 1280), 74, 68, False),
     ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 88, 95, False),
 ]
 
@@ -186,10 +191,15 @@ for name, original, widths, quality in PHOTOS:
     for width in widths:
         save(resized(photo, width), f"{name}-{width}", quality)
 
+# Cut-outs painted with margins round them: cut to what is drawn (the faintest shadow counts) before they are sized.
+TRIMMED_CUTOUTS = {"title"}
+
 for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
     art = Image.open(SOURCE / original).convert("RGBA")
     if checkerboard:
         art = knock_out_checkerboard(art)
+    if name in TRIMMED_CUTOUTS:
+        art = art.crop(art.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox())
     for width in widths:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 

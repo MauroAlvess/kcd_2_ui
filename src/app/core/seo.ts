@@ -4,15 +4,15 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
 /**
- * The picture chat apps and search results show for a link to the site (public/og-image-2.jpg, tools/make-og-image.py). Chat apps
- * keep a link's picture by its address for days, so the redrawn card of 2026-10-20 has a new name: the number goes up with the card.
+ * The picture chat apps and search results show for a link to the site (public/og-image-3.jpg, tools/make-og-image.py). Chat apps
+ * keep a link's picture by its address for days, so each redrawn card (2026-10-20, 2026-10-25) has a new name: the number goes up with it.
  */
 const SOCIAL_IMAGE = {
-  path: '/og-image-2.jpg',
+  path: '/og-image-3.jpg',
   width: 1200,
   height: 630,
   type: 'image/jpeg',
-  alt: 'Uma torre de pedra e madeira sobre um rochedo, olhando o vale, com o nome Kingdom RP Brasil e os dizeres: Kingdom Come: Deliverance II, RP Brasil, o rei está morto, a coroa de Kuttenberg espera um nome',
+  alt: 'Dois cavaleiros de armadura lutam numa arena de torneio, sob estandartes amarelos e diante do povo, com o letreiro Kingdom Come: Deliverance II RP Brasil e os dizeres: o rei está morto, a coroa de Kuttenberg espera um nome',
 } as const;
 
 /** The line the server goes by, in the structured data as in the opening of the page. */
