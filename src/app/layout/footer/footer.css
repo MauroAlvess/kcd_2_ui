@@ -66,3 +66,31 @@
   color: rgba(236, 230, 218, 0.45);
   border-top: 1px solid rgba(236, 230, 218, 0.1);
 }
+
+/* The server's pages on the social networks: a small row of icons with their names, under the links. */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  max-width: var(--maxw);
+  margin: 1.5rem auto 0;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font: 400 0.9rem/1.2 var(--sans);
+  text-decoration: none;
+  color: rgba(236, 230, 218, 0.66);
+  transition: color 0.15s;
+}
+
+.social a:hover,
+.social a:focus-visible {
+  color: var(--paper);
+}
+
+.social svg {
+  flex: none;
+}

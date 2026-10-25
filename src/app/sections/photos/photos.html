@@ -3,24 +3,60 @@
     {{ lead }}
   </app-section-heading>
 
-  <ul class="wall">
-    @for (photo of photos; track photo.id; let index = $index) {
-      <li>
-        <button class="open" type="button" (click)="viewer.show(index)">
-          <img
-            [src]="photo.small.src"
-            [attr.width]="photo.small.width"
-            [attr.height]="photo.small.height"
-            [alt]="photo.alt"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="title" aria-hidden="true">{{ photo.title }}</span>
-          <span class="sr-only">Ampliar a foto: {{ photo.title }}</span>
-        </button>
-      </li>
-    }
-  </ul>
+  <div class="carousel" role="group" aria-roledescription="carrossel" aria-label="Fotos dos jogadores">
+    <ul
+      #track
+      class="track"
+      tabindex="0"
+      aria-label="Fotos, deslize para os lados"
+      (scroll)="scrolled()"
+    >
+      @for (photo of photos; track photo.id; let index = $index) {
+        <li class="slide" [attr.aria-label]="index + 1 + ' de ' + photos.length">
+          <button class="open" type="button" (click)="viewer.show(index)">
+            <img
+              [src]="photo.small.src"
+              [attr.width]="photo.small.width"
+              [attr.height]="photo.small.height"
+              [alt]="photo.alt"
+              [attr.loading]="index < 2 ? 'eager' : 'lazy'"
+              decoding="async"
+            />
+            <span class="title" aria-hidden="true">{{ photo.title }}</span>
+            <span class="sr-only">Ampliar a foto: {{ photo.title }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    <button class="arrow previous" type="button" aria-label="Foto anterior" (click)="step(-1)">
+      <span aria-hidden="true">‹</span>
+    </button>
+    <button class="arrow next" type="button" aria-label="Próxima foto" (click)="step(1)">
+      <span aria-hidden="true">›</span>
+    </button>
+  </div>
+
+  <div class="bar">
+    <p class="count" aria-live="polite">
+      {{ photos[current()].title }}
+      <span>{{ current() + 1 }} de {{ photos.length }}</span>
+    </p>
+    <ol class="dots">
+      @for (photo of photos; track photo.id; let index = $index) {
+        <li>
+          <button
+            type="button"
+            class="dot"
+            [class.on]="index === current()"
+            [attr.aria-label]="'Ir para a foto ' + (index + 1) + ': ' + photo.title"
+            [attr.aria-current]="index === current() ? 'true' : null"
+            (click)="go(index)"
+          ></button>
+        </li>
+      }
+    </ol>
+  </div>
 
   <app-lightbox #viewer [pictures]="pictures" />
 </app-section>

@@ -141,7 +141,7 @@ describe('Seo', () => {
     expect(server?.['game']['name']).toBe(SITE.game);
     expect(server?.['inLanguage']).toBe('pt-BR');
     expect(group?.['name']).toBe(SITE.name);
-    expect(group?.['sameAs']).toEqual([SITE.discord]);
+    expect(group?.['sameAs']).toEqual([SITE.discord, SITE.social.instagram, SITE.social.youtube]);
     expect(nodes.some((node) => node['@type'] === 'WebSite')).toBe(false);
   });
 

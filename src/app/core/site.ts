@@ -9,6 +9,8 @@ export interface SiteConfig {
   /** The public address without a trailing slash. Empty until the domain is known: canonical and social-card links wait for it. */
   readonly url: string;
   readonly discord: string;
+  /** The server's pages on the social networks: the footer links to them, and the structured data lists them with the Discord. */
+  readonly social: { readonly instagram: string; readonly youtube: string };
   /** The launcher's download: the latest release of the game's mod, whatever its version (the address answers with the file). */
   readonly launcher: string;
   readonly locale: string;
@@ -33,6 +35,7 @@ export const SITE: SiteConfig = {
   description: config.description,
   url: config.url.replace(/\/+$/, ''),
   discord: config.discord,
+  social: { instagram: config.social.instagram, youtube: config.social.youtube },
   launcher: config.launcher,
   locale: config.locale,
   listing: { url: config.listing.url.trim(), id: config.listing.id.trim() },
