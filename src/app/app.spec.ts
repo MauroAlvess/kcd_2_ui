@@ -78,33 +78,6 @@ describe('App', () => {
     }
   });
 
-  it('pauses twice between the chapters on a photograph of the game: the smithy before the guilds, the town before the story', () => {
-    const order = Array.from(root.querySelector('main')!.children, (child) =>
-      child.tagName === 'APP-INTERLUDE'
-        ? `foto:${child.querySelector('img')?.getAttribute('src')}`
-        : (child.querySelector('section')?.id ?? child.tagName),
-    );
-    expect(order.indexOf('foto:img/forja-1920.webp')).toBe(order.indexOf('reino') + 1);
-    expect(order.indexOf('foto:img/cidade-1920.webp')).toBe(order.indexOf('lore') - 1);
-    for (const img of Array.from(root.querySelectorAll('app-interlude img'))) {
-      expect(img.getAttribute('alt')?.length).toBeGreaterThan(10);
-    }
-  });
-
-  it('lays the fog of war over the map, which parts as it comes into view, and welcomes with the embroidered Bene advenisti', () => {
-    const veil = root.querySelector('#reino .map .veil');
-    expect(veil?.getAttribute('aria-hidden')).toBe('true');
-    expect(veil?.querySelectorAll('img.mist')).toHaveLength(2);
-    const welcome = root.querySelector<HTMLImageElement>('#entrar img.welcome');
-    expect(welcome?.getAttribute('src')).toBe('img/bene-advenisti-866.webp');
-    expect(welcome?.getAttribute('alt')).toContain('Bene advenisti');
-  });
-
-  it('sews a stitch after the small label of every section', () => {
-    const stitches = root.querySelectorAll('main .eyebrow .stitch[aria-hidden="true"]');
-    expect(stitches).toHaveLength(9);
-  });
-
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
     expect(sections).toHaveLength(10);
@@ -176,7 +149,7 @@ describe('App', () => {
 
   it('tells what a player can have, one row each with its crest, and what a supporter receives, in two bands', () => {
     const have = root.querySelector('#posses') as HTMLElement;
-    expect(have.classList.contains('dark')).toBe(true);
+    expect(have.classList.contains('light')).toBe(true);
     expect(have.querySelector('h2')?.textContent).toBe('Tenha ou receba');
     expect(Array.from(have.querySelectorAll('.item h3'), (title) => title.textContent)).toEqual([
       'Terras, casas, fazendas e castelos',
@@ -194,7 +167,7 @@ describe('App', () => {
     ]);
 
     const support = root.querySelector('#apoio') as HTMLElement;
-    expect(support.classList.contains('light')).toBe(true);
+    expect(support.classList.contains('dark')).toBe(true);
     expect(support.textContent).toContain('totalmente free');
     expect(Array.from(support.querySelectorAll('.gifts h3'), (gift) => gift.textContent)).toEqual([
       'Um cavalo',
@@ -208,14 +181,18 @@ describe('App', () => {
     );
   });
 
-  it('never puts two dark bands side by side (two paper ones are parted by their hairline and frames)', () => {
-    const tones = Array.from(root.querySelectorAll('main section.section'), (section) =>
-      section.classList.contains('dark') ? 'dark' : 'light',
-    );
-    expect(tones.length).toBe(9);
+  it('alternates paper and black bands all the way down; the way in, over its painting, closes the page', () => {
+    const bands = Array.from(root.querySelectorAll('main section.section'));
+    const tones = bands
+      .filter((section) => !section.querySelector('.photo'))
+      .map((section) => (section.classList.contains('dark') ? 'dark' : 'light'));
+    expect(tones.length).toBe(8);
+    expect(tones[0]).toBe('light');
     for (let at = 1; at < tones.length; at++) {
-      expect(tones[at] === 'dark' && tones[at - 1] === 'dark', `section ${at}`).toBe(false);
+      expect(tones[at], `section ${at}`).not.toBe(tones[at - 1]);
     }
+    expect(bands.at(-1)?.id).toBe('entrar');
+    expect(bands.at(-1)?.querySelector('.photo')).not.toBeNull();
   });
 
   it('keeps the payment out of the page: no Pix, no QR, no amount', () => {

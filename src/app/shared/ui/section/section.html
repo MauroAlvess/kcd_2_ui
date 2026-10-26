@@ -40,28 +40,6 @@
       />
     </div>
   }
-  @if (tone() === 'dark' && !image()) {
-    <div class="fog" aria-hidden="true">
-      <img
-        class="cloud high"
-        src="img/cloud-a-1774.webp"
-        width="1774"
-        height="887"
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        class="cloud low"
-        src="img/cloud-b-1375.webp"
-        width="1375"
-        height="1144"
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  }
   <ng-content select="[backdrop]" />
   <div class="wrap">
     <ng-content />

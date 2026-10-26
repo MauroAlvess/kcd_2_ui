@@ -41,10 +41,6 @@ PHOTOS = [
     # tourney yard, a 4049 x 2310 screenshot: "coloque essa imagem no lugar da atual na hero inicial"). A third size, 2560, is kept for the big
     # and the sharp screens, which the 1920 of the first picture could not have given.
     ("hero", "new hero.jpg", (960, 1920, 2560), 74),
-    # The interludes between the chapters (2026-10-26, the site made "uma experiência única"): full-bleed photographs of the game that the
-    # page scrolls past a little slower than itself. The smithy (a 3840 px screenshot) before the guilds, the town at dusk before the story.
-    ("forja", "background ferreiro.jpg", (960, 1920), 66),
-    ("cidade", "background cidade players.jpg", (960, 1920), 66),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -66,8 +62,6 @@ CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
     # drawn up to 36rem wide, so two sizes; trimmed to what is drawn (TRIMMED_CUTOUTS) so its left edge is the text's left edge.
     ("title", "titulo site.png", (640, 1280), 74, 68, False),
     ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 88, 95, False),
-    # "Bene advenisti" (welcome, in Latin), the embroidered title of the game panel's welcome card: over the way in at the foot of the page.
-    ("bene-advenisti", "titulo boas vindas.png", (440, 866), 78, 74, False),
 ]
 
 # Crests and ornaments, one width each (twice the size they are drawn at): output, original, width, quality
@@ -198,7 +192,7 @@ for name, original, widths, quality in PHOTOS:
         save(resized(photo, width), f"{name}-{width}", quality)
 
 # Cut-outs painted with margins round them: cut to what is drawn (the faintest shadow counts) before they are sized.
-TRIMMED_CUTOUTS = {"title", "bene-advenisti"}
+TRIMMED_CUTOUTS = {"title"}
 
 for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
     art = Image.open(SOURCE / original).convert("RGBA")

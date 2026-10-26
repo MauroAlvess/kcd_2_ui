@@ -23,7 +23,7 @@
   --gutter: clamp(1.25rem, 5vw, 3rem);
   --maxw: 68rem;
   --header-h: 4.25rem;
-  --section-pad: clamp(4.5rem, 9vw, 7rem);
+  --section-pad: clamp(5rem, 10vw, 8rem);
 }
 
 *,

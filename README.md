@@ -82,13 +82,10 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. Cada faixa de papel tem a moldura do mapa (uma linha fina um pouco para dentro da borda, o canto do leão em cima à esquerda e o do
-corvo embaixo à direita) e uma linha fina no topo; a descida suave entre as faixas foi tentada e tirada a pedido do dono (2026-10-25). Desde 2026-10-26 a página segue o bordado, que é a mão do servidor: um fio vermelho é costurado no pé da barra conforme a
-página é lida e depois do rótulo de cada capítulo, sobe a hierarquia do arado ao trono e contorna o cartão de uma guilda sob
-o ponteiro; as faixas pretas guardam as nuvens escuras do mapa em dois cantos e a névoa sobre o mapa se abre ao chegar nele;
-duas fotos do jogo (`shared/ui/interlude`, textos em `content/interludes.ts`) fazem pausas entre capítulos, passando mais
-devagar que a página; a entrada abre com o "Bene advenisti" bordado do painel. O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
-(`animation-timeline: view()`): um navegador sem elas, ou quem pede menos movimento, vê tudo no lugar, nada fica escondido.
+`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. As faixas alternam papel e preto do começo ao fim (a de Entrar, sobre a pintura, fecha a página), e cada faixa de papel é uma
+página emoldurada: uma linha fina um pouco para dentro da borda e os cantos do painel do jogo, o do leão em cima à esquerda e o
+do corvo embaixo à direita. Nada se move com a rolagem (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
+faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados.
 
 ## Imagens
 

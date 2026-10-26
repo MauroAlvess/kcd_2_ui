@@ -28,37 +28,6 @@ describe('Section', () => {
     expect(dark.classList.contains('light')).toBe(false);
   });
 
-  it('frames a paper band with the lion and raven corners, and lays the clouds of the map in the corners of a black one without a photograph', async () => {
-    const light = await render({ anchor: 'a' });
-    expect(light.querySelector('.frame img.lion')?.getAttribute('src')).toBe(
-      'img/corner-lion.webp',
-    );
-    expect(light.querySelector('.frame img.raven')?.getAttribute('src')).toBe(
-      'img/corner-raven.webp',
-    );
-    expect(light.querySelector('.fog')).toBeNull();
-
-    const dark = await render({ anchor: 'b', tone: 'dark' });
-    expect(dark.querySelector('.frame')).toBeNull();
-    const clouds = Array.from(dark.querySelectorAll<HTMLImageElement>('.fog img'));
-    expect(clouds.map((cloud) => cloud.getAttribute('src'))).toEqual([
-      'img/cloud-a-1774.webp',
-      'img/cloud-b-1375.webp',
-    ]);
-    expect(dark.querySelector('.fog')?.getAttribute('aria-hidden')).toBe('true');
-    for (const cloud of clouds) {
-      expect(cloud.getAttribute('alt')).toBe('');
-      expect(cloud.getAttribute('width')).toBeTruthy();
-    }
-
-    const photo = await render({
-      anchor: 'c',
-      tone: 'dark',
-      image: { src: 'img/x.webp', srcset: 'img/x.webp 960w' },
-    });
-    expect(photo.querySelector('.fog')).toBeNull();
-  });
-
   it('has no photograph unless it is given one', async () => {
     expect((await render({ anchor: 'a' })).querySelector('.photo')).toBeNull();
   });

@@ -2,6 +2,7 @@
   display: block;
 }
 
+/* One band of the page: flat colour, room above and below, nothing that moves. */
 .section {
   position: relative;
   isolation: isolate;
@@ -9,93 +10,30 @@
   overflow: clip;
 }
 
-/* Paper: flat, dark ink, the red for the few things that call. A hairline parts one paper band from the next. */
+/* Paper: dark ink, the red for the few things that call. */
 .light {
   --fg: var(--ink);
   --fg-muted: rgba(29, 25, 21, 0.68);
   --rule: rgba(29, 25, 21, 0.16);
   --accent: var(--red);
   --strong: var(--red);
+  --alert: var(--red);
+  --calm: var(--blue);
   background: var(--paper);
   color: var(--fg);
-  border-top: 1px solid var(--rule);
 }
 
-/* Night: flat black, beige text. */
+/* Night: black, beige text; the red and the blue lifted so they read on it. */
 .dark {
   --fg: var(--paper);
   --fg-muted: rgba(236, 230, 218, 0.66);
   --rule: rgba(236, 230, 218, 0.16);
   --accent: var(--beige);
   --strong: var(--beige);
+  --alert: #d0574f;
+  --calm: #8ea8d4;
   background: var(--black);
   color: var(--fg);
-}
-
-/* The black bands keep the dark clouds of the map in two corners, the high right and the low left, faint, as the fog of the parts of the
-   realm not told yet (2026-10-26; the same pictures as the entrance's curtain, so nothing new is downloaded). They drift a little against
-   the scroll. */
-.fog {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.cloud {
-  position: absolute;
-  width: clamp(15rem, 38vw, 34rem);
-  height: auto;
-  opacity: 0.42;
-}
-
-.high {
-  top: 0;
-  right: 0;
-  scale: -1 -1;
-  translate: 12% -18%;
-}
-
-.low {
-  bottom: 0;
-  left: 0;
-  translate: -14% 16%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .high {
-      animation: drift-high linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-
-    .low {
-      animation: drift-low linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-
-    @keyframes drift-high {
-      from {
-        transform: translateX(-6%);
-      }
-
-      to {
-        transform: translateX(8%);
-      }
-    }
-
-    @keyframes drift-low {
-      from {
-        transform: translateX(8%);
-      }
-
-      to {
-        transform: translateX(-6%);
-      }
-    }
-  }
 }
 
 .wrap {
@@ -103,30 +41,6 @@
   z-index: 2;
   width: min(100% - 2 * var(--gutter), var(--maxw));
   margin-inline: auto;
-}
-
-/* What a band holds rises into place as the band comes into view, a little way and softly. Browsers without scroll-driven animations, and
-   anybody who asks for less motion, see it where it stands: nothing is ever hidden for them. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .wrap {
-      animation: rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
-    }
-
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(2.2rem);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  }
 }
 
 /* A photograph behind a dark band, darkened evenly so the words above it stay readable. */
@@ -151,29 +65,31 @@
   background: rgba(15, 13, 11, 0.66);
 }
 
-/* Every paper band is framed like the map: a thin line a little inside its edge, the lion's corner above on the left and the raven's below
-   on the right (user, 2026-10-25: "em toda seção bege colocar as bordas de imagem"). */
+/* Every paper band is a framed page (user, 2026-10-25: "em toda seção bege colocar as bordas de imagem"): a thin line a little inside its
+   edge, and on two of its corners the game panel's ornaments, the lion's above on the left and the raven's below on the right, each laid
+   on the corner of the line. */
 .frame {
   position: absolute;
-  inset: clamp(0.5rem, 2.2vw, 1.8rem);
+  inset: clamp(0.75rem, 2vw, 1.5rem);
   z-index: 1;
-  border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  border: 1px solid rgba(29, 25, 21, 0.28);
   pointer-events: none;
 }
 
 .corner {
   position: absolute;
-  width: clamp(3.4rem, 9vw, 7rem);
+  width: clamp(3rem, 6vw, 5.25rem);
   height: auto;
-  filter: drop-shadow(0 0.3rem 0.5rem rgba(0, 0, 0, 0.4));
 }
 
 .lion {
-  top: clamp(-1.2rem, -1.4vw, -0.4rem);
-  left: clamp(-1.2rem, -1.4vw, -0.4rem);
+  top: 0;
+  left: 0;
+  translate: -18% -18%;
 }
 
 .raven {
-  right: clamp(-1.2rem, -1.4vw, -0.4rem);
-  bottom: clamp(-1.2rem, -1.4vw, -0.4rem);
+  right: 0;
+  bottom: 0;
+  translate: 18% 18%;
 }

@@ -34,10 +34,6 @@ describe('Header', () => {
     });
   });
 
-  it('carries the red thread of the page along its foot, as decoration', () => {
-    expect(root.querySelector('.bar > .thread')?.getAttribute('aria-hidden')).toBe('true');
-  });
-
   it('keeps the bar to the name and the section links: no Discord button in it', () => {
     expect(root.querySelector(`a[href="${SITE.discord}"]`)).toBeNull();
     expect(root.querySelector('app-button')).toBeNull();
