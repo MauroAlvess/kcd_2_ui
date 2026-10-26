@@ -19,6 +19,61 @@
   position: relative;
 }
 
+/* "Do arado ao trono" (2026-10-26): a red running stitch climbs the column of the levels from the roots to the crown as the tree crosses
+   the window, and each level comes up to full ink as the thread reaches its height. Without scroll-driven animations, or with less motion,
+   the levels simply stand as they are and the thread is not drawn. */
+.order {
+  view-timeline: --climb;
+}
+
+.levels::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 3px;
+  background: repeating-linear-gradient(to top, var(--red) 0 8px, transparent 8px 13px);
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .levels::before {
+      animation: climb linear both;
+      animation-timeline: --climb;
+      animation-range: cover 22% cover 62%;
+    }
+
+    .level {
+      animation: lit linear both;
+      animation-timeline: --climb;
+      animation-range: cover calc(19% + (1 - var(--at)) * 40%) cover
+        calc(25% + (1 - var(--at)) * 40%);
+    }
+
+    @keyframes climb {
+      from {
+        clip-path: inset(100% 0 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes lit {
+      from {
+        opacity: 0.32;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .level {
   position: absolute;
   top: calc(var(--at) * 100%);
@@ -108,6 +163,11 @@ h3 {
   .level {
     position: static;
     translate: none;
+    animation: none;
+  }
+
+  .levels::before {
+    content: none;
   }
 
   .tier {

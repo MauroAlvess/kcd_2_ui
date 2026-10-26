@@ -28,6 +28,34 @@
   color: var(--accent);
 }
 
+/* A running stitch after the label, in the accent: sewn from the label outwards as the heading comes into view (2026-10-26). */
+.stitch {
+  width: clamp(2.2rem, 6vw, 4.5rem);
+  height: 2px;
+  margin-left: 0.3rem;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 10px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .stitch {
+      animation: sew linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 35%;
+    }
+
+    @keyframes sew {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+  }
+}
+
 h2 {
   max-width: var(--heading-measure, 20ch);
   margin-top: 0.6rem;

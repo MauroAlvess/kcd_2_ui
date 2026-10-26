@@ -32,6 +32,72 @@
   color: var(--fg);
 }
 
+/* The black bands keep the dark clouds of the map in two corners, the high right and the low left, faint, as the fog of the parts of the
+   realm not told yet (2026-10-26; the same pictures as the entrance's curtain, so nothing new is downloaded). They drift a little against
+   the scroll. */
+.fog {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  width: clamp(15rem, 38vw, 34rem);
+  height: auto;
+  opacity: 0.42;
+}
+
+.high {
+  top: 0;
+  right: 0;
+  scale: -1 -1;
+  translate: 12% -18%;
+}
+
+.low {
+  bottom: 0;
+  left: 0;
+  translate: -14% 16%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .high {
+      animation: drift-high linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    .low {
+      animation: drift-low linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    @keyframes drift-high {
+      from {
+        transform: translateX(-6%);
+      }
+
+      to {
+        transform: translateX(8%);
+      }
+    }
+
+    @keyframes drift-low {
+      from {
+        transform: translateX(8%);
+      }
+
+      to {
+        transform: translateX(-6%);
+      }
+    }
+  }
+}
+
 .wrap {
   position: relative;
   z-index: 2;

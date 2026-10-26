@@ -99,6 +99,38 @@
 
 /* On a narrow screen the picture would be cut to a sliver of itself, with the duel under the words: it is a band across the top instead,
    fading into the black the words stand on, and the lettering stands on its foot. */
+/* The picture moves as a camera would (2026-10-26): it draws slowly closer and back, and sinks a little behind the words as the page is
+   scrolled away from it. Still for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .still {
+    animation: breathe 28s ease-in-out infinite alternate;
+  }
+
+  @keyframes breathe {
+    from {
+      scale: 1;
+    }
+
+    to {
+      scale: 1.07;
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .media {
+      animation: sink linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+
+    @keyframes sink {
+      to {
+        translate: 0 16%;
+      }
+    }
+  }
+}
+
 @media (max-width: 56rem) {
   .hero {
     display: block;

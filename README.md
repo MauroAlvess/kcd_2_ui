@@ -13,13 +13,13 @@ lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servi
 
 Precisa de Node **22.22.3 ou mais novo, ou 24.15+** (o Angular 22 exige). Na máquina do projeto está o Node 24.21.0 do nvm.
 
-| Comando | O que faz |
-| --- | --- |
-| `npm install` | instala as dependências |
-| `npm start` | abre o site em `http://localhost:4200`, recarregando ao salvar |
-| `npm run build` | gera o site em `dist/kcd2-rp-brasil/browser` (é essa pasta que se publica) |
+| Comando                                   | O que faz                                                                                                        |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `npm install`                             | instala as dependências                                                                                          |
+| `npm start`                               | abre o site em `http://localhost:4200`, recarregando ao salvar                                                   |
+| `npm run build`                           | gera o site em `dist/kcd2-rp-brasil/browser` (é essa pasta que se publica)                                       |
 | `npm run build -- --base-href /kcd_2_ui/` | o mesmo, montado para um caminho (só para testar o endereço antigo do GitHub Pages; o domínio próprio é na raiz) |
-| `npm test` | roda os testes (Vitest) |
+| `npm test`                                | roda os testes (Vitest)                                                                                          |
 
 O `build` e o `start` rodam antes dois verificadores: `scripts/seo-files.mjs` (escreve `robots.txt` e `sitemap.xml`) e
 `scripts/check-assets.mjs` (**o build falha** se um texto aponta para uma imagem que não existe em `public/`).
@@ -30,37 +30,37 @@ O site está em **https://kingdomrpbrasil.com.br/** (GitHub Pages, HTTPS), publi
 `MauroAlvess/kcd_2_ui`. O código do repositório é privado; só o site é público. O endereço antigo,
 `mauroalvess.github.io/kcd_2_ui`, o GitHub redireciona para o domínio.
 
-- **Publicar uma mudança:** é só dar `git push` na branch `main`. O workflow *Publicar o site*
+- **Publicar uma mudança:** é só dar `git push` na branch `main`. O workflow _Publicar o site_
   (`.github/workflows/deploy.yml`) roda os testes, faz o build e publica, em uns 2 minutos. Dá para rodar à mão na aba
-  *Actions* do repositório. Se um teste falhar, nada é publicado e o site continua como estava.
+  _Actions_ do repositório. Se um teste falhar, nada é publicado e o site continua como estava.
 - **Endereço do site:** `"url"` em `src/site.config.json`. É dele que saem o link canônico, o `sitemap.xml`, a imagem de
   prévia do link no Discord/WhatsApp e o caminho para o qual o site é montado (`/` no domínio próprio; um endereço com
   caminho, como `https://mauroalvess.github.io/kcd_2_ui`, monta o site para `/kcd_2_ui/`).
-- **Domínio próprio (já em uso: `kingdomrpbrasil.com.br`):** em *Settings → Pages → Custom domain* do repositório está o
+- **Domínio próprio (já em uso: `kingdomrpbrasil.com.br`):** em _Settings → Pages → Custom domain_ do repositório está o
   domínio, e no provedor há o registro `CNAME` (`www`) e os registros `A` do GitHub para a raiz. **O `"url"` do
   `site.config.json` tem de ser o mesmo endereço**: com o domínio no ar e o `"url"` ainda sob `/kcd_2_ui`, o site é
   montado para um caminho que não existe e as imagens e o CSS dão 404 (foi o que aconteceu no primeiro dia). Para trocar de
-  domínio: troque aqui e em *Custom domain*, e dê push.
+  domínio: troque aqui e em _Custom domain_, e dê push.
 - **Convite do Discord:** `"discord"` no mesmo arquivo (o convite de 2026-10-15 é `https://discord.gg/p2wpuaGC3F`). Se o
-  convite tiver prazo, o botão do site passa a levar a um link morto: no Discord, *Convidar pessoas → Editar link de convite →
-  Expirar depois de: Nunca*, e troque o link no `site.config.json`.
+  convite tiver prazo, o botão do site passa a levar a um link morto: no Discord, _Convidar pessoas → Editar link de convite →
+  Expirar depois de: Nunca_, e troque o link no `site.config.json`.
 
 As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`): assim o mesmo build funciona em
 `/kcd_2_ui/` e na raiz de um domínio. O `check-assets` recusa um caminho que comece com `/img/`.
 
 ## Onde mexer
 
-| Quero mudar | Onde |
-| --- | --- |
-| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json` |
-| palavras-chave | `KEYWORDS` em `src/app/core/site.ts` |
-| itens do menu | `NAV` em `src/app/core/site.ts` |
-| as cinco casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura) | `REALM_HOUSES` em `src/app/content/realm.ts` |
-| as regras (ambientação, tolerância zero, os seis termos, o lema) | `src/app/content/rules.ts` |
-| guildas, facções, passos para entrar, a árvore da família e os títulos da hierarquia | `src/app/content/*.ts` |
-| textos da lore | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
-| a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral) | o `.html` de cada seção em `src/app/sections/` |
-| cores, fontes, espaçamentos | `:root` em `src/styles.css` |
+| Quero mudar                                                                                                                                    | Onde                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json`                                                                 |
+| palavras-chave                                                                                                                                 | `KEYWORDS` em `src/app/core/site.ts`                                                   |
+| itens do menu                                                                                                                                  | `NAV` em `src/app/core/site.ts`                                                        |
+| as cinco casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura)                                             | `REALM_HOUSES` em `src/app/content/realm.ts`                                           |
+| as regras (ambientação, tolerância zero, os seis termos, o lema)                                                                               | `src/app/content/rules.ts`                                                             |
+| guildas, facções, passos para entrar, a árvore da família e os títulos da hierarquia                                                           | `src/app/content/*.ts`                                                                 |
+| textos da lore                                                                                                                                 | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
+| a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral)                                                              | o `.html` de cada seção em `src/app/sections/`                                         |
+| cores, fontes, espaçamentos                                                                                                                    | `:root` em `src/styles.css`                                                            |
 
 ## Como está organizado
 
@@ -83,7 +83,11 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
 `--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. Cada faixa de papel tem a moldura do mapa (uma linha fina um pouco para dentro da borda, o canto do leão em cima à esquerda e o do
-corvo embaixo à direita) e uma linha fina no topo; a descida suave entre as faixas foi tentada e tirada a pedido do dono (2026-10-25). O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
+corvo embaixo à direita) e uma linha fina no topo; a descida suave entre as faixas foi tentada e tirada a pedido do dono (2026-10-25). Desde 2026-10-26 a página segue o bordado, que é a mão do servidor: um fio vermelho é costurado no pé da barra conforme a
+página é lida e depois do rótulo de cada capítulo, sobe a hierarquia do arado ao trono e contorna o cartão de uma guilda sob
+o ponteiro; as faixas pretas guardam as nuvens escuras do mapa em dois cantos e a névoa sobre o mapa se abre ao chegar nele;
+duas fotos do jogo (`shared/ui/interlude`, textos em `content/interludes.ts`) fazem pausas entre capítulos, passando mais
+devagar que a página; a entrada abre com o "Bene advenisti" bordado do painel. O que a faixa traz sobe ao entrar na tela com as animações por rolagem do próprio CSS
 (`animation-timeline: view()`): um navegador sem elas, ou quem pede menos movimento, vê tudo no lugar, nada fica escondido.
 
 ## Imagens
@@ -110,7 +114,7 @@ Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou C
 
 ## Jogadores online
 
-O contador *"N jogadores online agora de M vagas"* (no topo da página e no cartão de boas-vindas) lê a **lista pública de
+O contador _"N jogadores online agora de M vagas"_ (no topo da página e no cartão de boas-vindas) lê a **lista pública de
 servidores do MafiaHub**, a mesma do navegador de servidores do jogo (`https://masterlist.mafiahub.dev/servers`, que aceita
 ser lida por qualquer página). O servidor é achado pelo **id do cadastro** (`"listing" → "id"` em `src/site.config.json`, o
 mesmo da página do servidor em mafiahub.dev), **nunca pelo endereço**: o site não sabe onde o servidor está, e um teste
@@ -122,7 +126,7 @@ garante que nenhum IP aparece na página nem na configuração.
 - **"Vagas"** é o `max_players` do servidor (512 hoje). Quantos jogadores já entraram, no total, não está na lista: mostrar
   isso pede um endereço HTTPS no próprio servidor (uma página HTTPS não pode ler um endereço `http://`).
 - Servidor fora do ar: a lista esquece um servidor uns 2 minutos depois do último sinal dele, e o contador passa a dizer
-  *"Servidor fora do ar no momento"*.
+  _"Servidor fora do ar no momento"_.
 - Para quem visita: o navegador faz um pedido ao `masterlist.mafiahub.dev` (um serviço de terceiros), além do pedido ao site.
 - Se o servidor for cadastrado de novo no MafiaHub, o id muda: troque em `site.config.json`. **Id vazio desliga o contador.**
 
@@ -142,7 +146,7 @@ nos lugares que um buscador lê primeiro:
 - Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-3.jpg` de 1200x630) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
-- O lema do servidor (*"O rei está morto. A coroa de Kuttenberg espera um nome."*) como `slogan` do `GameServer` e da
+- O lema do servidor (_"O rei está morto. A coroa de Kuttenberg espera um nome."_) como `slogan` do `GameServer` e da
   `Organization`; um `site.webmanifest` com os ícones de 192 e 512 px (o site salvo na tela do celular); o `sitemap.xml` com
   as imagens principais (cartão, topo, mapa, cavaleiros), para a busca de imagens.
 - Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e o quadro do vídeo do topo pré-carregado.
@@ -150,13 +154,13 @@ nos lugares que um buscador lê primeiro:
 **Ninguém consegue garantir a posição no Google**: ela depende de o Google ter lido o site (isso se pede, abaixo), da idade do
 domínio e de quantos outros sites apontam para ele. O que dá para fazer, e o que já está feito:
 
-1. Cadastrar o site no [Google Search Console](https://search.google.com/search-console). Propriedade do tipo *Domínio*
-   (`kingdomrpbrasil.com.br`): o Google dá um registro `TXT` para pôr no DNS, sem mexer no site. Ou do tipo *Prefixo do URL*
+1. Cadastrar o site no [Google Search Console](https://search.google.com/search-console). Propriedade do tipo _Domínio_
+   (`kingdomrpbrasil.com.br`): o Google dá um registro `TXT` para pôr no DNS, sem mexer no site. Ou do tipo _Prefixo do URL_
    (`https://kingdomrpbrasil.com.br/`): o Google dá uma tag `<meta name="google-site-verification" content="CÓDIGO">`; ponha só
    o CÓDIGO em `"verification" → "google"` no `site.config.json`, publique, e clique em Verificar. O Bing tem o mesmo (Bing
    Webmaster Tools, `"verification" → "bing"`).
-2. Em *Sitemaps*, enviar `https://kingdomrpbrasil.com.br/sitemap.xml` (o `robots.txt` já o anuncia). Em *Inspeção de URL*,
-   colar `https://kingdomrpbrasil.com.br/` e clicar em *Solicitar indexação*.
+2. Em _Sitemaps_, enviar `https://kingdomrpbrasil.com.br/sitemap.xml` (o `robots.txt` já o anuncia). Em _Inspeção de URL_,
+   colar `https://kingdomrpbrasil.com.br/` e clicar em _Solicitar indexação_.
 3. Links vindos de fora: o site no campo de endereço da lista de servidores do MafiaHub, no Discord (descrição e canal de
    boas-vindas), em posts do KCD 2 no Reddit/Steam/grupos brasileiros. Quanto mais sites sérios apontam para o domínio, mais
    alto ele sobe, e é a parte que mais pesa.

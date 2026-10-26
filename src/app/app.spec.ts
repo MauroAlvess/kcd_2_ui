@@ -78,6 +78,33 @@ describe('App', () => {
     }
   });
 
+  it('pauses twice between the chapters on a photograph of the game: the smithy before the guilds, the town before the story', () => {
+    const order = Array.from(root.querySelector('main')!.children, (child) =>
+      child.tagName === 'APP-INTERLUDE'
+        ? `foto:${child.querySelector('img')?.getAttribute('src')}`
+        : (child.querySelector('section')?.id ?? child.tagName),
+    );
+    expect(order.indexOf('foto:img/forja-1920.webp')).toBe(order.indexOf('reino') + 1);
+    expect(order.indexOf('foto:img/cidade-1920.webp')).toBe(order.indexOf('lore') - 1);
+    for (const img of Array.from(root.querySelectorAll('app-interlude img'))) {
+      expect(img.getAttribute('alt')?.length).toBeGreaterThan(10);
+    }
+  });
+
+  it('lays the fog of war over the map, which parts as it comes into view, and welcomes with the embroidered Bene advenisti', () => {
+    const veil = root.querySelector('#reino .map .veil');
+    expect(veil?.getAttribute('aria-hidden')).toBe('true');
+    expect(veil?.querySelectorAll('img.mist')).toHaveLength(2);
+    const welcome = root.querySelector<HTMLImageElement>('#entrar img.welcome');
+    expect(welcome?.getAttribute('src')).toBe('img/bene-advenisti-866.webp');
+    expect(welcome?.getAttribute('alt')).toContain('Bene advenisti');
+  });
+
+  it('sews a stitch after the small label of every section', () => {
+    const stitches = root.querySelectorAll('main .eyebrow .stitch[aria-hidden="true"]');
+    expect(stitches).toHaveLength(9);
+  });
+
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
     expect(sections).toHaveLength(10);
