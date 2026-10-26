@@ -148,3 +148,11 @@
     padding-inline: 0.2rem;
   }
 }
+
+/* The narrowest phones: a little smaller still, now that the card leaves the words less room than a bare band did. */
+@media (max-width: 24rem) {
+  .person {
+    padding-inline: 0.4rem;
+    font-size: 0.9rem;
+  }
+}

@@ -1,6 +1,7 @@
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* The tree needs about 27 rem to stand whole (it scrolls sideways rather than squeeze): the card's padding leaves it less room than a bare band did. */
+  grid-template-columns: minmax(0, 1fr) minmax(28rem, 1fr);
   gap: clamp(2.5rem, 7vw, 6rem);
   align-items: center;
 }
@@ -38,8 +39,9 @@
   color: var(--fg-muted);
 }
 
-@media (max-width: 62rem) {
+@media (max-width: 68rem) {
   .layout {
-    grid-template-columns: 1fr;
+    /* `minmax(0, ...)`: the column may be narrower than the tree, which then scrolls sideways inside it. */
+    grid-template-columns: minmax(0, 1fr);
   }
 }

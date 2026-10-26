@@ -10,7 +10,7 @@
   </app-section-heading>
 
   <div class="realm">
-    <figure class="map">
+    <figure class="map" appReveal>
       <img
         class="terrain"
         src="img/map-1800.webp"
@@ -46,7 +46,7 @@
       }
     </figure>
 
-    <div class="dossier">
+    <div class="dossier" [appReveal]="1">
       <div class="houses" aria-live="polite">
         @for (house of houses; track house.id) {
           <article class="house" [attr.data-house]="house.id" [hidden]="selected() !== house.id">

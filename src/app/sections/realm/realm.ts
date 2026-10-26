@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { MAP_ALT, REALM_HOUSES, type RealmHouseId } from '../../content/realm';
+import { Reveal } from '../../shared/ui/reveal/reveal';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
@@ -11,7 +12,7 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
  */
 @Component({
   selector: 'app-realm',
-  imports: [Section, SectionHeading],
+  imports: [Reveal, Section, SectionHeading],
   templateUrl: './realm.html',
   styleUrl: './realm.css',
 })

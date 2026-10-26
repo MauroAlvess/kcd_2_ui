@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Icon } from '../icon/icon';
+import { Reveal } from '../reveal/reveal';
 import type { IconName } from '../icon/icons';
 
 /**
@@ -10,7 +11,7 @@ import type { IconName } from '../icon/icons';
  */
 @Component({
   selector: 'app-section-heading',
-  imports: [Icon],
+  imports: [Icon, Reveal],
   templateUrl: './section-heading.html',
   styleUrl: './section-heading.css',
 })

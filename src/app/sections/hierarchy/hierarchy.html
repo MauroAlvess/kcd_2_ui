@@ -9,7 +9,7 @@
   </app-section-heading>
 
   <div class="order">
-    <figure class="tree">
+    <figure class="tree" appReveal>
       <img
         src="img/hierarchy-tree.webp"
         width="560"
@@ -20,7 +20,7 @@
       />
     </figure>
 
-    <ol class="levels">
+    <ol class="levels" [appReveal]="1">
       @for (level of levels; track level.id) {
         <li class="level" [style.--at]="level.at">
           <h3>{{ level.name }}</h3>
@@ -30,7 +30,7 @@
     </ol>
   </div>
 
-  <details class="all">
+  <details class="all" appReveal>
     <summary>Todos os títulos, um a um</summary>
     <ol class="tiers">
       @for (tier of tiers; track tier.id) {

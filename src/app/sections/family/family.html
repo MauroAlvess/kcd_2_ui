@@ -13,12 +13,12 @@
 
       <ul class="points">
         @for (point of points; track point) {
-          <li>{{ point }}</li>
+          <li [appReveal]="$index + 1">{{ point }}</li>
         }
       </ul>
     </div>
 
-    <div class="tree">
+    <div class="tree" [appReveal]="1">
       <img
         class="emblem"
         src="img/tree-crest.webp"

@@ -16,7 +16,7 @@
   </div>
 
   <div class="story">
-    <div class="chapters">
+    <div class="chapters" appReveal>
       @for (chapter of chapters; track chapter.id) {
         <div class="chapter" [class.open]="open() === chapter.id">
           <h3>
@@ -66,7 +66,7 @@
       }
     </div>
 
-    <div class="ending">
+    <div class="ending" appReveal>
       <p><app-rich [text]="ending.text" /></p>
       <p class="question">{{ ending.question }}</p>
     </div>

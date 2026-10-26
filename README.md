@@ -1,8 +1,8 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
 Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
-moldura, sem ornamento e sem brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): texto em EB Garamond,
-rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
+brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): fundo todo preto, as seções de papel como cartões
+do painel do jogo (2026-10-26), texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
 estandartes amarelos) e o letreiro "Kingdom Come: Deliverance II RP Brasil" em ouro e osso, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
 família, a hierarquia, a lore, as regras e como entrar.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
@@ -70,7 +70,7 @@ src/app/
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
   sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
-  shared/ui/            peças reutilizáveis: button, section (papel/noite, chapados), section-heading (rótulo com o seu
+  shared/ui/            peças reutilizáveis: button, section (cartão de papel/noite), reveal (aparecer ao rolar), section-heading (rótulo com o seu
                         desenho, título, introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
                         guarda todos), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
@@ -82,10 +82,19 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. As faixas alternam papel e preto do começo ao fim (a de Entrar, sobre a pintura, fecha a página), e cada faixa de papel é uma
-página emoldurada: uma linha fina um pouco para dentro da borda e os cantos do painel do jogo, o do leão em cima à esquerda e o
-do corvo embaixo à direita. Nada se move com a rolagem (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
-faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados.
+`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. A página toda é preta. As seções alternam papel e noite do começo ao fim (a de Entrar, sobre a pintura, fecha a página): a de noite
+fica aberta sobre o preto, e a de papel é um **cartão** como os do painel do jogo (2026-10-26, o dono: "o fundo todo preto e nas seções
+beges serem cards igual no jogo, borda, padding, branco"): uma página de papel de largura limitada, com o respiro do painel em volta
+das palavras (as palavras ficam na mesma largura das seções pretas), uma linha fina um pouco para dentro da borda e os cantos do painel
+do jogo, o do leão em cima à esquerda e o do corvo embaixo à direita (o respiro deixa lugar para eles: nada é cortado e nenhuma palavra
+fica por baixo; `shared/ui/section`). Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
+faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
+acontece com a rolagem é pedida pelo dono ("à medida que vá rolando para baixo vai aparecendo as informações"): o que ainda está abaixo
+da tela quando a página abre fica retido e aparece, uma vez, quando o leitor chega nele (sobe uns 1,25 rem e sai do nada em 0,9 s; os
+blocos de uma fileira vêm um instante depois do primeiro). É a diretiva `appReveal` (`shared/ui/reveal`; o visual está em
+`styles.css`, `.reveal-wait` e `.reveal-in`): a página escrita está completa (pré-renderizada, e sem scripts), nada é retido antes de o
+navegador montá-la, o que já está na tela ou acima dela (um link para `#regras`, uma recarga no meio) fica como está, e quem pediu menos
+movimento, ou tem um navegador sem `IntersectionObserver`, vê a página como está escrita.
 
 ## Imagens
 

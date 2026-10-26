@@ -9,7 +9,7 @@
   </app-section-heading>
 
   <div class="top">
-    <div class="words">
+    <div class="words" appReveal>
       <div class="charter">
         <p>{{ setting }}</p>
         <p>{{ inCharacter }}</p>
@@ -23,6 +23,7 @@
 
     <a
       class="poster"
+      [appReveal]="1"
       href="img/rules-1024.webp"
       target="_blank"
       rel="noopener"
@@ -43,7 +44,7 @@
 
   <ul class="rules">
     @for (rule of rules; track rule.id) {
-      <li class="rule" [attr.data-kind]="rule.kind">
+      <li class="rule" [attr.data-kind]="rule.kind" [appReveal]="$index % 3">
         <app-icon class="mark" [name]="rule.icon" />
         <p class="tag">{{ rule.kind === 'forbidden' ? 'Proibido' : 'Exigido' }}</p>
         <h3>{{ rule.name }}</h3>
@@ -55,7 +56,7 @@
     }
   </ul>
 
-  <p class="staff">{{ staff }}</p>
+  <p class="staff" appReveal>{{ staff }}</p>
 
-  <p class="motto">{{ motto }}</p>
+  <p class="motto" appReveal>{{ motto }}</p>
 </app-section>

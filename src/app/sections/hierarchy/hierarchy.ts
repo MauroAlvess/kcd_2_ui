@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TIERS, TREE_LEVELS } from '../../content/hierarchy';
+import { Reveal } from '../../shared/ui/reveal/reveal';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
@@ -10,7 +11,7 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
  */
 @Component({
   selector: 'app-hierarchy',
-  imports: [Section, SectionHeading],
+  imports: [Reveal, Section, SectionHeading],
   templateUrl: './hierarchy.html',
   styleUrl: './hierarchy.css',
 })

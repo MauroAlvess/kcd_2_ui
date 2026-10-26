@@ -10,9 +10,11 @@
       você de Kuttenberg.
     </app-section-heading>
 
-    <app-steps [steps]="steps" />
+    <div appReveal>
+      <app-steps [steps]="steps" />
+    </div>
 
-    <div class="cta">
+    <div class="cta" [appReveal]="1">
       <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
       <app-server-badge />
     </div>

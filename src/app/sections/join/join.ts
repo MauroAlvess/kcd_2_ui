@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { JOIN_STEPS } from '../../content/join';
 import { SITE } from '../../core/site';
 import { Button } from '../../shared/ui/button/button';
+import { Reveal } from '../../shared/ui/reveal/reveal';
 import { Section } from '../../shared/ui/section/section';
 import type { SectionImage } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
@@ -14,7 +15,7 @@ import { Steps } from '../../shared/ui/steps/steps';
  */
 @Component({
   selector: 'app-join',
-  imports: [Button, Section, SectionHeading, ServerBadge, Steps],
+  imports: [Button, Reveal, Section, SectionHeading, ServerBadge, Steps],
   templateUrl: './join.html',
   styleUrl: './join.css',
 })

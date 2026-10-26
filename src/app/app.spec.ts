@@ -195,6 +195,56 @@ describe('App', () => {
     expect(bands.at(-1)?.querySelector('.photo')).not.toBeNull();
   });
 
+  it('makes every paper band a card on the black page, with the frame and the two corners of the game panel, and no card of the same kind in a black band', () => {
+    const light = Array.from(root.querySelectorAll('main section.section.light'));
+    expect(light.map((section) => section.id)).toEqual(['reino', 'familia', 'posses', 'lore']);
+    for (const section of light) {
+      const card = section.querySelector(':scope > .wrap.card');
+      expect(card, section.id).not.toBeNull();
+      expect(card?.querySelector(':scope > .frame img.lion'), section.id).not.toBeNull();
+      expect(card?.querySelector(':scope > .frame img.raven'), section.id).not.toBeNull();
+      expect(
+        section.querySelector(':scope > .frame'),
+        `${section.id}: the frame is the card's`,
+      ).toBeNull();
+    }
+    for (const section of root.querySelectorAll('main section.section.dark')) {
+      expect(
+        section.querySelector(':scope > .wrap.card, .frame, img.corner'),
+        section.id,
+      ).toBeNull();
+    }
+  });
+
+  it('lets the heading and the main blocks of every chapter show themselves as the page is read down to them', () => {
+    // In the browser the blocks below the screen are held back and shown on arrival (`shared/ui/reveal`); the directive's own
+    // custom property is on each block it looks after, and tells here which ones those are.
+    const watched = (element: Element) =>
+      (element as HTMLElement).style.getPropertyValue('--reveal-delay') !== '';
+    const chapters = Array.from(root.querySelectorAll('main section.section'));
+    expect(chapters).toHaveLength(9);
+    for (const chapter of chapters) {
+      expect(watched(chapter.querySelector('.heading')!), `${chapter.id}: heading`).toBe(true);
+    }
+    expect(
+      Array.from(root.querySelectorAll('#guildas li')).filter((item) => watched(item)),
+    ).toHaveLength(8);
+    expect(
+      Array.from(root.querySelectorAll('#posses .item')).filter((item) => watched(item)),
+    ).toHaveLength(4);
+    expect(root.querySelectorAll('#regras .rule[style]').length).toBe(6);
+    // The first of a row comes at once, and the next ones after it.
+    const rules = Array.from(root.querySelectorAll<HTMLElement>('#regras .rule'));
+    expect(rules.slice(0, 4).map((rule) => rule.style.getPropertyValue('--reveal-delay'))).toEqual([
+      '0ms',
+      '90ms',
+      '180ms',
+      '0ms',
+    ]);
+    // Nothing is held back in a page that has not been opened in a browser (jsdom has no way to watch for the reader).
+    expect(root.querySelectorAll('.reveal-wait')).toHaveLength(0);
+  });
+
   it('keeps the payment out of the page: no Pix, no QR, no amount', () => {
     const text = root.textContent ?? '';
     expect(text).not.toMatch(/\bpix\b/i);

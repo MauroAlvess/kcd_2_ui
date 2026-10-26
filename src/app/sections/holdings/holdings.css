@@ -4,7 +4,6 @@
 
 /* What a player can have: a row to each, the crest on the left, the name in the middle and the words on the right. */
 .have {
-  max-width: 58rem;
   border-bottom: 1px solid var(--rule);
 }
 

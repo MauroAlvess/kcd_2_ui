@@ -11,7 +11,7 @@
 
   <ul class="grid">
     @for (guild of guilds; track guild.id) {
-      <li>
+      <li [appReveal]="$index % 4">
         <app-guild-card [guild]="guild" />
       </li>
     }

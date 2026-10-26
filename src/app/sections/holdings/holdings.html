@@ -5,7 +5,7 @@
 
   <ul class="have">
     @for (holding of holdings; track holding.id) {
-      <li class="item">
+      <li class="item" [appReveal]="$index">
         <img
           class="crest"
           [src]="'img/' + holding.crest"
@@ -36,7 +36,7 @@
 
       <ul class="gifts">
         @for (gift of gifts; track gift.id) {
-          <li>
+          <li [appReveal]="$index % 2">
             <app-icon class="mark" [name]="gift.icon" />
             <h3>{{ gift.title }}</h3>
             <p>{{ gift.text }}</p>
@@ -44,14 +44,17 @@
         }
       </ul>
 
-      <p class="how">{{ how }}</p>
-      <app-button [href]="site.discord" variant="ghost" icon="chat" external>
-        Falar com a administração
-      </app-button>
+      <div appReveal>
+        <p class="how">{{ how }}</p>
+        <app-button [href]="site.discord" variant="ghost" icon="chat" external>
+          Falar com a administração
+        </app-button>
+      </div>
     </div>
 
     <img
       class="art"
+      appReveal
       src="img/apoiador.webp"
       width="900"
       height="730"
