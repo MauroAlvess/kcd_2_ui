@@ -82,6 +82,23 @@
   background: rgba(15, 13, 11, 0.66);
 }
 
+/* The game panel's picture under the paper of every card (user, 2026-10-27: "nos cards vamos colocar uma imagem de fundo opaca igual no f2"):
+   the F2 panel draws "background hud H" over its paper at 27% and multiplied into it, so the paper shows through and takes the picture's
+   light and dark. It lies behind the words and the frame (z-index -1 inside the card, which is its own stacking context), covers the
+   whole card whatever its shape, and is never read as content. */
+.paper-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.27;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Every card has the game panel's frame (user, 2026-10-25: "em toda seção bege colocar as bordas de imagem"): a thin line a little inside
    its edge, and on two of its corners the panel's ornaments, the lion's above on the left and the raven's below on the right, each laid
    on the corner of the line. The padding of the card leaves room for them: nothing is cut by the edge and no word is under them. */

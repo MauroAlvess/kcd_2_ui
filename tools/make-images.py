@@ -41,6 +41,10 @@ PHOTOS = [
     # tourney yard, a 4049 x 2310 screenshot: "coloque essa imagem no lugar da atual na hero inicial"). A third size, 2560, is kept for the big
     # and the sharp screens, which the 1920 of the first picture could not have given.
     ("hero", "new hero.jpg", (960, 1920, 2560), 74),
+    # The game panel's picture (F2: "background hud H", the tower over the valley), faint under the paper of every card (2026-10-27: "nos
+    # cards vamos colocar uma imagem de fundo opaca igual no f2"). It is drawn at 27% and multiplied into the paper, so it can be rough: the
+    # panel's own copy is 700 px wide.
+    ("card", "background hud H.jpg", (960, 1600), 50),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the

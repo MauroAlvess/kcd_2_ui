@@ -210,9 +210,24 @@ describe('App', () => {
     }
     for (const section of root.querySelectorAll('main section.section.dark')) {
       expect(
-        section.querySelector(':scope > .wrap.card, .frame, img.corner'),
+        section.querySelector(':scope > .wrap.card, .frame, img.corner, img.paper-photo'),
         section.id,
       ).toBeNull();
+    }
+  });
+
+  it("lays the game panel's picture faintly under the paper of every card, behind the words, for the eyes only", () => {
+    const light = Array.from(root.querySelectorAll('main section.section.light'));
+    expect(light).toHaveLength(4);
+    for (const section of light) {
+      const picture = section.querySelector<HTMLImageElement>(
+        ':scope > .wrap.card > img.paper-photo',
+      );
+      expect(picture, section.id).not.toBeNull();
+      expect(picture?.getAttribute('src'), section.id).toBe('img/card-960.webp');
+      expect(picture?.getAttribute('srcset'), section.id).toContain('img/card-1600.webp 1600w');
+      expect(picture?.getAttribute('alt'), section.id).toBe('');
+      expect(picture?.getAttribute('aria-hidden'), section.id).toBe('true');
     }
   });
 
