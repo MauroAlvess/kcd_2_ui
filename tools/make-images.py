@@ -20,6 +20,7 @@ transparency is how far its brightness rises above the ground's, and its colour 
 speckled print of the gold stays. The game's own panel keeps the lion and raven crest.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -41,10 +42,14 @@ PHOTOS = [
     # tourney yard, a 4049 x 2310 screenshot: "coloque essa imagem no lugar da atual na hero inicial"). A third size, 2560, is kept for the big
     # and the sharp screens, which the 1920 of the first picture could not have given.
     ("hero", "new hero.jpg", (960, 1920, 2560), 74),
-    # The game panel's picture (F2: "background hud H", the tower over the valley), faint under the paper of every card (2026-10-27: "nos
-    # cards vamos colocar uma imagem de fundo opaca igual no f2"). It is drawn at 27% and multiplied into the paper, so it can be rough: the
-    # panel's own copy is 700 px wide.
-    ("card", "background hud H.jpg", (960, 1600), 50),
+    # A picture of the game faint under the paper of each card (2026-10-27: "nos cards vamos colocar uma imagem de fundo opaca igual no f2", and
+    # then "podia ser uma diferente para cada"): the F2 panel's own "background hud H" (the tower over the valley) for the realm, the town at
+    # dusk for the family, the forest for the holdings, the forge for the history. Each is drawn at 27% and multiplied into the paper, so it
+    # can be rough: the panel's own copy is 700 px wide. The names are the ones `Section`'s `paper` input takes.
+    ("card-torre", "background hud H.jpg", (960, 1600), 50),
+    ("card-cidade", "background cidade players.jpg", (960, 1600), 50),
+    ("card-floresta", "background caça.jpg", (960, 1600), 50),
+    ("card-forja", "background ferreiro.jpg", (960, 1600), 50),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -190,8 +195,28 @@ def knock_out_checkerboard(art: Image.Image, min_light: int = 226, spread: int =
     return cut
 
 
+# The card pictures are multiplied into the paper at 27%, so a dark photograph darkens the whole card (the forge: 8 points more than the
+# tower) and its grey words lose their contrast. Each is lifted, with a gamma, to the mean brightness it is listed with here (the tower's own
+# is 0.48, left as it is), and the lift is only as strong as that: the picture keeps its shapes.
+CARD_BRIGHTNESS = {"card-cidade": 0.42, "card-floresta": 0.42, "card-forja": 0.42}
+
+
+def lifted_to(photo: Image.Image, target: float) -> Image.Image:
+    """The photograph with a gamma that moves its mean brightness to `target` (0..1)."""
+    small = photo.convert("L")
+    small.thumbnail((480, 270))
+    mean = sum(i * count for i, count in enumerate(small.histogram())) / (255 * small.width * small.height)
+    if mean >= target or mean <= 0:
+        return photo
+    gamma = math.log(target) / math.log(mean)
+    table = [round(255 * (i / 255) ** gamma) for i in range(256)]
+    return photo.point(table * 3)
+
+
 for name, original, widths, quality in PHOTOS:
     photo = Image.open(SOURCE / original).convert("RGB")
+    if name in CARD_BRIGHTNESS:
+        photo = lifted_to(photo, CARD_BRIGHTNESS[name])
     for width in widths:
         save(resized(photo, width), f"{name}-{width}", quality)
 

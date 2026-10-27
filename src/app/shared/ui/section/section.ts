@@ -8,6 +8,9 @@ export interface SectionImage {
   readonly position?: string;
 }
 
+/** The pictures of the game that can lie faint under the paper of a card (`public/img/card-<name>-960|1600.webp`). */
+export type PaperPhoto = 'torre' | 'cidade' | 'floresta' | 'forja';
+
 /**
  * One band of the page. It is either `light` (flat paper, dark ink, red accents) or `dark` (flat black, beige text), and it
  * hands that choice to everything inside it as custom properties (`--fg`, `--fg-muted`, `--rule`, `--accent`, `--strong`),
@@ -26,4 +29,6 @@ export class Section {
   /** The id of the heading that names this section, for screen readers. */
   readonly labelledBy = input<string>();
   readonly image = input<SectionImage>();
+  /** Which picture of the game lies under the paper of a light band's card; each card has its own. */
+  readonly paper = input<PaperPhoto>('torre');
 }

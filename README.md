@@ -87,9 +87,11 @@ fica aberta sobre o preto, e a de papel é um **cartão** como os do painel do j
 beges serem cards igual no jogo, borda, padding, branco"): uma página de papel de largura limitada, com o respiro do painel em volta
 das palavras (as palavras ficam na mesma largura das seções pretas), uma linha fina um pouco para dentro da borda e os cantos do painel
 do jogo, o do leão em cima à esquerda e o do corvo embaixo à direita (o respiro deixa lugar para eles: nada é cortado e nenhuma palavra
-fica por baixo; `shared/ui/section`). Sob o papel de cada cartão há a imagem de fundo do painel F2 do jogo ("background hud H", a torre sobre o
-vale; 2026-10-27, o dono: "nos cards vamos colocar uma imagem de fundo opaca igual no f2"), a 27% e multiplicada no papel como o painel faz
-(`img.paper-photo`, `card-960|1600.webp` feitos por `tools/make-images.py`), atrás das palavras e da moldura. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
+fica por baixo; `shared/ui/section`). Sob o papel de cada cartão há uma imagem do jogo, uma diferente para cada (2026-10-27, o dono: "nos cards vamos colocar uma imagem de
+fundo opaca igual no f2" e "podia ser uma diferente para cada"): a torre sobre o vale do painel F2 no Reino, a cidade ao entardecer na
+Família, a floresta nas Posses e a forja na História (`<app-section paper="torre|cidade|floresta|forja">`). Cada uma fica a 27% e
+multiplicada no papel, como o painel faz (`img.paper-photo`, `card-<nome>-960|1600.webp` feitos por `tools/make-images.py`, que clareia
+as fotos escuras para o cartão não escurecer), atrás das palavras e da moldura. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
 faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
 acontece com a rolagem é pedida pelo dono ("à medida que vá rolando para baixo vai aparecendo as informações"): o que ainda está abaixo
 da tela quando a página abre fica retido e aparece, uma vez, quando o leitor chega nele (sobe uns 1,25 rem e sai do nada em 0,9 s; os

@@ -216,19 +216,31 @@ describe('App', () => {
     }
   });
 
-  it("lays the game panel's picture faintly under the paper of every card, behind the words, for the eyes only", () => {
+  it('lays a picture of the game faintly under the paper of every card, a different one for each, behind the words, for the eyes only', () => {
+    const wanted: Record<string, string> = {
+      reino: 'torre',
+      familia: 'cidade',
+      posses: 'floresta',
+      lore: 'forja',
+    };
     const light = Array.from(root.querySelectorAll('main section.section.light'));
-    expect(light).toHaveLength(4);
+    expect(light.map((section) => section.id)).toEqual(Object.keys(wanted));
+    const seen = new Set<string>();
     for (const section of light) {
       const picture = section.querySelector<HTMLImageElement>(
         ':scope > .wrap.card > img.paper-photo',
       );
       expect(picture, section.id).not.toBeNull();
-      expect(picture?.getAttribute('src'), section.id).toBe('img/card-960.webp');
-      expect(picture?.getAttribute('srcset'), section.id).toContain('img/card-1600.webp 1600w');
+      const name = wanted[section.id];
+      expect(picture?.getAttribute('src'), section.id).toBe(`img/card-${name}-960.webp`);
+      expect(picture?.getAttribute('srcset'), section.id).toBe(
+        `img/card-${name}-960.webp 960w, img/card-${name}-1600.webp 1600w`,
+      );
       expect(picture?.getAttribute('alt'), section.id).toBe('');
       expect(picture?.getAttribute('aria-hidden'), section.id).toBe('true');
+      seen.add(picture?.getAttribute('src') ?? '');
     }
+    expect(seen.size, 'each card has its own picture').toBe(4);
   });
 
   it('lets the heading and the main blocks of every chapter show themselves as the page is read down to them', () => {

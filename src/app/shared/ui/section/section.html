@@ -23,8 +23,10 @@
     @if (tone() === 'light') {
       <img
         class="paper-photo"
-        src="img/card-960.webp"
-        srcset="img/card-960.webp 960w, img/card-1600.webp 1600w"
+        [src]="'img/card-' + paper() + '-960.webp'"
+        [attr.srcset]="
+          'img/card-' + paper() + '-960.webp 960w, img/card-' + paper() + '-1600.webp 1600w'
+        "
         sizes="(min-width: 68rem) 68rem, 100vw"
         width="960"
         height="540"
