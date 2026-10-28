@@ -160,7 +160,7 @@ describe('App', () => {
     ).toBeNull();
   });
 
-  it('keeps every band black, with no card and no picture under paper; the way in, over its painting, closes the page', () => {
+  it('keeps every band black, with no card and no picture under paper; the way in, on its own picture, closes the page', () => {
     const bands = Array.from(root.querySelectorAll('main section.section'));
     expect(bands.map((section) => section.id)).toEqual([
       'reino',
@@ -172,7 +172,18 @@ describe('App', () => {
     expect(
       root.querySelector('main .card .paper-photo, main .wrap.card, main .frame, main .light'),
     ).toBeNull();
-    expect(bands.at(-1)?.querySelector('.photo')).not.toBeNull();
+    // "Entre aqui" (the user's picture, 2026-10-28) is the background of the last band: decoration, in two sizes, with its size given.
+    const scene = bands.at(-1)?.querySelector<HTMLElement>(':scope > .scene');
+    expect(scene?.getAttribute('aria-hidden')).toBe('true');
+    const picture = scene?.querySelector<HTMLImageElement>('img');
+    expect(picture?.getAttribute('src')).toBe('img/join-1920.webp');
+    expect(picture?.getAttribute('srcset')).toBe(
+      'img/join-960.webp 960w, img/join-1920.webp 1920w',
+    );
+    expect(picture?.getAttribute('alt')).toBe('');
+    expect(picture?.getAttribute('width')).toBe('1920');
+    expect(picture?.getAttribute('height')).toBe('1080');
+    expect(bands.at(-1)?.querySelector('.photo')).toBeNull();
   });
 
   it('opens the page with the lion in the top left of the first band after the opening and closes it with the raven in the bottom right of the last band above the way in, and nowhere else', () => {

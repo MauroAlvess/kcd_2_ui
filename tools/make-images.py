@@ -33,8 +33,10 @@ TARGET.mkdir(parents=True, exist_ok=True)
 
 # output name, original file, widths (one file per width), quality
 PHOTOS = [
-    # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
-    ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
+    # "entre aqui" (2026-10-28, the user's own picture): the knight resting under the tree, with the server's crest over it and a blue ground of its
+    # own at its foot, behind the way in at the foot of the page. 1920 x 1080 is all the original has, so two sizes. (It replaced the painting of the
+    # same knight, "backgroudn footer.jpg", that had been there since 2026-10-18.)
+    ("join", "entre aqui.png", (960, 1920), 80),
     # The opening's picture (2026-10-28): "banner", the painted battle before the castle with the server's name in gold already on it
     # ("O primeiro RP brasileiro de Kingdom Come: Deliverance 2" and the crest). 1920 x 1080 is all the original has, so two sizes.
     ("banner", "banner.png", (960, 1920), 80),

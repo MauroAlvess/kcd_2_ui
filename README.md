@@ -88,7 +88,7 @@ para o que está dentro. A página toda é preta e todas as seções também (20
 também, precisa do card não"): os cartões de papel e as imagens do jogo sob o papel saíram. Duas faixas têm um enfeite do painel do jogo, encostado no canto, sem margem (`<app-section corner="lion|raven">`), como uma moldura que
 abre depois da abertura e fecha antes do Discord (2026-10-28, o dono: "na segunda seção a imagem de borda era só a da esquerda e na
 última, antes do entrar no Discord, só a da direita inteira, dando essa sensação"): o leão em cima à esquerda no Reino (a primeira faixa depois da abertura) e o corvo
-embaixo à direita na História (o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a pintura,
+embaixo à direita na História (o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a imagem "entre aqui",
 fecha a página. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
 faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
 acontece com a rolagem é pedida pelo dono ("à medida que vá rolando para baixo vai aparecendo as informações"): o que ainda está abaixo

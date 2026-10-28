@@ -1,4 +1,17 @@
-<app-section anchor="entrar" labelledBy="entrar-title" [image]="painting">
+<app-section anchor="entrar" labelledBy="entrar-title">
+  <div backdrop class="scene" aria-hidden="true">
+    <img
+      src="img/join-1920.webp"
+      srcset="img/join-960.webp 960w, img/join-1920.webp 1920w"
+      sizes="100vw"
+      width="1920"
+      height="1080"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
   <div class="card">
     <app-section-heading eyebrow="Entrar" heading="Sua lenda começa hoje" titleId="entrar-title">
       {{ site.game }}, RP Brasil: o primeiro servidor de roleplay de KCD 2 (Deliverance 2) do
