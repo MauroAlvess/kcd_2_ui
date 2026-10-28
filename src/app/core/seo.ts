@@ -4,19 +4,19 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
 /**
- * The picture chat apps and search results show for a link to the site (public/og-image-3.jpg, tools/make-og-image.py). Chat apps
- * keep a link's picture by its address for days, so each redrawn card (2026-10-20, 2026-10-25) has a new name: the number goes up with it.
+ * The picture chat apps and search results show for a link to the site (public/og-image-4.jpg, tools/make-og-image.py). Chat apps
+ * keep a link's picture by its address for days, so each redrawn card (2026-10-20, 2026-10-25, 2026-10-28) has a new name: the number goes up with it.
  */
 const SOCIAL_IMAGE = {
-  path: '/og-image-3.jpg',
+  path: '/og-image-4.jpg',
   width: 1200,
   height: 630,
   type: 'image/jpeg',
-  alt: 'Dois cavaleiros de armadura lutam numa arena de torneio, sob estandartes amarelos e diante do povo, com o letreiro Kingdom Come: Deliverance II RP Brasil e os dizeres: o rei está morto, a coroa de Kuttenberg espera um nome',
+  alt: 'Cavaleiros de armadura em combate diante de um castelo, sob um céu de nuvens, com o brasão dourado do servidor e os dizeres: o primeiro RP brasileiro de Kingdom Come: Deliverance 2',
 } as const;
 
 /** The line the server goes by, in the structured data as in the opening of the page. */
-export const SLOGAN = 'O rei está morto. A coroa de Kuttenberg espera um nome.';
+export const SLOGAN = 'O rei morreu. A coroa de Kuttenberg está vaga.';
 
 /** What a search engine may do with the page: index it, follow its links, and show a snippet of any length and the large picture. */
 const ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';

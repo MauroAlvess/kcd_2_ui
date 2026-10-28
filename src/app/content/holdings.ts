@@ -15,7 +15,7 @@ export const HOLDINGS_TITLE = 'Tenha ou receba';
 
 /** 2026-10-20, the user: "além de títulos, honras e uma vida básica você pode adquirir: terras, casas, fazendas, castelos; cavalos, carroças e cachorros". */
 export const HOLDINGS_LEAD =
-  'Além de títulos, honras e uma vida simples, você pode adquirir o que é seu: terras, casas, fazendas e castelos; cavalos, carroças e cachorros.';
+  'Títulos e honras são só o começo. Tenha o que é seu: terras, casas, fazendas e castelos; cavalos, carroças e cachorros.';
 
 export const HOLDINGS: readonly Holding[] = [
   {

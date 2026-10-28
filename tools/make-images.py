@@ -33,43 +33,21 @@ TARGET.mkdir(parents=True, exist_ok=True)
 
 # output name, original file, widths (one file per width), quality
 PHOTOS = [
-    # The realm's map with no crest on it (the page puts the five houses' crests over it, as buttons):
-    # "mapa puro.jpeg" is the same map as "mapa.png" three times larger, without the crests.
-    ("map", "mapa puro.jpeg", (900, 1800), 62),
     # The painting of the knight resting under the tree (2026-10-18), behind the way in at the foot of the page.
     ("painting", "backgroudn footer.jpg", (1280, 2560), 58),
-    # The opening's picture: "background hud H" (the tower over the valley) from 2026-10-20, and since 2026-10-25 "new hero" (the duel in the
-    # tourney yard, a 4049 x 2310 screenshot: "coloque essa imagem no lugar da atual na hero inicial"). A third size, 2560, is kept for the big
-    # and the sharp screens, which the 1920 of the first picture could not have given.
-    ("hero", "new hero.jpg", (960, 1920, 2560), 74),
-    # A picture of the game faint under the paper of each card (2026-10-27: "nos cards vamos colocar uma imagem de fundo opaca igual no f2", and
-    # then "podia ser uma diferente para cada"): the F2 panel's own "background hud H" (the tower over the valley) for the realm, the town at
-    # dusk for the family, the forest for the holdings, the forge for the history. Each is drawn at 27% and multiplied into the paper, so it
-    # can be rough: the panel's own copy is 700 px wide. The names are the ones `Section`'s `paper` input takes.
-    ("card-torre", "background hud H.jpg", (960, 1600), 50),
-    ("card-cidade", "background cidade players.jpg", (960, 1600), 50),
-    ("card-floresta", "background caça.jpg", (960, 1600), 50),
-    ("card-forja", "background ferreiro.jpg", (960, 1600), 50),
+    # The opening's picture (2026-10-28): "banner", the painted battle before the castle with the server's name in gold already on it
+    # ("O primeiro RP brasileiro de Kingdom Come: Deliverance 2" and the crest). 1920 x 1080 is all the original has, so two sizes.
+    ("banner", "banner.png", (960, 1920), 80),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
 # original's "transparency" is really a checkerboard painted into its pixels (see knock_out_checkerboard).
-# The knights' duel (banner.png, one of the checkerboard ones) is not on the page any more; this line brings it back:
-#     ("duelo", "banner.png", (700, 1400), 72, 70, True),
 CUTOUTS: list[tuple[str, str, tuple[int, ...], int, int, bool]] = [
-    # The server's basic rules, the whole embroidered poster (2026-10-20: "na seção de regras coloque a imagem"), beside the rules, the
-    # larger one opened from it. It is a PNG with no background: its transparency is kept.
-    ("rules", "Regras Básicas de RP Medieval.png", (640, 1024), 62, 60, False),
-    # The two embroidered knights, the Lion's and the Raven's, back to back (hero.png, 2026-10-17): the Facções section.
-    ("knights", "hero.png", (640, 1280), 74, 72, False),
     # The two ornamental frames of dark clouds (2026-10-21), each heaped in one corner: the pieces of the curtain that closes the screen
     # and opens to the four corners when the page is entered (shared/ui/curtain). One size each, their own: they are drawn about 1.4 times
     # the window, so a larger file would only be heavier.
     # Drawn up to 1.5 times their size, so they are kept at the quality of the art (2026-10-21: "perderam qualidade": 70/70 was soft).
     ("cloud-a", "Moldura Ornamental de Nuvens Espiraladas.png", (1774,), 88, 95, False),
-    # The lettering of the opening (2026-10-25, "titulo site": "Kingdom Come: Deliverance II RP Brasil" in gold and bone, with its own soft shadow):
-    # drawn up to 36rem wide, so two sizes; trimmed to what is drawn (TRIMMED_CUTOUTS) so its left edge is the text's left edge.
-    ("title", "titulo site.png", (640, 1280), 74, 68, False),
     ("cloud-b", "Moldura Ornamental de Nuvens e Folhagens.png", (1375,), 88, 95, False),
 ]
 
@@ -87,36 +65,24 @@ CRESTS = [
     ("guild-agricultor", "brasão agricultor.png", 300, 78),
     # The Domadores (2026-10-25): the user's own art, a PNG with its own transparency and a few specks round it (see SPECKLED), trimmed to the figure.
     ("guild-domador", "brasão domador.png", 300, 78),
-    ("faction-leao", "Brasão_Régio_com_Leão_Dourado-removebg-preview.png", 400, 74),
-    ("faction-corvo", "Brasão_Gótico_do_Corvo_Dourado-removebg-preview.png", 400, 74),
     ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
     # The Lion's and the Raven's crest in one shield (2026-10-20: "na seção da história"): the lore.
     ("lion-raven", "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png", 440, 76),
     # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (2026-10-20: "uma árvore vertical completa"): about
     # 20rem wide, 560 px, cleaned of its specks.
     ("hierarchy-tree", "arvore hierarquica.png", 560, 56),
-    # What a player can have, and what a supporter is given (2026-10-20: the "Tenha ou receba" section): the castle with its keys, the
-    # horse, the horse with its cart, the dog, and the noble with his hand cannon, his horse and his dog.
+    # What a player can have (the "Tenha ou receba" section): the castle with its keys, the horse, the horse with its cart and the dog.
     ("prop-crest", "brasão propriedades e chaves.png", 360, 76),
     ("pet-cavalo", "brasão cavalo.png", 250, 76),
     ("pet-carroca", "brasão cavalo e carroça.png", 480, 76),
     ("pet-cachorro", "brasão cachorro.png", 250, 76),
-    ("apoiador", "apoiador.png", 900, 70),
-    # The in-game panel's frame corners, the lion's and the raven's, on the frame of the opening.
+    # The in-game panel's frame corners: the lion's closes the top of the page's first band, the raven's the foot of its last.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
-    # The houses of the lore, embroidered with their names on a ribbon (2026-10-16/17): on the map of the realm. Trosky's was taken
-    # off the map on 2026-10-21 (its file is gone from public/img).
-    ("house-kuttenberg", "Brasão Medieval de Kuttenberg.png", 320, 76),
-    ("house-raborsch", "Brasão Medieval com Rocha de Prata.png", 320, 76),
-    ("house-maleshov", "Brasão Medieval do Corvo Dourado.png", 320, 76),
-    ("house-suchdol", "Brasão Bordado Medieval de Suchdol.png", 320, 76),
-    # Pschitoky (2026-10-25: "no mapa adicionar o novo brasão na cidade"): the fifth town of the game's Cidadania, on the map at its village.
-    ("house-pschitoky", "Brasão Pschitoky.png", 320, 76),
 ]
 
-# The icon sits on the site's black, so it is flattened onto it: iOS paints transparency black anyway.
-ICON_BACKGROUND = (13, 11, 9)
+# The icon sits on the site's ground (the banner's navy, #00062f), so it is flattened onto it: iOS paints transparency black anyway.
+ICON_BACKGROUND = (0, 6, 47)
 
 total = 0
 
@@ -137,8 +103,8 @@ def resized(image: Image.Image, width: int) -> Image.Image:
 def knock_out_checkerboard(art: Image.Image, min_light: int = 226, spread: int = 10, pocket: int = 400) -> Image.Image:
     """Makes the background of a picture really transparent when its "transparency" is a drawn checkerboard.
 
-    banner.png came out of an image generator with the grey-and-white squares of a transparency preview painted into
-    its pixels (every pixel opaque), so on the beige page the squares showed. Here the background is the light, neutral
+    Some of the art came out of an image generator with the grey-and-white squares of a transparency preview painted into
+    its pixels (every pixel opaque), so on the page the squares showed. Here the background is the light, neutral
     pixels (all three channels at least `min_light`, within `spread` of each other) that connect to the picture's edge.
     Light neutral areas the figures enclose count too, when they are bigger than `pocket` pixels; anything smaller is a
     highlight on armour or steel and stays. The edge is pulled in one pixel and softened so no pale fringe is left.
@@ -195,55 +161,28 @@ def knock_out_checkerboard(art: Image.Image, min_light: int = 226, spread: int =
     return cut
 
 
-# The card pictures are multiplied into the paper at 27%, so a dark photograph darkens the whole card (the forge: 8 points more than the
-# tower) and its grey words lose their contrast. Each is lifted, with a gamma, to the mean brightness it is listed with here (the tower's own
-# is 0.48, left as it is), and the lift is only as strong as that: the picture keeps its shapes.
-CARD_BRIGHTNESS = {"card-cidade": 0.42, "card-floresta": 0.42, "card-forja": 0.42}
-
-
-def lifted_to(photo: Image.Image, target: float) -> Image.Image:
-    """The photograph with a gamma that moves its mean brightness to `target` (0..1)."""
-    small = photo.convert("L")
-    small.thumbnail((480, 270))
-    mean = sum(i * count for i, count in enumerate(small.histogram())) / (255 * small.width * small.height)
-    if mean >= target or mean <= 0:
-        return photo
-    gamma = math.log(target) / math.log(mean)
-    table = [round(255 * (i / 255) ** gamma) for i in range(256)]
-    return photo.point(table * 3)
-
-
 for name, original, widths, quality in PHOTOS:
     photo = Image.open(SOURCE / original).convert("RGB")
-    if name in CARD_BRIGHTNESS:
-        photo = lifted_to(photo, CARD_BRIGHTNESS[name])
     for width in widths:
         save(resized(photo, width), f"{name}-{width}", quality)
-
-# Cut-outs painted with margins round them: cut to what is drawn (the faintest shadow counts) before they are sized.
-TRIMMED_CUTOUTS = {"title"}
 
 for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
     art = Image.open(SOURCE / original).convert("RGBA")
     if checkerboard:
         art = knock_out_checkerboard(art)
-    if name in TRIMMED_CUTOUTS:
-        art = art.crop(art.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox())
     for width in widths:
         save(resized(art, width), f"{name}-{width}", quality, alpha_quality)
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
-    "hierarchy-tree", "lion-raven", "house-kuttenberg", "house-raborsch", "house-maleshov", "house-suchdol",
-    "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "apoiador", "guild-coletor", "guild-agricultor", "guild-domador",
-    "house-pschitoky",
+    "hierarchy-tree", "lion-raven", "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "guild-coletor", "guild-agricultor", "guild-domador",
 }
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "apoiador.png", "brasão cavalo e carroça.png", "brasão domador.png", "Brasão Pschitoky.png"}
+SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "brasão cavalo e carroça.png", "brasão domador.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}

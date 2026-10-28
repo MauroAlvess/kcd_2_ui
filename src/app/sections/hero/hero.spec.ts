@@ -20,41 +20,37 @@ describe('Hero', () => {
     return fixture.nativeElement;
   }
 
-  it('shows the picture of the duel in the tourney yard, asked for first, in three sizes and with no video', async () => {
+  it('shows the banner, asked for first, in two sizes, cut to its middle on a phone, and with no video', async () => {
     const root = await render();
     const still = root.querySelector<HTMLImageElement>('img.still')!;
-    expect(still.getAttribute('src')).toBe('img/hero-1920.webp');
+    expect(still.getAttribute('src')).toBe('img/banner-1920.webp');
     expect(still.getAttribute('srcset')).toBe(
-      'img/hero-960.webp 960w, img/hero-1920.webp 1920w, img/hero-2560.webp 2560w',
+      'img/banner-960.webp 960w, img/banner-1920.webp 1920w',
     );
+    expect(still.getAttribute('width')).toBe('1920');
+    expect(still.getAttribute('height')).toBe('1080');
     expect(still.getAttribute('fetchpriority')).toBe('high');
     expect(still.getAttribute('loading')).toBeNull();
     expect(still.closest('[aria-hidden="true"]')).not.toBeNull();
     expect(root.querySelector('video')).toBeNull();
   });
 
-  it('names the server with the lettering the user made, and keeps the words in the h1 for a screen reader and a crawler (2026-10-25)', async () => {
+  it('keeps the name of the server in the h1 as words (the banner has it in its lettering) and shows no lettering of its own', async () => {
     const root = await render();
     const h1 = root.querySelector('h1#hero-title')!;
     expect(h1.textContent?.trim()).toBe('Kingdom Come: Deliverance II RP Brasil');
-    expect(h1.querySelector('.sr-only')?.textContent).toBe(
-      'Kingdom Come: Deliverance II RP Brasil',
-    );
-    const title = h1.querySelector<HTMLImageElement>('img.title')!;
-    expect(title.getAttribute('alt'), 'the words are said once, by the h1').toBe('');
-    expect(title.getAttribute('src')).toBe('img/title-1280.webp');
-    expect(title.getAttribute('srcset')).toBe('img/title-640.webp 640w, img/title-1280.webp 1280w');
-    expect(title.getAttribute('width')).toBe('1280');
-    expect(title.getAttribute('height')).toBe('536');
-    expect(title.getAttribute('fetchpriority')).toBe('high');
-    expect(title.getAttribute('loading')).toBeNull();
-    expect(root.querySelector('.game, .name'), 'the old title in words is gone').toBeNull();
+    expect(root.querySelector('img.title, h1 img'), 'the lettering image is gone').toBeNull();
+    expect(root.querySelectorAll('img')).toHaveLength(1);
     expect(root.querySelector('.claim')?.previousElementSibling).toBe(h1);
   });
 
-  it('says the story in one line and offers two things: the Discord, and the launcher to download', async () => {
+  it('says it in two short lines, the king dead and the crown vacant, then what to do about it, and offers two things: the Discord, and the launcher to download', async () => {
     const root = await render();
-    expect(root.querySelector('.claim')?.textContent).toContain('A coroa de Kuttenberg');
+    expect(root.querySelector('.claim')?.textContent).toBe(
+      'O rei morreu. A coroa de Kuttenberg está vaga.',
+    );
+    expect(root.querySelector('.claim span')?.textContent).toBe('A coroa de Kuttenberg está vaga.');
+    expect(root.querySelector('.tagline')?.textContent).toContain('quem não sobe, serve');
     const actions = root.querySelectorAll<HTMLAnchorElement>('.actions a');
     expect(actions).toHaveLength(2);
     expect(actions[0].getAttribute('href')).toBe(SITE.discord);

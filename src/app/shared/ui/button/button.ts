@@ -58,12 +58,12 @@ import type { IconName } from '../icon/icons';
     }
 
     .button[data-variant='primary'] {
-      color: #fff;
-      background: var(--red);
+      color: var(--navy);
+      background: var(--gold);
     }
 
     .button[data-variant='primary']:hover {
-      background: var(--red-hi);
+      background: var(--gold-hi);
     }
 
     .button[data-variant='ghost'] {

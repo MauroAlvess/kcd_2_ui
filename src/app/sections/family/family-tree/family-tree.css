@@ -124,9 +124,9 @@
 }
 
 .person.you {
-  color: #fff;
-  background: var(--red);
-  border-color: var(--red);
+  color: var(--navy);
+  background: var(--gold);
+  border-color: var(--gold);
 }
 
 /* A phone: smaller boxes, so the whole tree fits without scrolling. */

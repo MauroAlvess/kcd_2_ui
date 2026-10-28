@@ -2,34 +2,22 @@
   <div class="media" aria-hidden="true">
     <img
       class="still"
-      src="img/hero-1920.webp"
-      srcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w, img/hero-2560.webp 2560w"
-      sizes="100vw"
+      src="img/banner-1920.webp"
+      srcset="img/banner-960.webp 960w, img/banner-1920.webp 1920w"
+      sizes="(max-width: 40rem) 296vw, 100vw"
       width="1920"
-      height="1095"
+      height="1080"
       fetchpriority="high"
       alt=""
     />
   </div>
 
   <div class="content">
-    <h1 id="hero-title">
-      <span class="sr-only">Kingdom Come: Deliverance II RP Brasil</span>
-      <img
-        class="title"
-        src="img/title-1280.webp"
-        srcset="img/title-640.webp 640w, img/title-1280.webp 1280w"
-        sizes="(min-width: 56rem) 34rem, 86vw"
-        width="1280"
-        height="536"
-        fetchpriority="high"
-        alt=""
-      />
-    </h1>
-    <p class="claim">O rei está morto. A coroa de Kuttenberg espera um nome.</p>
+    <h1 id="hero-title" class="server">Kingdom Come: Deliverance II RP Brasil</h1>
+    <p class="claim">O rei morreu. <span>A coroa de Kuttenberg está vaga.</span></p>
     <p class="tagline">
-      O primeiro servidor de roleplay de KCD 2 (Deliverance 2) do Brasil. Jure lealdade, erga a sua
-      família e escreva o seu nome na história da Boêmia.
+      Comece plebeu. Domine um ofício, funde uma família, conquiste terras e título. Em Kuttenberg,
+      quem não sobe, serve.
     </p>
     <div class="actions">
       <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>

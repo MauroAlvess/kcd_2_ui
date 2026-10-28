@@ -33,8 +33,8 @@ if (url === '') {
 } else {
   writeFileSync(robots, `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`);
   const today = new Date().toISOString().slice(0, 10);
-  // The page's own pictures, for the image search: the card a link shows, the opening's still and the map of the realm.
-  const images = ['og-image-3.jpg', 'img/hero-1920.webp', 'img/map-1800.webp']
+  // The page's own pictures, for the image search: the card a link shows and the banner of the opening.
+  const images = ['og-image-4.jpg', 'img/banner-1920.webp']
     .map(
       (path) =>
         `    <image:image>\n      <image:loc>${url}/${path}</image:loc>\n    </image:image>\n`,

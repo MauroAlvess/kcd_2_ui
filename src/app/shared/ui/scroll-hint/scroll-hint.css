@@ -9,7 +9,7 @@
   width: 3rem;
   height: 3rem;
   color: var(--paper);
-  background: rgba(15, 13, 11, 0.5);
+  background: rgba(0, 6, 47, 0.5);
   border: 1px solid rgba(236, 230, 218, 0.55);
   border-radius: 50%;
   backdrop-filter: blur(4px);
@@ -22,7 +22,7 @@
 
 .hint:hover,
 .hint:focus-visible {
-  background: rgba(15, 13, 11, 0.8);
+  background: rgba(0, 6, 47, 0.8);
   border-color: var(--paper);
 }
 

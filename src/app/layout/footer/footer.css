@@ -5,8 +5,8 @@
 .footer {
   padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem;
   color: var(--paper);
-  background: var(--black);
-  border-top: 1px solid rgba(236, 230, 218, 0.12);
+  background: var(--navy);
+  border-top: 1px solid rgba(231, 175, 54, 0.22);
 }
 
 .inner {

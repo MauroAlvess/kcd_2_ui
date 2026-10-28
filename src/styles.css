@@ -5,15 +5,13 @@
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-ext-400.css';
 
-/* Black, beige and red: the server's own colours, flat. */
+/* Navy, gold and bone: the colours of the banner (2026-10-28), flat. The navy is the one the banner fades to at its foot, so the picture
+   goes into the page without a seam; the gold is the one of its lettering and its crest. */
 :root {
-  --black: #0f0d0b;
-  --ink: #1d1915;
+  --navy: #00062f;
   --paper: #ece6da;
-  --beige: #cbb69a;
-  --red: #8a1b1b;
-  --red-hi: #a3262a;
-  --blue: #2f4a78;
+  --gold: #e7af36;
+  --gold-hi: #f3c556;
 
   --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
   --display: var(--body);
@@ -33,7 +31,7 @@
 }
 
 html {
-  background: var(--black);
+  background: var(--navy);
   /* The page still scrolls with the wheel, the keys and a finger; its bar is not drawn (2026-10-20: "o scroll do site vamos
      retirar"). A circle with an arrow in the corner (shared/ui/scroll-hint) tells a visitor at the top that there is more. */
   scrollbar-width: none;
@@ -50,7 +48,7 @@ html::-webkit-scrollbar {
 
 body {
   margin: 0;
-  background: var(--black);
+  background: var(--navy);
   color: var(--paper);
   font: 1.2rem/1.6 var(--body);
   font-variant-numeric: lining-nums;
@@ -103,8 +101,8 @@ button {
 }
 
 ::selection {
-  background: var(--red);
-  color: var(--paper);
+  background: var(--gold);
+  color: var(--navy);
 }
 
 /* Text for screen readers only. */

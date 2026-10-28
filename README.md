@@ -1,10 +1,11 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
-brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): todas as seções no preto, sem cartões (2026-10-28),
-texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
-estandartes amarelos) e o letreiro "Kingdom Come: Deliverance II RP Brasil" em ouro e osso, e segue em capítulos: as guildas, a
-família, a hierarquia, as posses, a lore e como entrar (o mapa das casas, o apoio e as regras saíram em 2026-10-28).
+Site do servidor **Kingdom RP BRASIL**: uma página só, em azul-marinho, ouro e osso (as cores do banner, 2026-10-28), chapados, sem
+brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): todas as seções no mesmo fundo, sem cartões (2026-10-28),
+texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos de ouro no lugar de caixas. Abre com o **banner** (`img/banner.png`:
+a batalha diante do castelo, com o nome do servidor e o brasão em ouro já escritos na imagem), uma frase curta e direta e os dois botões, e
+segue em capítulos: as guildas, a família, a hierarquia, as posses, a lore e como entrar (o mapa das casas, o apoio e as regras saíram em
+2026-10-28). Os textos são diretos de propósito: frases curtas, no imperativo, para chamar a atenção de quem chega.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
@@ -66,7 +67,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 src/app/
   app.*                 a página: cabeçalho, a abertura, os 6 capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
-  layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
+  layout/               header (fixo; transparente sobre o banner, sólido ao rolar; menu móvel abaixo de 64rem) e footer
   sections/             uma pasta por seção: hero, guilds, family, hierarchy, holdings, lore, join
   shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo com o seu
                         desenho, título, introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
@@ -74,8 +75,8 @@ src/app/
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
                         movimento reduzido nem scripts não há cortina; as duas molduras vêm de `tools/make-images.py`)
   content/              os textos em listas tipadas, separados do layout
-public/                 imagens (img/), ícones, site.webmanifest, og-image-3.jpg
-tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `make-icon-sheet.mjs`, que mostra todos os ícones
+public/                 imagens (img/), ícones, site.webmanifest, og-image-4.jpg
+tools/                  scripts que preparam as imagens (abaixo) e `make-icon-sheet.mjs`, que mostra todos os ícones
                         juntos (`node tools/make-icon-sheet.mjs folha.html`, Node 24) antes de um novo entrar numa página
 ```
 
@@ -100,21 +101,18 @@ As originais ficam na pasta `img` ao lado deste projeto (`../img`). Elas são gr
 
 ```
 python tools/make-images.py      # gera public/img/*.webp (e os ícones) a partir de ../img, nos tamanhos de uso
-python tools/make-og-image.py    # gera public/og-image-3.jpg, o cartão que aparece quando o link é colado no Discord
+python tools/make-og-image.py    # gera public/og-image-4.jpg (o banner e o endereço), o cartão que aparece quando o link é colado no Discord
 ```
 
 Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou Chrome instalado.
 
-- **O vídeo do topo** sai de `Main Menu Kutnohorsko.mp4` (4K, 51 MB): 1080p e 720p, cada um em WebM (VP9) e MP4 (H.264),
-  sem som, 24 quadros, com o último segundo fundido no primeiro para o laço não dar pulo (uns 7 MB os quatro). A página
-  chega com o primeiro quadro como imagem (a maior da página, pedida primeiro) e só baixa o vídeo depois de pronta, o de
-  720p nas telas estreitas; quem pede menos movimento ou economia de dados fica só com a imagem. O vídeo para quando o topo
-  sai da tela.
-- **O mapa** é o `mapa puro.jpeg` (sem os brasões); os brasões são botões por cima dele, nas posições que o `mapa.png`
-  mostrava, e cada um abre a ficha da sua casa.
-- O `banner.png` (o duelo dos cavaleiros) não está mais na página; ele vem com o xadrez de "fundo transparente" desenhado
-  nos pixels, e o script sabe removê-lo (`knock_out_checkerboard`): a linha que o traz de volta está comentada em
-  `CUTOUTS`, em `tools/make-images.py`.
+- **O banner** (`../img/banner.png`, 1920 x 1080, 2026-10-28) abre a página inteiro, no seu formato, e as palavras sobem sobre o pé dele,
+  que é do azul-marinho da página (`#00062f`, a cor de que o próprio banner se funde embaixo): sem emenda. Num celular o letreiro dele ficaria
+  pequeno demais, então ali ele é cortado ao meio (o brasão, o falcão e o leão, 3 : 5) e o nome do servidor aparece escrito embaixo. O
+  `h1` é texto (escondido nas telas largas, onde o banner já o traz). As cores do site saem dele: o ouro das letras (`--gold`, `#e7af36`),
+  o azul-marinho (`--navy`) e o osso das nuvens (`--paper`).
+- O vídeo do topo, o mapa das casas, o cartaz das regras, os dois cavaleiros, as fotos sob o papel dos cartões, o letreiro "titulo site" e o
+  brasão do apoiador saíram da página (e dos scripts); as originais continuam na pasta `img` e no histórico do git.
 
 ## Jogadores online
 
@@ -147,13 +145,13 @@ nos lugares que um buscador lê primeiro:
   quem digita "2" e quem digita "II" acha a mesma página. `KEYWORDS` e `ALTERNATE_NAMES` (em `src/app/core/site.ts`) trazem as
   duas grafias; o Google ignora o `meta keywords`, mas outros buscadores ainda o leem.
 - `<html lang="pt-BR">`, um único `h1`, um `h2` por seção, texto alternativo em todas as imagens, `canonical` e `hreflang`.
-- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-3.jpg` de 1200x630) e dados
+- Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-4.jpg` de 1200x630: o banner e o endereço) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
-- O lema do servidor (_"O rei está morto. A coroa de Kuttenberg espera um nome."_) como `slogan` do `GameServer` e da
+- O lema do servidor (_"O rei morreu. A coroa de Kuttenberg está vaga."_) como `slogan` do `GameServer` e da
   `Organization`; um `site.webmanifest` com os ícones de 192 e 512 px (o site salvo na tela do celular); o `sitemap.xml` com
-  as imagens principais (cartão, topo, mapa, cavaleiros), para a busca de imagens.
-- Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e o quadro do vídeo do topo pré-carregado.
+  as imagens principais (cartão e banner), para a busca de imagens.
+- Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e o banner do topo pré-carregado.
 
 **Ninguém consegue garantir a posição no Google**: ela depende de o Google ter lido o site (isso se pede, abaixo), da idade do
 domínio e de quantos outros sites apontam para ele. O que dá para fazer, e o que já está feito:

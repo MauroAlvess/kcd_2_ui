@@ -5,7 +5,7 @@
   display: block;
 }
 
-/* Over the opening: clear, so the moving picture shows through. Scrolled: solid black with a hairline. */
+/* Over the opening: clear, so the moving picture shows through. Scrolled: solid navy with a hairline of gold. */
 .bar {
   color: var(--paper);
   background: transparent;
@@ -16,8 +16,8 @@
 }
 
 .bar.solid {
-  background: var(--black);
-  border-bottom-color: rgba(236, 230, 218, 0.12);
+  background: var(--navy);
+  border-bottom-color: rgba(231, 175, 54, 0.22);
 }
 
 .inner {
@@ -136,8 +136,8 @@
     inset: var(--header-h) 0 auto 0;
     display: none;
     padding: 0.25rem var(--gutter) 1.5rem;
-    background: var(--black);
-    border-bottom: 1px solid rgba(236, 230, 218, 0.12);
+    background: var(--navy);
+    border-bottom: 1px solid rgba(231, 175, 54, 0.22);
   }
 
   .menu.open {
@@ -161,7 +161,7 @@
   .ico {
     display: inline-flex;
     --icon-size: 1.3rem;
-    color: var(--beige);
+    color: var(--gold);
   }
 }
 
