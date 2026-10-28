@@ -12,12 +12,12 @@ export const JOIN_STEPS: readonly Step[] = [
     numeral: 'II',
     icon: 'checklist',
     title: 'Faça a whitelist',
-    text: 'O reino só abre os portões para quem passa pela whitelist.',
+    text: 'Envie o seu perfil da Steam à equipe no Discord. Só contas aprovadas passam pelos portões do reino.',
   },
   {
     numeral: 'III',
     icon: 'person',
     title: 'Nasça plebeu',
-    text: 'Crie o seu personagem, escolha uma guilda, jure lealdade a uma facção e comece a subir.',
+    text: 'Baixe o launcher e entre. Crie o seu personagem, aceite as regras do reino, escolha uma guilda e comece a subir.',
   },
 ];

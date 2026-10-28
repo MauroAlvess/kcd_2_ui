@@ -6,8 +6,8 @@
       heading="Sua lenda começa hoje"
       titleId="entrar-title"
     >
-      {{ site.game }}, RP Brasil: o primeiro servidor de RP de KCD 2 do Brasil. Três passos separam
-      você de Kuttenberg.
+      {{ site.game }}, RP Brasil: o primeiro servidor de RP de KCD 2 do Brasil, e totalmente
+      gratuito. Três passos separam você de Kuttenberg.
     </app-section-heading>
 
     <div appReveal>
@@ -15,7 +15,12 @@
     </div>
 
     <div class="cta" [appReveal]="1">
-      <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
+      <div class="actions">
+        <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
+        <app-button [href]="site.launcher" variant="ghost" icon="download" large>
+          Baixar launcher
+        </app-button>
+      </div>
       <app-server-badge />
     </div>
   </div>

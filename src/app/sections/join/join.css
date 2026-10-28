@@ -11,3 +11,10 @@
   gap: 1rem;
   margin-top: 3rem;
 }
+
+/* The two things to do, side by side while there is room (the same two as in the opening). */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}

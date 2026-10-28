@@ -81,9 +81,10 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
 
 Cada seção é um componente próprio, sem depender das outras; o `<app-section>` passa `--fg`, `--fg-muted`, `--rule` e `--accent`
 para o que está dentro. A página toda é preta e todas as seções também (2026-10-28, o dono: "a seção família pode ficar com fundo preto
-também, precisa do card não"): os cartões de papel e as imagens do jogo sob o papel saíram. Família, Posses e História têm os cantos do
-painel do jogo, o do leão em cima à esquerda e o do corvo embaixo à direita, encostados nos cantos da faixa, sem margem
-(`<app-section corners>`; o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a pintura,
+também, precisa do card não"): os cartões de papel e as imagens do jogo sob o papel saíram. A primeira faixa depois da abertura (Guildas) e a última antes de Entrar (História) têm os cantos do
+painel do jogo (2026-10-28: "é melhor na primeira seção após o hero e na final acima da seção do discord"), o do leão em cima à esquerda e o do
+corvo embaixo à direita, encostados nos cantos da faixa, sem margem (`<app-section corners>`; o respiro da faixa é mais alto que eles,
+então nenhuma palavra fica por baixo). A de Entrar, sobre a pintura,
 fecha a página. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
 faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
 acontece com a rolagem é pedida pelo dono ("à medida que vá rolando para baixo vai aparecendo as informações"): o que ainda está abaixo

@@ -171,11 +171,11 @@ describe('App', () => {
     expect(bands.at(-1)?.querySelector('.photo')).not.toBeNull();
   });
 
-  it('sets the lion and the raven of the game panel in the corners of the family, the holdings and the history, and nowhere else', () => {
+  it('sets the lion and the raven of the game panel in the corners of the first band after the opening and of the last one above the way in, and nowhere else', () => {
     const cornered = Array.from(root.querySelectorAll('main section.section')).filter(
       (section) => section.querySelector(':scope > img.corner') !== null,
     );
-    expect(cornered.map((section) => section.id)).toEqual(['familia', 'posses', 'lore']);
+    expect(cornered.map((section) => section.id)).toEqual(['guildas', 'lore']);
     for (const section of cornered) {
       const lion = section.querySelector<HTMLImageElement>(':scope > img.corner.lion');
       const raven = section.querySelector<HTMLImageElement>(':scope > img.corner.raven');
@@ -226,6 +226,18 @@ describe('App', () => {
   it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {
     const hero = root.querySelector('#inicio') as HTMLElement;
     expect(hero.querySelector('.frame, .corner, a.cue, img.emblem')).toBeNull();
+  });
+
+  it('offers the Discord and the launcher at the way in too, and sends the newcomer to the whitelist, the launcher and the rules without naming a faction the page no longer has', () => {
+    const join = root.querySelector('#entrar') as HTMLElement;
+    const links = Array.from(join.querySelectorAll<HTMLAnchorElement>('.actions a'));
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([SITE.discord, SITE.launcher]);
+    const steps = join.textContent ?? '';
+    expect(steps).toContain('perfil da Steam');
+    expect(steps).toContain('Baixe o launcher');
+    expect(steps).toContain('aceite as regras');
+    expect(steps).toContain('gratuito');
+    expect(steps.toLowerCase()).not.toContain('facção');
   });
 
   it('has a way past the menu for a keyboard, as the first thing to land on', () => {
