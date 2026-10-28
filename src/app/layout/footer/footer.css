@@ -6,7 +6,7 @@
   padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem;
   color: var(--paper);
   background: var(--black);
-  border-top: 1px solid rgba(213, 161, 86, 0.28);
+  border-top: 1px solid rgba(210, 179, 140, 0.3);
 }
 
 .inner {

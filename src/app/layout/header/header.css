@@ -17,7 +17,7 @@
 
 .bar.solid {
   background: var(--black);
-  border-bottom-color: rgba(213, 161, 86, 0.28);
+  border-bottom-color: rgba(210, 179, 140, 0.3);
 }
 
 .inner {
@@ -136,7 +136,7 @@
     display: none;
     padding: 0.25rem var(--gutter) 1.5rem;
     background: var(--black);
-    border-bottom: 1px solid rgba(213, 161, 86, 0.28);
+    border-bottom: 1px solid rgba(210, 179, 140, 0.3);
   }
 
   .menu.open {
