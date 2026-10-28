@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { LiveStatus, UNKNOWN } from './core/server-status';
 import { NAV, SITE } from './core/site';
-import { ICONS } from './shared/ui/icon/icons';
 
 describe('App', () => {
   let root: HTMLElement;
@@ -39,7 +38,7 @@ describe('App', () => {
 
   it('reads as the opening, the chapters in the order the navigation lists them, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
-    expect(ids).toEqual(['inicio', 'guildas', 'familia', 'hierarquia', 'posses', 'lore', 'entrar']);
+    expect(ids).toEqual(['inicio', 'reino', 'guildas', 'hierarquia', 'lore', 'entrar']);
     // "Entrar" has its own buttons, and it closes the page.
     const linked = ids.slice(1).filter((id) => id !== 'entrar');
     expect(linked.map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
@@ -47,28 +46,30 @@ describe('App', () => {
 
   it('keeps its chapter headings plain: a small label, the title, no numerals or ornaments', () => {
     const headings = Array.from(root.querySelectorAll('main .heading'));
-    expect(headings.length).toBeGreaterThanOrEqual(6);
+    expect(headings.length).toBeGreaterThanOrEqual(5);
     for (const heading of headings) {
       expect(heading.querySelector('.numeral, .ornament')).toBeNull();
       expect(heading.querySelector('h2')).not.toBeNull();
     }
   });
 
-  it('marks the small label of every section with a line drawing, the one its entry in the menu has', () => {
+  it('keeps the small label of every section plain: its words, with no drawing before them (user, 2026-10-28: "sem frufru")', () => {
     const labels = Array.from(root.querySelectorAll('main section.section .eyebrow'));
-    expect(labels).toHaveLength(6);
+    expect(labels.map((label) => label.textContent?.trim())).toEqual([
+      'O reino',
+      'Guildas',
+      'Hierarquia',
+      'Lore · Boêmia, 1402–1403',
+      'Entrar',
+    ]);
     for (const label of labels) {
-      expect(label.querySelector('app-icon svg path'), label.textContent ?? '').not.toBeNull();
-    }
-    for (const item of NAV) {
-      const label = root.querySelector(`main section${item.href} .eyebrow`);
-      expect(label?.querySelector('path')?.getAttribute('d'), item.label).toBe(ICONS[item.icon][0]);
+      expect(label.querySelector('app-icon, svg'), label.textContent ?? '').toBeNull();
     }
   });
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(7);
+    expect(sections).toHaveLength(6);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -129,39 +130,42 @@ describe('App', () => {
     expect(crest?.getAttribute('alt')).toContain('Corvo');
   });
 
-  it('tells what a player can have, one row each with its crest', () => {
-    const have = root.querySelector('#posses') as HTMLElement;
-    expect(have.querySelector('h2')?.textContent).toBe('Tenha ou receba');
-    expect(Array.from(have.querySelectorAll('.item h3'), (title) => title.textContent)).toEqual([
-      'Terras, casas, fazendas e castelos',
-      'Cavalos',
-      'Carroças',
-      'Cachorros',
+  it('tells what the realm offers in four short lines, and shows the game in three pictures of its own', () => {
+    const pitch = root.querySelector('#reino') as HTMLElement;
+    expect(pitch.querySelector('h2')?.textContent).toBe('Ninguém nasce nobre');
+    expect(Array.from(pitch.querySelectorAll('.pillar h3'), (title) => title.textContent)).toEqual([
+      'Um ofício',
+      'Uma família',
+      'Um teto',
+      'Uma coroa',
     ]);
-    expect(
-      Array.from(have.querySelectorAll('.item img'), (image) => image.getAttribute('src')),
-    ).toEqual([
-      'img/prop-crest.webp',
-      'img/pet-cavalo.webp',
-      'img/pet-carroca.webp',
-      'img/pet-cachorro.webp',
+    const shots = Array.from(pitch.querySelectorAll<HTMLImageElement>('.shot img'));
+    expect(shots.map((image) => image.getAttribute('src'))).toEqual([
+      'img/shot-taverna-1200.webp',
+      'img/shot-duelo-1200.webp',
+      'img/shot-vila-1200.webp',
     ]);
+    for (const image of shots) {
+      expect(image.getAttribute('srcset')).toContain('720w');
+      expect(image.getAttribute('alt')?.length).toBeGreaterThan(30);
+    }
   });
 
-  it('has no map of the houses, no supporter band and no rules any more (user, 2026-10-28)', () => {
-    expect(root.querySelector('#reino, #apoio, #regras')).toBeNull();
+  it('has no map of the houses, no supporter band, no rules, no family band and no holdings band any more (user, 2026-10-28)', () => {
+    expect(root.querySelector('#apoio, #regras, #familia, #posses')).toBeNull();
     expect(
-      root.querySelector('img[src*="map-"], img[src*="apoiador"], img[src*="rules-"]'),
+      root.querySelector(
+        'img[src*="map-"], img[src*="apoiador"], img[src*="rules-"], img[src*="tree-crest"], img[src*="prop-crest"], img[src*="pet-"]',
+      ),
     ).toBeNull();
   });
 
   it('keeps every band black, with no card and no picture under paper; the way in, over its painting, closes the page', () => {
     const bands = Array.from(root.querySelectorAll('main section.section'));
     expect(bands.map((section) => section.id)).toEqual([
+      'reino',
       'guildas',
-      'familia',
       'hierarquia',
-      'posses',
       'lore',
       'entrar',
     ]);
@@ -175,7 +179,7 @@ describe('App', () => {
     const cornered = Array.from(root.querySelectorAll('main section.section')).filter(
       (section) => section.querySelector(':scope > img.corner') !== null,
     );
-    expect(cornered.map((section) => section.id)).toEqual(['guildas', 'lore']);
+    expect(cornered.map((section) => section.id)).toEqual(['reino', 'lore']);
     const [first, last] = cornered;
     expect(first.querySelector(':scope > img.corner.lion')?.getAttribute('src'), first.id).toBe(
       'img/corner-lion.webp',
@@ -197,7 +201,7 @@ describe('App', () => {
     const watched = (element: Element) =>
       (element as HTMLElement).style.getPropertyValue('--reveal-delay') !== '';
     const chapters = Array.from(root.querySelectorAll('main section.section'));
-    expect(chapters).toHaveLength(6);
+    expect(chapters).toHaveLength(5);
     for (const chapter of chapters) {
       expect(watched(chapter.querySelector('.heading')!), `${chapter.id}: heading`).toBe(true);
     }
@@ -205,8 +209,11 @@ describe('App', () => {
       Array.from(root.querySelectorAll('#guildas li')).filter((item) => watched(item)),
     ).toHaveLength(8);
     expect(
-      Array.from(root.querySelectorAll('#posses .item')).filter((item) => watched(item)),
+      Array.from(root.querySelectorAll('#reino .pillar')).filter((item) => watched(item)),
     ).toHaveLength(4);
+    expect(
+      Array.from(root.querySelectorAll('#reino .shots li')).filter((item) => watched(item)),
+    ).toHaveLength(3);
     // The first of a row comes at once, and the next ones after it.
     const guilds = Array.from(root.querySelectorAll<HTMLElement>('#guildas li'));
     expect(
@@ -225,7 +232,7 @@ describe('App', () => {
 
   it('puts a circle with a down arrow in the corner, pointing at the first chapter', () => {
     const hint = root.querySelector<HTMLAnchorElement>('app-scroll-hint a.hint');
-    expect(hint?.getAttribute('href')).toBe('#guildas');
+    expect(hint?.getAttribute('href')).toBe('#reino');
   });
 
   it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {

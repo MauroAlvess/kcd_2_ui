@@ -1,11 +1,14 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom RP BRASIL**: uma página só, em azul-marinho, ouro e osso (as cores do banner, 2026-10-28), chapados, sem
-brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): todas as seções no mesmo fundo, sem cartões (2026-10-28),
-texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos de ouro no lugar de caixas. Abre com o **banner** (`img/banner.png`:
-a batalha diante do castelo, com o nome do servidor e o brasão em ouro já escritos na imagem), uma frase curta e direta e os dois botões, e
-segue em capítulos: as guildas, a família, a hierarquia, as posses, a lore e como entrar (o mapa das casas, o apoio e as regras saíram em
-2026-10-28). Os textos são diretos de propósito: frases curtas, no imperativo, para chamar a atenção de quem chega.
+Site do servidor **Kingdom RP BRASIL**: uma página só, curta de propósito (2026-10-28, o dono: "minimalista, simples, que venda a ideia sem
+precisar ser gigante ou cheio de frufru de IA"), nas cores do próprio jogo, as do painel (fundo preto, osso nos textos, o bege do papel do
+painel nas frases baixas, o vermelho dos botões e o ouro dos filetes), chapadas e sem brilho: todas as seções no mesmo fundo, sem cartões,
+nenhum desenho antes dos rótulos, os títulos e os rótulos em Cinzel (a fonte do painel) e o texto em EB Garamond, filetes finos de ouro no lugar
+de caixas. Abre com o **banner** (`img/banner.png`: a batalha diante do castelo, com o nome do servidor e o brasão em ouro já escritos na
+imagem), uma frase curta e direta e os dois botões, e segue em cinco capítulos: o reino (quatro linhas do que se faz aqui, e três fotos do
+jogo), as guildas, a hierarquia, a história (dobrada atrás de uma linha) e como entrar. A família e as posses viraram duas das quatro linhas do
+primeiro capítulo; o mapa das casas, o apoio e as regras já tinham saído. Os textos são diretos de propósito: frases curtas, no imperativo,
+para chamar a atenção de quem chega.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
@@ -56,7 +59,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json`                                                                 |
 | palavras-chave                                                                                                                                 | `KEYWORDS` em `src/app/core/site.ts`                                                   |
 | itens do menu                                                                                                                                  | `NAV` em `src/app/core/site.ts`                                                        |
-| guildas, posses, passos para entrar, a árvore da família e os títulos da hierarquia                                                             | `src/app/content/*.ts`                                                                 |
+| as quatro linhas e as três fotos do reino, as guildas, os passos para entrar e os títulos da hierarquia                                         | `src/app/content/*.ts`                                                                 |
 | textos da lore                                                                                                                                 | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
 | a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral)                                                              | o `.html` de cada seção em `src/app/sections/`                                         |
 | cores, fontes, espaçamentos                                                                                                                    | `:root` em `src/styles.css`                                                            |
@@ -65,13 +68,13 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, a abertura, os 6 capítulos em ordem, rodapé
+  app.*                 a página: cabeçalho, a abertura, os 5 capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
-  layout/               header (fixo; transparente sobre o banner, sólido ao rolar; menu móvel abaixo de 64rem) e footer
-  sections/             uma pasta por seção: hero, guilds, family, hierarchy, holdings, lore, join
-  shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo com o seu
-                        desenho, título, introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
-                        guarda todos), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
+  layout/               header (fixo; transparente sobre o banner, sólido ao rolar; menu móvel abaixo de 52rem) e footer
+  sections/             uma pasta por seção: hero, pitch (o reino), guilds, hierarchy, lore, join
+  shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo, título,
+                        introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
+                        guarda todos; hoje só os botões os usam), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
                         movimento reduzido nem scripts não há cortina; as duas molduras vêm de `tools/make-images.py`)
   content/              os textos em listas tipadas, separados do layout
@@ -84,7 +87,7 @@ Cada seção é um componente próprio, sem depender das outras; o `<app-section
 para o que está dentro. A página toda é preta e todas as seções também (2026-10-28, o dono: "a seção família pode ficar com fundo preto
 também, precisa do card não"): os cartões de papel e as imagens do jogo sob o papel saíram. Duas faixas têm um enfeite do painel do jogo, encostado no canto, sem margem (`<app-section corner="lion|raven">`), como uma moldura que
 abre depois da abertura e fecha antes do Discord (2026-10-28, o dono: "na segunda seção a imagem de borda era só a da esquerda e na
-última, antes do entrar no Discord, só a da direita inteira, dando essa sensação"): o leão em cima à esquerda nas Guildas e o corvo
+última, antes do entrar no Discord, só a da direita inteira, dando essa sensação"): o leão em cima à esquerda no Reino (a primeira faixa depois da abertura) e o corvo
 embaixo à direita na História (o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a pintura,
 fecha a página. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
 faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
@@ -107,12 +110,17 @@ python tools/make-og-image.py    # gera public/og-image-4.jpg (o banner e o ende
 Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou Chrome instalado.
 
 - **O banner** (`../img/banner.png`, 1920 x 1080, 2026-10-28) abre a página inteiro, no seu formato, e as palavras sobem sobre o pé dele,
-  que é do azul-marinho da página (`#00062f`, a cor de que o próprio banner se funde embaixo): sem emenda. Num celular o letreiro dele ficaria
-  pequeno demais, então ali ele é cortado ao meio (o brasão, o falcão e o leão, 3 : 5) e o nome do servidor aparece escrito embaixo. O
-  `h1` é texto (escondido nas telas largas, onde o banner já o traz). As cores do site saem dele: o ouro das letras (`--gold`, `#e7af36`),
-  o azul-marinho (`--navy`) e o osso das nuvens (`--paper`).
-- O vídeo do topo, o mapa das casas, o cartaz das regras, os dois cavaleiros, as fotos sob o papel dos cartões, o letreiro "titulo site" e o
-  brasão do apoiador saíram da página (e dos scripts); as originais continuam na pasta `img` e no histórico do git.
+  que o próprio banner desfaz num azul-marinho (`#00062f`): um degradê no pé dele (`.media::after` em `hero.css`) o leva ao preto da página, sem
+  emenda. Num celular o letreiro dele ficaria pequeno demais, então ali ele é cortado ao meio (o brasão, o falcão e o leão, 3 : 5) e o nome do
+  servidor aparece escrito embaixo. O `h1` é texto (escondido nas telas largas, onde o banner já o traz). **As cores do site NÃO saem dele**
+  (2026-10-28, o dono: "não é porque o hero é azul que tudo precisa ser azul; podemos usar o nosso padrão de cores e identidade visual"): são
+  as do painel do jogo, em `:root` de `src/styles.css`: `--black #0f0d0b`, `--paper #ece6da` (o osso dos textos), `--beige #d2b38c` (o papel do
+  painel, para o que se diz baixo), `--red #7c0305` e `--red-hi #98090c` (os botões) e `--gold #d5a156` (os filetes e os rótulos).
+- **As três fotos do reino** (`shot-taverna`, `shot-duelo`, `shot-vila`) são capturas do próprio servidor, da pasta `fotos` ao lado do projeto;
+  o `make-images.py` as corta em 720 e 1200 px. Num celular as três passam a uma fileira que se desliza de lado.
+- O vídeo do topo, o mapa das casas, o cartaz das regras, os dois cavaleiros, as fotos sob o papel dos cartões, o letreiro "titulo site", o
+  brasão do apoiador e os brasões da árvore da família, das posses, do cavalo, da carroça e do cachorro (as seções Família e Posses) saíram
+  da página (e dos scripts); as originais continuam na pasta `img` e no histórico do git.
 
 ## Jogadores online
 

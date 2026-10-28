@@ -1,6 +1,5 @@
 import { InjectionToken } from '@angular/core';
 import config from '../../site.config.json';
-import type { IconName } from '../shared/ui/icon/icons';
 
 export interface SiteConfig {
   readonly name: string;
@@ -56,17 +55,14 @@ export interface NavItem {
   readonly label: string;
   /** An anchor on the home page. The matching section has this id. */
   readonly href: string;
-  /** The line drawing of the section, the one before its small label and in front of the link in the folded menu. */
-  readonly icon: IconName;
 }
 
-/** The sections in the order the page tells them: the guilds first, the way in last (it has its own buttons). */
+/** The sections in the order the page tells them: the realm first, the story last before the way in (it has its own buttons). */
 export const NAV: readonly NavItem[] = [
-  { label: 'Guildas', href: '#guildas', icon: 'shield' },
-  { label: 'Família', href: '#familia', icon: 'tree' },
-  { label: 'Hierarquia', href: '#hierarquia', icon: 'crown' },
-  { label: 'Posses', href: '#posses', icon: 'house' },
-  { label: 'História', href: '#lore', icon: 'book' },
+  { label: 'O reino', href: '#reino' },
+  { label: 'Guildas', href: '#guildas' },
+  { label: 'Hierarquia', href: '#hierarquia' },
+  { label: 'História', href: '#lore' },
 ];
 
 /**

@@ -38,6 +38,11 @@ PHOTOS = [
     # The opening's picture (2026-10-28): "banner", the painted battle before the castle with the server's name in gold already on it
     # ("O primeiro RP brasileiro de Kingdom Come: Deliverance 2" and the crest). 1920 x 1080 is all the original has, so two sizes.
     ("banner", "banner.png", (960, 1920), 80),
+    # The game as the players see it (2026-10-28): three of the user's own screenshots (the folder next to img), for the pitch under "Ninguém nasce
+    # nobre": a tavern table at dusk, a duel before the walls, a village with a horse. Shown flat at a third of the page's width.
+    ("shot-taverna", "../fotos/5.png", (720, 1200), 74),
+    ("shot-duelo", "../fotos/image.png", (720, 1200), 74),
+    ("shot-vila", "../fotos/67.png", (720, 1200), 74),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -65,24 +70,18 @@ CRESTS = [
     ("guild-agricultor", "brasão agricultor.png", 300, 78),
     # The Domadores (2026-10-25): the user's own art, a PNG with its own transparency and a few specks round it (see SPECKLED), trimmed to the figure.
     ("guild-domador", "brasão domador.png", 300, 78),
-    ("tree-crest", "brasão arvore genealogica familia.png", 440, 72),
     # The Lion's and the Raven's crest in one shield (2026-10-20: "na seção da história"): the lore.
     ("lion-raven", "Brasão_Medieval_do_Leão_e_Corvo-removebg-preview.png", 440, 76),
     # The tree of the realm's hierarchy, embroidered, for the Hierarquia section (2026-10-20: "uma árvore vertical completa"): about
     # 20rem wide, 560 px, cleaned of its specks.
     ("hierarchy-tree", "arvore hierarquica.png", 560, 56),
-    # What a player can have (the "Tenha ou receba" section): the castle with its keys, the horse, the horse with its cart and the dog.
-    ("prop-crest", "brasão propriedades e chaves.png", 360, 76),
-    ("pet-cavalo", "brasão cavalo.png", 250, 76),
-    ("pet-carroca", "brasão cavalo e carroça.png", 480, 76),
-    ("pet-cachorro", "brasão cachorro.png", 250, 76),
     # The in-game panel's frame corners: the lion's closes the top of the page's first band, the raven's the foot of its last.
     ("corner-lion", "border superior esquerda.png", 360, 80),
     ("corner-raven", "border inferior direita.png", 360, 80),
 ]
 
-# The icon sits on the site's ground (the banner's navy, #00062f), so it is flattened onto it: iOS paints transparency black anyway.
-ICON_BACKGROUND = (0, 6, 47)
+# The icon sits on the site's ground (the game's black, #0f0d0b), so it is flattened onto it: iOS paints transparency black anyway.
+ICON_BACKGROUND = (15, 13, 11)
 
 total = 0
 
@@ -175,14 +174,14 @@ for name, original, widths, quality, alpha_quality, checkerboard in CUTOUTS:
 
 # Cut to what is drawn before they are sized, so a crest painted with wide transparent margins is as big as the others.
 TRIMMED = {
-    "hierarchy-tree", "lion-raven", "prop-crest", "pet-cavalo", "pet-carroca", "pet-cachorro", "guild-coletor", "guild-agricultor", "guild-domador",
+    "hierarchy-tree", "lion-raven", "guild-coletor", "guild-agricultor", "guild-domador",
 }
 
 # Crests whose edge is so intricate that the default transparency quality is most of their weight.
 ALPHA_QUALITY = {"hierarchy-tree": 40}
 
 # Originals whose background removal left dark specks around the figure.
-SPECKLED = {"Brasão Coletor.png", "brasão cavalo.png", "brasão cachorro.png", "arvore hierarquica.png", "brasão cavalo e carroça.png", "brasão domador.png"}
+SPECKLED = {"Brasão Coletor.png", "arvore hierarquica.png", "brasão domador.png"}
 
 # Originals that are a figure printed on a dark ground, with no transparency of their own.
 LIFTED = {"brasão logo.jpg"}

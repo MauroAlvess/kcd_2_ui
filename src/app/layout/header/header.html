@@ -9,10 +9,7 @@
       <ul>
         @for (item of nav; track item.href) {
           <li>
-            <a [href]="item.href" (click)="close()">
-              <app-icon class="ico" [name]="item.icon" />
-              {{ item.label }}
-            </a>
+            <a [href]="item.href" (click)="close()">{{ item.label }}</a>
           </li>
         }
       </ul>

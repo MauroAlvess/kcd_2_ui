@@ -1,11 +1,9 @@
-import { FAMILY_NOTE, FAMILY_POINTS, FAMILY_TREE, branchesOf } from './family';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
-import { HOLDINGS } from './holdings';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
+import { PILLARS, SHOTS } from './pitch';
 import { NAV } from '../core/site';
-import { ICONS } from '../shared/ui/icon/icons';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 const filled = (value: string) => value.trim().length > 0;
@@ -23,26 +21,30 @@ describe('content', () => {
     }
   });
 
-  it('puts the player once in the family tree, below the elders and above the children', () => {
-    const branches = branchesOf(FAMILY_TREE);
-    expect(branches.map((branch) => branch.id)).toEqual([
-      'avos',
-      'pais',
-      'irmaos',
-      'sobrinhos',
-      'voce',
-      'filhos',
-      'netos',
-      'tios',
-      'primos',
-    ]);
+  it('tells what the realm offers in four short lines: a trade, a family, a roof, a crown', () => {
+    expect(PILLARS.map((pillar) => pillar.id)).toEqual(['oficio', 'familia', 'teto', 'coroa']);
+    expect(unique(PILLARS.map((pillar) => pillar.title))).toBe(true);
+    for (const pillar of PILLARS) {
+      expect(filled(pillar.title) && filled(pillar.text)).toBe(true);
+      // Short on purpose: a line to be read at a glance, not a paragraph.
+      expect(pillar.text.length).toBeLessThan(200);
+    }
+    const family = PILLARS.find((pillar) => pillar.id === 'familia')!.text.toLowerCase();
+    expect(family).toContain('adote');
+    expect(family).toContain('bastardo');
+  });
 
-    const players = branches.flatMap((branch) =>
-      branch.people.filter((person) => person.you).map(() => branch.id),
-    );
-    expect(players).toEqual(['voce']);
-    expect(FAMILY_TREE.people.map((person) => person.label)).toEqual(['Avô', 'Avó']);
-    expect(FAMILY_POINTS.length).toBeGreaterThan(0);
+  it('shows the game in three pictures of its own, each in two sizes with a description and a few words', () => {
+    expect(SHOTS.map((shot) => shot.id)).toEqual(['taverna', 'duelo', 'vila']);
+    expect(unique(SHOTS.flatMap((shot) => [shot.large, shot.small]))).toBe(true);
+    for (const shot of SHOTS) {
+      expect(shot.large).toMatch(/^shot-[a-z]+-1200\.webp$/);
+      expect(shot.small).toMatch(/^shot-[a-z]+-720\.webp$/);
+      expect(shot.width).toBeGreaterThan(shot.height);
+      expect(shot.alt.length).toBeGreaterThan(30);
+      expect(filled(shot.caption)).toBe(true);
+      expect(shot.position).toMatch(/^\d+% \d+%$/);
+    }
   });
 
   it('lays the levels of the hierarchy tree top to bottom inside the picture, naming real titles as examples', () => {
@@ -63,43 +65,17 @@ describe('content', () => {
     }
   });
 
-  it('says that a family can adopt, have bastards and record the dead', () => {
-    const points = FAMILY_POINTS.join(' ').toLowerCase();
-    expect(points).toContain('adotado');
-    expect(points).toContain('bastardo');
-    expect(FAMILY_NOTE.toLowerCase()).toContain('adotado');
-    expect(FAMILY_NOTE.toLowerCase()).toContain('bastardo');
+  it('lists the sections of the page in the order it tells them, each once, with the realm first and the story last', () => {
+    expect(NAV.map((item) => item.href)).toEqual(['#reino', '#guildas', '#hierarquia', '#lore']);
+    expect(unique(NAV.map((item) => item.label))).toBe(true);
+    expect(NAV.every((item) => filled(item.label))).toBe(true);
   });
 
-  it('has four things a player can have, each with its crest, its size and its words, and four gifts for a supporter', () => {
-    expect(HOLDINGS.map((holding) => holding.id)).toEqual([
-      'terras',
-      'cavalos',
-      'carrocas',
-      'cachorros',
-    ]);
-    expect(unique(HOLDINGS.map((holding) => holding.crest))).toBe(true);
-    for (const holding of HOLDINGS) {
-      expect(holding.crest).toMatch(/^(?:prop|pet)-[a-z]+\.webp$/);
-      expect(holding.crestWidth).toBeGreaterThan(0);
-      expect(holding.crestHeight).toBeGreaterThan(0);
-      for (const text of [holding.title, holding.text, holding.crestAlt]) {
-        expect(filled(text)).toBe(true);
-      }
-    }
-  });
-
-  it('draws what it can with icons that exist: the steps of the way in and the menu', () => {
-    const drawn = [...JOIN_STEPS.map((step) => step.icon), ...NAV.map((item) => item.icon)];
-    expect(drawn.every((icon) => icon !== undefined && icon in ICONS)).toBe(true);
-    expect(unique(JOIN_STEPS.map((step) => step.icon ?? ''))).toBe(true);
-    expect(unique(NAV.map((item) => item.icon))).toBe(true);
-  });
-
-  it('numbers the steps of the way in without repeating a number', () => {
+  it('numbers the steps of the way in without repeating a number, and draws nothing before them', () => {
     expect(unique(JOIN_STEPS.map((step) => step.numeral))).toBe(true);
     for (const step of JOIN_STEPS) {
       expect([step.numeral, step.title, step.text].every(filled)).toBe(true);
+      expect(step.icon).toBeUndefined();
     }
     expect(JOIN_STEPS).toHaveLength(3);
   });

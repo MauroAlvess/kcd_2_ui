@@ -34,6 +34,14 @@ describe('Lore', () => {
     });
   });
 
+  it('folds the whole story behind one line, "Ler a história", closed until a reader opens it', () => {
+    const more = root.querySelector<HTMLDetailsElement>('details.more')!;
+    expect(more.querySelector('summary')?.textContent).toBe('Ler a história');
+    expect(more.open).toBe(false);
+    expect(more.querySelectorAll('button.head')).toHaveLength(CHAPTERS.length);
+    expect(root.querySelector('.top .crest')).not.toBeNull();
+  });
+
   it('starts with the first chapter open, and the others folded and out of reach of the keyboard', () => {
     expect(expanded()).toEqual([0]);
     expect(panels()[0].hasAttribute('inert')).toBe(false);

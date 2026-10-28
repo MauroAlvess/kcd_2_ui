@@ -41,7 +41,9 @@ import type { IconName } from '../icon/icons';
       gap: 0.6rem;
       min-height: 2.9rem;
       padding: 0.75rem 1.4rem;
-      font: 500 0.98rem/1.2 var(--sans);
+      font: 600 0.8rem/1.2 var(--display);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       text-decoration: none;
       text-align: center;
       border: 1px solid transparent;
@@ -54,16 +56,18 @@ import type { IconName } from '../icon/icons';
     .large {
       min-height: 3.2rem;
       padding: 0.85rem 1.7rem;
-      font-size: 1.02rem;
+      font-size: 0.86rem;
     }
 
     .button[data-variant='primary'] {
-      color: var(--navy);
-      background: var(--gold);
+      color: var(--paper);
+      background: var(--red);
+      border-color: color-mix(in srgb, var(--gold) 45%, transparent);
     }
 
     .button[data-variant='primary']:hover {
-      background: var(--gold-hi);
+      background: var(--red-hi);
+      border-color: var(--gold);
     }
 
     .button[data-variant='ghost'] {

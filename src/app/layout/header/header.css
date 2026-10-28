@@ -5,7 +5,7 @@
   display: block;
 }
 
-/* Over the opening: clear, so the moving picture shows through. Scrolled: solid navy with a hairline of gold. */
+/* Over the opening: clear, so the picture shows through. Scrolled: solid black with a hairline of gold. */
 .bar {
   color: var(--paper);
   background: transparent;
@@ -16,8 +16,8 @@
 }
 
 .bar.solid {
-  background: var(--navy);
-  border-bottom-color: rgba(231, 175, 54, 0.22);
+  background: var(--black);
+  border-bottom-color: rgba(213, 161, 86, 0.28);
 }
 
 .inner {
@@ -44,18 +44,22 @@
 }
 
 .name {
-  font: 400 1.2rem/1.1 var(--body);
+  font: 600 0.88rem/1.1 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .menu ul {
   display: flex;
-  gap: clamp(1.1rem, 2vw, 1.9rem);
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
 }
 
 .menu li a {
   padding: 0.5rem 0;
-  font: 400 0.92rem/1.2 var(--sans);
+  font: 500 0.72rem/1.2 var(--display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   text-decoration: none;
   color: rgba(236, 230, 218, 0.72);
   transition: color 0.15s;
@@ -64,11 +68,6 @@
 .menu li a:hover,
 .menu li a:focus-visible {
   color: var(--paper);
-}
-
-/* The drawings come with the folded menu only: the bar itself has no room for them. */
-.ico {
-  display: none;
 }
 
 .toggle {
@@ -125,8 +124,8 @@
   transform: translateY(-0.42rem) rotate(-45deg);
 }
 
-/* Below this width the eight links and the name no longer sit on one line: they fold into a menu behind the button. */
-@media (max-width: 64rem) {
+/* Below this width the links and the name no longer sit on one line: they fold into a menu behind the button. */
+@media (max-width: 52rem) {
   .toggle {
     display: inline-flex;
   }
@@ -136,8 +135,8 @@
     inset: var(--header-h) 0 auto 0;
     display: none;
     padding: 0.25rem var(--gutter) 1.5rem;
-    background: var(--navy);
-    border-bottom: 1px solid rgba(231, 175, 54, 0.22);
+    background: var(--black);
+    border-bottom: 1px solid rgba(213, 161, 86, 0.28);
   }
 
   .menu.open {
@@ -150,23 +149,16 @@
   }
 
   .menu li a {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
+    display: block;
     padding: 1rem 0;
-    font-size: 1rem;
+    font-size: 0.82rem;
     border-bottom: 1px solid rgba(236, 230, 218, 0.1);
-  }
-
-  .ico {
-    display: inline-flex;
-    --icon-size: 1.3rem;
-    color: var(--gold);
   }
 }
 
 @media (max-width: 30rem) {
   .name {
-    font-size: 1.05rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
   }
 }

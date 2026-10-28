@@ -2,13 +2,13 @@
   display: block;
 }
 
-/* The banner (2026-10-28) at its own shape, whole, and the words on its navy foot, which is the page's own ground. */
+/* The banner (2026-10-28) at its own shape, whole, and the words on its foot, which is faded into the page's black. */
 .hero {
   position: relative;
   isolation: isolate;
   overflow: clip;
   color: var(--paper);
-  background: var(--navy);
+  background: var(--black);
 }
 
 /* The banner is 16 : 9 and never taller than the window (a wider window crops it above and below, from the middle). */
@@ -26,14 +26,15 @@
   object-position: 50% 50%;
 }
 
-/* The bar above is cream on a bright sky, so the top is veiled in navy; and the foot goes into the page's navy, where the words stand. */
+/* The bar above is cream on a bright sky, so the top is veiled in black; and the foot (the banner's own blue ground) goes into the page's
+   black, where the words stand. */
 .media::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(0, 6, 47, 0.72), rgba(0, 6, 47, 0) 26%),
-    linear-gradient(to bottom, transparent 62%, var(--navy) 99%);
+    linear-gradient(to bottom, rgba(15, 13, 11, 0.72), rgba(15, 13, 11, 0) 26%),
+    linear-gradient(to bottom, transparent 52%, var(--black) 97%);
 }
 
 /* The words rise over the foot of the banner, as far as the crest's lower edge and no farther (it ends 73% of the way down; a window
@@ -45,7 +46,7 @@
   align-items: center;
   width: min(100%, var(--maxw));
   margin: calc(-1 * max(0px, min(100svh, 56.25vw) / 2 - 14vw)) auto 0;
-  padding: 0 var(--gutter) clamp(4.5rem, 9vw, 7rem);
+  padding: 0 var(--gutter) clamp(2.5rem, 5vw, 4rem);
   text-align: center;
 }
 
@@ -64,7 +65,7 @@
   font-size: clamp(1.9rem, 4.2vw, 3.1rem);
   line-height: 1.15;
   text-wrap: balance;
-  text-shadow: 0 2px 18px rgba(0, 6, 47, 0.8);
+  text-shadow: 0 2px 18px rgba(15, 13, 11, 0.85);
 }
 
 .claim span {

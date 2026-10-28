@@ -2,19 +2,20 @@
   display: block;
 }
 
-/* One band of the page: the banner's navy, bone text and gold marks, room above and below, nothing that moves. The paper cards are gone
-   (user, 2026-10-28: "a seção família pode ficar com fundo preto também, precisa do card não"): every band is the ground of the page. */
+/* One band of the page: flat black, bone text, the game's beige for what is said quietly and its gold for the thread of a rule and the small
+   labels, room above and below, nothing that moves. The paper cards are gone (user, 2026-10-28: "a seção família pode ficar com fundo preto
+   também, precisa do card não"): every band is the ground of the page. */
 .section {
   --fg: var(--paper);
-  --fg-muted: rgba(236, 230, 218, 0.7);
-  --rule: rgba(231, 175, 54, 0.22);
+  --fg-muted: rgba(210, 179, 140, 0.88);
+  --rule: rgba(213, 161, 86, 0.28);
   --accent: var(--gold);
   --strong: var(--gold);
   position: relative;
   isolation: isolate;
   padding-block: var(--section-pad);
   overflow: clip;
-  background: var(--navy);
+  background: var(--black);
   color: var(--fg);
 }
 
@@ -44,7 +45,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 6, 47, 0.66);
+  background: rgba(15, 13, 11, 0.7);
 }
 
 /* An ornament of the game panel in a corner of the band, with no margin (user, 2026-10-28: "nos cantos das seção você deixa as imagens

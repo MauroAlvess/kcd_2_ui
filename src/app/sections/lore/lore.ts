@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CHAPTERS, LORE_ENDING, LORE_EYEBROW, LORE_TITLE } from '../../content/lore';
 import { Rich } from '../../shared/ui/rich/rich';
-import { Reveal } from '../../shared/ui/reveal/reveal';
 import { Section } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
@@ -14,7 +13,7 @@ import { SectionHeading } from '../../shared/ui/section-heading/section-heading'
  */
 @Component({
   selector: 'app-lore',
-  imports: [Reveal, Rich, Section, SectionHeading],
+  imports: [Rich, Section, SectionHeading],
   templateUrl: './lore.html',
   styleUrl: './lore.css',
 })

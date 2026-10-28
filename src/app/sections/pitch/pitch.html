@@ -1,0 +1,35 @@
+<app-section anchor="reino" labelledBy="reino-title" corner="lion">
+  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="reino-title">
+    {{ lead }}
+  </app-section-heading>
+
+  <ul class="pillars">
+    @for (pillar of pillars; track pillar.id) {
+      <li class="pillar" [appReveal]="$index">
+        <h3>{{ pillar.title }}</h3>
+        <p>{{ pillar.text }}</p>
+      </li>
+    }
+  </ul>
+
+  <ul class="shots">
+    @for (shot of shots; track shot.id) {
+      <li [appReveal]="$index">
+        <figure class="shot">
+          <img
+            [src]="'img/' + shot.large"
+            [attr.srcset]="'img/' + shot.small + ' 720w, img/' + shot.large + ' 1200w'"
+            sizes="(max-width: 40rem) 100vw, 33vw"
+            [style.object-position]="shot.position"
+            [attr.width]="shot.width"
+            [attr.height]="shot.height"
+            [alt]="shot.alt"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>{{ shot.caption }}</figcaption>
+        </figure>
+      </li>
+    }
+  </ul>
+</app-section>

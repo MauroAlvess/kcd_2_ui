@@ -11,7 +11,7 @@
   inset: 0;
   z-index: 200;
   overflow: hidden;
-  background: var(--navy);
+  background: var(--black);
   /* If the scripts never get as far as starting it, it still lets go of the page after 12 s. */
   animation: over 0.01s 12s both;
 }

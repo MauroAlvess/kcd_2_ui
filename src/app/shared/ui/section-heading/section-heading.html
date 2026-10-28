@@ -1,11 +1,6 @@
 <header class="heading" [class.center]="align() === 'center'" appReveal>
   @if (eyebrow(); as label) {
-    <p class="eyebrow">
-      @if (icon(); as mark) {
-        <app-icon [name]="mark" />
-      }
-      {{ label }}
-    </p>
+    <p class="eyebrow">{{ label }}</p>
   }
   <h2 [attr.id]="titleId()">{{ heading() }}</h2>
   <div class="lead"><ng-content /></div>

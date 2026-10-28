@@ -4,24 +4,30 @@
 @import '@fontsource/eb-garamond/latin-400.css';
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-ext-400.css';
+@import '@fontsource/cinzel/latin-500.css';
+@import '@fontsource/cinzel/latin-600.css';
 
-/* Navy, gold and bone: the colours of the banner (2026-10-28), flat. The navy is the one the banner fades to at its foot, so the picture
-   goes into the page without a seam; the gold is the one of its lettering and its crest. */
+/* The game's own colours (2026-10-28, the user: "podemos usar nosso padrão de cores e identidade visual"): the ones of its panel, ink, the
+   beige of its paper, the red of its buttons and the gold of its lines, laid flat on black; the headings and the small labels are set in
+   Cinzel, the panel's own face. The banner keeps its blue, and its foot is faded into the black. */
 :root {
-  --navy: #00062f;
+  --black: #0f0d0b;
+  --ink: #201b17;
   --paper: #ece6da;
-  --gold: #e7af36;
-  --gold-hi: #f3c556;
+  --beige: #d2b38c;
+  --red: #7c0305;
+  --red-hi: #98090c;
+  --gold: #d5a156;
 
   --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
-  --display: var(--body);
+  --display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
   --sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --gutter: clamp(1.25rem, 5vw, 3rem);
   --maxw: 68rem;
   --header-h: 4.25rem;
-  --section-pad: clamp(5rem, 10vw, 8rem);
+  --section-pad: clamp(3.5rem, 7vw, 5.5rem);
 }
 
 *,
@@ -31,7 +37,7 @@
 }
 
 html {
-  background: var(--navy);
+  background: var(--black);
   /* The page still scrolls with the wheel, the keys and a finger; its bar is not drawn (2026-10-20: "o scroll do site vamos
      retirar"). A circle with an arrow in the corner (shared/ui/scroll-hint) tells a visitor at the top that there is more. */
   scrollbar-width: none;
@@ -48,7 +54,7 @@ html::-webkit-scrollbar {
 
 body {
   margin: 0;
-  background: var(--navy);
+  background: var(--black);
   color: var(--paper);
   font: 1.2rem/1.6 var(--body);
   font-variant-numeric: lining-nums;
@@ -101,8 +107,8 @@ button {
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--navy);
+  background: var(--red);
+  color: var(--paper);
 }
 
 /* Text for screen readers only. */

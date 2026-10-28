@@ -27,7 +27,7 @@ describe('ScrollHint', () => {
   });
 
   it('is a link down to the first chapter, named for a screen reader, with an arrow that only decorates', () => {
-    expect(hint().getAttribute('href')).toBe('#guildas');
+    expect(hint().getAttribute('href')).toBe('#reino');
     expect(hint().getAttribute('aria-label')).toBe('Rolar para baixo');
     expect(hint().querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
   });

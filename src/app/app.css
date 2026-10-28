@@ -9,8 +9,8 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--navy);
-  background: var(--gold);
+  color: var(--paper);
+  background: var(--red);
   transition: top 0.2s;
 }
 

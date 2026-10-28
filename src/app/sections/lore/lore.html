@@ -1,6 +1,6 @@
 <app-section anchor="lore" labelledBy="lore-title" corner="raven">
   <div class="top">
-    <app-section-heading [eyebrow]="eyebrow" icon="book" [heading]="title" titleId="lore-title">
+    <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="lore-title">
       Uma aliança, um rei morto, uma carta que quase não chegou. É daqui que o servidor começa.
     </app-section-heading>
 
@@ -15,60 +15,63 @@
     />
   </div>
 
-  <div class="story">
-    <div class="chapters" appReveal>
-      @for (chapter of chapters; track chapter.id) {
-        <div class="chapter" [class.open]="open() === chapter.id">
-          <h3>
-            <button
-              type="button"
-              class="head"
-              [id]="'lore-' + chapter.id"
-              [attr.aria-expanded]="open() === chapter.id"
-              [attr.aria-controls]="'lore-' + chapter.id + '-text'"
-              (click)="toggle(chapter.id)"
+  <details class="more">
+    <summary>Ler a história</summary>
+    <div class="story">
+      <div class="chapters">
+        @for (chapter of chapters; track chapter.id) {
+          <div class="chapter" [class.open]="open() === chapter.id">
+            <h3>
+              <button
+                type="button"
+                class="head"
+                [id]="'lore-' + chapter.id"
+                [attr.aria-expanded]="open() === chapter.id"
+                [attr.aria-controls]="'lore-' + chapter.id + '-text'"
+                (click)="toggle(chapter.id)"
+              >
+                @if (chapter.year) {
+                  <span class="year">{{ chapter.year }}</span>
+                }
+                <span class="chapter-title">{{ chapter.title }}</span>
+                <span class="mark" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div
+              class="panel"
+              [id]="'lore-' + chapter.id + '-text'"
+              [attr.inert]="open() === chapter.id ? null : ''"
             >
-              @if (chapter.year) {
-                <span class="year">{{ chapter.year }}</span>
-              }
-              <span class="chapter-title">{{ chapter.title }}</span>
-              <span class="mark" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div
-            class="panel"
-            [id]="'lore-' + chapter.id + '-text'"
-            [attr.inert]="open() === chapter.id ? null : ''"
-          >
-            <div class="fold">
-              <div class="body">
-                @for (block of chapter.blocks; track $index) {
-                  @switch (block.kind) {
-                    @case ('lead') {
-                      <p class="lead">{{ block.text }}</p>
-                    }
-                    @case ('list') {
-                      <ul>
-                        @for (item of block.items; track $index) {
-                          <li><app-rich [text]="item" /></li>
-                        }
-                      </ul>
-                    }
-                    @default {
-                      <p><app-rich [text]="block.text" /></p>
+              <div class="fold">
+                <div class="body">
+                  @for (block of chapter.blocks; track $index) {
+                    @switch (block.kind) {
+                      @case ('lead') {
+                        <p class="lead">{{ block.text }}</p>
+                      }
+                      @case ('list') {
+                        <ul>
+                          @for (item of block.items; track $index) {
+                            <li><app-rich [text]="item" /></li>
+                          }
+                        </ul>
+                      }
+                      @default {
+                        <p><app-rich [text]="block.text" /></p>
+                      }
                     }
                   }
-                }
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      }
-    </div>
+        }
+      </div>
 
-    <div class="ending" appReveal>
-      <p><app-rich [text]="ending.text" /></p>
-      <p class="question">{{ ending.question }}</p>
+      <div class="ending">
+        <p><app-rich [text]="ending.text" /></p>
+        <p class="question">{{ ending.question }}</p>
+      </div>
     </div>
-  </div>
+  </details>
 </app-section>

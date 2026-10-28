@@ -3,9 +3,28 @@ app-section-heading {
   --heading-measure: 30ch;
 }
 
+/* The whole story is folded behind one line (2026-10-28, "sem ser gigante"): its words stay in the page for a search engine, and a reader opens them. */
+.more {
+  max-width: 44rem;
+  border-top: 1px solid var(--rule);
+}
+
+.more summary {
+  padding: 1.1rem 0;
+  font: 600 0.78rem/1.3 var(--display);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.more summary:hover {
+  color: var(--fg);
+}
+
 .story {
   --slide: 0.5s cubic-bezier(0.22, 0.8, 0.28, 1);
-  max-width: 44rem;
+  padding-top: 0.5rem;
 }
 
 .chapters {
@@ -34,7 +53,8 @@ h3 {
 
 .year {
   flex: none;
-  font: 500 0.85rem/1.4 var(--sans);
+  font: 500 0.78rem/1.4 var(--display);
+  letter-spacing: 0.12em;
   color: var(--fg-muted);
 }
 
