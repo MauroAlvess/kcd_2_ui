@@ -18,16 +18,20 @@ describe('Section', () => {
     expect(section.getAttribute('aria-labelledby')).toBe('guildas-title');
   });
 
-  it('has no corner ornaments unless it is told to, and then the lion above and the raven below', async () => {
+  it('has no corner ornament unless it is told to, and then only the one it is told: the lion above on the left, or the raven below on the right', async () => {
     expect((await render({ anchor: 'a' })).querySelector('img.corner')).toBeNull();
 
-    const section = await render({ anchor: 'b', corners: true });
-    expect(section.querySelector(':scope > img.corner.lion')?.getAttribute('src')).toBe(
+    const lion = await render({ anchor: 'b', corner: 'lion' });
+    expect(lion.querySelector(':scope > img.corner.lion')?.getAttribute('src')).toBe(
       'img/corner-lion.webp',
     );
-    expect(section.querySelector(':scope > img.corner.raven')?.getAttribute('src')).toBe(
+    expect(lion.querySelector('img.corner.raven')).toBeNull();
+
+    const raven = await render({ anchor: 'c', corner: 'raven' });
+    expect(raven.querySelector(':scope > img.corner.raven')?.getAttribute('src')).toBe(
       'img/corner-raven.webp',
     );
+    expect(raven.querySelector('img.corner.lion')).toBeNull();
   });
 
   it('has no photograph unless it is given one', async () => {

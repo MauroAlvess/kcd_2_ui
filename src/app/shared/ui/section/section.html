@@ -12,7 +12,7 @@
       />
     </div>
   }
-  @if (corners()) {
+  @if (corner() === 'lion') {
     <img
       class="corner lion"
       src="img/corner-lion.webp"
@@ -23,6 +23,8 @@
       loading="lazy"
       decoding="async"
     />
+  }
+  @if (corner() === 'raven') {
     <img
       class="corner raven"
       src="img/corner-raven.webp"

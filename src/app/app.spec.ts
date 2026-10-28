@@ -171,18 +171,23 @@ describe('App', () => {
     expect(bands.at(-1)?.querySelector('.photo')).not.toBeNull();
   });
 
-  it('sets the lion and the raven of the game panel in the corners of the first band after the opening and of the last one above the way in, and nowhere else', () => {
+  it('opens the page with the lion in the top left of the first band after the opening and closes it with the raven in the bottom right of the last band above the way in, and nowhere else', () => {
     const cornered = Array.from(root.querySelectorAll('main section.section')).filter(
       (section) => section.querySelector(':scope > img.corner') !== null,
     );
     expect(cornered.map((section) => section.id)).toEqual(['guildas', 'lore']);
-    for (const section of cornered) {
-      const lion = section.querySelector<HTMLImageElement>(':scope > img.corner.lion');
-      const raven = section.querySelector<HTMLImageElement>(':scope > img.corner.raven');
-      expect(lion?.getAttribute('src'), section.id).toBe('img/corner-lion.webp');
-      expect(raven?.getAttribute('src'), section.id).toBe('img/corner-raven.webp');
-      expect(lion?.getAttribute('alt'), section.id).toBe('');
-      expect(raven?.getAttribute('aria-hidden'), section.id).toBe('true');
+    const [first, last] = cornered;
+    expect(first.querySelector(':scope > img.corner.lion')?.getAttribute('src'), first.id).toBe(
+      'img/corner-lion.webp',
+    );
+    expect(first.querySelectorAll(':scope > img.corner')).toHaveLength(1);
+    expect(last.querySelector(':scope > img.corner.raven')?.getAttribute('src'), last.id).toBe(
+      'img/corner-raven.webp',
+    );
+    expect(last.querySelectorAll(':scope > img.corner')).toHaveLength(1);
+    for (const corner of root.querySelectorAll('main img.corner')) {
+      expect(corner.getAttribute('alt')).toBe('');
+      expect(corner.getAttribute('aria-hidden')).toBe('true');
     }
   });
 

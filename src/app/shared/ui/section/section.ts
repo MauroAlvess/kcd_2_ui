@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 /** A photograph behind a section: the file to show and the sizes the browser may pick from. */
 export interface SectionImage {
@@ -10,8 +10,8 @@ export interface SectionImage {
 
 /**
  * One band of the page: flat black, beige text, handed to everything inside it as custom properties (`--fg`, `--fg-muted`,
- * `--rule`, `--accent`, `--strong`). A band can carry a photograph, darkened so the text above it stays readable, or the game
- * panel's ornaments on two of its corners; anything given the `backdrop` attribute is laid behind the content instead of in it.
+ * `--rule`, `--accent`, `--strong`). A band can carry a photograph, darkened so the text above it stays readable, or one of
+ * the game panel's ornaments in a corner; anything given the `backdrop` attribute is laid behind the content instead of in it.
  */
 @Component({
   selector: 'app-section',
@@ -24,6 +24,6 @@ export class Section {
   /** The id of the heading that names this section, for screen readers. */
   readonly labelledBy = input<string>();
   readonly image = input<SectionImage>();
-  /** The lion above on the left and the raven below on the right, set right in the band's corners. */
-  readonly corners = input(false, { transform: booleanAttribute });
+  /** One ornament of the game panel set right in a corner of the band, with no margin: the lion above on the left, or the raven below on the right. */
+  readonly corner = input<'lion' | 'raven'>();
 }

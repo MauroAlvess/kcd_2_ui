@@ -50,9 +50,10 @@
   background: rgba(15, 13, 11, 0.66);
 }
 
-/* The game panel's ornaments, in the band's own corners with no margin (user, 2026-10-28: "nos cantos das seção você deixa as imagens
-   da borda mas sem margem"): the lion's above on the left, the raven's below on the right. The band's padding is taller than they
-   are, so no word is ever under them. */
+/* An ornament of the game panel in a corner of the band, with no margin (user, 2026-10-28: "nos cantos das seção você deixa as imagens
+   da borda mas sem margem"): the lion's above on the left, or the raven's below on the right, one to a band (the first after the opening
+   has the lion, the last above the way in the raven, so the two close the page like a frame). The band's padding is taller than they are,
+   so no word is ever under them. */
 .corner {
   position: absolute;
   z-index: 1;
