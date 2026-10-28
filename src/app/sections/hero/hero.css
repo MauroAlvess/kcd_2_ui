@@ -11,11 +11,15 @@
   background: var(--black);
 }
 
-/* The banner is 16 : 9 and never taller than the window (a wider window crops it above and below, from the middle). */
+/* The banner spans the whole width of the window, always, and is as tall as it is at that width (16 : 9) but never taller than the window; a
+   window wider than that crops it above and below, from the middle. The height is written out on purpose (2026-10-28, the user: "a imagem do
+   hero não ocupa 100%, nas telas maiores fica recortada"): a box with `aspect-ratio` and a `max-height` gives up its WIDTH to keep the ratio,
+   which left a black band at the right of every window shorter than 16 : 9 (a browser of 1920 x 950, one of 2560 x 1300) with the banner
+   cut off at its edge. */
 .media {
   position: relative;
-  aspect-ratio: 16 / 9;
-  max-height: 100svh;
+  width: 100%;
+  height: min(56.25vw, 100svh);
 }
 
 .still {
@@ -72,10 +76,12 @@
   color: var(--gold);
 }
 
+/* One line while the window is wide enough for it, so the two buttons under it stay inside the first screen of a 1080p monitor (a browser of
+   1920 x 950); on a narrower window it breaks in two balanced lines. */
 .tagline {
-  max-width: 38rem;
+  max-width: 60rem;
   margin-top: 1.1rem;
-  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
   line-height: 1.5;
   color: rgba(236, 230, 218, 0.9);
   text-wrap: balance;
@@ -97,8 +103,8 @@
    and the lion: a third of its width, 3 : 5), the lettering is written out under it, and the words rise as far as the crest's foot. */
 @media (max-width: 40rem) {
   .media {
+    height: auto;
     aspect-ratio: 3 / 5;
-    max-height: none;
   }
 
   .content {
