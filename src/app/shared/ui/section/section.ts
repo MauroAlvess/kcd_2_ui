@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 
-/** A photograph behind a dark section: the file to show and the sizes the browser may pick from. */
+/** A photograph behind a section: the file to show and the sizes the browser may pick from. */
 export interface SectionImage {
   readonly src: string;
   readonly srcset: string;
@@ -8,14 +8,10 @@ export interface SectionImage {
   readonly position?: string;
 }
 
-/** The pictures of the game that can lie faint under the paper of a card (`public/img/card-<name>-960|1600.webp`). */
-export type PaperPhoto = 'torre' | 'cidade' | 'floresta' | 'forja';
-
 /**
- * One band of the page. It is either `light` (flat paper, dark ink, red accents) or `dark` (flat black, beige text), and it
- * hands that choice to everything inside it as custom properties (`--fg`, `--fg-muted`, `--rule`, `--accent`, `--strong`),
- * so a component written for one works on the other without knowing. A dark band can carry a photograph, darkened so the
- * text above it stays readable; anything given the `backdrop` attribute is laid behind the content instead of in it.
+ * One band of the page: flat black, beige text, handed to everything inside it as custom properties (`--fg`, `--fg-muted`,
+ * `--rule`, `--accent`, `--strong`). A band can carry a photograph, darkened so the text above it stays readable, or the game
+ * panel's ornaments on two of its corners; anything given the `backdrop` attribute is laid behind the content instead of in it.
  */
 @Component({
   selector: 'app-section',
@@ -25,10 +21,9 @@ export type PaperPhoto = 'torre' | 'cidade' | 'floresta' | 'forja';
 export class Section {
   /** The anchor the navigation points to; it becomes the id of the section. Not called `id`, so the element of the component does not carry a second one. */
   readonly anchor = input.required<string>();
-  readonly tone = input<'light' | 'dark'>('light');
   /** The id of the heading that names this section, for screen readers. */
   readonly labelledBy = input<string>();
   readonly image = input<SectionImage>();
-  /** Which picture of the game lies under the paper of a light band's card; each card has its own. */
-  readonly paper = input<PaperPhoto>('torre');
+  /** The lion above on the left and the raven below on the right, set right in the band's corners. */
+  readonly corners = input(false, { transform: booleanAttribute });
 }

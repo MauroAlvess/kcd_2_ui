@@ -1,10 +1,10 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
 Site do servidor **Kingdom RP BRASIL**: uma página só, em preto, bege e vermelho (a paleta do painel do jogo), chapados, sem
-brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): fundo todo preto, as seções de papel como cartões
-do painel do jogo (2026-10-26), texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
-estandartes amarelos) e o letreiro "Kingdom Come: Deliverance II RP Brasil" em ouro e osso, e segue em capítulos que alternam papel e noite: o mapa das cinco casas, as facções, as guildas, a
-família, a hierarquia, a lore, as regras e como entrar.
+brilho (2026-10-20: "muita cara de IA, menos enfeitado e mais minimalista"): todas as seções no preto, sem cartões (2026-10-28),
+texto em EB Garamond, rótulos pequenos na fonte do sistema, filetes finos no lugar de caixas. Abre com a cena do torneio do jogo (a arena, o duelo, os
+estandartes amarelos) e o letreiro "Kingdom Come: Deliverance II RP Brasil" em ouro e osso, e segue em capítulos: as guildas, a
+família, a hierarquia, as posses, a lore e como entrar (o mapa das casas, o apoio e as regras saíram em 2026-10-28).
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.
@@ -55,9 +55,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | nome, link do Discord, endereço, título e descrição do Google, códigos do Search Console e do Bing, id do servidor na lista (jogadores online) | `src/site.config.json`                                                                 |
 | palavras-chave                                                                                                                                 | `KEYWORDS` em `src/app/core/site.ts`                                                   |
 | itens do menu                                                                                                                                  | `NAV` em `src/app/core/site.ts`                                                        |
-| as cinco casas do mapa (texto, brasão e a posição de cada um no mapa, em % da largura e da altura)                                             | `REALM_HOUSES` em `src/app/content/realm.ts`                                           |
-| as regras (ambientação, tolerância zero, os seis termos, o lema)                                                                               | `src/app/content/rules.ts`                                                             |
-| guildas, facções, passos para entrar, a árvore da família e os títulos da hierarquia                                                           | `src/app/content/*.ts`                                                                 |
+| guildas, posses, passos para entrar, a árvore da família e os títulos da hierarquia                                                             | `src/app/content/*.ts`                                                                 |
 | textos da lore                                                                                                                                 | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
 | a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral)                                                              | o `.html` de cada seção em `src/app/sections/`                                         |
 | cores, fontes, espaçamentos                                                                                                                    | `:root` em `src/styles.css`                                                            |
@@ -66,11 +64,11 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, a abertura, os 8 capítulos em ordem, rodapé
+  app.*                 a página: cabeçalho, a abertura, os 6 capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o vídeo, sólido ao rolar; menu móvel abaixo de 64rem) e footer
-  sections/             uma pasta por seção: hero, realm, factions, guilds, family, hierarchy, lore, rules, join
-  shared/ui/            peças reutilizáveis: button, section (cartão de papel/noite), reveal (aparecer ao rolar), section-heading (rótulo com o seu
+  sections/             uma pasta por seção: hero, guilds, family, hierarchy, holdings, lore, join
+  shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo com o seu
                         desenho, título, introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
                         guarda todos), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
                         curtain (a entrada: quatro montes de nuvens fecham a tela e abrem para os quatro cantos, 2,7 s; sem
@@ -81,23 +79,18 @@ tools/                  scripts que preparam as imagens e o vídeo (abaixo) e `m
                         juntos (`node tools/make-icon-sheet.mjs folha.html`, Node 24) antes de um novo entrar numa página
 ```
 
-Cada seção é um componente próprio, sem depender das outras; o tom claro ou escuro vem do `<app-section>`, que passa
-`--fg`, `--fg-muted`, `--rule` e `--accent` para o que está dentro, então um componente funciona nos dois fundos. A página toda é preta. As seções alternam papel e noite do começo ao fim (a de Entrar, sobre a pintura, fecha a página): a de noite
-fica aberta sobre o preto, e a de papel é um **cartão** como os do painel do jogo (2026-10-26, o dono: "o fundo todo preto e nas seções
-beges serem cards igual no jogo, borda, padding, branco"): uma página de papel de largura limitada, com o respiro do painel em volta
-das palavras (as palavras ficam na mesma largura das seções pretas), uma linha fina um pouco para dentro da borda e os cantos do painel
-do jogo, o do leão em cima à esquerda e o do corvo embaixo à direita (o respiro deixa lugar para eles: nada é cortado e nenhuma palavra
-fica por baixo; `shared/ui/section`). Sob o papel de cada cartão há uma imagem do jogo, uma diferente para cada (2026-10-27, o dono: "nos cards vamos colocar uma imagem de
-fundo opaca igual no f2" e "podia ser uma diferente para cada"): a torre sobre o vale do painel F2 no Reino, a cidade ao entardecer na
-Família, a floresta nas Posses e a forja na História (`<app-section paper="torre|cidade|floresta|forja">`). Cada uma fica a 27% e
-multiplicada no papel, como o painel faz (`img.paper-photo`, `card-<nome>-960|1600.webp` feitos por `tools/make-images.py`, que clareia
-as fotos escuras para o cartão não escurecer), atrás das palavras e da moldura. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
+Cada seção é um componente próprio, sem depender das outras; o `<app-section>` passa `--fg`, `--fg-muted`, `--rule` e `--accent`
+para o que está dentro. A página toda é preta e todas as seções também (2026-10-28, o dono: "a seção família pode ficar com fundo preto
+também, precisa do card não"): os cartões de papel e as imagens do jogo sob o papel saíram. Família, Posses e História têm os cantos do
+painel do jogo, o do leão em cima à esquerda e o do corvo embaixo à direita, encostados nos cantos da faixa, sem margem
+(`<app-section corners>`; o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a pintura,
+fecha a página. Quase nada se move (2026-10-26, o dono: "eu gosto do minimalismo"): a descida suave entre as
 faixas, o fio bordado, as nuvens nos cantos, a névoa do mapa e as fotos entre capítulos foram tentados e tirados. A única coisa que
 acontece com a rolagem é pedida pelo dono ("à medida que vá rolando para baixo vai aparecendo as informações"): o que ainda está abaixo
 da tela quando a página abre fica retido e aparece, uma vez, quando o leitor chega nele (sobe uns 1,25 rem e sai do nada em 0,9 s; os
 blocos de uma fileira vêm um instante depois do primeiro). É a diretiva `appReveal` (`shared/ui/reveal`; o visual está em
 `styles.css`, `.reveal-wait` e `.reveal-in`): a página escrita está completa (pré-renderizada, e sem scripts), nada é retido antes de o
-navegador montá-la, o que já está na tela ou acima dela (um link para `#regras`, uma recarga no meio) fica como está, e quem pediu menos
+navegador montá-la, o que já está na tela ou acima dela (um link para `#lore`, uma recarga no meio) fica como está, e quem pediu menos
 movimento, ou tem um navegador sem `IntersectionObserver`, vê a página como está escrita.
 
 ## Imagens

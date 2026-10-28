@@ -1,11 +1,9 @@
 import { FAMILY_NOTE, FAMILY_POINTS, FAMILY_TREE, branchesOf } from './family';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
-import { GIFTS, HOLDINGS, SUPPORT_HOW } from './holdings';
+import { HOLDINGS } from './holdings';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
-import { MAP_ALT, REALM_HOUSES } from './realm';
-import { RULES, RULES_MOTTO, ZERO_TOLERANCE } from './rules';
 import { NAV } from '../core/site';
 import { ICONS } from '../shared/ui/icon/icons';
 
@@ -89,33 +87,13 @@ describe('content', () => {
         expect(filled(text)).toBe(true);
       }
     }
-    expect(GIFTS.map((gift) => gift.id)).toEqual(['cavalo', 'cachorro', 'arma', 'roupas']);
-    for (const gift of GIFTS) {
-      expect(filled(gift.title) && filled(gift.text)).toBe(true);
-    }
   });
 
-  it('draws what it can with icons that exist: the gifts, the steps of the way in, the rules and the menu', () => {
-    const drawn = [
-      ...GIFTS.map((gift) => gift.icon),
-      ...JOIN_STEPS.map((step) => step.icon),
-      ...RULES.map((rule) => rule.icon),
-      ...NAV.map((item) => item.icon),
-    ];
+  it('draws what it can with icons that exist: the steps of the way in and the menu', () => {
+    const drawn = [...JOIN_STEPS.map((step) => step.icon), ...NAV.map((item) => item.icon)];
     expect(drawn.every((icon) => icon !== undefined && icon in ICONS)).toBe(true);
-    expect(unique(GIFTS.map((gift) => gift.icon))).toBe(true);
     expect(unique(JOIN_STEPS.map((step) => step.icon ?? ''))).toBe(true);
     expect(unique(NAV.map((item) => item.icon))).toBe(true);
-  });
-
-  it('sends a supporter to the game and to the Discord, and carries no payment data', () => {
-    const everything = [
-      SUPPORT_HOW,
-      ...HOLDINGS.flatMap((holding) => [holding.title, holding.text]),
-      ...GIFTS.flatMap((gift) => [gift.title, gift.text]),
-    ].join(' ');
-    expect(SUPPORT_HOW).toContain('Discord');
-    expect(everything).not.toMatch(/\bpix\b|\bqr\b|R\$/i);
   });
 
   it('numbers the steps of the way in without repeating a number', () => {
@@ -173,93 +151,6 @@ describe('content', () => {
     for (const text of [...texts, LORE_ENDING.text]) {
       expect(text.split('**').length % 2, text.slice(0, 40)).toBe(1);
     }
-  });
-});
-
-describe('realm', () => {
-  it('has the five houses of the map, the crown first, each with its crest and something to say (Trosky has no crest on it)', () => {
-    expect(REALM_HOUSES.map((house) => house.id)).toEqual([
-      'kuttenberg',
-      'raborsch',
-      'suchdol',
-      'maleshov',
-      'pschitoky',
-    ]);
-    expect(unique(REALM_HOUSES.map((house) => house.crest))).toBe(true);
-    for (const house of REALM_HOUSES) {
-      for (const text of [house.place, house.house, house.holder, house.text, house.crestAlt]) {
-        expect(filled(text), house.id).toBe(true);
-      }
-      expect(house.crest).toMatch(/^house-[a-z]+\.webp$/);
-      expect(house.crestWidth > 0 && house.crestHeight > 0).toBe(true);
-    }
-  });
-
-  it('puts every crest on the map, none on top of another', () => {
-    for (const house of REALM_HOUSES) {
-      expect(house.x, house.id).toBeGreaterThan(0);
-      expect(house.x, house.id).toBeLessThan(100);
-      expect(house.y, house.id).toBeGreaterThan(0);
-      expect(house.y, house.id).toBeLessThan(100);
-      expect(house.size, house.id).toBeGreaterThan(3);
-    }
-    for (const a of REALM_HOUSES) {
-      for (const b of REALM_HOUSES) {
-        if (a !== b) {
-          expect(Math.hypot(a.x - b.x, a.y - b.y), `${a.id} ${b.id}`).toBeGreaterThan(8);
-        }
-      }
-    }
-  });
-
-  it('tells the same story as the lore: Gunther, the lordless Schodal, the plot of Maleshov', () => {
-    const text = REALM_HOUSES.map((house) => `${house.house} ${house.holder} ${house.text}`).join(
-      ' ',
-    );
-    for (const name of ['Gunther von Silberhände', 'Casa de Schodal', 'Casa de Maleshov']) {
-      expect(text, name).toContain(name);
-    }
-  });
-
-  it('has no crest of Trosky on the map (user, 2026-10-21); the Lions and Radovan stay in the lore', () => {
-    for (const house of REALM_HOUSES) {
-      expect(`${house.id} ${house.place} ${house.crest} ${house.crestAlt}`, house.id).not.toMatch(
-        /trosky/i,
-      );
-    }
-    expect(MAP_ALT).not.toMatch(/trosky/i);
-    const lore = CHAPTERS.flatMap((chapter) =>
-      chapter.blocks.flatMap((block) => (block.kind === 'list' ? block.items : [block.text])),
-    ).join(' ');
-    expect(lore).toContain('Casa dos Leões');
-    expect(lore).toContain('Radovan de Zelený');
-  });
-});
-
-describe('rules', () => {
-  it('has the six terms of the parchment of rules, each once, with what it forbids or asks', () => {
-    expect(RULES.map((rule) => rule.id)).toEqual([
-      'rdm',
-      'hdm',
-      'anti-rp',
-      'fear-rp',
-      'metagaming',
-      'powergaming',
-    ]);
-    for (const rule of RULES) {
-      expect(filled(rule.name) && filled(rule.text)).toBe(true);
-    }
-    expect(RULES.filter((rule) => rule.kind === 'expected').map((rule) => rule.id)).toEqual([
-      'fear-rp',
-    ]);
-  });
-
-  it('keeps the rule with the most weight and the motto', () => {
-    expect(ZERO_TOLERANCE.text.toLowerCase()).toContain('assédio');
-    expect(ZERO_TOLERANCE.text).toContain('Naquela época era assim');
-    expect(RULES_MOTTO).toBe(
-      'Viva a época. Interprete o seu personagem. Respeite quem está por trás dele.',
-    );
   });
 });
 

@@ -18,14 +18,16 @@ describe('Section', () => {
     expect(section.getAttribute('aria-labelledby')).toBe('guildas-title');
   });
 
-  it('is light unless it is told to be dark', async () => {
-    const light = await render({ anchor: 'a' });
-    expect(light.classList.contains('light')).toBe(true);
-    expect(light.classList.contains('dark')).toBe(false);
+  it('has no corner ornaments unless it is told to, and then the lion above and the raven below', async () => {
+    expect((await render({ anchor: 'a' })).querySelector('img.corner')).toBeNull();
 
-    const dark = await render({ anchor: 'b', tone: 'dark' });
-    expect(dark.classList.contains('dark')).toBe(true);
-    expect(dark.classList.contains('light')).toBe(false);
+    const section = await render({ anchor: 'b', corners: true });
+    expect(section.querySelector(':scope > img.corner.lion')?.getAttribute('src')).toBe(
+      'img/corner-lion.webp',
+    );
+    expect(section.querySelector(':scope > img.corner.raven')?.getAttribute('src')).toBe(
+      'img/corner-raven.webp',
+    );
   });
 
   it('has no photograph unless it is given one', async () => {
@@ -35,7 +37,6 @@ describe('Section', () => {
   it('shows the photograph with its sizes, as decoration that a screen reader skips', async () => {
     const section = await render({
       anchor: 'a',
-      tone: 'dark',
       image: { src: 'img/x-1920.webp', srcset: 'img/x-960.webp 960w, img/x-1920.webp 1920w' },
     });
     const photo = section.querySelector<HTMLImageElement>('.photo img');

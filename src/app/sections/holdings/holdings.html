@@ -1,4 +1,4 @@
-<app-section anchor="posses" tone="light" paper="floresta" labelledBy="posses-title">
+<app-section anchor="posses" labelledBy="posses-title" corners>
   <app-section-heading [eyebrow]="eyebrow" icon="house" [heading]="title" titleId="posses-title">
     {{ lead }}
   </app-section-heading>
@@ -20,47 +20,4 @@
       </li>
     }
   </ul>
-</app-section>
-
-<app-section anchor="apoio" tone="dark" labelledBy="apoio-title">
-  <div class="support">
-    <div class="words">
-      <app-section-heading
-        [eyebrow]="supportEyebrow"
-        icon="heart"
-        [heading]="supportTitle"
-        titleId="apoio-title"
-      >
-        {{ supportLead }}
-      </app-section-heading>
-
-      <ul class="gifts">
-        @for (gift of gifts; track gift.id) {
-          <li [appReveal]="$index % 2">
-            <app-icon class="mark" [name]="gift.icon" />
-            <h3>{{ gift.title }}</h3>
-            <p>{{ gift.text }}</p>
-          </li>
-        }
-      </ul>
-
-      <div appReveal>
-        <p class="how">{{ how }}</p>
-        <app-button [href]="site.discord" variant="ghost" icon="chat" external>
-          Falar com a administração
-        </app-button>
-      </div>
-    </div>
-
-    <img
-      class="art"
-      appReveal
-      src="img/apoiador.webp"
-      width="900"
-      height="730"
-      [alt]="artAlt"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
 </app-section>

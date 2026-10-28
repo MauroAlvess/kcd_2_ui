@@ -20,7 +20,7 @@ const PLACE_MS = 90;
  *
  * - the page is complete as it is written (prerendered, and with no scripts): nothing is hidden until the browser has
  *   built the page, and only what is still below the screen at that moment;
- * - what is already on the screen, or above it (a link to `#regras`, a reload half way down), is left alone;
+ * - what is already on the screen, or above it (a link to `#lore`, a reload half way down), is left alone;
  * - a browser with no `IntersectionObserver`, and a visitor who asked for less motion, see the page as it is written.
  *
  * Use it as a bare attribute, or give it the place of the block in a row of its kind (`[appReveal]="$index"`): the later

@@ -2,30 +2,10 @@
   display: block;
 }
 
-/* One band of the page: nothing of its own to paint (the whole page is black), room above and below, nothing that moves. */
+/* One band of the page: black, beige text, room above and below, nothing that moves. The paper cards are gone (user, 2026-10-28:
+   "a seção família pode ficar com fundo preto também, precisa do card não"): every band is the black of the page, the red and the
+   blue lifted so they read on it. */
 .section {
-  position: relative;
-  isolation: isolate;
-  padding-block: var(--section-pad);
-  overflow: clip;
-}
-
-/* Paper: a card on the black page, like the game's panel (user, 2026-10-26: "o fundo todo preto e nas seções beges serem cards igual no
-   jogo"). The band itself stays black and only leaves room round the card; dark ink on the card, the red for the few things that call. */
-.light {
-  --fg: var(--ink);
-  --fg-muted: rgba(29, 25, 21, 0.68);
-  --rule: rgba(29, 25, 21, 0.16);
-  --accent: var(--red);
-  --strong: var(--red);
-  --alert: var(--red);
-  --calm: var(--blue);
-  padding-block: clamp(1.75rem, 4.5vw, 3.75rem);
-  color: var(--fg);
-}
-
-/* Night: black, beige text; the red and the blue lifted so they read on it. */
-.dark {
   --fg: var(--paper);
   --fg-muted: rgba(236, 230, 218, 0.66);
   --rule: rgba(236, 230, 218, 0.16);
@@ -33,6 +13,10 @@
   --strong: var(--beige);
   --alert: #d0574f;
   --calm: #8ea8d4;
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--section-pad);
+  overflow: clip;
   background: var(--black);
   color: var(--fg);
 }
@@ -44,23 +28,7 @@
   margin-inline: auto;
 }
 
-/* The card: the paper page on the black, its words as wide as the words of the black bands (the width of the page plus its own
-   padding on each side), and as much padding round them as the game's panel leaves. On a phone the card goes nearly to the edge. */
-.card {
-  --pad: clamp(1.25rem, 5vw, 4.75rem);
-  width: min(100% - 2 * clamp(0.6rem, 3vw, 3rem), var(--maxw) + 2 * var(--pad));
-  padding: var(--pad);
-  background: var(--paper);
-}
-
-/* The ornaments are as big as the padding of a phone's card: its words start a little lower and end a little higher than on a screen. */
-@media (max-width: 40rem) {
-  .card {
-    padding-block: calc(var(--pad) + 1.5rem) calc(var(--pad) + 1rem);
-  }
-}
-
-/* A photograph behind a dark band, darkened evenly so the words above it stay readable. */
+/* A photograph behind a band, darkened evenly so the words above it stay readable. */
 .photo {
   position: absolute;
   inset: 0;
@@ -82,47 +50,24 @@
   background: rgba(15, 13, 11, 0.66);
 }
 
-/* The game panel's picture under the paper of every card (user, 2026-10-27: "nos cards vamos colocar uma imagem de fundo opaca igual no f2"):
-   the F2 panel draws "background hud H" over its paper at 27% and multiplied into it, so the paper shows through and takes the picture's
-   light and dark. It lies behind the words and the frame (z-index -1 inside the card, which is its own stacking context), covers the
-   whole card whatever its shape, and is never read as content. */
-.paper-photo {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.27;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Every card has the game panel's frame (user, 2026-10-25: "em toda seção bege colocar as bordas de imagem"): a thin line a little inside
-   its edge, and on two of its corners the panel's ornaments, the lion's above on the left and the raven's below on the right, each laid
-   on the corner of the line. The padding of the card leaves room for them: nothing is cut by the edge and no word is under them. */
-.frame {
-  position: absolute;
-  inset: clamp(0.6rem, 1.4vw, 1.1rem);
-  border: 1px solid rgba(29, 25, 21, 0.28);
-  pointer-events: none;
-}
-
+/* The game panel's ornaments, in the band's own corners with no margin (user, 2026-10-28: "nos cantos das seção você deixa as imagens
+   da borda mas sem margem"): the lion's above on the left, the raven's below on the right. The band's padding is taller than they
+   are, so no word is ever under them. */
 .corner {
   position: absolute;
-  width: clamp(2.5rem, 5vw, 4.4rem);
+  z-index: 1;
+  width: clamp(3rem, 6vw, 5.5rem);
   height: auto;
+  pointer-events: none;
+  user-select: none;
 }
 
 .lion {
   top: 0;
   left: 0;
-  translate: -18% -18%;
 }
 
 .raven {
   right: 0;
   bottom: 0;
-  translate: 18% 18%;
 }

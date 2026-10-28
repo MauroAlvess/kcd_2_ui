@@ -9,14 +9,13 @@ import { Hierarchy } from './sections/hierarchy/hierarchy';
 import { Holdings } from './sections/holdings/holdings';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
-import { Realm } from './sections/realm/realm';
-import { Rules } from './sections/rules/rules';
 import { Curtain } from './shared/ui/curtain/curtain';
 import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
 
 /**
- * The whole site is one page, told like a chronicle: the opening, the realm and its five houses, the guilds,
- * the family, the order of the realm, what a player can have or be given, the story of the crown, the laws, and the way in.
+ * The whole site is one page, told like a chronicle: the opening, the guilds, the family, the order of the realm, what a
+ * player can have, the story of the crown, and the way in (the map of the houses, the supporter's band and the rules were
+ * taken off on 2026-10-28).
  * Each section is a component of its own under `sections/`; what is shared lives under `shared/ui/`, the texts under
  * `content/`. The site's own scrollbar is hidden (see styles.css): a circle with an arrow in the corner takes its place at the top.
  */
@@ -26,13 +25,11 @@ import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
     Curtain,
     Header,
     Hero,
-    Realm,
     Guilds,
     Family,
     Hierarchy,
     Holdings,
     Lore,
-    Rules,
     Join,
     Footer,
     ScrollHint,

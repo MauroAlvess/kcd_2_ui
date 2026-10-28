@@ -60,15 +60,13 @@ export interface NavItem {
   readonly icon: IconName;
 }
 
-/** The sections in the order the page tells them: the realm and its houses first, the way in last (it has its own buttons). */
+/** The sections in the order the page tells them: the guilds first, the way in last (it has its own buttons). */
 export const NAV: readonly NavItem[] = [
-  { label: 'Reino', href: '#reino', icon: 'map' },
   { label: 'Guildas', href: '#guildas', icon: 'shield' },
   { label: 'Família', href: '#familia', icon: 'tree' },
   { label: 'Hierarquia', href: '#hierarquia', icon: 'crown' },
   { label: 'Posses', href: '#posses', icon: 'house' },
   { label: 'História', href: '#lore', icon: 'book' },
-  { label: 'Regras', href: '#regras', icon: 'scales' },
 ];
 
 /**

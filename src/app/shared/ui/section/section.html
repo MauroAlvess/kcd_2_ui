@@ -1,10 +1,4 @@
-<section
-  class="section"
-  [class.dark]="tone() === 'dark'"
-  [class.light]="tone() === 'light'"
-  [id]="anchor()"
-  [attr.aria-labelledby]="labelledBy()"
->
+<section class="section" [id]="anchor()" [attr.aria-labelledby]="labelledBy()">
   @if (image(); as photo) {
     <div class="photo" aria-hidden="true">
       <img
@@ -18,44 +12,30 @@
       />
     </div>
   }
+  @if (corners()) {
+    <img
+      class="corner lion"
+      src="img/corner-lion.webp"
+      width="360"
+      height="360"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      class="corner raven"
+      src="img/corner-raven.webp"
+      width="360"
+      height="360"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  }
   <ng-content select="[backdrop]" />
-  <div class="wrap" [class.card]="tone() === 'light'">
-    @if (tone() === 'light') {
-      <img
-        class="paper-photo"
-        [src]="'img/card-' + paper() + '-960.webp'"
-        [attr.srcset]="
-          'img/card-' + paper() + '-960.webp 960w, img/card-' + paper() + '-1600.webp 1600w'
-        "
-        sizes="(min-width: 68rem) 68rem, 100vw"
-        width="960"
-        height="540"
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="frame" aria-hidden="true">
-        <img
-          class="corner lion"
-          src="img/corner-lion.webp"
-          width="360"
-          height="360"
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          class="corner raven"
-          src="img/corner-raven.webp"
-          width="360"
-          height="360"
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    }
+  <div class="wrap">
     <ng-content />
   </div>
 </section>

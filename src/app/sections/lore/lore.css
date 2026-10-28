@@ -3,9 +3,7 @@ app-section-heading {
   --heading-measure: 30ch;
 }
 
-/* The story's emphasis in a dark red-brown on the paper: the band's red would read as links. */
 .story {
-  --strong: #6b2419;
   --slide: 0.5s cubic-bezier(0.22, 0.8, 0.28, 1);
   max-width: 44rem;
 }
