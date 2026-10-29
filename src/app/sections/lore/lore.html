@@ -1,77 +1,104 @@
-<app-section anchor="lore" labelledBy="lore-title" corner="raven" tone="night" [image]="yard">
-  <div class="top">
-    <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="lore-title">
-      Uma aliança, um rei morto, uma carta que quase não chegou. É daqui que o servidor começa.
-    </app-section-heading>
+<section #lore id="lore" class="lore" aria-labelledby="lore-title">
+  <div class="wrap">
+    <header class="head">
+      <p class="lb rv eyebrow">{{ eyebrow }}</p>
+      <h2 id="lore-title" class="hd rv title">
+        {{ title }} <em>{{ titleEm }}</em>
+      </h2>
+      <p class="it rv lead">{{ lead }}</p>
+    </header>
 
-    <img
-      class="crest"
-      src="img/lion-raven.webp"
-      width="440"
-      height="458"
-      alt="Brasão do Leão e do Corvo: um escudo partido, o leão dourado sobre o vermelho e o corvo sobre o preto, sob uma coroa"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
-
-  <details class="more">
-    <summary>Ler a história</summary>
     <div class="story">
-      <div class="chapters">
-        @for (chapter of chapters; track chapter.id) {
-          <div class="chapter" [class.open]="open() === chapter.id">
-            <h3>
-              <button
-                type="button"
-                class="head"
-                [id]="'lore-' + chapter.id"
-                [attr.aria-expanded]="open() === chapter.id"
-                [attr.aria-controls]="'lore-' + chapter.id + '-text'"
-                (click)="toggle(chapter.id)"
+      <div class="map">
+        <div class="frame">
+          <img
+            [style.transform]="zoom()"
+            src="img/mapa-kuttenberg-1200.webp"
+            srcset="img/mapa-kuttenberg-700.webp 700w, img/mapa-kuttenberg-1200.webp 1200w"
+            sizes="(max-width: 60rem) 100vw, 50vw"
+            width="1200"
+            height="1000"
+            alt="Mapa da região de Kuttenberg com os brasões de Raborsch, Suchdol, Trosky, Kuttenberg e Maleshov"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <ol class="episodes">
+        @for (episode of episodes; track episode.title) {
+          <li class="rv episode">
+            <span class="lb mark">{{ episode.mark }}</span>
+            <div>
+              <h3 class="hd name">{{ episode.title }}</h3>
+              <p class="text">{{ episode.text }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+
+    <details class="more">
+      <summary>
+        <span class="lb">Ler a crônica completa</span>
+        <span class="plus" aria-hidden="true">+</span>
+      </summary>
+      <div class="full">
+        <div class="chapters">
+          @for (chapter of chapters; track chapter.id) {
+            <div class="chapter" [class.open]="open() === chapter.id">
+              <h3>
+                <button
+                  type="button"
+                  class="head-btn"
+                  [id]="'lore-' + chapter.id"
+                  [attr.aria-expanded]="open() === chapter.id"
+                  [attr.aria-controls]="'lore-' + chapter.id + '-text'"
+                  (click)="toggle(chapter.id)"
+                >
+                  @if (chapter.year) {
+                    <span class="year">{{ chapter.year }}</span>
+                  }
+                  <span class="chapter-title">{{ chapter.title }}</span>
+                  <span class="mark-plus" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div
+                class="panel"
+                [id]="'lore-' + chapter.id + '-text'"
+                [attr.inert]="open() === chapter.id ? null : ''"
               >
-                @if (chapter.year) {
-                  <span class="year">{{ chapter.year }}</span>
-                }
-                <span class="chapter-title">{{ chapter.title }}</span>
-                <span class="mark" aria-hidden="true"></span>
-              </button>
-            </h3>
-            <div
-              class="panel"
-              [id]="'lore-' + chapter.id + '-text'"
-              [attr.inert]="open() === chapter.id ? null : ''"
-            >
-              <div class="fold">
-                <div class="body">
-                  @for (block of chapter.blocks; track $index) {
-                    @switch (block.kind) {
-                      @case ('lead') {
-                        <p class="lead">{{ block.text }}</p>
-                      }
-                      @case ('list') {
-                        <ul>
-                          @for (item of block.items; track $index) {
-                            <li><app-rich [text]="item" /></li>
-                          }
-                        </ul>
-                      }
-                      @default {
-                        <p><app-rich [text]="block.text" /></p>
+                <div class="fold">
+                  <div class="body">
+                    @for (block of chapter.blocks; track $index) {
+                      @switch (block.kind) {
+                        @case ('lead') {
+                          <p class="blead">{{ block.text }}</p>
+                        }
+                        @case ('list') {
+                          <ul>
+                            @for (item of block.items; track $index) {
+                              <li><app-rich [text]="item" /></li>
+                            }
+                          </ul>
+                        }
+                        @default {
+                          <p><app-rich [text]="block.text" /></p>
+                        }
                       }
                     }
-                  }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
 
-      <div class="ending">
-        <p><app-rich [text]="ending.text" /></p>
-        <p class="question">{{ ending.question }}</p>
+        <div class="ending">
+          <p><app-rich [text]="ending.text" /></p>
+          <p class="question">{{ ending.question }}</p>
+        </div>
       </div>
-    </div>
-  </details>
-</app-section>
+    </details>
+  </div>
+</section>

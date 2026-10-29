@@ -1,74 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NAV, SITE } from '../../core/site';
+import { TestBed } from '@angular/core/testing';
+import { SITE } from '../../core/site';
+import { ScrollState } from '../../core/scroll';
 import { Header } from './header';
 
 describe('Header', () => {
-  let fixture: ComponentFixture<Header>;
-  let root: HTMLElement;
-
-  const toggle = () => root.querySelector<HTMLButtonElement>('.toggle')!;
-  const menu = () => root.querySelector<HTMLElement>('.menu')!;
-
-  beforeEach(async () => {
+  async function render() {
     await TestBed.configureTestingModule({ imports: [Header] }).compileComponents();
-    fixture = TestBed.createComponent(Header);
-    root = fixture.nativeElement;
+    const fixture = TestBed.createComponent(Header);
     await fixture.whenStable();
+    return fixture;
+  }
+
+  it('shows the crest and the name of the server, and takes back to the top', async () => {
+    const root: HTMLElement = (await render()).nativeElement;
+    const brand = root.querySelector<HTMLAnchorElement>('a.brand')!;
+    expect(brand.getAttribute('href')).toBe('#topo');
+    expect(brand.textContent).toContain('Kingdom RP Brasil');
+    expect(brand.textContent).toContain('Kingdom Come: Deliverance II');
+    expect(root.querySelector('img.crest')?.getAttribute('src')).toBe('img/logo-rp.webp');
   });
 
-  it('links to every section of the page', () => {
-    const hrefs = Array.from(root.querySelectorAll<HTMLAnchorElement>('.menu li a'), (anchor) =>
-      anchor.getAttribute('href'),
-    );
-    expect(hrefs).toEqual(NAV.map((item) => item.href));
+  it('puts the launcher and the Discord on the right, the Discord in a tab of its own', async () => {
+    const root: HTMLElement = (await render()).nativeElement;
+    const links = root.querySelectorAll<HTMLAnchorElement>('.buttons a');
+    expect(links).toHaveLength(2);
+    expect(links[0].getAttribute('href')).toBe(SITE.launcher);
+    expect(links[1].getAttribute('href')).toBe(SITE.discord);
+    expect(links[1].getAttribute('target')).toBe('_blank');
   });
 
-  it('names every link in plain words, with no drawing before it (user, 2026-10-28: "sem frufru")', () => {
-    const links = Array.from(root.querySelectorAll('.menu li a'));
-    expect(links.map((anchor) => anchor.textContent?.trim())).toEqual(
-      NAV.map((item) => item.label),
-    );
-    expect(root.querySelector('.menu app-icon, .menu svg')).toBeNull();
-  });
-
-  it('keeps the bar to the name and the section links: no Discord button in it', () => {
-    expect(root.querySelector(`a[href="${SITE.discord}"]`)).toBeNull();
-    expect(root.querySelector('app-button')).toBeNull();
-  });
-
-  it('starts with the menu closed and the button saying it will open it', () => {
-    expect(toggle().getAttribute('aria-expanded')).toBe('false');
-    expect(menu().classList.contains('open')).toBe(false);
-    expect(toggle().textContent).toContain('Abrir o menu');
-    expect(toggle().getAttribute('aria-controls')).toBe(menu().id);
-  });
-
-  it('opens with the button and then offers to close', async () => {
-    toggle().click();
+  it('turns dark once the page is scrolled, and is see-through at the top', async () => {
+    const fixture = await render();
+    const bar = (fixture.nativeElement as HTMLElement).querySelector('.bar')!;
+    expect(bar.classList.contains('solid')).toBe(false);
+    TestBed.inject(ScrollState).y.set(200);
     await fixture.whenStable();
-
-    expect(toggle().getAttribute('aria-expanded')).toBe('true');
-    expect(menu().classList.contains('open')).toBe(true);
-    expect(toggle().textContent).toContain('Fechar o menu');
-  });
-
-  it('closes with Escape', async () => {
-    toggle().click();
-    await fixture.whenStable();
-
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-    await fixture.whenStable();
-
-    expect(toggle().getAttribute('aria-expanded')).toBe('false');
-  });
-
-  it('closes when a link is followed, so the menu is not left covering the section it went to', async () => {
-    toggle().click();
-    await fixture.whenStable();
-
-    root.querySelector<HTMLAnchorElement>('.menu li a')!.click();
-    await fixture.whenStable();
-
-    expect(menu().classList.contains('open')).toBe(false);
+    expect(bar.classList.contains('solid')).toBe(true);
   });
 });

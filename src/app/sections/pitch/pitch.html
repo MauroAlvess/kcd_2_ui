@@ -1,35 +1,72 @@
-<app-section anchor="reino" labelledBy="reino-title" corner="lion">
-  <app-section-heading [eyebrow]="eyebrow" [heading]="title" titleId="reino-title">
-    {{ lead }}
-  </app-section-heading>
+<section #reino id="reino" class="reino" [class.staged]="staged()" aria-labelledby="reino-title">
+  <div class="stick wrap">
+    <div class="copy">
+      <p class="lb eyebrow">{{ eyebrow }}</p>
+      <h2 id="reino-title" class="hd title">
+        {{ title }} <em>{{ titleEm }}</em>
+      </h2>
 
-  <ul class="pillars">
-    @for (pillar of pillars; track pillar.id) {
-      <li class="pillar" [appReveal]="$index">
-        <h3>{{ pillar.title }}</h3>
-        <p>{{ pillar.text }}</p>
-      </li>
-    }
-  </ul>
+      <div class="turns">
+        @for (pillar of pillars; track pillar.id; let i = $index) {
+          <div class="turn" [class.on]="i === on()" [attr.aria-hidden]="staged() && i !== on()">
+            <p class="lb label">{{ pillar.label }}</p>
+            <h3 class="hd name">{{ pillar.title }}</h3>
+            <p class="text">{{ pillar.text }}</p>
+          </div>
+        }
+      </div>
 
-  <ul class="shots">
-    @for (shot of shots; track shot.id) {
-      <li [appReveal]="$index">
-        <figure class="shot">
+      <div class="ticks" aria-hidden="true">
+        @for (pillar of pillars; track pillar.id; let i = $index) {
+          <span [class.now]="i === on()" [class.seen]="i <= on()"></span>
+        }
+      </div>
+    </div>
+
+    <div class="stage">
+      @for (pillar of pillars; track pillar.id; let i = $index) {
+        <div class="picture" [class.shown]="i <= on()" [style.z-index]="i + 1">
           <img
-            [src]="'img/' + shot.large"
-            [attr.srcset]="'img/' + shot.small + ' 720w, img/' + shot.large + ' 1200w'"
-            sizes="(max-width: 40rem) 100vw, 33vw"
-            [style.object-position]="shot.position"
-            [attr.width]="shot.width"
-            [attr.height]="shot.height"
-            [alt]="shot.alt"
+            [class.zoomed]="i !== on()"
+            [src]="'img/' + pillar.large"
+            [attr.srcset]="'img/' + pillar.small + ' 720w, img/' + pillar.large + ' 1280w'"
+            sizes="(max-width: 60rem) 100vw, 55vw"
+            [alt]="pillar.alt"
+            width="1280"
+            height="720"
             loading="lazy"
             decoding="async"
           />
-          <figcaption>{{ shot.caption }}</figcaption>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="gallery" aria-label="A vida em Kuttenberg">
+  <div class="wrap">
+    <div class="pair">
+      @for (shot of shots; track shot.id; let i = $index) {
+        <figure class="shot" [class.second]="i === 1">
+          <div class="wipe frame">
+            <img
+              [src]="'img/' + shot.large"
+              [attr.srcset]="'img/' + shot.small + ' 720w, img/' + shot.large + ' 1200w'"
+              sizes="(max-width: 60rem) 100vw, 50vw"
+              [style.object-position]="shot.position"
+              [attr.width]="shot.width"
+              [attr.height]="shot.height"
+              [alt]="shot.alt"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption>
+            <span class="lb tag">{{ shot.caption }}</span>
+            <span class="line">{{ shot.text }}</span>
+          </figcaption>
         </figure>
-      </li>
-    }
-  </ul>
-</app-section>
+      }
+    </div>
+  </div>
+</section>

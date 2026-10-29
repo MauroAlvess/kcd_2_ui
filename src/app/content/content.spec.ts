@@ -35,12 +35,12 @@ describe('content', () => {
     expect(family).toContain('bastardo');
   });
 
-  it('shows the game in three pictures of its own, each in two sizes with a description and a few words', () => {
-    expect(SHOTS.map((shot) => shot.id)).toEqual(['taverna', 'duelo', 'vila']);
+  it('shows the game in two pictures of its own, each in two sizes with a description and a few words', () => {
+    expect(SHOTS.map((shot) => shot.id)).toEqual(['floresta', 'mercado']);
     expect(unique(SHOTS.flatMap((shot) => [shot.large, shot.small]))).toBe(true);
     for (const shot of SHOTS) {
-      expect(shot.large).toMatch(/^shot-[a-z]+-1200\.webp$/);
-      expect(shot.small).toMatch(/^shot-[a-z]+-720\.webp$/);
+      expect(shot.large).toMatch(/^galeria-[a-z]+-1200\.webp$/);
+      expect(shot.small).toMatch(/^galeria-[a-z]+-720\.webp$/);
       expect(shot.width).toBeGreaterThan(shot.height);
       expect(shot.alt.length).toBeGreaterThan(30);
       expect(filled(shot.caption)).toBe(true);
@@ -48,19 +48,16 @@ describe('content', () => {
     }
   });
 
-  it('has the two houses, the Lion on the red side and the Raven on the blue, each with its knight and a description of him', () => {
+  it('has the two houses, the Lion on the red side and the Raven on the blue, each with its crest and a line on where it stands', () => {
     expect(HOUSES.map((house) => house.id)).toEqual(['leao', 'corvo']);
     for (const house of HOUSES) {
-      expect(house.image).toMatch(/^knight-[a-z]+\.webp$/);
-      expect(house.height).toBeGreaterThan(house.width);
+      expect(house.crest).toMatch(/^brasao-[a-z]+\.webp$/);
       expect(filled(house.name) && house.alt.length > 30).toBe(true);
     }
   });
 
-  it('lays the levels of the hierarchy tree top to bottom inside the picture, naming real titles as examples', () => {
-    const at = TREE_LEVELS.map((level) => level.at);
-    expect(at).toEqual([...at].sort((a, b) => a - b));
-    expect(at.every((one) => one > 0 && one < 1)).toBe(true);
+  it('climbs the ladder of the hierarchy in seven rungs, naming real titles as examples', () => {
+    expect(TREE_LEVELS).toHaveLength(7);
     expect(new Set(TREE_LEVELS.map((level) => level.id)).size).toBe(TREE_LEVELS.length);
     const titles = new Set(
       TIERS.flatMap((tier) =>
@@ -87,11 +84,10 @@ describe('content', () => {
     expect(NAV.every((item) => filled(item.label))).toBe(true);
   });
 
-  it('numbers the steps of the way in without repeating a number, and draws nothing before them', () => {
+  it('numbers the steps of the way in without repeating a number', () => {
     expect(unique(JOIN_STEPS.map((step) => step.numeral))).toBe(true);
     for (const step of JOIN_STEPS) {
       expect([step.numeral, step.title, step.text].every(filled)).toBe(true);
-      expect(step.icon).toBeUndefined();
     }
     expect(JOIN_STEPS).toHaveLength(3);
   });

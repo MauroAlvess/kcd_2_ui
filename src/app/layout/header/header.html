@@ -1,29 +1,23 @@
-<header class="bar" [class.solid]="scrolled() || open()">
-  <div class="inner">
-    <a class="brand" href="#inicio" (click)="close()">
-      <img class="crest" src="img/logo.webp" width="320" height="501" alt="" />
-      <span class="name">Kingdom RP Brasil</span>
+<header class="bar" [class.solid]="scrolled()">
+  <div class="wrap inner">
+    <a class="brand" href="#topo" aria-label="Kingdom RP Brasil, início">
+      <img class="crest" src="img/logo-rp.webp" width="256" height="253" alt="" />
+      <span class="names">
+        <span class="lb game">Kingdom Come: Deliverance II</span>
+        <span class="ct name">Kingdom RP Brasil</span>
+      </span>
     </a>
 
-    <nav id="menu" class="menu" [class.open]="open()" aria-label="Principal">
-      <ul>
-        @for (item of nav; track item.href) {
-          <li>
-            <a [href]="item.href" (click)="close()">{{ item.label }}</a>
-          </li>
-        }
-      </ul>
-    </nav>
+    <p class="place" aria-hidden="true">
+      <span class="town"><i></i><span class="lb">Kuttenberg</span></span>
+      <span class="lb year">Anno Domini 1403</span>
+    </p>
 
-    <button
-      class="toggle"
-      type="button"
-      aria-controls="menu"
-      [attr.aria-expanded]="open()"
-      (click)="toggle()"
-    >
-      <span class="sr-only">{{ open() ? 'Fechar o menu' : 'Abrir o menu' }}</span>
-      <span class="bars" aria-hidden="true"></span>
-    </button>
+    <div class="buttons">
+      <app-button class="launcher" [href]="site.launcher" variant="ghost" small
+        >Launcher</app-button
+      >
+      <app-button [href]="site.discord" external small>Discord</app-button>
+    </div>
   </div>
 </header>

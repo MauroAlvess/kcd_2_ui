@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, afterNextRender, inject } from '@angular/core';
+import { ScrollState } from './core/scroll';
 import { Seo } from './core/seo';
 import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
@@ -9,7 +10,6 @@ import { Houses } from './sections/houses/houses';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
 import { Pitch } from './sections/pitch/pitch';
-import { Curtain } from './shared/ui/curtain/curtain';
 import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
 
 /**
@@ -22,24 +22,14 @@ import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
  */
 @Component({
   selector: 'app-root',
-  imports: [
-    Curtain,
-    Header,
-    Hero,
-    Pitch,
-    Houses,
-    Guilds,
-    Hierarchy,
-    Lore,
-    Join,
-    Footer,
-    ScrollHint,
-  ],
+  imports: [Header, Hero, Pitch, Houses, Guilds, Hierarchy, Lore, Join, Footer, ScrollHint],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   constructor() {
     inject(Seo).apply();
+    const scroll = inject(ScrollState);
+    afterNextRender(() => scroll.start());
   }
 }

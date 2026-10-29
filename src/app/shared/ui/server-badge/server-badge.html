@@ -2,7 +2,12 @@
   @switch (status().state) {
     @case ('online') {
       <span class="dot" aria-hidden="true"></span>
-      @if (status().players === 0) {
+      @if (compact()) {
+        <span class="now"
+          ><strong>{{ players() }}</strong
+          >/{{ max() }} online</span
+        >
+      } @else if (status().players === 0) {
         <span class="now">Nenhum jogador online agora</span>
       } @else {
         <span class="now">
@@ -11,7 +16,9 @@
         </span>
       }
       <!-- The space in front of "de" is for a screen reader; the eye sees the flex gap. -->
-      <span class="slots"> de {{ max() }} vagas</span>
+      @if (!compact()) {
+        <span class="slots"> de {{ max() }} vagas</span>
+      }
     }
     @case ('offline') {
       <span class="dot" aria-hidden="true"></span>

@@ -1,29 +1,32 @@
 import { Component, booleanAttribute, input } from '@angular/core';
-import { Icon } from '../icon/icon';
-import type { IconName } from '../icon/icons';
 
 /**
- * A link that looks like a button. `primary` is the flat red one, for the single thing a section wants you to do; `ghost`
- * is an outline in the colour of the surrounding text, so it works on both the black and the paper bands. `large` is for
- * the calls that close the opening and the page. A link that leaves the site opens in a new tab and says so to screen
- * readers. It can carry a line drawing before its words (`icon`), which only decorates.
+ * A link that looks like a button, as the identity draws it (2026-10-29): small capitals in Spectral SC, a thin inner frame and a chevron that leans
+ * forward on hover. `primary` is the red one, for the single thing a section wants you to do; `ghost` is the brown and gold one beside it. `small` is the
+ * size of the bar at the top. A link that leaves the site opens in a new tab and says so to screen readers.
  */
 @Component({
   selector: 'app-button',
-  imports: [Icon],
   template: `
     <a
-      class="button"
+      class="btn"
       [attr.data-variant]="variant()"
-      [class.large]="large()"
+      [class.small]="small()"
       [href]="href()"
       [attr.target]="external() ? '_blank' : null"
       [attr.rel]="external() ? 'noopener noreferrer' : null"
     >
-      @if (icon(); as mark) {
-        <app-icon [name]="mark" />
-      }
-      <ng-content />
+      <span class="words"><ng-content /></span>
+      <svg
+        class="chev"
+        viewBox="0 0 8 14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.3"
+        aria-hidden="true"
+      >
+        <path d="M1 1l6 6-6 6" />
+      </svg>
       @if (external()) {
         <span class="sr-only"> (abre em uma nova aba)</span>
       }
@@ -34,59 +37,96 @@ import type { IconName } from '../icon/icons';
       display: inline-block;
     }
 
-    .button {
+    .btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      min-height: 2.9rem;
-      padding: 0.75rem 1.4rem;
-      font: 600 0.8rem/1.2 var(--display);
-      letter-spacing: 0.14em;
+      justify-content: space-between;
+      gap: 2.75rem;
+      width: 100%;
+      height: 3.125rem;
+      padding: 0 1.25rem 0 1.5rem;
+      border: 1px solid;
+      font-family: var(--button);
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      text-align: center;
-      border: 1px solid transparent;
-      border-radius: 2px;
-      transition:
-        background-color 0.15s,
-        border-color 0.15s;
+      white-space: nowrap;
+      transition: filter 0.3s;
     }
 
-    .large {
-      min-height: 3.2rem;
-      padding: 0.85rem 1.7rem;
-      font-size: 0.86rem;
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid;
+      pointer-events: none;
     }
 
-    .button[data-variant='primary'] {
-      color: var(--paper);
-      background: var(--red);
-      border-color: color-mix(in srgb, var(--gold) 45%, transparent);
+    .small {
+      height: 2.75rem;
+      padding: 0 1rem 0 1.25rem;
+      gap: 2.125rem;
+      font-size: 0.8125rem;
     }
 
-    .button[data-variant='primary']:hover {
-      background: var(--red-hi);
-      border-color: var(--gold);
+    .chev {
+      display: block;
+      width: 8px;
+      height: 14px;
+      transition: transform 0.3s;
     }
 
-    .button[data-variant='ghost'] {
-      color: inherit;
-      border-color: color-mix(in srgb, currentColor 40%, transparent);
+    .btn:hover {
+      filter: brightness(1.14);
     }
 
-    .button[data-variant='ghost']:hover {
-      border-color: currentColor;
+    .btn:hover .chev {
+      transform: translateX(3px);
+    }
+
+    .btn[data-variant='primary'] {
+      background: linear-gradient(180deg, #931012 0%, #7c0305 50%, #5c0204 100%);
+      border-color: #b8474d;
+      color: #ecd5a6;
+      box-shadow:
+        inset 0 0 16px rgba(30, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 190, 170, 0.12);
+    }
+
+    .btn[data-variant='primary']::before {
+      border-color: rgba(214, 110, 116, 0.5);
+    }
+
+    .btn[data-variant='ghost'] {
+      background: linear-gradient(180deg, #594a31 0%, #47392a 50%, #362b1e 100%);
+      border-color: #8f7748;
+      color: #e3c98f;
+      box-shadow:
+        inset 0 0 16px rgba(10, 6, 0, 0.45),
+        inset 0 1px 0 rgba(255, 230, 170, 0.1);
+    }
+
+    .btn[data-variant='ghost']::before {
+      border-color: rgba(176, 148, 92, 0.45);
+    }
+
+    .btn[data-variant='primary']:hover {
+      color: #ecd5a6;
+    }
+
+    .btn[data-variant='ghost']:hover {
+      color: #e3c98f;
     }
   `,
 })
 export class Button {
   readonly href = input.required<string>();
-  /** A line drawing before the words (user, 2026-10-25: "ícones nos sites também"). */
-  readonly icon = input<IconName>();
   readonly variant = input<'primary' | 'ghost'>('primary');
   /** Written as a bare attribute: `<app-button external>`. */
   readonly external = input(false, { transform: booleanAttribute });
-  /** Written as a bare attribute: `<app-button large>`. */
-  readonly large = input(false, { transform: booleanAttribute });
+  /** The size of the bar at the top; written as a bare attribute: `<app-button small>`. */
+  readonly small = input(false, { transform: booleanAttribute });
 }

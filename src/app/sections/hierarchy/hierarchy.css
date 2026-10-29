@@ -1,122 +1,136 @@
-/* The tree on the left, whole; beside it the levels, each at the height of its row of crests. */
-.order {
+.hier {
+  padding: 10rem 0;
+  background: var(--night-2);
+  border-top: 1px solid rgba(213, 161, 86, 0.14);
+  border-bottom: 1px solid rgba(213, 161, 86, 0.14);
+}
+
+.inner {
+  max-width: 68.75rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--gold);
+}
+
+.title {
+  margin-top: 1.25rem;
+  font-size: clamp(2.75rem, 5.4vw, 5.25rem);
+  line-height: 1.02;
+  color: var(--bone);
+}
+
+.ladder {
+  margin-top: 4rem;
+  border-top: 1px solid rgba(213, 161, 86, 0.2);
+}
+
+.rung {
   display: grid;
-  grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  max-width: 54rem;
+  grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 0.375rem 2rem;
+  align-items: baseline;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(213, 161, 86, 0.12);
 }
 
-.tree {
-  margin: 0;
+.numeral {
+  font-size: 0.6875rem;
+  color: var(--muted-2);
 }
 
-.tree img {
-  width: 100%;
-  height: auto;
+.name {
+  font-size: 1.5625rem;
+  line-height: 1.15;
+  color: var(--bone);
 }
 
-.levels {
-  position: relative;
+.name.big {
+  font-size: 2rem;
+  color: var(--gold-soft);
 }
 
-.level {
-  position: absolute;
-  top: calc(var(--at) * 100%);
-  left: 0;
-  right: 0;
-  translate: 0 -50%;
-  padding-left: 1.2rem;
-  border-left: 1px solid var(--accent);
+.example {
+  font-size: 1.1875rem;
+  line-height: 1.45;
+  color: #c9bca3;
 }
 
-h3 {
-  font: 600 0.74rem/1.4 var(--display);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.level p {
-  margin-top: 0.15rem;
-  font-size: 1.15rem;
-  line-height: 1.35;
-}
-
-/* Every title, folded. */
 .all {
-  max-width: 54rem;
   margin-top: 3rem;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid rgba(213, 161, 86, 0.25);
+  border-bottom: 1px solid rgba(213, 161, 86, 0.25);
 }
 
 .all summary {
-  padding: 1.1rem 0;
-  font: 500 0.74rem/1.3 var(--display);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 4.125rem;
+  list-style: none;
   cursor: pointer;
 }
 
-.all summary:hover {
-  color: var(--fg);
+.all summary::-webkit-details-marker {
+  display: none;
 }
 
-.tiers {
+.all summary .lb {
+  font-size: 0.75rem;
+  color: var(--bone);
+}
+
+.plus {
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--gold);
+  transition: transform 0.35s;
+}
+
+.all[open] .plus {
+  transform: rotate(45deg);
+}
+
+.groups {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr));
+  gap: 2rem 3rem;
+  padding: 0.75rem 0 2.75rem;
 }
 
-.tier {
-  display: grid;
-  grid-template-columns: 12rem minmax(0, 1fr);
-  gap: 1rem 2rem;
-  padding-block: 1.1rem;
-  border-top: 1px solid var(--rule);
-}
-
-.tier h3 {
-  font: 600 0.72rem/1.5 var(--display);
-  letter-spacing: 0.16em;
+.group {
+  margin-bottom: 0.75rem;
+  font-size: 0.6875rem;
+  color: var(--gold);
 }
 
 .titles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem 1.3rem;
-  font-size: 1.15rem;
-  line-height: 1.5;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--bone-dim);
 }
 
-.titles li {
-  cursor: default;
+.titles span[title] {
+  cursor: help;
 }
 
-.female {
-  color: var(--fg-muted);
-}
-
-/* A narrow screen: the tree first, then the levels in a list under it. */
-@media (max-width: 48rem) {
-  .order {
-    grid-template-columns: 1fr;
+@media (max-width: 960px) {
+  .hier {
+    padding: 6rem 0;
   }
 
-  .tree {
-    max-width: 20rem;
+  .rung {
+    grid-template-columns: 3rem minmax(0, 1fr);
   }
 
-  .levels {
-    display: grid;
-    gap: 1.2rem;
-  }
-
-  .level {
-    position: static;
-    translate: none;
-  }
-
-  .tier {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+  .example {
+    grid-column: 2;
   }
 }

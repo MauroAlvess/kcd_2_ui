@@ -1,23 +1,147 @@
-/* The eight guilds in two even rows of four on a wide screen, two to a row below that (a phone too), one on the narrowest; each under a line. */
-.grid {
+.guilds {
+  padding: 0 0 11.25rem;
+}
+
+.split {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 3rem clamp(1.5rem, 3vw, 2.75rem);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: 4.5rem;
+  align-items: start;
 }
 
-@media (max-width: 60rem) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.intro {
+  position: sticky;
+  top: 8.75rem;
+}
+
+.eyebrow {
+  color: var(--gold);
+}
+
+.title {
+  margin-top: 1.25rem;
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1.04;
+  color: var(--bone);
+}
+
+.lead {
+  margin-top: 1.75rem;
+  max-width: 25rem;
+  font-size: 1.3125rem;
+  line-height: 1.55;
+  color: var(--bone-dim);
+}
+
+.register {
+  padding: 3.25rem 3rem 2.5rem;
+}
+
+.kicker {
+  font-size: 0.6875rem;
+  color: var(--red);
+}
+
+.heading {
+  margin-top: 0.625rem;
+  font-size: 2.125rem;
+  color: var(--ink);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) 7.5rem;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(43, 32, 22, 0.3);
+}
+
+.columns .lb {
+  font-size: 0.5625rem;
+  color: var(--ink-soft);
+}
+
+.columns .trade {
+  text-align: right;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) 7.5rem;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1rem 0.5rem 1rem 0;
+  border-bottom: 1px solid rgba(43, 32, 22, 0.16);
+  transition: background 0.3s;
+}
+
+.row:hover {
+  background: rgba(124, 3, 5, 0.05);
+}
+
+.frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background: rgba(43, 32, 22, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(43, 32, 22, 0.25);
+}
+
+.frame img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+}
+
+.what {
+  min-width: 0;
+}
+
+.latin {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.desc {
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #5a4a35;
+}
+
+.craft {
+  font-size: 1rem;
+  color: var(--red);
+  text-align: right;
+}
+
+@media (max-width: 960px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
   }
-}
 
-@media (max-width: 22rem) {
-  .grid {
-    grid-template-columns: 1fr;
+  .intro {
+    position: static;
   }
-}
 
-.grid li {
-  border-top: 1px solid var(--rule);
-  padding-top: 1.6rem;
+  .register {
+    padding: 3.5rem 1.375rem;
+  }
+
+  .columns {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .craft {
+    display: none;
+  }
 }

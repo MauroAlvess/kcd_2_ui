@@ -1,13 +1,14 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
-Site do servidor **Kingdom RP BRASIL**: uma página só, curta de propósito (2026-10-28, o dono: "minimalista, simples, que venda a ideia sem
-precisar ser gigante ou cheio de frufru de IA"), nas cores do próprio jogo, as do painel (o papel bege da tela F2, com a tinta e o vermelho dele) contra o azul-noite do banner, faixa a faixa, com o vermelho e o azul das duas casas onde se encaram, sem cartões,
-nenhum desenho antes dos rótulos, os títulos e os rótulos em Cinzel (a fonte do painel) e o texto em EB Garamond, filetes finos de tinta no lugar
-de caixas. Abre com o **banner** (`img/banner.png`: a batalha diante do castelo, com o nome do servidor e o brasão em ouro já escritos na
-imagem), uma frase curta e direta e os dois botões, e segue em seis capítulos: o reino (quatro linhas do que se faz aqui, e três fotos do
-jogo), as duas casas (uma faixa vermelha e azul com os dois cavaleiros), as guildas (sobre a floresta da caça), a hierarquia, a história (dobrada atrás de uma linha, sobre o pátio do torneio) e como entrar. A família e as posses viraram duas das quatro linhas do
-primeiro capítulo; o mapa das casas, o apoio e as regras já tinham saído. Os textos são diretos de propósito: frases curtas, no imperativo,
-para chamar a atenção de quem chega.
+Site do servidor **Kingdom RP BRASIL**: uma página só, com a **identidade nova** (2026-10-29, o pacote "Landing page" do dono): preto quente
+(`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da Casa do Leão e o pergaminho dos painéis, com o brasão dourado
+"Roleplay Brasileiro". Títulos em Libre Caslon Display com a palavra em itálico dourado, botões em Spectral SC, rótulos em Cinzel e texto em EB
+Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "O rei morreu. A coroa
+está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; segue com o reino (quatro
+linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas casas (Leão ou Corvo), as guildas (o registro em
+pergaminho com os oito brasões), a hierarquia (a escada de sete degraus e todos os títulos dobrados), a história (o mapa e a crônica em sete linhas,
+com a crônica inteira dobrada) e o chamado final. Sem scripts, ou para quem pediu menos movimento, as quatro linhas do reino aparecem uma sob a outra.
+As imagens saem de `tools/make-landing-images.py` (rode com a pasta `assets` do zip extraído).
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
 Feito em **Angular 22** (componentes standalone, sem zone.js) e **pré-renderizado**: o build gera HTML pronto, que o Google
 lê sem executar JavaScript e que dá para hospedar em qualquer lugar, sem servidor Node.

@@ -14,8 +14,57 @@ export interface Chapter {
   readonly blocks: readonly Block[];
 }
 
-export const LORE_EYEBROW = 'Lore · Boêmia, 1402–1403';
-export const LORE_TITLE = 'A Coroa de Kuttenberg e a Guerra da Sucessão';
+export const LORE_EYEBROW = 'Crônica · 1402 – 1403';
+/** The title: the plain words, then the gilded ones. */
+export const LORE_TITLE = 'A Coroa de Kuttenberg e a';
+export const LORE_TITLE_EM = 'Guerra da Sucessão.';
+export const LORE_LEAD = 'Uma aliança, um rei morto e uma carta que quase não chegou.';
+
+/** A line of the short version of the story, beside the map: what happened, in a breath. */
+export interface Episode {
+  readonly mark: string;
+  readonly title: string;
+  readonly text: string;
+}
+
+/** The story in seven lines (2026-10-29, the new identity); the whole of it follows, folded, in `CHAPTERS`. */
+export const EPISODES: readonly Episode[] = [
+  {
+    mark: '1402',
+    title: 'A aliança',
+    text: 'Quatro casas nobres se unem a Sigismundo na disputa contra Venceslau IV pelo poder.',
+  },
+  {
+    mark: '1403',
+    title: 'A morte do rei',
+    text: 'Sigismundo cai em combate, ao lado do Lorde de Schodal. Seu herdeiro mais velho também morre, e a aliança se desfaz.',
+  },
+  {
+    mark: 'A carta',
+    title: 'A carta que sobreviveu',
+    text: 'Sigismundo queria reconhecer um filho bastardo. Suas cartas foram interceptadas ou perdidas. Só uma chegou a Radovan, nomeado Protetor da Coroa.',
+  },
+  {
+    mark: 'As casas',
+    title: 'Os Leões e Maleshov',
+    text: 'Radovan busca preservar a sucessão. Maleshov desconfia de seus poderes.',
+  },
+  {
+    mark: 'A dúvida',
+    title: 'A sucessão contestada',
+    text: 'Quem é o herdeiro legítimo? O bastardo tem direito ao trono? Até onde vai a autoridade do Protetor?',
+  },
+  {
+    mark: 'O segredo',
+    title: 'O que as cartas escondem',
+    text: 'As cartas desaparecidas podem revelar um herdeiro, ou traições antigas.',
+  },
+  {
+    mark: 'Agora',
+    title: 'Uma nova guerra',
+    text: 'Cada casa segue os próprios interesses, e o povo sofre com a incerteza. O resto da história é escrito por quem joga.',
+  },
+];
 
 /** The story of the crown of Kuttenberg after King Sigismund's death, chapter by chapter. */
 export const CHAPTERS: readonly Chapter[] = [

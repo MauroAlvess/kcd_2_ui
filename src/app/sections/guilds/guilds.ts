@@ -1,24 +1,15 @@
 import { Component } from '@angular/core';
 import { GUILDS } from '../../content/guilds';
-import { Reveal } from '../../shared/ui/reveal/reveal';
-import { Section } from '../../shared/ui/section/section';
-import type { SectionImage } from '../../shared/ui/section/section';
-import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
-import { GuildCard } from './guild-card/guild-card';
 
-/** The guilds: choose a craft and start with what it needs. They stand on the night blue over the user's picture of the hunt (2026-10-29), a forest in the mist. */
+/**
+ * The eight guilds (2026-10-29, the new identity): on the left the title, held in place while the register is read; on the right a parchment, "Registro das
+ * guildas", with one row for each, the crest in a small frame, the name in Latin, a line on what it does and the trade in red.
+ */
 @Component({
   selector: 'app-guilds',
-  imports: [Reveal, Section, SectionHeading, GuildCard],
   templateUrl: './guilds.html',
   styleUrl: './guilds.css',
 })
 export class Guilds {
   protected readonly guilds = GUILDS;
-  protected readonly forest: SectionImage = {
-    src: 'img/forest-1920.webp',
-    srcset: 'img/forest-960.webp 960w, img/forest-1920.webp 1920w',
-    position: '50% 45%',
-    tint: 0.8,
-  };
 }

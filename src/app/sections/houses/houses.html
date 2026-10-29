@@ -1,34 +1,32 @@
-<app-section anchor="casas" labelledBy="casas-title" tone="night">
-  <div backdrop class="halves" aria-hidden="true">
-    <span class="lion"></span>
-    <span class="raven"></span>
-  </div>
-
-  <div class="stage">
-    <app-section-heading
-      class="words"
-      align="center"
-      [eyebrow]="eyebrow"
-      [heading]="title"
-      titleId="casas-title"
-    >
-      {{ lead }}
-    </app-section-heading>
+<section id="casas" class="houses" aria-labelledby="casas-title">
+  <div class="wrap">
+    <header class="head">
+      <p class="lb rv eyebrow">{{ eyebrow }}</p>
+      <h2 id="casas-title" class="hd rv title">
+        {{ title }} <em>{{ titleEm }}</em>
+      </h2>
+      <p class="rv lead">{{ lead }}</p>
+    </header>
 
     <div class="pair">
       @for (house of houses; track house.id) {
-        <figure class="house" [class]="'house ' + house.id" [appReveal]="$index">
-          <figcaption>{{ house.name }}</figcaption>
+        <article class="house rv" [attr.data-house]="house.id">
+          <p class="lb label">{{ house.label }}</p>
           <img
-            [src]="'img/' + house.image"
-            [attr.width]="house.width"
-            [attr.height]="house.height"
+            class="crest"
+            [src]="'img/' + house.crest"
             [alt]="house.alt"
+            width="480"
+            height="480"
             loading="lazy"
             decoding="async"
           />
-        </figure>
+          <h3 class="hd name">
+            {{ house.name }} <em>{{ house.nameEm }}</em>
+          </h3>
+          <p class="text">{{ house.text }}</p>
+        </article>
       }
     </div>
   </div>
-</app-section>
+</section>

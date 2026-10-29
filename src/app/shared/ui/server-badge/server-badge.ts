@@ -1,4 +1,11 @@
-import { Component, afterNextRender, computed, inject } from '@angular/core';
+import {
+  Component,
+  afterNextRender,
+  booleanAttribute,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 import { LiveStatus } from '../../../core/server-status';
 
 const format = (value: number) => value.toLocaleString('pt-BR');
@@ -14,6 +21,8 @@ const format = (value: number) => value.toLocaleString('pt-BR');
   styleUrl: './server-badge.css',
 })
 export class ServerBadge {
+  /** The short form for a narrow place: "2/512 online". */
+  readonly compact = input(false, { transform: booleanAttribute });
   private readonly live = inject(LiveStatus);
 
   protected readonly status = this.live.status;

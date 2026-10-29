@@ -9,7 +9,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--paper);
+  color: var(--bone);
   background: var(--red);
   transition: top 0.2s;
 }

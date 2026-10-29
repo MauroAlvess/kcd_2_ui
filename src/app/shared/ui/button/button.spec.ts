@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { ICONS } from '../icon/icons';
 import { Button } from './button';
 
 async function link(inputs: Record<string, unknown>): Promise<HTMLAnchorElement> {
@@ -29,13 +28,11 @@ describe('Button', () => {
     expect(anchor.querySelector('.sr-only')?.textContent).toContain('nova aba');
   });
 
-  it('has no drawing unless it is given one, and then shows it before the words', async () => {
-    expect((await link({ href: '#a' })).querySelector('app-icon')).toBeNull();
-
-    const anchor = await link({ href: '#a', icon: 'download' });
-    expect(anchor.querySelector('app-icon path')?.getAttribute('d')).toBe(ICONS.download[0]);
-    expect(anchor.firstElementChild?.tagName).toBe('APP-ICON');
-    expect(anchor.querySelector('app-icon svg')?.getAttribute('aria-hidden')).toBe('true');
+  it('always leans a chevron forward after its words, and is a size smaller when it asks for it', async () => {
+    const anchor = await link({ href: '#a', small: true });
+    expect(anchor.querySelector('svg.chev')?.getAttribute('aria-hidden')).toBe('true');
+    expect(anchor.classList.contains('small')).toBe(true);
+    expect((await link({ href: '#a' })).classList.contains('small')).toBe(false);
   });
 
   it('is the red one unless it asks for the outline', async () => {

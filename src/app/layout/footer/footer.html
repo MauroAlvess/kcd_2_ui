@@ -1,77 +1,27 @@
 <footer class="footer">
-  <div class="inner">
-    <div class="identity">
+  <div class="wrap grid">
+    <a class="brand" href="#topo" aria-label="Voltar ao início">
       <img
         class="crest"
-        src="img/logo.webp"
-        width="320"
-        height="501"
+        src="img/logo-rp.webp"
+        width="256"
+        height="253"
         alt=""
         loading="lazy"
         decoding="async"
       />
-      <div>
-        <p class="name">Kingdom RP Brasil</p>
-        <p class="motto">A coroa de Kuttenberg está vaga.</p>
-      </div>
-    </div>
+      <span class="ct name">Kingdom RP Brasil</span>
+    </a>
 
-    <nav class="links" aria-label="Rodapé">
-      <ul>
-        @for (item of nav; track item.href) {
-          <li>
-            <a [href]="item.href">{{ item.label }}</a>
-          </li>
-        }
-        <li>
-          <a [href]="site.discord" target="_blank" rel="noopener">Discord</a>
-        </li>
-      </ul>
+    <p class="it legal">
+      Feito por fãs. Sem vínculo com a Warhorse Studios ou a Deep Silver. As casas, os senhores e a
+      guerra pela coroa são ficção criada para o servidor.
+    </p>
+
+    <nav class="social" aria-label="Redes sociais">
+      <a class="lb" [href]="site.discord" target="_blank" rel="noopener me">Discord</a>
+      <a class="lb" [href]="site.social.instagram" target="_blank" rel="noopener me">Instagram</a>
+      <a class="lb" [href]="site.social.youtube" target="_blank" rel="noopener me">YouTube</a>
     </nav>
   </div>
-
-  <ul class="social" aria-label="Redes sociais">
-    <li>
-      <a [href]="site.social.instagram" target="_blank" rel="noopener me">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-          <rect
-            x="3"
-            y="3"
-            width="18"
-            height="18"
-            rx="5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-          />
-          <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7" />
-          <circle cx="17.3" cy="6.7" r="1.15" fill="currentColor" />
-        </svg>
-        <span>Instagram</span>
-      </a>
-    </li>
-    <li>
-      <a [href]="site.social.youtube" target="_blank" rel="noopener me">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
-          <rect
-            x="2.5"
-            y="5.5"
-            width="19"
-            height="13"
-            rx="4"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-          />
-          <path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" />
-        </svg>
-        <span>YouTube</span>
-      </a>
-    </li>
-  </ul>
-
-  <p class="legal">
-    {{ site.game }} pertence à Warhorse Studios e à Deep Silver. Servidor feito por fãs, sem vínculo
-    oficial. As casas, os senhores e a guerra pela coroa são ficção criada para o servidor.
-  </p>
 </footer>

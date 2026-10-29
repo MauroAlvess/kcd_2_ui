@@ -1,89 +1,265 @@
-/* Four lines side by side while there is room, two to a row below that, one on a phone; each under a thread of gold. */
-.pillars {
+/* ---- The realm: four lines and four pictures. As written (no scripts, reduced motion) they are one under the other. */
+.reino {
+  position: relative;
+  padding: 7rem 0 3rem;
+}
+
+.stick {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2.5rem clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 5rem;
+  align-items: start;
 }
 
-@media (max-width: 60rem) {
-  .pillars {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.eyebrow {
+  color: var(--gold);
 }
 
-@media (max-width: 36rem) {
-  .pillars {
-    grid-template-columns: 1fr;
-  }
+.title {
+  margin-top: 1.25rem;
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  line-height: 1.04;
+  color: var(--bone);
 }
 
-.pillar {
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--rule);
+.turns {
+  margin-top: 2.25rem;
 }
 
-h3 {
-  font: 600 0.95rem/1.3 var(--display);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
+.turn {
+  padding-bottom: 2.5rem;
 }
 
-.pillar p {
-  margin-top: 0.8rem;
-  font-size: 1.15rem;
-  line-height: 1.5;
-  color: var(--fg-muted);
-  text-wrap: pretty;
+.label {
+  font-size: 0.6875rem;
+  color: var(--muted-2);
 }
 
-/* The game itself: three pictures of one shape in a row, flat, with a hairline round them and a few words under each. */
-.shots {
+.name {
+  margin-top: 0.625rem;
+  font-size: 2.125rem;
+  line-height: 1.1;
+  color: var(--gold-soft);
+}
+
+.text {
+  margin-top: 0.875rem;
+  max-width: 28.75rem;
+  font-size: 1.3125rem;
+  line-height: 1.55;
+  color: var(--bone-dim);
+}
+
+.ticks {
+  display: none;
+}
+
+.stage {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem clamp(0.75rem, 2vw, 1.5rem);
-  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  gap: 1.5rem;
 }
 
-/* A phone: the three in one row to be slid sideways, each nearly as wide as the screen, so the next one shows at the edge. */
-@media (max-width: 40rem) {
-  .shots {
-    display: flex;
-    gap: 0.75rem;
-    margin-inline: calc(-1 * var(--gutter));
-    padding-inline: var(--gutter);
-    scroll-padding-inline: var(--gutter);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
+.picture {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 2.5rem 0 2.5rem 0;
+  background: #1a1610;
+}
 
-  .shots::-webkit-scrollbar {
-    display: none;
-  }
+.picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.06);
+}
 
-  .shots li {
-    flex: none;
-    width: 80%;
-    scroll-snap-align: start;
-  }
+/* ---- Held still by a browser that moves: the title stays, the line and its picture change. */
+.staged {
+  height: 3400px;
+  padding: 0;
+}
+
+.staged .stick {
+  position: sticky;
+  top: 0;
+  height: min(100vh, 900px);
+  padding-top: 3.75rem;
+  align-items: center;
+}
+
+.staged .turns {
+  position: relative;
+  height: 14.375rem;
+  margin-top: 2.25rem;
+}
+
+.staged .turn {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.staged .turn.on {
+  opacity: 1;
+  transform: none;
+}
+
+.staged .turn:not(.on) {
+  transform: translateY(-24px);
+}
+
+.staged .turn.on ~ .turn {
+  transform: translateY(24px);
+}
+
+.staged .ticks {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ticks span {
+  display: block;
+  height: 2px;
+  width: 1.5rem;
+  background: rgba(213, 161, 86, 0.22);
+  transition:
+    background 0.5s,
+    width 0.5s;
+}
+
+.ticks .seen {
+  background: var(--gold);
+}
+
+.ticks .now {
+  width: 3.5rem;
+}
+
+.staged .stage {
+  position: relative;
+  display: block;
+  height: min(66vh, 38.75rem);
+  overflow: hidden;
+  border-radius: 2.5rem 0 2.5rem 0;
+  background: #1a1610;
+}
+
+.staged .picture {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 1.1s cubic-bezier(0.75, 0, 0.2, 1);
+}
+
+.staged .picture.shown {
+  clip-path: inset(0 0 0 0);
+}
+
+.staged .picture img {
+  transition: transform 1.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.staged .picture img.zoomed {
+  transform: scale(1.1);
+}
+
+/* ---- The game in two pictures, a little out of step. */
+.gallery {
+  padding: 6.25rem 0 10rem;
+}
+
+.pair {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
 }
 
 .shot {
-  margin: 0;
+  width: 58%;
 }
 
-.shot img {
+.shot.second {
+  width: 42%;
+  margin-top: 10rem;
+}
+
+.frame {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 2.5rem 0 2.5rem 0;
+}
+
+.second .frame {
+  aspect-ratio: 4 / 5;
+}
+
+.frame img {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: 100%;
   object-fit: cover;
-  border: 1px solid var(--rule);
+  filter: sepia(0.06);
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.shot:hover .frame img {
+  transform: scale(1.03);
 }
 
 figcaption {
-  margin-top: 0.7rem;
-  font: 500 0.72rem/1.3 var(--display);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  margin-top: 1.125rem;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  color: var(--gold);
+}
+
+.line {
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+@media (max-width: 960px) {
+  .reino {
+    padding-top: 5rem;
+  }
+
+  .stick {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .staged .stick {
+    align-content: center;
+    padding-top: 6.25rem;
+  }
+
+  .staged .stage {
+    height: 36vh;
+    max-height: 20rem;
+  }
+
+  .pair {
+    flex-direction: column;
+  }
+
+  .shot,
+  .shot.second {
+    width: 100%;
+    margin: 0;
+  }
+
+  .pair {
+    gap: 3rem;
+  }
 }

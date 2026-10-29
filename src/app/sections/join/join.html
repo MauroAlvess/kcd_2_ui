@@ -1,35 +1,32 @@
-<app-section anchor="entrar" labelledBy="entrar-title" tone="night">
-  <div backdrop class="scene" aria-hidden="true">
-    <img
-      src="img/join-1920.webp"
-      srcset="img/join-960.webp 960w, img/join-1920.webp 1920w"
-      sizes="100vw"
-      width="1920"
-      height="1080"
-      alt=""
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
+<section id="entrar" class="join" aria-labelledby="entrar-title">
+  <img
+    class="scene"
+    [style.transform]="drift()"
+    src="img/entrar-1920.webp"
+    srcset="img/entrar-960.webp 960w, img/entrar-1920.webp 1920w"
+    sizes="100vw"
+    width="1920"
+    height="1080"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="shade side" aria-hidden="true"></div>
+  <div class="shade ends" aria-hidden="true"></div>
 
-  <div class="card">
-    <app-section-heading eyebrow="Entrar" heading="Sua lenda começa hoje" titleId="entrar-title">
+  <div class="wrap card">
+    <p class="lb rv eyebrow">Um reino à espera</p>
+    <h2 id="entrar-title" class="hd rv title">Sua lenda começa <em>hoje.</em></h2>
+    <p class="rv lead">
       {{ site.game }}, RP Brasil: o primeiro servidor de roleplay de KCD 2 (Deliverance 2) do
-      Brasil, e totalmente gratuito. Três passos separam você de Kuttenberg.
-    </app-section-heading>
-
-    <div appReveal>
-      <app-steps [steps]="steps" />
+      Brasil, e totalmente gratuito. Entre no Discord, faça a whitelist e nasça plebeu em
+      Kuttenberg.
+    </p>
+    <div class="rv actions">
+      <app-button class="act" [href]="site.discord" external>Entrar no Discord</app-button>
+      <app-button class="act" [href]="site.launcher" variant="ghost">Baixar launcher</app-button>
     </div>
-
-    <div class="cta" [appReveal]="1">
-      <div class="actions">
-        <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
-        <app-button [href]="site.launcher" variant="ghost" icon="download" large>
-          Baixar launcher
-        </app-button>
-      </div>
-      <app-server-badge />
-    </div>
+    <app-server-badge class="rv live" />
   </div>
-</app-section>
+</section>

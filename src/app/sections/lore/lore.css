@@ -1,34 +1,129 @@
-/* The story's title is the longest of the page. */
-app-section-heading {
-  --heading-measure: 30ch;
+.lore {
+  --strong: var(--gold-soft);
+  padding: 11.25rem 0 10rem;
 }
 
-/* The whole story is folded behind one line (2026-10-28, "sem ser gigante"): its words stay in the page for a search engine, and a reader opens them. */
-.more {
-  max-width: 44rem;
-  border-top: 1px solid var(--rule);
+.head {
+  max-width: 51.25rem;
 }
 
-.more summary {
-  padding: 1.1rem 0;
-  font: 600 0.78rem/1.3 var(--display);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  cursor: pointer;
+.eyebrow {
+  color: var(--gold);
 }
 
-.more summary:hover {
-  color: var(--fg);
+.title {
+  margin-top: 1.25rem;
+  font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+  line-height: 1.05;
+  color: var(--bone);
+}
+
+.lead {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--muted);
 }
 
 .story {
-  --slide: 0.5s cubic-bezier(0.22, 0.8, 0.28, 1);
-  padding-top: 0.5rem;
+  display: flex;
+  gap: 5rem;
+  align-items: flex-start;
+  margin-top: 5rem;
 }
 
-.chapters {
-  border-bottom: 1px solid var(--rule);
+.map {
+  flex: 1 1 37.5rem;
+  min-width: 0;
+  position: sticky;
+  top: 8.125rem;
+}
+
+.frame {
+  aspect-ratio: 2000 / 1667;
+  overflow: hidden;
+  border-radius: 3rem 0 3rem 0;
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.episodes {
+  flex: 1 1 27.5rem;
+  min-width: 0;
+  border-top: 1px solid rgba(213, 161, 86, 0.2);
+}
+
+.episode {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.875rem 0;
+  border-bottom: 1px solid rgba(213, 161, 86, 0.16);
+}
+
+.mark {
+  padding-top: 0.45rem;
+  font-size: 0.6875rem;
+  color: var(--gold);
+}
+
+.name {
+  font-size: 1.6875rem;
+  line-height: 1.15;
+  color: var(--bone);
+}
+
+.text {
+  margin-top: 0.625rem;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--bone-dim);
+}
+
+/* The whole chronicle, folded. */
+.more {
+  margin-top: 5rem;
+  max-width: 51.25rem;
+  border-top: 1px solid rgba(213, 161, 86, 0.25);
+  border-bottom: 1px solid rgba(213, 161, 86, 0.25);
+}
+
+.more > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 4.125rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.more > summary .lb {
+  font-size: 0.75rem;
+  color: var(--bone);
+}
+
+.plus {
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--gold);
+  transition: transform 0.35s;
+}
+
+.more[open] > summary .plus {
+  transform: rotate(45deg);
+}
+
+.full {
+  --slide: 0.5s cubic-bezier(0.22, 0.8, 0.28, 1);
+  --rule: rgba(213, 161, 86, 0.2);
+  padding: 0.5rem 0 2rem;
 }
 
 .chapter {
@@ -39,7 +134,7 @@ h3 {
   font: inherit;
 }
 
-.head {
+.head-btn {
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -53,44 +148,42 @@ h3 {
 
 .year {
   flex: none;
-  font: 500 0.78rem/1.4 var(--display);
+  font: 600 0.75rem/1.4 var(--label);
   letter-spacing: 0.12em;
-  color: var(--fg-muted);
+  color: var(--gold);
 }
 
 .chapter-title {
   font: 400 1.3rem/1.35 var(--body);
+  color: var(--bone);
   transition: transform var(--slide);
 }
 
-/* The title leans in a little when its chapter is the open one. */
 .open .chapter-title {
   transform: translateX(0.35rem);
 }
 
-.head:hover .chapter-title,
-.head:focus-visible .chapter-title {
+.head-btn:hover .chapter-title,
+.head-btn:focus-visible .chapter-title {
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
 
-/* A plus drawn with two strokes: opening turns the upright one down into the other, so the plus becomes a minus, and the
-   whole mark makes a half turn. */
-.mark {
+.mark-plus {
   position: relative;
   flex: none;
   align-self: center;
   width: 1.1rem;
   height: 1.1rem;
   margin-left: auto;
-  color: var(--fg-muted);
+  color: var(--muted-2);
   transition:
     transform var(--slide),
     color 0.25s;
 }
 
-.mark::before,
-.mark::after {
+.mark-plus::before,
+.mark-plus::after {
   content: '';
   position: absolute;
   top: calc(50% - 0.75px);
@@ -101,25 +194,23 @@ h3 {
   transition: transform var(--slide);
 }
 
-.mark::after {
+.mark-plus::after {
   transform: rotate(90deg);
 }
 
-.head:hover .mark,
-.open .mark {
-  color: var(--fg);
+.head-btn:hover .mark-plus,
+.open .mark-plus {
+  color: var(--gold);
 }
 
-.open .mark {
+.open .mark-plus {
   transform: rotate(180deg);
 }
 
-.open .mark::after {
+.open .mark-plus::after {
   transform: rotate(0deg);
 }
 
-/* The chapter's words: the room they need opens and closes as a slide (a row that grows from nothing to its own height), and the
-   words themselves fade in and rise a little, a moment after the slide starts. */
 .panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -140,6 +231,9 @@ h3 {
   flex-direction: column;
   gap: 1.1rem;
   padding: 0 0 2rem;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
   opacity: 0;
   transform: translateY(-0.6rem);
   transition:
@@ -155,13 +249,13 @@ h3 {
     transform var(--slide);
 }
 
-.lead {
+.blead {
   font-style: italic;
   font-size: 1.28rem;
   line-height: 1.55;
 }
 
-ul {
+.body ul {
   display: grid;
   gap: 0.8rem;
   padding-left: 1.2rem;
@@ -173,37 +267,36 @@ ul {
   font-style: italic;
   font-size: 1.25rem;
   line-height: 1.55;
+  color: var(--bone-dim);
   text-wrap: balance;
 }
 
 .question {
   margin-top: 1rem;
-  font: 400 clamp(1.4rem, 2.6vw, 1.9rem) / 1.3 var(--body);
+  font: 400 clamp(1.4rem, 2.6vw, 1.9rem) / 1.3 var(--display);
   font-style: normal;
+  color: var(--bone);
   text-wrap: balance;
 }
 
-/* The title on the left and the shield of the two houses on the right. */
-.top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.crest {
-  flex: none;
-  width: clamp(9rem, 18vw, 13rem);
-  height: auto;
-}
-
-@media (max-width: 40rem) {
-  .top {
-    flex-direction: column-reverse;
-    gap: 1.5rem;
+@media (max-width: 960px) {
+  .lore {
+    padding: 7rem 0 6rem;
   }
 
-  .crest {
-    width: 9rem;
+  .story {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .map {
+    position: static;
+    flex: none;
+    width: 100%;
+  }
+
+  .episode {
+    grid-template-columns: 4.25rem minmax(0, 1fr);
   }
 }

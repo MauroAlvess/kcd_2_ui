@@ -1,164 +1,116 @@
-:host {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 50;
-  display: block;
-}
-
-/* Over the opening: clear, so the picture shows through. Scrolled: the night blue, with a hairline of gold. */
 .bar {
-  color: var(--paper);
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition:
-    background-color 0.25s,
-    border-color 0.25s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(17, 14, 10, 0);
+  border-bottom: 1px solid rgba(239, 230, 210, 0.16);
+  transition: background 0.4s;
 }
 
 .bar.solid {
-  background: var(--night);
-  border-bottom-color: rgba(213, 161, 86, 0.3);
+  background: rgba(17, 14, 10, 0.9);
+  backdrop-filter: blur(14px);
 }
 
 .inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
-  width: min(100% - 2 * var(--gutter), var(--maxw));
-  height: var(--header-h);
-  margin-inline: auto;
+  height: 5.75rem;
+  transition: height 0.4s;
+}
+
+.solid .inner {
+  height: 4.75rem;
 }
 
 .brand {
+  justify-self: start;
   display: flex;
-  flex: none;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.875rem;
   text-decoration: none;
 }
 
 .crest {
+  height: 2.625rem;
   width: auto;
-  height: 2.2rem;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.game {
+  font-size: 0.5625rem;
+  letter-spacing: 0.26em;
+  color: #c9bca3;
 }
 
 .name {
-  font: 600 0.88rem/1.1 var(--display);
-  letter-spacing: 0.16em;
+  font-size: 1.1875rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--gold-soft);
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.menu ul {
+.place {
   display: flex;
-  gap: clamp(1.1rem, 2.4vw, 2.2rem);
-}
-
-.menu li a {
-  padding: 0.5rem 0;
-  font: 500 0.72rem/1.2 var(--display);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: rgba(236, 230, 218, 0.72);
-  transition: color 0.15s;
-}
-
-.menu li a:hover,
-.menu li a:focus-visible {
-  color: var(--paper);
-}
-
-.toggle {
-  display: none;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  color: inherit;
-  background: transparent;
-  border: 1px solid rgba(236, 230, 218, 0.3);
-  border-radius: 2px;
-  cursor: pointer;
+  gap: 0.3rem;
 }
 
-.bars {
-  position: relative;
-  display: block;
-  width: 1.3rem;
-  height: 2px;
-  background: currentColor;
-  transition: background-color 0.2s;
+.town {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.bars::before,
-.bars::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: currentColor;
-  transition: transform 0.2s;
+.town i {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border: 1px solid var(--gold);
 }
 
-.bars::before {
-  top: -0.42rem;
+.town .lb {
+  font-size: 0.875rem;
+  letter-spacing: 0.3em;
+  color: var(--bone);
 }
 
-.bars::after {
-  top: 0.42rem;
+.year {
+  font-size: 0.5625rem;
+  letter-spacing: 0.4em;
+  color: var(--muted-2);
 }
 
-.toggle[aria-expanded='true'] .bars {
-  background: transparent;
+.buttons {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.toggle[aria-expanded='true'] .bars::before {
-  transform: translateY(0.42rem) rotate(45deg);
-}
-
-.toggle[aria-expanded='true'] .bars::after {
-  transform: translateY(-0.42rem) rotate(-45deg);
-}
-
-/* Below this width the links and the name no longer sit on one line: they fold into a menu behind the button. */
-@media (max-width: 52rem) {
-  .toggle {
-    display: inline-flex;
-  }
-
-  .menu {
-    position: absolute;
-    inset: var(--header-h) 0 auto 0;
+@media (max-width: 1100px) {
+  .place {
     display: none;
-    padding: 0.25rem var(--gutter) 1.5rem;
-    background: var(--night);
-    border-bottom: 1px solid rgba(213, 161, 86, 0.3);
   }
 
-  .menu.open {
-    display: block;
-  }
-
-  .menu ul {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .menu li a {
-    display: block;
-    padding: 1rem 0;
-    font-size: 0.82rem;
-    border-bottom: 1px solid rgba(236, 230, 218, 0.1);
+  .inner {
+    grid-template-columns: 1fr auto;
   }
 }
 
-@media (max-width: 30rem) {
-  .name {
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
+@media (max-width: 960px) {
+  .launcher {
+    display: none;
   }
 }

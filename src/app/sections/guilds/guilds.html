@@ -1,18 +1,45 @@
-<app-section anchor="guildas" labelledBy="guildas-title" tone="night" [image]="forest">
-  <app-section-heading
-    eyebrow="Guildas"
-    heading="Ninguém vive só de espada"
-    titleId="guildas-title"
-  >
-    Forja, caça, taverna, alquimia, agulha, machado, enxada e rédea: oito guildas movem a economia
-    do reino. Escolha a sua e faça o reino depender de você.
-  </app-section-heading>
+<section id="guildas" class="guilds" aria-labelledby="guildas-title">
+  <div class="wrap">
+    <div class="split">
+      <div class="intro">
+        <p class="lb rv eyebrow">Guildas</p>
+        <h2 id="guildas-title" class="hd rv title">Ninguém vive só de <em>espada.</em></h2>
+        <p class="rv lead">
+          Forja, caça, taverna, alquimia, agulha, machado, enxada e rédea: oito guildas, cada uma
+          com as suas receitas. Ninguém faz tudo sozinho.
+        </p>
+      </div>
 
-  <ul class="grid">
-    @for (guild of guilds; track guild.id) {
-      <li [appReveal]="$index % 4">
-        <app-guild-card [guild]="guild" />
-      </li>
-    }
-  </ul>
-</app-section>
+      <div class="parch rv register">
+        <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span
+        ><span class="brk br"></span>
+        <p class="lb kicker">Registro das guildas</p>
+        <h3 class="hd heading">Escolha seu ofício</h3>
+        <div class="columns" aria-hidden="true">
+          <span></span><span class="lb">Guilda</span><span class="lb trade">Ofício</span>
+        </div>
+        <ul>
+          @for (guild of guilds; track guild.id) {
+            <li class="row">
+              <div class="frame">
+                <img
+                  [src]="'img/' + guild.crest"
+                  [alt]="'Brasão da guilda ' + guild.latin"
+                  width="160"
+                  height="160"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="what">
+                <h4 class="ct latin">{{ guild.latin }}</h4>
+                <p class="desc">{{ guild.description }}</p>
+              </div>
+              <p class="ct craft">{{ guild.profession }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
-import { JOIN_STEPS } from '../../content/join';
+import { Component, computed, inject } from '@angular/core';
 import { SITE } from '../../core/site';
+import { ScrollState } from '../../core/scroll';
 import { Button } from '../../shared/ui/button/button';
-import { Reveal } from '../../shared/ui/reveal/reveal';
-import { Section } from '../../shared/ui/section/section';
-import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 import { ServerBadge } from '../../shared/ui/server-badge/server-badge';
-import { Steps } from '../../shared/ui/steps/steps';
 
 /**
- * The welcome and the way in: join the Discord and fill in the whitelist, on the picture the user made for it, "entre aqui" (2026-10-28): the
- * knight resting under the tree, the server's crest over him. The picture is the band's background (`backdrop`), whole and at the width of
- * the window like the opening's banner, and the words begin under the crest.
+ * The closing call (2026-10-29, the new identity): the picture of the knight resting under the tree across the whole width, dark at the top and the foot
+ * and on the left where the words stand, "Sua lenda começa hoje", and the two buttons. The three steps are in the opening's panel; here the call is short.
+ * The picture drifts a little with the scroll.
  */
 @Component({
   selector: 'app-join',
-  imports: [Button, Reveal, Section, SectionHeading, ServerBadge, Steps],
+  imports: [Button, ServerBadge],
   templateUrl: './join.html',
   styleUrl: './join.css',
 })
 export class Join {
   protected readonly site = SITE;
-  protected readonly steps = JOIN_STEPS;
+  private readonly scroll = inject(ScrollState);
+
+  protected readonly drift = computed(() => {
+    if (this.scroll.still()) {
+      return 'none';
+    }
+    const box = typeof document === 'undefined' ? null : document.getElementById('entrar');
+    return `translate3d(0, ${((this.scroll.progress(box) - 0.5) * -160).toFixed(1)}px, 0)`;
+  });
 }

@@ -1,30 +1,70 @@
-<section class="hero" id="inicio" aria-labelledby="hero-title">
+<section class="hero" id="topo" aria-labelledby="hero-title">
   <div class="media" aria-hidden="true">
     <img
       class="still"
-      src="img/banner-1920.webp"
-      srcset="img/banner-960.webp 960w, img/banner-1920.webp 1920w"
-      sizes="(max-width: 40rem) 296vw, 100vw"
+      [style.transform]="picture()"
+      src="img/hero-1920.webp"
+      srcset="img/hero-960.webp 960w, img/hero-1920.webp 1920w"
+      sizes="(max-width: 60rem) 220vw, 100vw"
       width="1920"
-      height="1080"
+      height="1038"
       fetchpriority="high"
       alt=""
     />
   </div>
+  <div class="shade left" aria-hidden="true"></div>
+  <div class="shade glow" aria-hidden="true"></div>
+  <div class="shade foot" aria-hidden="true"></div>
 
-  <div class="content">
-    <h1 id="hero-title" class="server">Kingdom Come: Deliverance II RP Brasil</h1>
-    <p class="claim">O rei morreu. <span>A coroa de Kuttenberg está vaga.</span></p>
-    <p class="tagline">
-      Comece plebeu. Domine um ofício, funde uma família, conquiste terras e título. Em Kuttenberg,
-      quem não sobe, serve.
-    </p>
-    <div class="actions">
-      <app-button [href]="site.discord" icon="chat" external large>Entrar no Discord</app-button>
-      <app-button [href]="site.launcher" variant="ghost" icon="download" large>
-        Baixar launcher
-      </app-button>
+  <div class="wrap grid">
+    <div class="words" [style.transform]="words().transform" [style.opacity]="words().opacity">
+      <p class="lb in eyebrow">O primeiro RP brasileiro de KCD II</p>
+      <h1 id="hero-title" class="hd in d1 claim">
+        <span class="sr-only">Kingdom Come: Deliverance II RP Brasil. </span>O rei morreu.<br />A
+        coroa está <em>vaga.</em>
+      </h1>
+      <div class="orn in d2"><i></i></div>
+      <p class="in d3 tagline">
+        Comece plebeu. Domine um ofício, funde uma família, conquiste terras e título.
+      </p>
+      <p class="it in d4 motto">“Em Kuttenberg, quem não sobe, serve.”</p>
     </div>
-    <app-server-badge class="live" />
+
+    <div class="parch in d3 panel">
+      <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span
+      ><span class="brk br"></span>
+      <div class="top">
+        <div>
+          <p class="lb kicker">Multijogador</p>
+          <h2 class="hd">Escolha seu destino</h2>
+        </div>
+        <p class="lb access">Acesso<br /><span class="ct">Whitelist</span></p>
+      </div>
+
+      <div class="server">
+        <div class="badge"><img src="img/logo-rp.webp" width="256" height="253" alt="" /></div>
+        <div class="listing">
+          <p class="ct name">Kingdom - RP BRASIL - WL - Kuttenberg</p>
+          <p class="sub">SA · Servidor brasileiro</p>
+        </div>
+        <app-server-badge class="live" compact />
+      </div>
+
+      <ol class="steps">
+        @for (step of steps; track step.numeral) {
+          <li>
+            <span class="lb num">{{ step.numeral }}</span>
+            <p>
+              <b class="ct">{{ step.title }}</b> {{ step.text }}
+            </p>
+          </li>
+        }
+      </ol>
+
+      <div class="actions">
+        <app-button class="act" [href]="site.discord" external>Entrar no Discord</app-button>
+        <app-button class="act" [href]="site.launcher" variant="ghost">Baixar launcher</app-button>
+      </div>
+    </div>
   </div>
 </section>

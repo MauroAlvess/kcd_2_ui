@@ -1,20 +1,28 @@
-import type { Step } from '../shared/ui/steps/steps';
+/** One step of the way in, in order. */
+export interface Step {
+  /** The mark in front of the step: a number with its zero. */
+  readonly numeral: string;
+  /** The first words, in the heavier face. */
+  readonly title: string;
+  /** What follows them. */
+  readonly text: string;
+}
 
 /** What a newcomer does, in order. The server's whitelist is filled in on Discord. */
 export const JOIN_STEPS: readonly Step[] = [
   {
-    numeral: '1',
-    title: 'Entre no Discord',
-    text: 'É lá que a comunidade vive, que os anúncios saem e que as alianças começam.',
+    numeral: '01',
+    title: 'Entre no Discord.',
+    text: 'A comunidade, os anúncios e as alianças acontecem lá.',
   },
   {
-    numeral: '2',
-    title: 'Faça a whitelist',
-    text: 'Envie o seu perfil da Steam à equipe no Discord. Só contas aprovadas passam pelos portões do reino.',
+    numeral: '02',
+    title: 'Faça a whitelist.',
+    text: 'Envie seu perfil da Steam à equipe. Só contas aprovadas entram.',
   },
   {
-    numeral: '3',
-    title: 'Nasça plebeu',
-    text: 'Baixe o launcher e entre. Crie o seu personagem, aceite as regras do reino, escolha uma guilda e comece a subir.',
+    numeral: '03',
+    title: 'Nasça plebeu.',
+    text: 'Baixe o launcher, crie seu personagem e escolha uma guilda.',
   },
 ];

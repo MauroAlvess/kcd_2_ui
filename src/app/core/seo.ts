@@ -4,11 +4,11 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ALTERNATE_NAMES, KEYWORDS, SITE_CONFIG } from './site';
 
 /**
- * The picture chat apps and search results show for a link to the site (public/og-image-4.jpg, tools/make-og-image.py). Chat apps
+ * The picture chat apps and search results show for a link to the site (public/og-image-5.jpg, tools/make-og-image.py). Chat apps
  * keep a link's picture by its address for days, so each redrawn card (2026-10-20, 2026-10-25, 2026-10-28) has a new name: the number goes up with it.
  */
 const SOCIAL_IMAGE = {
-  path: '/og-image-4.jpg',
+  path: '/og-image-5.jpg',
   width: 1200,
   height: 630,
   type: 'image/jpeg',

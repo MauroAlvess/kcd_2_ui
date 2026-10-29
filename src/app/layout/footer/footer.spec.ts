@@ -26,8 +26,8 @@ describe('Footer', () => {
     expect(youtube?.textContent).toContain('YouTube');
   });
 
-  it('keeps the Discord among the links, and the small print under them', () => {
-    expect(root.querySelector(`.links a[href="${SITE.discord}"]`)).not.toBeNull();
+  it('keeps the Discord among the links, and the small print beside them', () => {
+    expect(root.querySelector(`.social a[href="${SITE.discord}"]`)).not.toBeNull();
     expect(root.querySelector('.legal')?.textContent).toContain('Warhorse Studios');
   });
 });

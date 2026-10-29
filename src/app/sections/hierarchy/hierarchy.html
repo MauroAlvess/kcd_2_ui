@@ -1,48 +1,45 @@
-<app-section anchor="hierarquia" labelledBy="hierarquia-title">
-  <app-section-heading eyebrow="Hierarquia" heading="Do arado ao trono" titleId="hierarquia-title">
-    Todo mundo começa plebeu. Suba: um título muda tudo, e quem o dá responde por quem o recebe.
-  </app-section-heading>
+<section id="hierarquia" class="hier" aria-labelledby="hierarquia-title">
+  <div class="wrap inner">
+    <header class="head">
+      <p class="lb rv eyebrow">Hierarquia</p>
+      <h2 id="hierarquia-title" class="hd rv title">Do arado ao <em>trono.</em></h2>
+    </header>
 
-  <div class="order">
-    <figure class="tree" appReveal>
-      <img
-        src="img/hierarchy-tree.webp"
-        width="560"
-        height="1371"
-        alt="A árvore da hierarquia do reino, bordada: no alto o brasão do Rei, abaixo as casas, os senhores, os oficiais, a Igreja e as guildas, até as raízes"
-        loading="lazy"
-        decoding="async"
-      />
-    </figure>
-
-    <ol class="levels" [appReveal]="1">
+    <ol class="ladder">
       @for (level of levels; track level.id) {
-        <li class="level" [style.--at]="level.at">
-          <h3>{{ level.name }}</h3>
-          <p>{{ level.example }}</p>
+        <li class="rv rung">
+          <span class="lb numeral">{{ level.numeral }}</span>
+          <h3 class="hd name" [class.big]="level.big">{{ level.name }}</h3>
+          <p class="example">{{ level.example }}</p>
         </li>
       }
     </ol>
-  </div>
 
-  <details class="all" appReveal>
-    <summary>Todos os títulos, um a um</summary>
-    <ol class="tiers">
-      @for (tier of tiers; track tier.id) {
-        <li class="tier">
-          <h3>{{ tier.name }}</h3>
-          <ul class="titles">
-            @for (title of tier.titles; track title.name) {
-              <li [attr.title]="title.text">
-                <span>{{ title.name }}</span>
-                @if (title.female) {
-                  <span class="female"> / {{ title.female }}</span>
+    <details class="all">
+      <summary>
+        <span class="lb">Ver todos os títulos</span>
+        <span class="plus" aria-hidden="true">+</span>
+      </summary>
+      <div class="groups">
+        @for (tier of tiers; track tier.id) {
+          <div>
+            <h4 class="lb group">{{ tier.name }}</h4>
+            <p class="titles">
+              @for (title of tier.titles; track title.name; let last = $last) {
+                <span [attr.title]="title.text"
+                  >{{ title.name }}
+                  @if (title.female) {
+                    / {{ title.female }}
+                  }
+                </span>
+                @if (!last) {
+                  <span aria-hidden="true"> · </span>
                 }
-              </li>
-            }
-          </ul>
-        </li>
-      }
-    </ol>
-  </details>
-</app-section>
+              }
+            </p>
+          </div>
+        }
+      </div>
+    </details>
+  </div>
+</section>

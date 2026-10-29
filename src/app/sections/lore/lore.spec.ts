@@ -6,7 +6,7 @@ describe('Lore', () => {
   let fixture: ComponentFixture<Lore>;
   let root: HTMLElement;
 
-  const heads = () => Array.from(root.querySelectorAll<HTMLButtonElement>('button.head'));
+  const heads = () => Array.from(root.querySelectorAll<HTMLButtonElement>('button.head-btn'));
   const panels = () => Array.from(root.querySelectorAll<HTMLElement>('.panel'));
   const expanded = () =>
     heads()
@@ -34,12 +34,17 @@ describe('Lore', () => {
     });
   });
 
-  it('folds the whole story behind one line, "Ler a história", closed until a reader opens it', () => {
+  it('folds the whole chronicle behind one line, "Ler a crônica completa", closed until a reader opens it', () => {
     const more = root.querySelector<HTMLDetailsElement>('details.more')!;
-    expect(more.querySelector('summary')?.textContent).toBe('Ler a história');
+    expect(more.querySelector('summary')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      'Ler a crônica completa+',
+    );
     expect(more.open).toBe(false);
-    expect(more.querySelectorAll('button.head')).toHaveLength(CHAPTERS.length);
-    expect(root.querySelector('.top .crest')).not.toBeNull();
+    expect(more.querySelectorAll('button.head-btn')).toHaveLength(CHAPTERS.length);
+    expect(root.querySelectorAll('.episode')).toHaveLength(7);
+    expect(root.querySelector('.map img')?.getAttribute('src')).toBe(
+      'img/mapa-kuttenberg-1200.webp',
+    );
   });
 
   it('starts with the first chapter open, and the others folded and out of reach of the keyboard', () => {

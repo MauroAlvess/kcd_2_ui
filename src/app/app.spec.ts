@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { LiveStatus, UNKNOWN } from './core/server-status';
-import { NAV, SITE } from './core/site';
+import { SITE } from './core/site';
 
 describe('App', () => {
   let root: HTMLElement;
@@ -22,7 +22,7 @@ describe('App', () => {
 
   afterEach(() => vi.restoreAllMocks());
 
-  it('has one h1, the name of the server, and it is the first heading', () => {
+  it('has one h1, the claim with the name of the server in it, and it is the first heading', () => {
     const h1 = root.querySelectorAll('h1');
     expect(h1).toHaveLength(1);
     expect(h1[0].textContent).toContain('Kingdom Come: Deliverance II');
@@ -30,38 +30,21 @@ describe('App', () => {
     expect(root.querySelector('h1, h2, h3')).toBe(h1[0]);
   });
 
-  it('has a section for every link of the navigation', () => {
-    for (const item of NAV) {
-      expect(root.querySelector(`main section${item.href}`), item.href).not.toBeNull();
-    }
-  });
-
-  it('reads as the opening, the chapters in the order the navigation lists them, and the way in', () => {
+  it('reads as the opening, the chapters in the order of the story, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
-    expect(ids).toEqual(['inicio', 'reino', 'casas', 'guildas', 'hierarquia', 'lore', 'entrar']);
-    // "Entrar" has its own buttons, and it closes the page.
-    const linked = ids.slice(1).filter((id) => id !== 'entrar');
-    expect(linked.map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
+    expect(ids).toEqual(['topo', 'reino', 'casas', 'guildas', 'hierarquia', 'lore', 'entrar']);
   });
 
-  it('keeps its chapter headings plain: a small label, the title, no numerals or ornaments', () => {
-    const headings = Array.from(root.querySelectorAll('main .heading'));
-    expect(headings.length).toBeGreaterThanOrEqual(5);
-    for (const heading of headings) {
-      expect(heading.querySelector('.numeral, .ornament')).toBeNull();
-      expect(heading.querySelector('h2')).not.toBeNull();
-    }
-  });
-
-  it('keeps the small label of every section plain: its words, with no drawing before them (user, 2026-10-28: "sem frufru")', () => {
-    const labels = Array.from(root.querySelectorAll('main section.section .eyebrow'));
+  it('keeps the small label of every section plain: its words, with no drawing before them', () => {
+    const labels = Array.from(root.querySelectorAll('main section .eyebrow'));
     expect(labels.map((label) => label.textContent?.trim())).toEqual([
+      'O primeiro RP brasileiro de KCD II',
       'O reino',
       'As duas casas',
       'Guildas',
       'Hierarquia',
-      'Lore · Boêmia, 1402–1403',
-      'Entrar',
+      'Crônica · 1402 – 1403',
+      'Um reino à espera',
     ]);
     for (const label of labels) {
       expect(label.querySelector('app-icon, svg'), label.textContent ?? '').toBeNull();
@@ -80,176 +63,58 @@ describe('App', () => {
 
   it('points every link inside the page at something that is there', () => {
     const anchors = Array.from(root.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
-    expect(anchors.length).toBeGreaterThan(10);
+    expect(anchors.length).toBeGreaterThan(3);
     for (const anchor of anchors) {
       const target = anchor.getAttribute('href')!;
       expect(root.querySelector(target), target).not.toBeNull();
     }
   });
 
-  it('gives every image a text alternative (empty when it only decorates)', () => {
+  it('gives every image a text alternative (empty when it only decorates) and its size, so the page does not jump while it loads', () => {
     const images = Array.from(root.querySelectorAll('img'));
-    expect(images.length).toBeGreaterThan(10);
+    expect(images.length).toBeGreaterThan(20);
     for (const image of images) {
-      expect(image.hasAttribute('alt'), image.getAttribute('src') ?? '').toBe(true);
+      const src = image.getAttribute('src') ?? '';
+      expect(image.hasAttribute('alt'), src).toBe(true);
+      expect(image.getAttribute('width'), src).toBeTruthy();
+      expect(image.getAttribute('height'), src).toBeTruthy();
     }
   });
 
-  it('gives every image that is not a background its size, so the page does not jump while it loads', () => {
-    const images = Array.from(root.querySelectorAll('img')).filter(
-      (image) => !image.closest('.photo'),
-    );
-    for (const image of images) {
-      expect(image.getAttribute('width'), image.getAttribute('src') ?? '').toBeTruthy();
-      expect(image.getAttribute('height'), image.getAttribute('src') ?? '').toBeTruthy();
-    }
-  });
-
-  it('sends the Discord link, from the opening, the welcome card and the foot of the page, to a new tab', () => {
+  it('sends the Discord link, from the bar, the opening, the closing call and the foot of the page, to a new tab', () => {
     const discord = Array.from(
       root.querySelectorAll<HTMLAnchorElement>(`a[href="${SITE.discord}"]`),
     );
-    expect(discord.length).toBeGreaterThanOrEqual(3);
+    expect(discord.length).toBeGreaterThanOrEqual(4);
     for (const link of discord) {
       expect(link.getAttribute('target')).toBe('_blank');
       expect(link.getAttribute('rel')).toContain('noopener');
     }
   });
 
-  it('offers two things in the opening, the Discord and the launcher, and keeps both out of the bar', () => {
-    const actions = Array.from(root.querySelectorAll<HTMLAnchorElement>('#inicio .actions a'));
-
-    expect(actions.map((link) => link.getAttribute('href'))).toEqual([SITE.discord, SITE.launcher]);
-    expect(root.querySelector('app-header a[href="' + SITE.discord + '"]')).toBeNull();
-    expect(root.querySelector('app-header a[href="' + SITE.launcher + '"]')).toBeNull();
-  });
-
-  it('shows the shield of the two houses in the history', () => {
-    const crest = root.querySelector<HTMLImageElement>('#lore img.crest');
-    expect(crest?.getAttribute('src')).toBe('img/lion-raven.webp');
-    expect(crest?.getAttribute('alt')).toContain('Leão');
-    expect(crest?.getAttribute('alt')).toContain('Corvo');
-  });
-
-  it('tells what the realm offers in four short lines, and shows the game in three pictures of its own', () => {
-    const pitch = root.querySelector('#reino') as HTMLElement;
-    expect(pitch.querySelector('h2')?.textContent).toBe('Ninguém nasce nobre');
-    expect(Array.from(pitch.querySelectorAll('.pillar h3'), (title) => title.textContent)).toEqual([
-      'Um ofício',
-      'Uma família',
-      'Um teto',
-      'Uma coroa',
-    ]);
-    const shots = Array.from(pitch.querySelectorAll<HTMLImageElement>('.shot img'));
-    expect(shots.map((image) => image.getAttribute('src'))).toEqual([
-      'img/shot-taverna-1200.webp',
-      'img/shot-duelo-1200.webp',
-      'img/shot-vila-1200.webp',
-    ]);
-    for (const image of shots) {
-      expect(image.getAttribute('srcset')).toContain('720w');
-      expect(image.getAttribute('alt')?.length).toBeGreaterThan(30);
+  it('offers the Discord and the launcher in the bar, in the opening and in the closing call', () => {
+    for (const where of ['app-header .buttons', '#topo .actions', '#entrar .actions']) {
+      const links = Array.from(root.querySelectorAll<HTMLAnchorElement>(`${where} a`));
+      expect(links.map((link) => link.getAttribute('href')).sort(), where).toEqual(
+        [SITE.discord, SITE.launcher].sort(),
+      );
     }
   });
 
-  it('has no map of the houses, no supporter band, no rules, no family band and no holdings band any more (user, 2026-10-28)', () => {
+  it('shows the two crests of the houses and the eight of the guilds, all from the new set', () => {
+    expect(
+      Array.from(root.querySelectorAll('#casas img.crest'), (image) => image.getAttribute('src')),
+    ).toEqual(['img/brasao-leao.webp', 'img/brasao-corvo.webp']);
+    expect(root.querySelectorAll('#guildas .frame img')).toHaveLength(8);
+  });
+
+  it('puts the map of the region in the history, beside the story in seven lines', () => {
+    expect(root.querySelector('#lore .map img')?.getAttribute('alt')).toContain('Kuttenberg');
+    expect(root.querySelectorAll('#lore .episode')).toHaveLength(7);
+  });
+
+  it('has no map of the houses, no supporter band, no rules, no family band and no holdings band', () => {
     expect(root.querySelector('#apoio, #regras, #familia, #posses')).toBeNull();
-    expect(
-      root.querySelector(
-        'img[src*="map-"], img[src*="apoiador"], img[src*="rules-"], img[src*="tree-crest"], img[src*="prop-crest"], img[src*="pet-"]',
-      ),
-    ).toBeNull();
-  });
-
-  it('plays two tones against each other, the paper of the F2 panel and the night blue of the banner, with the red and the blue of the two houses between them; the way in, on its own picture, closes the page', () => {
-    const bands = Array.from(root.querySelectorAll('main section.section'));
-    expect(bands.map((section) => section.id)).toEqual([
-      'reino',
-      'casas',
-      'guildas',
-      'hierarquia',
-      'lore',
-      'entrar',
-    ]);
-    const tone = (section: Element) => (section.classList.contains('paper') ? 'paper' : 'night');
-    expect(bands.map(tone)).toEqual(['paper', 'night', 'night', 'paper', 'night', 'night']);
-    // The paper bands carry the print of the panel's photograph and the braided rope; the night ones neither.
-    for (const band of bands) {
-      expect(band.querySelector(':scope > img.print') !== null, band.id).toBe(
-        tone(band) === 'paper',
-      );
-      expect(band.querySelector(':scope > img.rope') !== null, band.id).toBe(
-        tone(band) === 'paper',
-      );
-    }
-    // The guilds stand on the forest of the hunt and the story on the tourney yard, both under the night blue.
-    expect(root.querySelector('#guildas .photo img')?.getAttribute('src')).toBe(
-      'img/forest-1920.webp',
-    );
-    expect(root.querySelector('#lore .photo img')?.getAttribute('src')).toBe('img/yard-1920.webp');
-    expect(
-      root.querySelector('main .card .paper-photo, main .wrap.card, main .frame, main .light'),
-    ).toBeNull();
-    // "Entre aqui" (the user's picture, 2026-10-28) is the background of the last band: decoration, in two sizes, with its size given.
-    const scene = bands.at(-1)?.querySelector<HTMLElement>(':scope > .scene');
-    expect(scene?.getAttribute('aria-hidden')).toBe('true');
-    const picture = scene?.querySelector<HTMLImageElement>('img');
-    expect(picture?.getAttribute('src')).toBe('img/join-1920.webp');
-    expect(picture?.getAttribute('srcset')).toBe(
-      'img/join-960.webp 960w, img/join-1920.webp 1920w',
-    );
-    expect(picture?.getAttribute('alt')).toBe('');
-    expect(picture?.getAttribute('width')).toBe('1920');
-    expect(picture?.getAttribute('height')).toBe('1080');
-    expect(bands.at(-1)?.querySelector('.photo')).toBeNull();
-  });
-
-  it('opens the page with the lion in the top left of the first band after the opening and closes it with the raven in the bottom right of the last band above the way in, and nowhere else', () => {
-    const cornered = Array.from(root.querySelectorAll('main section.section')).filter(
-      (section) => section.querySelector(':scope > img.corner') !== null,
-    );
-    expect(cornered.map((section) => section.id)).toEqual(['reino', 'lore']);
-    const [first, last] = cornered;
-    expect(first.querySelector(':scope > img.corner.lion')?.getAttribute('src'), first.id).toBe(
-      'img/corner-lion.webp',
-    );
-    expect(first.querySelectorAll(':scope > img.corner')).toHaveLength(1);
-    expect(last.querySelector(':scope > img.corner.raven')?.getAttribute('src'), last.id).toBe(
-      'img/corner-raven.webp',
-    );
-    expect(last.querySelectorAll(':scope > img.corner')).toHaveLength(1);
-    for (const corner of root.querySelectorAll('main img.corner')) {
-      expect(corner.getAttribute('alt')).toBe('');
-      expect(corner.getAttribute('aria-hidden')).toBe('true');
-    }
-  });
-
-  it('lets the heading and the main blocks of every chapter show themselves as the page is read down to them', () => {
-    // In the browser the blocks below the screen are held back and shown on arrival (`shared/ui/reveal`); the directive's own
-    // custom property is on each block it looks after, and tells here which ones those are.
-    const watched = (element: Element) =>
-      (element as HTMLElement).style.getPropertyValue('--reveal-delay') !== '';
-    const chapters = Array.from(root.querySelectorAll('main section.section'));
-    expect(chapters).toHaveLength(6);
-    for (const chapter of chapters) {
-      expect(watched(chapter.querySelector('.heading')!), `${chapter.id}: heading`).toBe(true);
-    }
-    expect(
-      Array.from(root.querySelectorAll('#guildas li')).filter((item) => watched(item)),
-    ).toHaveLength(8);
-    expect(
-      Array.from(root.querySelectorAll('#reino .pillar')).filter((item) => watched(item)),
-    ).toHaveLength(4);
-    expect(
-      Array.from(root.querySelectorAll('#reino .shots li')).filter((item) => watched(item)),
-    ).toHaveLength(3);
-    // The first of a row comes at once, and the next ones after it.
-    const guilds = Array.from(root.querySelectorAll<HTMLElement>('#guildas li'));
-    expect(
-      guilds.slice(0, 5).map((guild) => guild.style.getPropertyValue('--reveal-delay')),
-    ).toEqual(['0ms', '90ms', '180ms', '270ms', '0ms']);
-    // Nothing is held back in a page that has not been opened in a browser (jsdom has no way to watch for the reader).
-    expect(root.querySelectorAll('.reveal-wait')).toHaveLength(0);
   });
 
   it('keeps the payment out of the page: no Pix, no QR, no amount', () => {
@@ -264,23 +129,6 @@ describe('App', () => {
     expect(hint?.getAttribute('href')).toBe('#reino');
   });
 
-  it('keeps the opening to its words: no frame, no corner pieces, no cue', () => {
-    const hero = root.querySelector('#inicio') as HTMLElement;
-    expect(hero.querySelector('.frame, .corner, a.cue, img.emblem')).toBeNull();
-  });
-
-  it('offers the Discord and the launcher at the way in too, and sends the newcomer to the whitelist, the launcher and the rules without naming a faction the page no longer has', () => {
-    const join = root.querySelector('#entrar') as HTMLElement;
-    const links = Array.from(join.querySelectorAll<HTMLAnchorElement>('.actions a'));
-    expect(links.map((link) => link.getAttribute('href'))).toEqual([SITE.discord, SITE.launcher]);
-    const steps = join.textContent ?? '';
-    expect(steps).toContain('perfil da Steam');
-    expect(steps).toContain('Baixe o launcher');
-    expect(steps).toContain('aceite as regras');
-    expect(steps).toContain('gratuito');
-    expect(steps.toLowerCase()).not.toContain('facção');
-  });
-
   it('has a way past the menu for a keyboard, as the first thing to land on', () => {
     const skip = root.querySelector<HTMLAnchorElement>('a.skip');
     expect(skip?.getAttribute('href')).toBe('#conteudo');
@@ -288,11 +136,10 @@ describe('App', () => {
     expect(root.firstElementChild).toBe(skip);
   });
 
-  it('shows the players online in the opening and in the welcome card', () => {
+  it('shows the players online in the opening and in the closing call', () => {
     const badges = Array.from(root.querySelectorAll('app-server-badge'));
-
     expect(badges).toHaveLength(2);
-    expect(root.querySelector('#inicio app-server-badge')).not.toBeNull();
+    expect(root.querySelector('#topo app-server-badge')).not.toBeNull();
     expect(root.querySelector('#entrar app-server-badge')).not.toBeNull();
     for (const badge of badges) {
       expect(badge.querySelector('[role="status"]')).not.toBeNull();
