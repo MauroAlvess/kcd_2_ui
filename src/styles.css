@@ -7,9 +7,11 @@
 @import '@fontsource/cinzel/latin-500.css';
 @import '@fontsource/cinzel/latin-600.css';
 
-/* The game's own colours (2026-10-28, the user: "podemos usar nosso padrão de cores e identidade visual"): the ones of its panel, ink, the
-   beige of its paper, the red of its buttons and the gold of its lines, laid flat on black; the headings and the small labels are set in
-   Cinzel, the panel's own face. The banner keeps its blue, and its foot is faded into the black. */
+/* The game's own colours (2026-10-28, the user: "podemos usar nosso padrão de cores e identidade visual", then "ainda continua o marrom escuro nas
+   cores de fundo ao invés do bege que usamos na tela do F2"): the ones of its panel. The ground of the page is the panel's paper, its beige,
+   with its ink for the words, its red for the buttons and the small labels and its gold for the lines on the dark bands; the two bands that
+   are pictures (the opening and the way in) keep a dark foot, and everything else is flat beige. The headings and the small labels are set in
+   Cinzel, the panel's own face. */
 :root {
   --black: #0f0d0b;
   --ink: #201b17;
@@ -37,7 +39,7 @@
 }
 
 html {
-  background: var(--black);
+  background: var(--beige);
   /* The page still scrolls with the wheel, the keys and a finger; its bar is not drawn (2026-10-20: "o scroll do site vamos
      retirar"). A circle with an arrow in the corner (shared/ui/scroll-hint) tells a visitor at the top that there is more. */
   scrollbar-width: none;
@@ -54,8 +56,8 @@ html::-webkit-scrollbar {
 
 body {
   margin: 0;
-  background: var(--black);
-  color: var(--paper);
+  background: var(--beige);
+  color: var(--ink);
   font: 1.2rem/1.6 var(--body);
   font-variant-numeric: lining-nums;
   text-rendering: optimizeLegibility;

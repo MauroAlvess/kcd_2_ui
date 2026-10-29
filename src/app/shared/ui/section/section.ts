@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, booleanAttribute, input } from '@angular/core';
 
 /** A photograph behind a section: the file to show and the sizes the browser may pick from. */
 export interface SectionImage {
@@ -26,4 +26,6 @@ export class Section {
   readonly image = input<SectionImage>();
   /** One ornament of the game panel set right in a corner of the band, with no margin: the lion above on the left, or the raven below on the right. */
   readonly corner = input<'lion' | 'raven'>();
+  /** A dark band, with bone words on black, for the one that is a picture (the way in); every other band is the beige of the game's panel. Written as a bare attribute: `<app-section dark>`. */
+  readonly dark = input(false, { transform: booleanAttribute });
 }

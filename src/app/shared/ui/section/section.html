@@ -1,4 +1,9 @@
-<section class="section" [id]="anchor()" [attr.aria-labelledby]="labelledBy()">
+<section
+  class="section"
+  [class.dark]="dark()"
+  [id]="anchor()"
+  [attr.aria-labelledby]="labelledBy()"
+>
   @if (image(); as photo) {
     <div class="photo" aria-hidden="true">
       <img

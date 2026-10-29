@@ -2,21 +2,31 @@
   display: block;
 }
 
-/* One band of the page: flat black, bone text, the game's beige (whole, #d2b38c: the same paper as the panel's) for what is said quietly and
-   its gold for the small labels, room above and below, nothing that moves. The paper cards are gone (user, 2026-10-28: "a seção família pode ficar com fundo preto
-   também, precisa do card não"): every band is the ground of the page. */
+/* One band of the page: the flat beige of the game's panel (#d2b38c), its ink for the words, ink a little thinner for what is said quietly,
+   its red for the small labels and a hairline of ink for a rule, room above and below, nothing that moves. The paper cards are gone (user,
+   2026-10-28: "a seção família pode ficar com fundo preto também, precisa do card não"): every band is the ground of the page. */
 .section {
+  --fg: var(--ink);
+  --fg-muted: rgba(32, 27, 23, 0.74);
+  --rule: rgba(32, 27, 23, 0.3);
+  --accent: var(--red);
+  --strong: var(--red);
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--section-pad);
+  overflow: clip;
+  background: var(--beige);
+  color: var(--fg);
+}
+
+/* The band that is a picture (the way in): bone words on black, the beige for what is said quietly, the gold for the small labels. */
+.section.dark {
   --fg: var(--paper);
   --fg-muted: var(--beige);
   --rule: rgba(210, 179, 140, 0.3);
   --accent: var(--gold);
   --strong: var(--gold);
-  position: relative;
-  isolation: isolate;
-  padding-block: var(--section-pad);
-  overflow: clip;
   background: var(--black);
-  color: var(--fg);
 }
 
 .wrap {

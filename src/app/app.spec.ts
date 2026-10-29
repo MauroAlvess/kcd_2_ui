@@ -160,7 +160,7 @@ describe('App', () => {
     ).toBeNull();
   });
 
-  it('keeps every band black, with no card and no picture under paper; the way in, on its own picture, closes the page', () => {
+  it('keeps every band flat, in the beige of the panel, with no card and no picture under paper; the way in, dark and on its own picture, closes the page', () => {
     const bands = Array.from(root.querySelectorAll('main section.section'));
     expect(bands.map((section) => section.id)).toEqual([
       'reino',

@@ -1,6 +1,6 @@
 /* "Entre aqui" (2026-10-28, the user's own picture): the knight resting under the tree with the server's crest over it, shown whole at the
-   width of the window, as the opening's banner is. Its top comes out of the black above it, its foot (a blue ground of its own) goes back into
-   the black, and the words begin under the crest, on that dark ground. A phone gets its middle (4 : 5): the crest, the hawk and the lion. */
+   width of the window, as the opening's banner is. Its top comes out of the beige above it, its foot (a blue ground of its own) goes into
+   black, and the words begin under the crest, on that dark ground. A phone gets its middle (4 : 5): the crest, the hawk and the lion. */
 .scene {
   position: absolute;
   inset: 0 0 auto 0;
@@ -20,7 +20,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, var(--black), rgba(15, 13, 11, 0) 14%),
+    linear-gradient(to bottom, var(--beige), rgba(210, 179, 140, 0) 14%),
     linear-gradient(to bottom, transparent 58%, var(--black) 98%);
 }
 

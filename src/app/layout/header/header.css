@@ -5,7 +5,7 @@
   display: block;
 }
 
-/* Over the opening: clear, so the picture shows through. Scrolled: solid black with a hairline of gold. */
+/* Over the opening: clear, so the picture shows through, with bone words. Scrolled: the beige of the panel, with ink and a hairline of ink. */
 .bar {
   color: var(--paper);
   background: transparent;
@@ -16,8 +16,9 @@
 }
 
 .bar.solid {
-  background: var(--black);
-  border-bottom-color: rgba(210, 179, 140, 0.3);
+  color: var(--ink);
+  background: var(--beige);
+  border-bottom-color: rgba(32, 27, 23, 0.3);
 }
 
 .inner {
@@ -41,6 +42,12 @@
 .crest {
   width: auto;
   height: 2.2rem;
+  transition: filter 0.25s;
+}
+
+/* The emblem is gold, drawn for a dark ground: on the beige it is darkened to the ink. */
+.bar.solid .crest {
+  filter: brightness(0.28) contrast(1.15);
 }
 
 .name {
@@ -70,6 +77,15 @@
   color: var(--paper);
 }
 
+.bar.solid .menu li a {
+  color: rgba(32, 27, 23, 0.74);
+}
+
+.bar.solid .menu li a:hover,
+.bar.solid .menu li a:focus-visible {
+  color: var(--ink);
+}
+
 .toggle {
   display: none;
   align-items: center;
@@ -82,6 +98,10 @@
   border: 1px solid rgba(236, 230, 218, 0.3);
   border-radius: 2px;
   cursor: pointer;
+}
+
+.bar.solid .toggle {
+  border-color: rgba(32, 27, 23, 0.35);
 }
 
 .bars {
@@ -135,8 +155,8 @@
     inset: var(--header-h) 0 auto 0;
     display: none;
     padding: 0.25rem var(--gutter) 1.5rem;
-    background: var(--black);
-    border-bottom: 1px solid rgba(210, 179, 140, 0.3);
+    background: var(--beige);
+    border-bottom: 1px solid rgba(32, 27, 23, 0.3);
   }
 
   .menu.open {
@@ -152,7 +172,7 @@
     display: block;
     padding: 1rem 0;
     font-size: 0.82rem;
-    border-bottom: 1px solid rgba(236, 230, 218, 0.1);
+    border-bottom: 1px solid rgba(32, 27, 23, 0.14);
   }
 }
 

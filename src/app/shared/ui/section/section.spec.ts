@@ -34,6 +34,11 @@ describe('Section', () => {
     expect(raven.querySelector('img.corner.lion')).toBeNull();
   });
 
+  it('is the beige of the panel unless it is told it is dark, which is for the band that is a picture', async () => {
+    expect((await render({ anchor: 'a' })).classList.contains('dark')).toBe(false);
+    expect((await render({ anchor: 'b', dark: true })).classList.contains('dark')).toBe(true);
+  });
+
   it('has no photograph unless it is given one', async () => {
     expect((await render({ anchor: 'a' })).querySelector('.photo')).toBeNull();
   });
