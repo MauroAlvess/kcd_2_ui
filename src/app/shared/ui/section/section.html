@@ -1,11 +1,34 @@
 <section
   class="section"
-  [class.dark]="dark()"
+  [class.paper]="tone() === 'paper'"
+  [class.night]="tone() === 'night'"
   [id]="anchor()"
   [attr.aria-labelledby]="labelledBy()"
 >
+  @if (tone() === 'paper') {
+    <img
+      class="print"
+      src="img/paper-photo.webp"
+      width="1280"
+      height="720"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      class="rope"
+      src="img/rope.webp"
+      width="900"
+      height="47"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  }
   @if (image(); as photo) {
-    <div class="photo" aria-hidden="true">
+    <div class="photo" aria-hidden="true" [style.--tint]="photo.tint ?? 0.85">
       <img
         [src]="photo.src"
         [attr.srcset]="photo.srcset"

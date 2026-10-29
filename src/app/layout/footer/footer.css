@@ -4,9 +4,9 @@
 
 .footer {
   padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter) 2rem;
-  color: var(--ink);
-  background: var(--beige);
-  border-top: 1px solid rgba(32, 27, 23, 0.3);
+  color: var(--paper);
+  background: var(--night);
+  border-top: 1px solid rgba(213, 161, 86, 0.3);
 }
 
 .inner {
@@ -25,11 +25,9 @@
   gap: 0.9rem;
 }
 
-/* The emblem is gold, drawn for a dark ground: on the beige it is darkened to the ink. */
 .crest {
   width: auto;
   height: 2.6rem;
-  filter: brightness(0.28) contrast(1.15);
 }
 
 .name {
@@ -41,7 +39,7 @@
 .motto {
   margin-top: 0.15rem;
   font: 400 0.98rem/1.4 var(--body);
-  color: rgba(32, 27, 23, 0.72);
+  color: rgba(236, 230, 218, 0.62);
 }
 
 .links ul {
@@ -55,13 +53,13 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  color: rgba(32, 27, 23, 0.74);
+  color: rgba(236, 230, 218, 0.7);
   transition: color 0.15s;
 }
 
 .links a:hover,
 .links a:focus-visible {
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .legal {
@@ -69,8 +67,8 @@
   margin: 2rem auto 0;
   padding-top: 1.25rem;
   font: 400 0.82rem/1.55 var(--sans);
-  color: rgba(32, 27, 23, 0.66);
-  border-top: 1px solid rgba(32, 27, 23, 0.15);
+  color: rgba(236, 230, 218, 0.5);
+  border-top: 1px solid rgba(236, 230, 218, 0.12);
 }
 
 /* The server's pages on the social networks: a small row of icons with their names, under the links. */
@@ -88,13 +86,13 @@
   gap: 0.55rem;
   font: 400 0.9rem/1.2 var(--sans);
   text-decoration: none;
-  color: rgba(32, 27, 23, 0.74);
+  color: rgba(236, 230, 218, 0.7);
   transition: color 0.15s;
 }
 
 .social a:hover,
 .social a:focus-visible {
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .social svg {

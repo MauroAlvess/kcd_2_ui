@@ -34,9 +34,31 @@ describe('Section', () => {
     expect(raven.querySelector('img.corner.lion')).toBeNull();
   });
 
-  it('is the beige of the panel unless it is told it is dark, which is for the band that is a picture', async () => {
-    expect((await render({ anchor: 'a' })).classList.contains('dark')).toBe(false);
-    expect((await render({ anchor: 'b', dark: true })).classList.contains('dark')).toBe(true);
+  it('is the paper of the F2 panel unless it is told it is night, the blue of the banner; only the paper carries the print of the panel and the rope', async () => {
+    const paper = await render({ anchor: 'a' });
+    expect(paper.classList.contains('paper')).toBe(true);
+    expect(paper.classList.contains('night')).toBe(false);
+    expect(paper.querySelector(':scope > img.print')?.getAttribute('src')).toBe(
+      'img/paper-photo.webp',
+    );
+    expect(paper.querySelector(':scope > img.rope')?.getAttribute('src')).toBe('img/rope.webp');
+
+    const night = await render({ anchor: 'b', tone: 'night' });
+    expect(night.classList.contains('night')).toBe(true);
+    expect(night.classList.contains('paper')).toBe(false);
+    expect(night.querySelector('img.print, img.rope')).toBeNull();
+  });
+
+  it('lays the night blue over a picture as heavily as it is told, 0.85 when it is not', async () => {
+    const image = { src: 'img/x-1920.webp', srcset: 'img/x-960.webp 960w' };
+    const plain = await render({ anchor: 'a', tone: 'night', image });
+    expect((plain.querySelector('.photo') as HTMLElement).style.getPropertyValue('--tint')).toBe(
+      '0.85',
+    );
+    const light = await render({ anchor: 'b', tone: 'night', image: { ...image, tint: 0.5 } });
+    expect((light.querySelector('.photo') as HTMLElement).style.getPropertyValue('--tint')).toBe(
+      '0.5',
+    );
   });
 
   it('has no photograph unless it is given one', async () => {

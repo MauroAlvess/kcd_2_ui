@@ -1,0 +1,34 @@
+<app-section anchor="casas" labelledBy="casas-title" tone="night">
+  <div backdrop class="halves" aria-hidden="true">
+    <span class="lion"></span>
+    <span class="raven"></span>
+  </div>
+
+  <div class="stage">
+    <app-section-heading
+      class="words"
+      align="center"
+      [eyebrow]="eyebrow"
+      [heading]="title"
+      titleId="casas-title"
+    >
+      {{ lead }}
+    </app-section-heading>
+
+    <div class="pair">
+      @for (house of houses; track house.id) {
+        <figure class="house" [class]="'house ' + house.id" [appReveal]="$index">
+          <figcaption>{{ house.name }}</figcaption>
+          <img
+            [src]="'img/' + house.image"
+            [attr.width]="house.width"
+            [attr.height]="house.height"
+            [alt]="house.alt"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      }
+    </div>
+  </div>
+</app-section>

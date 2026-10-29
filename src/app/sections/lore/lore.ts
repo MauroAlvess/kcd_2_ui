@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CHAPTERS, LORE_ENDING, LORE_EYEBROW, LORE_TITLE } from '../../content/lore';
 import { Rich } from '../../shared/ui/rich/rich';
 import { Section } from '../../shared/ui/section/section';
+import type { SectionImage } from '../../shared/ui/section/section';
 import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
 
 /**
@@ -22,6 +23,13 @@ export class Lore {
   protected readonly title = LORE_TITLE;
   protected readonly chapters = CHAPTERS;
   protected readonly ending = LORE_ENDING;
+  /** The tourney yard of the user's "new hero", under a heavy tint of the night blue (2026-10-29). */
+  protected readonly yard: SectionImage = {
+    src: 'img/yard-1920.webp',
+    srcset: 'img/yard-960.webp 960w, img/yard-1920.webp 1920w',
+    position: '50% 50%',
+    tint: 0.8,
+  };
 
   /** The chapter that is open, if any. */
   protected readonly open = signal<string | null>(CHAPTERS[0].id);

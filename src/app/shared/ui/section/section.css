@@ -2,31 +2,13 @@
   display: block;
 }
 
-/* One band of the page: the flat beige of the game's panel (#d2b38c), its ink for the words, ink a little thinner for what is said quietly,
-   its red for the small labels and a hairline of ink for a rule, room above and below, nothing that moves. The paper cards are gone (user,
-   2026-10-28: "a seção família pode ficar com fundo preto também, precisa do card não"): every band is the ground of the page. */
+/* One band of the page, room above and below, nothing that moves. */
 .section {
-  --fg: var(--ink);
-  --fg-muted: rgba(32, 27, 23, 0.74);
-  --rule: rgba(32, 27, 23, 0.3);
-  --accent: var(--red);
-  --strong: var(--red);
   position: relative;
   isolation: isolate;
   padding-block: var(--section-pad);
   overflow: clip;
-  background: var(--beige);
   color: var(--fg);
-}
-
-/* The band that is a picture (the way in): bone words on black, the beige for what is said quietly, the gold for the small labels. */
-.section.dark {
-  --fg: var(--paper);
-  --fg-muted: var(--beige);
-  --rule: rgba(210, 179, 140, 0.3);
-  --accent: var(--gold);
-  --strong: var(--gold);
-  background: var(--black);
 }
 
 .wrap {
@@ -36,7 +18,63 @@
   margin-inline: auto;
 }
 
-/* A photograph behind a band, darkened evenly so the words above it stay readable. */
+/* The paper of the F2 panel: its beige, its own photograph printed into it (laid on by multiplying, the way the panel does), a fine grain, the light of its sheen
+   at the top left and its edges a little darker; ink for the words, red for the small labels, a hairline of ink for a rule. */
+.section.paper {
+  --fg: var(--ink);
+  --fg-muted: rgba(32, 27, 23, 0.76);
+  --rule: rgba(32, 27, 23, 0.3);
+  --accent: var(--red);
+  --strong: var(--red);
+  background-color: var(--beige);
+  background-image:
+    radial-gradient(ellipse 84% 86% at 50% 50%, transparent 58%, rgba(84, 48, 14, 0.28) 100%),
+    radial-gradient(ellipse 80% 70% at 24% 20%, rgba(255, 244, 214, 0.5), transparent 72%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .25  0 0 0 0 .18  0 0 0 0 .1  0 0 0 .3 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size:
+    100% 100%,
+    100% 100%,
+    240px 240px;
+  background-blend-mode: normal, normal, multiply;
+}
+
+.print {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The braided gold rope along the top of a paper band, as a seam to the band above. */
+.rope {
+  position: absolute;
+  top: 0.6rem;
+  left: 50%;
+  z-index: 1;
+  width: min(60rem, 88%);
+  height: auto;
+  translate: -50% 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The deep blue of the banner: bone words, the paper's beige for what is said quietly, gold for the small labels. */
+.section.night {
+  --fg: var(--paper);
+  --fg-muted: var(--beige);
+  --rule: rgba(210, 179, 140, 0.3);
+  --accent: var(--gold);
+  --strong: var(--gold);
+  background: var(--night);
+}
+
+/* A photograph behind a band, tinted with the night blue so the words above it stay readable. */
 .photo {
   position: absolute;
   inset: 0;
@@ -55,7 +93,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(15, 13, 11, 0.7);
+  background: rgb(6 11 38 / var(--tint, 0.85));
 }
 
 /* An ornament of the game panel in a corner of the band, with no margin (user, 2026-10-28: "nos cantos das seção você deixa as imagens

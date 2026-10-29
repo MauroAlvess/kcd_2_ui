@@ -2,6 +2,7 @@ import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
+import { HOUSES } from './houses';
 import { PILLARS, SHOTS } from './pitch';
 import { NAV } from '../core/site';
 
@@ -47,6 +48,15 @@ describe('content', () => {
     }
   });
 
+  it('has the two houses, the Lion on the red side and the Raven on the blue, each with its knight and a description of him', () => {
+    expect(HOUSES.map((house) => house.id)).toEqual(['leao', 'corvo']);
+    for (const house of HOUSES) {
+      expect(house.image).toMatch(/^knight-[a-z]+\.webp$/);
+      expect(house.height).toBeGreaterThan(house.width);
+      expect(filled(house.name) && house.alt.length > 30).toBe(true);
+    }
+  });
+
   it('lays the levels of the hierarchy tree top to bottom inside the picture, naming real titles as examples', () => {
     const at = TREE_LEVELS.map((level) => level.at);
     expect(at).toEqual([...at].sort((a, b) => a - b));
@@ -66,7 +76,13 @@ describe('content', () => {
   });
 
   it('lists the sections of the page in the order it tells them, each once, with the realm first and the story last', () => {
-    expect(NAV.map((item) => item.href)).toEqual(['#reino', '#guildas', '#hierarquia', '#lore']);
+    expect(NAV.map((item) => item.href)).toEqual([
+      '#reino',
+      '#casas',
+      '#guildas',
+      '#hierarquia',
+      '#lore',
+    ]);
     expect(unique(NAV.map((item) => item.label))).toBe(true);
     expect(NAV.every((item) => filled(item.label))).toBe(true);
   });

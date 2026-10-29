@@ -1,12 +1,11 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
 Site do servidor **Kingdom RP BRASIL**: uma página só, curta de propósito (2026-10-28, o dono: "minimalista, simples, que venda a ideia sem
-precisar ser gigante ou cheio de frufru de IA"), nas cores do próprio jogo, as do painel (o fundo é o bege do papel da tela F2, a tinta dele nos
-textos, o vermelho dos botões e dos rótulos, o ouro só nas faixas escuras), chapadas e sem brilho: todas as seções no mesmo fundo, sem cartões,
+precisar ser gigante ou cheio de frufru de IA"), nas cores do próprio jogo, as do painel (o papel bege da tela F2, com a tinta e o vermelho dele) contra o azul-noite do banner, faixa a faixa, com o vermelho e o azul das duas casas onde se encaram, sem cartões,
 nenhum desenho antes dos rótulos, os títulos e os rótulos em Cinzel (a fonte do painel) e o texto em EB Garamond, filetes finos de tinta no lugar
 de caixas. Abre com o **banner** (`img/banner.png`: a batalha diante do castelo, com o nome do servidor e o brasão em ouro já escritos na
-imagem), uma frase curta e direta e os dois botões, e segue em cinco capítulos: o reino (quatro linhas do que se faz aqui, e três fotos do
-jogo), as guildas, a hierarquia, a história (dobrada atrás de uma linha) e como entrar. A família e as posses viraram duas das quatro linhas do
+imagem), uma frase curta e direta e os dois botões, e segue em seis capítulos: o reino (quatro linhas do que se faz aqui, e três fotos do
+jogo), as duas casas (uma faixa vermelha e azul com os dois cavaleiros), as guildas (sobre a floresta da caça), a hierarquia, a história (dobrada atrás de uma linha, sobre o pátio do torneio) e como entrar. A família e as posses viraram duas das quatro linhas do
 primeiro capítulo; o mapa das casas, o apoio e as regras já tinham saído. Os textos são diretos de propósito: frases curtas, no imperativo,
 para chamar a atenção de quem chega.
 Na abertura há duas ações: "Entrar no Discord" e "Baixar launcher" (o endereço está em `launcher` no `src/site.config.json`: a última versão do launcher, qualquer que seja).
@@ -84,8 +83,7 @@ tools/                  scripts que preparam as imagens (abaixo) e `make-icon-sh
 ```
 
 Cada seção é um componente próprio, sem depender das outras; o `<app-section>` passa `--fg`, `--fg-muted`, `--rule` e `--accent`
-para o que está dentro. A página toda é o bege do painel (2026-10-28, o dono: "ainda continua o marrom escuro nas cores de fundo ao invés do bege
-que usamos na tela do F2"; antes era preta): todas as seções no mesmo fundo, sem cartões nem imagens do jogo sob o papel. As duas faixas que são imagem (a abertura e a entrada, `<app-section dark>`) têm o pé escuro, com palavras em osso. Duas faixas têm um enfeite do painel do jogo, encostado no canto, sem margem (`<app-section corner="lion|raven">`), como uma moldura que
+para o que está dentro. A página joga com dois tons (2026-10-29, o dono: "não gostei do bege, podemos fazer uma jogada de cores melhor para deixar tudo mais bonito, e usar nossas imagens de uma forma melhor"; o bege chapado e o preto de antes saíram): `<app-section tone="paper">` é a tela F2 refeita (o bege, a foto do painel impressa de leve por multiplicação, o grão, a luz do canto e as bordas escurecidas, a corda trançada no topo, tinta nas palavras, vermelho nos rótulos) e `tone="night"` é o azul-noite do banner (`--night`), com palavras em osso e rótulos em ouro, que pode levar uma foto sob uma tinta azul (`image` com `tint`). Papel: o reino e a hierarquia; noite: as guildas (floresta), a história (pátio do torneio) e a entrada; no meio, a faixa das duas casas, vermelha à esquerda (o Leão) e azul à direita (o Corvo), com os cavaleiros da folha `hero.png` do dono, cada um em pé na sua cor. Duas faixas têm um enfeite do painel do jogo, encostado no canto, sem margem (`<app-section corner="lion|raven">`), como uma moldura que
 abre depois da abertura e fecha antes do Discord (2026-10-28, o dono: "na segunda seção a imagem de borda era só a da esquerda e na
 última, antes do entrar no Discord, só a da direita inteira, dando essa sensação"): o leão em cima à esquerda no Reino (a primeira faixa depois da abertura) e o corvo
 embaixo à direita na História (o respiro da faixa é mais alto que eles, então nenhuma palavra fica por baixo). A de Entrar, sobre a imagem "entre aqui",
@@ -113,8 +111,11 @@ Precisam de Python com Pillow (`pip install pillow`); o do cartão, de Edge ou C
   que o próprio banner desfaz num azul-marinho (`#00062f`): um degradê no pé dele (`.media::after` em `hero.css`) o leva ao preto, e o preto acaba contra o bege da primeira seção. Num celular o letreiro dele ficaria pequeno demais, então ali ele é cortado ao meio (o brasão, o falcão e o leão, 3 : 5) e o nome do
   servidor aparece escrito embaixo. O `h1` é texto (escondido nas telas largas, onde o banner já o traz). **As cores do site NÃO saem dele**
   (2026-10-28, o dono: "não é porque o hero é azul que tudo precisa ser azul; podemos usar o nosso padrão de cores e identidade visual"): são
-  as do painel do jogo, em `:root` de `src/styles.css`: `--beige #d2b38c` (o papel do painel: o fundo da página), `--ink #201b17` (a tinta: os textos), `--red #7c0305` e `--red-hi #98090c` (os
-  botões e os rótulos), `--paper #ece6da` (o osso dos textos sobre as faixas escuras), `--gold #d5a156` (os filetes e os rótulos nelas) e `--black #0f0d0b` (só o pé do banner e da entrada).
+  as do painel do jogo e as do banner, em `:root` de `src/styles.css`: `--beige #d2b38c` (o papel do painel) e `--ink #201b17` (a tinta), `--red #7c0305` e `--red-hi #98090c` (os
+  botões e os rótulos no papel), `--night #060b26` (o azul-noite do pé do banner), `--paper #ece6da` (o osso dos textos na noite) e `--gold #d5a156` (os rótulos e os filetes nela).
+- **As imagens do vestido novo** (2026-10-29, todas feitas pelo `make-images.py` a partir da pasta `img` do dono): `paper-photo` (a foto "background hud H" clareada a uma
+  impressão leve, para o papel), `rope` (a corda trançada, de "borda superior trançada card"), `knight-lion` e `knight-raven` (os dois cavaleiros de `hero.png`, recortados da
+  folha), `forest` ("background caça") e `yard` ("new hero"), as duas últimas sob uma tinta azul. O grão do papel é um SVG dentro do próprio CSS (`section.css`).
 - **As três fotos do reino** (`shot-taverna`, `shot-duelo`, `shot-vila`) são capturas do próprio servidor, da pasta `fotos` ao lado do projeto;
   o `make-images.py` as corta em 720 e 1200 px. Num celular as três passam a uma fileira que se desliza de lado.
 - O vídeo do topo, o mapa das casas, o cartaz das regras, os dois cavaleiros, as fotos sob o papel dos cartões, o letreiro "titulo site", o

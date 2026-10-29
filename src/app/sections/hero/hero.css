@@ -2,13 +2,13 @@
   display: block;
 }
 
-/* The banner (2026-10-28) at its own shape, whole, and the words on its foot, which is faded into the page's black. */
+/* The banner (2026-10-28) at its own shape, whole, and the words on its foot, which is faded into the night blue (the banner's own ground at its foot). */
 .hero {
   position: relative;
   isolation: isolate;
   overflow: clip;
   color: var(--paper);
-  background: var(--black);
+  background: var(--night);
 }
 
 /* The banner spans the whole width of the window, always, and is as tall as it is at that width (16 : 9) but never taller than the window; a
@@ -30,15 +30,15 @@
   object-position: 50% 50%;
 }
 
-/* The bar above is cream on a bright sky, so the top is veiled in black; and the foot (the banner's own blue ground) goes into the page's
-   black, where the words stand. */
+/* The bar above is cream on a bright sky, so the top is veiled in the night blue; and the foot (the banner's own blue ground) goes into it
+   whole, where the words stand. */
 .media::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(15, 13, 11, 0.72), rgba(15, 13, 11, 0) 26%),
-    linear-gradient(to bottom, transparent 52%, var(--black) 97%);
+    linear-gradient(to bottom, rgba(6, 11, 38, 0.72), rgba(6, 11, 38, 0) 26%),
+    linear-gradient(to bottom, transparent 52%, var(--night) 97%);
 }
 
 /* The words rise over the foot of the banner, as far as the crest's lower edge and no farther (it ends 73% of the way down; a window
@@ -69,7 +69,7 @@
   font-size: clamp(1.9rem, 4.2vw, 3.1rem);
   line-height: 1.15;
   text-wrap: balance;
-  text-shadow: 0 2px 18px rgba(15, 13, 11, 0.85);
+  text-shadow: 0 2px 18px rgba(6, 11, 38, 0.85);
 }
 
 .claim span {

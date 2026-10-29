@@ -38,7 +38,7 @@ describe('App', () => {
 
   it('reads as the opening, the chapters in the order the navigation lists them, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
-    expect(ids).toEqual(['inicio', 'reino', 'guildas', 'hierarquia', 'lore', 'entrar']);
+    expect(ids).toEqual(['inicio', 'reino', 'casas', 'guildas', 'hierarquia', 'lore', 'entrar']);
     // "Entrar" has its own buttons, and it closes the page.
     const linked = ids.slice(1).filter((id) => id !== 'entrar');
     expect(linked.map((id) => `#${id}`)).toEqual(NAV.map((item) => item.href));
@@ -57,6 +57,7 @@ describe('App', () => {
     const labels = Array.from(root.querySelectorAll('main section.section .eyebrow'));
     expect(labels.map((label) => label.textContent?.trim())).toEqual([
       'O reino',
+      'As duas casas',
       'Guildas',
       'Hierarquia',
       'Lore · Boêmia, 1402–1403',
@@ -69,7 +70,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(6);
+    expect(sections).toHaveLength(7);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();
@@ -160,15 +161,32 @@ describe('App', () => {
     ).toBeNull();
   });
 
-  it('keeps every band flat, in the beige of the panel, with no card and no picture under paper; the way in, dark and on its own picture, closes the page', () => {
+  it('plays two tones against each other, the paper of the F2 panel and the night blue of the banner, with the red and the blue of the two houses between them; the way in, on its own picture, closes the page', () => {
     const bands = Array.from(root.querySelectorAll('main section.section'));
     expect(bands.map((section) => section.id)).toEqual([
       'reino',
+      'casas',
       'guildas',
       'hierarquia',
       'lore',
       'entrar',
     ]);
+    const tone = (section: Element) => (section.classList.contains('paper') ? 'paper' : 'night');
+    expect(bands.map(tone)).toEqual(['paper', 'night', 'night', 'paper', 'night', 'night']);
+    // The paper bands carry the print of the panel's photograph and the braided rope; the night ones neither.
+    for (const band of bands) {
+      expect(band.querySelector(':scope > img.print') !== null, band.id).toBe(
+        tone(band) === 'paper',
+      );
+      expect(band.querySelector(':scope > img.rope') !== null, band.id).toBe(
+        tone(band) === 'paper',
+      );
+    }
+    // The guilds stand on the forest of the hunt and the story on the tourney yard, both under the night blue.
+    expect(root.querySelector('#guildas .photo img')?.getAttribute('src')).toBe(
+      'img/forest-1920.webp',
+    );
+    expect(root.querySelector('#lore .photo img')?.getAttribute('src')).toBe('img/yard-1920.webp');
     expect(
       root.querySelector('main .card .paper-photo, main .wrap.card, main .frame, main .light'),
     ).toBeNull();
@@ -212,7 +230,7 @@ describe('App', () => {
     const watched = (element: Element) =>
       (element as HTMLElement).style.getPropertyValue('--reveal-delay') !== '';
     const chapters = Array.from(root.querySelectorAll('main section.section'));
-    expect(chapters).toHaveLength(5);
+    expect(chapters).toHaveLength(6);
     for (const chapter of chapters) {
       expect(watched(chapter.querySelector('.heading')!), `${chapter.id}: heading`).toBe(true);
     }

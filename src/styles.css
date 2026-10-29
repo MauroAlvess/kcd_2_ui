@@ -7,19 +7,19 @@
 @import '@fontsource/cinzel/latin-500.css';
 @import '@fontsource/cinzel/latin-600.css';
 
-/* The game's own colours (2026-10-28, the user: "podemos usar nosso padrão de cores e identidade visual", then "ainda continua o marrom escuro nas
-   cores de fundo ao invés do bege que usamos na tela do F2"): the ones of its panel. The ground of the page is the panel's paper, its beige,
-   with its ink for the words, its red for the buttons and the small labels and its gold for the lines on the dark bands; the two bands that
-   are pictures (the opening and the way in) keep a dark foot, and everything else is flat beige. The headings and the small labels are set in
-   Cinzel, the panel's own face. */
+/* The colours (2026-10-28, the user: "podemos usar nosso padrão de cores e identidade visual"; 2026-10-29: "não gostei do bege, podemos fazer uma jogada
+   de cores melhor para deixar tudo mais bonito"): the game's own, the panel's paper (its beige, with its ink and its red) and the banner's deep blue (the
+   night, with bone words and gold), played against each other band by band, with the red and the blue of the two houses where they face each other. The
+   headings and the small labels are set in Cinzel, the panel's own face. */
 :root {
-  --black: #0f0d0b;
+  --night: #060b26;
   --ink: #201b17;
   --paper: #ece6da;
   --beige: #d2b38c;
   --red: #7c0305;
   --red-hi: #98090c;
   --gold: #d5a156;
+  --gold-hi: #e7af36;
 
   --body: 'EB Garamond', Constantia, 'Sitka Text', Georgia, serif;
   --display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
@@ -39,7 +39,7 @@
 }
 
 html {
-  background: var(--beige);
+  background: var(--night);
   /* The page still scrolls with the wheel, the keys and a finger; its bar is not drawn (2026-10-20: "o scroll do site vamos
      retirar"). A circle with an arrow in the corner (shared/ui/scroll-hint) tells a visitor at the top that there is more. */
   scrollbar-width: none;
@@ -56,8 +56,8 @@ html::-webkit-scrollbar {
 
 body {
   margin: 0;
-  background: var(--beige);
-  color: var(--ink);
+  background: var(--night);
+  color: var(--paper);
   font: 1.2rem/1.6 var(--body);
   font-variant-numeric: lining-nums;
   text-rendering: optimizeLegibility;

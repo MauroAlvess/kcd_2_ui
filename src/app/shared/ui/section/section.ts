@@ -1,4 +1,4 @@
-import { Component, booleanAttribute, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 /** A photograph behind a section: the file to show and the sizes the browser may pick from. */
 export interface SectionImage {
@@ -6,12 +6,16 @@ export interface SectionImage {
   readonly srcset: string;
   /** Which part of the picture stays in view when the band is shaped differently (`object-position`). */
   readonly position?: string;
+  /** How much of the night blue is laid over the picture, from 0 to 1 (0.85 when left out): the lighter the picture, the more it needs. */
+  readonly tint?: number;
 }
 
 /**
- * One band of the page: flat black, beige text, handed to everything inside it as custom properties (`--fg`, `--fg-muted`,
- * `--rule`, `--accent`, `--strong`). A band can carry a photograph, darkened so the text above it stays readable, or one of
- * the game panel's ornaments in a corner; anything given the `backdrop` attribute is laid behind the content instead of in it.
+ * One band of the page, in one of two tones (2026-10-29, the user: "não gostei do bege, podemos fazer uma jogada de cores melhor... e usar nossas imagens de uma
+ * forma melhor"): `paper`, the screen of the F2 panel done again (its beige, its photograph printed faintly into it, its grain, its light from the top left and its
+ * darkened edges, the braided rope along the top, ink for the words and red for the small labels); and `night`, the deep blue of the banner, with bone words and gold
+ * labels, which can carry a picture. The tone hands its colours to everything inside as custom properties (`--fg`, `--fg-muted`, `--rule`, `--accent`, `--strong`).
+ * A band can also carry one of the game panel's ornaments in a corner; anything given the `backdrop` attribute is laid behind the content instead of in it.
  */
 @Component({
   selector: 'app-section',
@@ -26,6 +30,6 @@ export class Section {
   readonly image = input<SectionImage>();
   /** One ornament of the game panel set right in a corner of the band, with no margin: the lion above on the left, or the raven below on the right. */
   readonly corner = input<'lion' | 'raven'>();
-  /** A dark band, with bone words on black, for the one that is a picture (the way in); every other band is the beige of the game's panel. Written as a bare attribute: `<app-section dark>`. */
-  readonly dark = input(false, { transform: booleanAttribute });
+  /** The paper of the F2 panel (the default), or the night blue of the banner. */
+  readonly tone = input<'paper' | 'night'>('paper');
 }

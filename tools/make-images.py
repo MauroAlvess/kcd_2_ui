@@ -45,6 +45,10 @@ PHOTOS = [
     ("shot-taverna", "../fotos/5.png", (720, 1200), 74),
     ("shot-duelo", "../fotos/image.png", (720, 1200), 74),
     ("shot-vila", "../fotos/67.png", (720, 1200), 74),
+    # The pictures behind the dark bands of the second dress of the page (2026-10-29, the user: "usar nossas imagens de uma forma melhor"): the forest of the hunt
+    # behind the guilds, the tourney yard behind the story. They sit under a heavy tint of the page's night blue, so they are kept soft.
+    ("forest", "background caça.jpg", (960, 1920), 66),
+    ("yard", "new hero.jpg", (960, 1920), 64),
 ]
 
 # Pictures with a transparent background: output name, original, widths, quality, alpha quality, and whether the
@@ -82,8 +86,8 @@ CRESTS = [
     ("corner-raven", "border inferior direita.png", 360, 80),
 ]
 
-# The icon sits on the site's ground (the game's black, #0f0d0b), so it is flattened onto it: iOS paints transparency black anyway.
-ICON_BACKGROUND = (15, 13, 11)
+# The icon sits on the site's night blue (#060b26, the banner's ground), so it is flattened onto it: iOS paints transparency black anyway.
+ICON_BACKGROUND = (6, 11, 38)
 
 total = 0
 
@@ -276,6 +280,23 @@ for name, original, width, quality in CRESTS:
     if name in TRIMMED:
         art = art.crop(art.getbbox())
     save(resized(art, width), name, quality, ALPHA_QUALITY.get(name, 80))
+
+# The F2 screen's paper (2026-10-29): the panel lays its own photograph (the tower on the rock, "background hud H.jpg") at 27% multiplied on its beige; here the
+# photograph is lightened to that faint print in advance, so a band of the page puts it on its beige with one `background-blend-mode: multiply`.
+hud = Image.open(SOURCE / "background hud H.jpg").convert("RGB")
+save(Image.blend(Image.new("RGB", hud.size, (255, 255, 255)), hud, 0.30).resize((1280, 720), Image.LANCZOS), "paper-photo", 55)
+
+# The braided gold rope that closes a band ("borda superior trançada card.png"), cut to what is drawn.
+rope = Image.open(SOURCE / "borda superior trançada card.png").convert("RGBA")
+save(resized(rope.crop(rope.getbbox()), 900), "rope", 85, 90)
+
+# The two knights of "hero.png" (the Lion's red and the Raven's blue, side by side on one sheet, 17 empty columns between them), each cut out on its own, to
+# stand on the red and the blue half of the band of the two houses.
+knights = Image.open(SOURCE / "hero.png").convert("RGBA")
+for name, box in (("knight-lion", (0, 0, 759, knights.height)), ("knight-raven", (776, 0, knights.width, knights.height))):
+    one = knights.crop(box)
+    one = one.crop(one.getbbox())
+    save(resized(one, 500), name, 76, 80)
 
 # Icons from the logo: favicon.ico (16, 32, 48) and apple-touch-icon (180). The emblem is taller than wide, so it is
 # centred on a square, a little inside it.
