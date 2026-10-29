@@ -23,6 +23,6 @@ export const JOIN_STEPS: readonly Step[] = [
   {
     numeral: '03',
     title: 'Nasça plebeu.',
-    text: 'Baixe o launcher, crie seu personagem e escolha uma guilda.',
+    text: 'Baixe o launcher, crie seu personagem e procure um escrivão ou um mestre de ofício: é ele quem cede a sua guilda.',
   },
 ];

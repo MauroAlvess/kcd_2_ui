@@ -157,6 +157,11 @@ export const TIERS: readonly Tier[] = [
         female: 'Arauta',
         text: 'Anuncia decretos, transmite mensagens e participa de cerimônias.',
       },
+      {
+        name: 'Soldado',
+        female: 'Soldada',
+        text: 'Serve em armas a um senhor ou à cidade: guarda a ordem e prende quem a quebra, sob as ordens dos capitães.',
+      },
     ],
   },
   {

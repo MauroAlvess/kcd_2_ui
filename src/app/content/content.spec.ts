@@ -168,8 +168,8 @@ describe('hierarchy', () => {
       expect(filled(title.name) && filled(title.text)).toBe(true);
       expect(title.text.endsWith('.')).toBe(true);
     }
-    // The 37 titles of the server's catalog, and the plebeians.
-    expect(titles).toHaveLength(37 + 1);
+    // The 38 titles of the server's catalog, and the plebeians.
+    expect(titles).toHaveLength(38 + 1);
   });
 
   it('has the titles the realm is asked for: lords, knights, the Church and the towns', () => {
