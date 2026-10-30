@@ -28,8 +28,8 @@
         <div class="picture" [class.shown]="i <= on()" [style.z-index]="i + 1">
           <img
             [class.zoomed]="i !== on()"
-            [src]="'img/' + pillar.large"
-            [attr.srcset]="'img/' + pillar.small + ' 720w, img/' + pillar.large + ' 1280w'"
+            [src]="'img/' + pillar.medium"
+            [attr.srcset]="srcset(pillar)"
             sizes="(max-width: 60rem) 100vw, 55vw"
             [style.object-position]="pillar.position"
             [alt]="pillar.alt"
@@ -51,9 +51,9 @@
         <figure class="shot" [class.second]="i === 1">
           <div class="wipe frame">
             <img
-              [src]="'img/' + shot.large"
-              [attr.srcset]="'img/' + shot.small + ' 720w, img/' + shot.large + ' 1200w'"
-              sizes="(max-width: 60rem) 100vw, 50vw"
+              [src]="'img/' + shot.medium"
+              [attr.srcset]="srcset(shot)"
+              [attr.sizes]="shot.sizes"
               [style.object-position]="shot.position"
               [attr.width]="shot.width"
               [attr.height]="shot.height"

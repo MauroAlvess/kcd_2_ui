@@ -3,7 +3,7 @@ import { GUILDS } from './guilds';
 import { JOIN_STEPS } from './join';
 import { CHAPTERS, LORE_ENDING } from './lore';
 import { HOUSES } from './houses';
-import { PILLARS, SHOTS } from './pitch';
+import { PILLARS, SHOTS, srcsetOf } from './pitch';
 import { NAV } from '../core/site';
 
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
@@ -39,7 +39,8 @@ describe('content', () => {
     expect(SHOTS.map((shot) => shot.id)).toEqual(['floresta', 'mercado']);
     expect(unique(SHOTS.flatMap((shot) => [shot.large, shot.small]))).toBe(true);
     for (const shot of SHOTS) {
-      expect(shot.large).toMatch(/^galeria-[a-z]+-1200\.webp$/);
+      expect(shot.large).toMatch(/^galeria-[a-z]+-1600\.webp$/);
+      expect(shot.medium).toMatch(/^galeria-[a-z]+-1200\.webp$/);
       expect(shot.small).toMatch(/^galeria-[a-z]+-720\.webp$/);
       expect(shot.width).toBeGreaterThan(shot.height);
       expect(shot.alt.length).toBeGreaterThan(30);
@@ -96,6 +97,24 @@ describe('content', () => {
     const words = JOIN_STEPS.map((step) => `${step.title} ${step.text}`).join(' ');
     expect(words).toContain('A whitelist é feita dentro do jogo');
     expect(words).not.toMatch(/perfil da Steam/);
+  });
+
+  it('gives each card picture three files named by their width, the largest as wide as it is declared, so that a big or a sharp screen is not given a stretched one (2026-10-30)', () => {
+    for (const picture of [...PILLARS, ...SHOTS]) {
+      const widths = [picture.small, picture.medium, picture.large].map((file) =>
+        Number(/-(\d+)\.webp$/.exec(file)?.[1]),
+      );
+      expect(widths[0]).toBe(720);
+      expect(widths[0]).toBeLessThan(widths[1]);
+      expect(widths[1]).toBeLessThan(widths[2]);
+      expect(widths[2], picture.large).toBe(picture.width);
+      // A card is drawn about 700 css pixels wide: the largest file has to carry it on a screen at twice the density.
+      expect(widths[2]).toBeGreaterThanOrEqual(1400);
+    }
+    expect(srcsetOf('a-720.webp', 'a-1280.webp', 'a-2200.webp')).toBe(
+      'img/a-720.webp 720w, img/a-1280.webp 1280w, img/a-2200.webp 2200w',
+    );
+    expect(() => srcsetOf('a.webp')).toThrow();
   });
 
   it('declares each picture of the realm and of the game in the shape the file has, and where it stays in view', () => {

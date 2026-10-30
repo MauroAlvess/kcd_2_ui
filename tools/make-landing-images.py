@@ -1,14 +1,24 @@
 """Builds the site's pictures from the files of the new identity (the user's "Landing page-html.zip", 2026-10-29: the gold crest, the eight guild crests, the two
 houses' crests, the photographs, the map). Run it on the folder the zip was extracted to; it writes into public/img and the icons into public/.
 
-    python tools/make-landing-images.py <extracted folder>/assets
+    python tools/make-landing-images.py <extracted folder>/assets [photos]
 
-Deterministic: the same files give the same pictures. The zip's files have hash names, so they are named here by what they show."""
+Deterministic: the same files give the same pictures. The zip's files have hash names, so they are named here by what they show.
+
+With `photos` as the second argument only the photographs and the crests are made: the icons, the favicon and the link card are left as they are (the favicon was made
+transparent by hand on 2026-10-29, and this script would put the old one back).
+
+Sizes (2026-10-30, the user: "os cards de imagem, algumas estão distorcidas, perdendo qualidade por causa da resolução"): the pictures were cut down to 1280 / 1200 px and the
+crests to 160 px, when the zip has the cards' photographs at 1600 to 2421 px and the crests at 440 to 500. A card is drawn about 700 css pixels wide, which is 1400 device
+pixels on a screen at 200 %, so each card picture now has a "full" size, the original's own (copied as it is when it is a WebP already, so that nothing is encoded twice), a
+middle one and a small one, and the page chooses by `srcset`."""
 import os
+import shutil
 import sys
 from PIL import Image, ImageDraw, ImageFont
 
 SRC = sys.argv[1]
+ONLY_PHOTOS = len(sys.argv) > 2 and sys.argv[2] == "photos"
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 IMG = os.path.join(ROOT, "public", "img")
 PUBLIC = os.path.join(ROOT, "public")
@@ -51,26 +61,36 @@ def save(image, name, quality=80):
     print(f"{name:34s} {image.size[0]}x{image.size[1]} {os.path.getsize(path) // 1024} KB")
 
 
-def wide(key, name, widths, quality=78):
+def wide(key, name, widths, quality=82):
+    """One WebP per width; `"full"` is the original's own width (named by it): a WebP is copied as it is, anything else is encoded at a high quality."""
+    path = os.path.join(SRC, NAMES[key])
     image = opened(key).convert("RGB")
     for width in widths:
+        if width == "full":
+            out = os.path.join(IMG, f"{name}-{image.width}.webp")
+            if path.lower().endswith(".webp"):
+                shutil.copyfile(path, out)
+                print(f"{os.path.basename(out):34s} {image.width}x{image.height} {os.path.getsize(out) // 1024} KB (the original, copied)")
+            else:
+                save(image, f"{name}-{image.width}.webp", 86)
+            continue
         scaled = image if image.width <= width else image.resize((width, round(image.height * width / image.width)), Image.LANCZOS)
         save(scaled, f"{name}-{width}.webp", quality)
 
 
-# The photographs, in two widths each (the page picks one by `srcset`).
-wide("hero", "hero", [1920, 960])
-wide("oficio", "pilar-oficio", [1280, 720])
-wide("familia", "pilar-familia", [1280, 720])
-wide("teto", "pilar-teto", [1280, 720])
-wide("coroa", "pilar-coroa", [1280, 720])
-wide("floresta", "galeria-floresta", [1200, 720])
-wide("mercado", "galeria-mercado", [1200, 720])
-wide("mapa", "mapa-kuttenberg", [1200, 700])
-wide("entrar", "entrar", [1920, 960])
+# The photographs, in the original's own size and one or two smaller (the page picks one by `srcset`).
+wide("hero", "hero", ["full", 1920, 960])
+wide("oficio", "pilar-oficio", ["full", 1280, 720])
+wide("familia", "pilar-familia", ["full", 1280, 720])
+wide("teto", "pilar-teto", ["full", 1280, 720])
+wide("coroa", "pilar-coroa", ["full", 1280, 720])
+wide("floresta", "galeria-floresta", ["full", 1200, 720])
+wide("mercado", "galeria-mercado", ["full", 1200, 720])
+wide("mapa", "mapa-kuttenberg", [1600, 1200, 700])
+wide("entrar", "entrar", ["full", 960])
 
 # The crests keep their transparency.
-def crest(key, name, size, quality=88):
+def crest(key, name, size, quality=90):
     image = opened(key).convert("RGBA")
     image = image.resize((size, round(image.height * size / image.width)), Image.LANCZOS)
     save(image, name, quality)
@@ -78,10 +98,14 @@ def crest(key, name, size, quality=88):
 
 logo = opened("logo").convert("RGBA")
 crest("logo", "logo-rp.webp", 256)
-crest("leao", "brasao-leao.webp", 480)
-crest("corvo", "brasao-corvo.webp", 480)
+crest("leao", "brasao-leao.webp", 500, 86)
+crest("corvo", "brasao-corvo.webp", 500, 86)
+# Drawn 72 css pixels wide (60 on a phone): 256 is more than a phone at three times asks for (216), from the original's 440.
 for guild in ["ferreiro", "cacador", "taberneiro", "alquimista", "artesao", "coletor", "agricultor", "domador"]:
-    crest(f"guild-{guild}", f"guild-{guild}.webp", 160)
+    crest(f"guild-{guild}", f"guild-{guild}.webp", 256, 88)
+
+if ONLY_PHOTOS:
+    raise SystemExit(0)
 
 
 # The icons: the gold crest on the page's black.

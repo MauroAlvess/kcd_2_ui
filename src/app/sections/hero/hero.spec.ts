@@ -25,7 +25,10 @@ describe('Hero', () => {
     const root = await render();
     const still = root.querySelector<HTMLImageElement>('img.still')!;
     expect(still.getAttribute('src')).toBe('img/hero-1920.webp');
-    expect(still.getAttribute('srcset')).toBe('img/hero-960.webp 960w, img/hero-1920.webp 1920w');
+    // The original's own size too (2026-10-30): the opening is drawn taller than the picture is, so it is scaled up on any screen, and that only shows on the sharpest file.
+    expect(still.getAttribute('srcset')).toBe(
+      'img/hero-960.webp 960w, img/hero-1920.webp 1920w, img/hero-2421.webp 2421w',
+    );
     expect(still.getAttribute('fetchpriority')).toBe('high');
     expect(still.getAttribute('loading')).toBeNull();
     expect(still.closest('[aria-hidden="true"]')).not.toBeNull();

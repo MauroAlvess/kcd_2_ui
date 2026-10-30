@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { PILLARS, SHOTS } from '../../content/pitch';
+import { PILLARS, SHOTS, srcsetOf } from '../../content/pitch';
 import { Pitch } from './pitch';
 
 describe('Pitch', () => {
@@ -31,14 +31,16 @@ describe('Pitch', () => {
     expect(labels).toEqual(PILLARS.map((pillar) => pillar.label));
   });
 
-  it('keeps one picture for each line, in two sizes with its description, the first on show at the top of the page', () => {
+  it('keeps one picture for each line, in three sizes with its description, the first on show at the top of the page', () => {
     const pictures = Array.from(root.querySelectorAll<HTMLImageElement>('.stage img'));
     expect(pictures).toHaveLength(PILLARS.length);
     pictures.forEach((image, at) => {
-      expect(image.getAttribute('src')).toBe(`img/${PILLARS[at].large}`);
+      // The file a browser with no srcset takes is the middle one; the original's own size is there for a big or a sharp screen.
+      expect(image.getAttribute('src')).toBe(`img/${PILLARS[at].medium}`);
       expect(image.getAttribute('srcset')).toBe(
-        `img/${PILLARS[at].small} 720w, img/${PILLARS[at].large} 1280w`,
+        srcsetOf(PILLARS[at].small, PILLARS[at].medium, PILLARS[at].large),
       );
+      expect(image.getAttribute('srcset')).toContain(` ${PILLARS[at].width}w`);
       expect(image.getAttribute('alt')).toBe(PILLARS[at].alt);
     });
     // At the top of the page the first line is the one on show.
@@ -46,15 +48,17 @@ describe('Pitch', () => {
     expect(root.querySelectorAll('.picture.shown')).toHaveLength(1);
   });
 
-  it('shows two pictures of the game, each in two sizes, with its size, its description and a caption', () => {
+  it('shows two pictures of the game, each in three sizes, with its size, its description and a caption', () => {
     const figures = Array.from(root.querySelectorAll('figure.shot'));
     expect(figures).toHaveLength(SHOTS.length);
     figures.forEach((figure, at) => {
       const image = figure.querySelector<HTMLImageElement>('img')!;
-      expect(image.getAttribute('src')).toBe(`img/${SHOTS[at].large}`);
+      expect(image.getAttribute('src')).toBe(`img/${SHOTS[at].medium}`);
       expect(image.getAttribute('srcset')).toBe(
-        `img/${SHOTS[at].small} 720w, img/${SHOTS[at].large} 1200w`,
+        srcsetOf(SHOTS[at].small, SHOTS[at].medium, SHOTS[at].large),
       );
+      expect(image.getAttribute('srcset')).toContain(` ${SHOTS[at].width}w`);
+      expect(image.getAttribute('sizes')).toBe(SHOTS[at].sizes);
       expect(image.getAttribute('width')).toBe(String(SHOTS[at].width));
       expect(image.getAttribute('alt')).toBe(SHOTS[at].alt);
       expect(image.getAttribute('loading')).toBe('lazy');

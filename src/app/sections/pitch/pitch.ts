@@ -7,7 +7,14 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { PILLARS, PITCH_EYEBROW, PITCH_TITLE, PITCH_TITLE_EM, SHOTS } from '../../content/pitch';
+import {
+  PILLARS,
+  PITCH_EYEBROW,
+  PITCH_TITLE,
+  PITCH_TITLE_EM,
+  SHOTS,
+  srcsetOf,
+} from '../../content/pitch';
 import { ScrollState, clamp } from '../../core/scroll';
 
 /**
@@ -30,6 +37,9 @@ export class Pitch {
   protected readonly titleEm = PITCH_TITLE_EM;
   protected readonly pillars = PILLARS;
   protected readonly shots = SHOTS;
+  /** The files of a picture, each with its width, for the browser to choose from. */
+  protected readonly srcset = (picture: { small: string; medium: string; large: string }): string =>
+    srcsetOf(picture.small, picture.medium, picture.large);
 
   private readonly scroll = inject(ScrollState);
   private readonly reino = viewChild<ElementRef<HTMLElement>>('reino');
