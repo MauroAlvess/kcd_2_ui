@@ -49,7 +49,7 @@ describe('Hero', () => {
     expect(root.querySelector('.motto')?.textContent).toContain('quem não sobe, serve');
     expect(root.querySelector('.panel h2')?.textContent).toBe('Escolha seu destino');
     expect(root.querySelector('.panel .name')?.textContent).toBe(
-      'Kingdom - RP BRASIL - WL - Kuttenberg',
+      'Kingdom - RP BRASIL - Kuttenberg',
     );
     expect(root.querySelectorAll('.steps li')).toHaveLength(JOIN_STEPS.length);
     const actions = root.querySelectorAll<HTMLAnchorElement>('.actions a');
