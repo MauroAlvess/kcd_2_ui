@@ -92,6 +92,20 @@ describe('content', () => {
     expect(JOIN_STEPS).toHaveLength(3);
   });
 
+  it('says the whitelist is done inside the game (2026-10-30), not by sending a profile to the staff', () => {
+    const words = JOIN_STEPS.map((step) => `${step.title} ${step.text}`).join(' ');
+    expect(words).toContain('A whitelist é feita dentro do jogo');
+    expect(words).not.toMatch(/perfil da Steam/);
+  });
+
+  it('declares each picture of the realm and of the game in the shape the file has, and where it stays in view', () => {
+    for (const picture of [...PILLARS, ...SHOTS]) {
+      expect(picture.width).toBeGreaterThan(0);
+      expect(picture.height).toBeGreaterThan(0);
+      expect(picture.position).toMatch(/^\d{1,3}% \d{1,3}%$/);
+    }
+  });
+
   it('tells the lore in seven chapters, each with its own anchor and something to read', () => {
     expect(CHAPTERS.map((chapter) => chapter.id)).toEqual([
       'alianca',

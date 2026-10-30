@@ -31,9 +31,10 @@
             [src]="'img/' + pillar.large"
             [attr.srcset]="'img/' + pillar.small + ' 720w, img/' + pillar.large + ' 1280w'"
             sizes="(max-width: 60rem) 100vw, 55vw"
+            [style.object-position]="pillar.position"
             [alt]="pillar.alt"
-            width="1280"
-            height="720"
+            [attr.width]="pillar.width"
+            [attr.height]="pillar.height"
             loading="lazy"
             decoding="async"
           />

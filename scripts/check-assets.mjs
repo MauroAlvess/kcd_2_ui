@@ -104,6 +104,48 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+/** The size of a WebP file, read from its header (the three kinds the encoders write), or null for anything else. */
+function webpSize(file) {
+  const bytes = readFileSync(file);
+  if (bytes.toString('ascii', 0, 4) !== 'RIFF' || bytes.toString('ascii', 8, 12) !== 'WEBP') {
+    return null;
+  }
+  const kind = bytes.toString('ascii', 12, 16);
+  if (kind === 'VP8 ') {
+    return { width: bytes.readUInt16LE(26) & 0x3fff, height: bytes.readUInt16LE(28) & 0x3fff };
+  }
+  if (kind === 'VP8L') {
+    const bits = bytes.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+  }
+  if (kind === 'VP8X') {
+    return { width: 1 + bytes.readUIntLE(24, 3), height: 1 + bytes.readUIntLE(27, 3) };
+  }
+  return null;
+}
+
+// A picture of a card is declared with its own size (the box keeps the right shape before it loads, and a picture declared in another shape is stretched or cut
+// by whatever the page does with it): the size written in content/pitch.ts is the size of the file (2026-10-30: the family's panorama was declared as 1280 x 720).
+const wrongSizes = [];
+const pitch = readFileSync(join(root, 'src', 'app', 'content', 'pitch.ts'), 'utf8');
+for (const match of pitch.matchAll(
+  /large:\s*'([\w.-]+\.webp)'[\s\S]*?width:\s*(\d+),\s*height:\s*(\d+)/g,
+)) {
+  const real = webpSize(join(root, 'public', 'img', match[1]));
+  if (real === null || real.width !== Number(match[2]) || real.height !== Number(match[3])) {
+    wrongSizes.push(
+      `${match[1]} is ${real === null ? 'not a WebP' : `${real.width}x${real.height}`} and content/pitch.ts says ${match[2]}x${match[3]}`,
+    );
+  }
+}
+if (wrongSizes.length > 0) {
+  console.error(
+    'check-assets: a picture is declared in another size than it has:\n  ' +
+      wrongSizes.join('\n  '),
+  );
+  process.exit(1);
+}
+
 const unused = [
   ...pictures.filter((name) => !used.has(name)),
   ...videos.filter((name) => !usedVideos.has(name)).map((name) => `video/${name}`),

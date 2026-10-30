@@ -8,6 +8,11 @@ export interface Pillar {
   /** The picture in public/img, in two widths: the file for a screen as wide as the window and the one for a phone. */
   readonly large: string;
   readonly small: string;
+  /** The size of the large file, as it is (the box reserves the right shape before it loads). */
+  readonly width: number;
+  readonly height: number;
+  /** Which part of the picture stays in view when it is cut to the shape of the stage (`object-position`). */
+  readonly position: string;
   readonly alt: string;
 }
 
@@ -43,6 +48,9 @@ export const PILLARS: readonly Pillar[] = [
     text: 'Ferreiro, caçador, taberneiro, alquimista, artesão, coletor, agricultor ou domador: cada guilda tem as suas receitas, e ninguém faz tudo sozinho.',
     large: 'pilar-oficio-1280.webp',
     small: 'pilar-oficio-720.webp',
+    width: 1280,
+    height: 720,
+    position: '50% 50%',
     alt: 'Ferreiro martelando uma lâmina incandescente na bigorna',
   },
   {
@@ -52,6 +60,10 @@ export const PILLARS: readonly Pillar[] = [
     text: 'Case, tenha herdeiros, adote, reconheça um bastardo. A sua árvore cresce por gerações e herda terras, títulos e inimigos.',
     large: 'pilar-familia-1280.webp',
     small: 'pilar-familia-720.webp',
+    // A panorama (2.43 : 1): the three riders stand between a quarter and seven tenths of its width.
+    width: 1280,
+    height: 527,
+    position: '48% 50%',
     alt: 'Jogadores cavalgando juntos numa estrada de terra entre campos e floresta',
   },
   {
@@ -61,6 +73,9 @@ export const PILLARS: readonly Pillar[] = [
     text: 'Casas, oficinas e castelos, com portas e baús que só abrem para quem você escolher. O cavalo e a carroça esperam onde você os deixou.',
     large: 'pilar-teto-1280.webp',
     small: 'pilar-teto-720.webp',
+    width: 1280,
+    height: 720,
+    position: '50% 50%',
     alt: 'Kuttenberg vista do vale, com telhados, muralhas e torres na neblina',
   },
   {
@@ -70,6 +85,9 @@ export const PILLARS: readonly Pillar[] = [
     text: 'Duas casas disputam o reino, o Leão e o Corvo. Jurar lealdade é escolher um lado, e a escolha não tem volta.',
     large: 'pilar-coroa-1280.webp',
     small: 'pilar-coroa-720.webp',
+    width: 1280,
+    height: 730,
+    position: '50% 50%',
     alt: 'Duelo de cavaleiros num pátio de castelo, observado pela nobreza',
   },
 ];

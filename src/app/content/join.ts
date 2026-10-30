@@ -8,7 +8,7 @@ export interface Step {
   readonly text: string;
 }
 
-/** What a newcomer does, in order. The server's whitelist is filled in on Discord. */
+/** What a newcomer does, in order. The whitelist is done inside the game, at the door of the server (2026-10-30: "a wl agora é feita dentro do jogo"). */
 export const JOIN_STEPS: readonly Step[] = [
   {
     numeral: '01',
@@ -17,12 +17,12 @@ export const JOIN_STEPS: readonly Step[] = [
   },
   {
     numeral: '02',
-    title: 'Faça a whitelist.',
-    text: 'Envie seu perfil da Steam à equipe. Só contas aprovadas entram.',
+    title: 'Entre pela porta do servidor.',
+    text: 'Baixe o launcher e entre. A whitelist é feita dentro do jogo: um trailer e um questionário de dez perguntas sobre as regras.',
   },
   {
     numeral: '03',
     title: 'Nasça plebeu.',
-    text: 'Baixe o launcher, crie seu personagem e procure um escrivão ou um mestre de ofício: é ele quem cede a sua guilda.',
+    text: 'Crie seu personagem e escolha onde nasce: os Leões, em Suchdol, ou os Corvos, em Malešov. Depois procure um escrivão ou um mestre de ofício: é ele quem cede a sua guilda.',
   },
 ];
