@@ -106,15 +106,14 @@ describe('content', () => {
     }
   });
 
-  it('tells the lore in seven chapters, each with its own anchor and something to read', () => {
+  it('tells the lore in six chapters, each with its own anchor and something to read', () => {
     expect(CHAPTERS.map((chapter) => chapter.id)).toEqual([
-      'alianca',
-      'morte-do-rei',
-      'carta',
-      'leoes-e-maleshov',
-      'sucessao',
-      'segredo',
-      'nova-guerra',
+      'guerra',
+      'morte-dos-reis',
+      'cinzas',
+      'leoes',
+      'corvos',
+      'coroa-vaga',
     ]);
     expect(unique(CHAPTERS.map((chapter) => chapter.id))).toBe(true);
     for (const chapter of CHAPTERS) {
@@ -127,22 +126,24 @@ describe('content', () => {
     ]);
   });
 
-  it('keeps the four houses, the two lords and the question the story ends on', () => {
+  it('tells the war of the two kings and the two factions, and names no lord of the nobility (2026-10-30)', () => {
     const text = CHAPTERS.flatMap((chapter) =>
       chapter.blocks.flatMap((block) => (block.kind === 'list' ? block.items : [block.text])),
     ).join(' ');
-    for (const name of [
-      'Casa de Trosky',
-      'Casa dos Leões',
-      'Casa de Schodal',
-      'Casa Raborsch',
-      'Casa de Maleshov',
-      'Radovan de Zelený',
-      'Gunther von Silberhände',
+    for (const fact of [
+      'Venceslau IV',
+      'Sigismundo, rei da Hungria',
+      'cumanos',
+      'Kuttenberg',
+      'facção dos Leões',
+      'facção dos Corvos',
+      'novo rei',
     ]) {
-      expect(text, name).toContain(name);
+      expect(text, fact).toContain(fact);
     }
-    expect(text).toContain('Marquês e Protetor da Coroa');
+    for (const person of ['Radovan', 'Gunther', 'Silberhände', 'Schodal', 'Protetor da Coroa', 'bastardo']) {
+      expect(text, person).not.toContain(person);
+    }
     expect(LORE_ENDING.question).toBe('E você, a quem jurará sua lealdade?');
   });
 

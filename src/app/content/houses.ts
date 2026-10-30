@@ -21,20 +21,20 @@ export const HOUSES_LEAD =
 export const HOUSES: readonly House[] = [
   {
     id: 'leao',
-    label: 'Casa I · Protetor da Coroa',
+    label: 'Os Leões · Ideais de Venceslau',
     name: 'Casa do',
     nameEm: 'Leão Dourado',
     crest: 'brasao-leao.webp',
     alt: 'Brasão da Casa do Leão Dourado: leão dourado sobre campo vermelho',
-    text: 'Radovan, Protetor da Coroa, quer preservar a sucessão.',
+    text: 'Os que acreditam nos ideais de Venceslau IV: honra, lei e sangue para manter a ordem do reino.',
   },
   {
     id: 'corvo',
-    label: 'Casa II · Maleshov',
+    label: 'Os Corvos · Ideais de Sigismundo',
     name: 'Casa do',
     nameEm: 'Corvo',
     crest: 'brasao-corvo.webp',
     alt: 'Brasão da Casa do Corvo: corvo negro sobre campo azul',
-    text: 'A Casa de Maleshov desconfia do Protetor e de seus poderes.',
+    text: 'Os que seguem Sigismundo e os cumanos: nas sombras da guerra, a astúcia conquista o que a força não pode.',
   },
 ];

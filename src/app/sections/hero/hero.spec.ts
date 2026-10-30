@@ -39,7 +39,7 @@ describe('Hero', () => {
     expect(h1.querySelector('.sr-only')?.textContent).toContain(
       'Kingdom Come: Deliverance II RP Brasil',
     );
-    expect(h1.textContent?.replace(/\s+/g, ' ')).toContain('O rei morreu.A coroa está vaga.');
+    expect(h1.textContent?.replace(/\s+/g, ' ')).toContain('Os reis morreram.A coroa está vaga.');
     expect(h1.querySelector('em')?.textContent).toBe('vaga.');
   });
 

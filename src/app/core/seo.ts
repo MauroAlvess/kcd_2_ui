@@ -16,7 +16,7 @@ const SOCIAL_IMAGE = {
 } as const;
 
 /** The line the server goes by, in the structured data as in the opening of the page. */
-export const SLOGAN = 'O rei morreu. A coroa de Kuttenberg está vaga.';
+export const SLOGAN = 'Os reis morreram. A coroa de Kuttenberg está vaga.';
 
 /** What a search engine may do with the page: index it, follow its links, and show a snippet of any length and the large picture. */
 const ROBOTS = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';

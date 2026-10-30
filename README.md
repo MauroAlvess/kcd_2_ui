@@ -3,7 +3,7 @@
 Site do servidor **Kingdom RP BRASIL**: uma página só, com a **identidade nova** (2026-10-29, o pacote "Landing page" do dono): preto quente
 (`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da Casa do Leão e o pergaminho dos painéis, com o brasão dourado
 "Roleplay Brasileiro". Títulos em Libre Caslon Display com a palavra em itálico dourado, botões em Spectral SC, rótulos em Cinzel e texto em EB
-Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "O rei morreu. A coroa
+Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "Os reis morreram. A coroa
 está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; segue com o reino (quatro
 linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas casas (Leão ou Corvo), as guildas (o registro em
 pergaminho com os oito brasões), a hierarquia (a escada de sete degraus e todos os títulos dobrados), a história (o mapa e a crônica em sete linhas,
@@ -157,7 +157,7 @@ nos lugares que um buscador lê primeiro:
 - Cartões para Discord, WhatsApp e redes (Open Graph e Twitter, com a imagem `og-image-4.jpg` de 1200x630: o banner e o endereço) e dados
   estruturados `GameServer`, `Organization`, `WebSite` e `WebPage`, os três primeiros com **o mesmo nome**, para o Google
   mostrar "Kingdom RP BRASIL" como nome do site.
-- O lema do servidor (_"O rei morreu. A coroa de Kuttenberg está vaga."_) como `slogan` do `GameServer` e da
+- O lema do servidor (_"Os reis morreram. A coroa de Kuttenberg está vaga."_) como `slogan` do `GameServer` e da
   `Organization`; um `site.webmanifest` com os ícones de 192 e 512 px (o site salvo na tela do celular); o `sitemap.xml` com
   as imagens principais (cartão e banner), para a busca de imagens.
 - Imagens em WebP em dois tamanhos, fontes próprias (sem Google Fonts) e o banner do topo pré-carregado.
