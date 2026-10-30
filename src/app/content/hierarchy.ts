@@ -71,7 +71,8 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Príncipe',
         female: 'Princesa',
-        text: 'Grande senhor territorial: governa um território de alto status.',
+        native: 'kníže',
+        text: 'Grande senhor territorial: governa um território de alto status. Na Boêmia, o kníže era o duque de um ducado, como os da Silésia, vassalos da Coroa.',
       },
       {
         name: 'Marquês',
@@ -101,6 +102,7 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Escudeiro',
         female: 'Escudeira',
+        native: 'panoš',
         text: 'Pequena nobreza: pode possuir uma propriedade modesta, servir militarmente e buscar o reconhecimento de uma casa maior.',
       },
       {
@@ -125,6 +127,7 @@ export const TIERS: readonly Tier[] = [
       },
       {
         name: 'Chanceler',
+        native: 'kancléř',
         text: 'Cuida de documentos oficiais, cartas, selos e registros.',
       },
       {
@@ -140,21 +143,25 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Tesoureiro',
         female: 'Tesoureira',
+        native: 'pokladník',
         text: 'Controla tributos, aluguéis, dívidas e pagamentos; é o coletor de rendas.',
       },
       {
         name: 'Bailio',
         female: 'Bailia',
+        native: 'biřic',
         text: 'Oficial de justiça: executa ordens, fiscaliza obrigações e auxilia na administração da justiça.',
       },
       {
-        name: 'Meirinho',
-        female: 'Meirinha',
+        name: 'Administrador do domínio',
+        female: 'Administradora do domínio',
+        native: 'správce panství, šafář',
         text: 'Administrador senhorial: supervisiona terras, trabalhadores, rendas e deveres dos habitantes.',
       },
       {
         name: 'Arauto',
         female: 'Arauta',
+        native: 'herold',
         text: 'Anuncia decretos, transmite mensagens e participa de cerimônias.',
       },
       {
@@ -172,30 +179,36 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Arcebispo',
         female: 'Arcebispa',
+        native: 'arcibiskup',
         text: 'Autoridade eclesiástica de alto nível, responsável por uma província religiosa. Praga era uma arquidiocese.',
       },
       {
         name: 'Bispo',
         female: 'Bispa',
+        native: 'biskup',
         text: 'Governa uma diocese e supervisiona o clero sob a sua jurisdição.',
       },
       {
         name: 'Abade',
         female: 'Abadessa',
+        native: 'opat',
         text: 'Lidera um mosteiro ou uma comunidade religiosa e pode administrar propriedades e rendas significativas.',
       },
       {
         name: 'Prior',
         female: 'Priora',
+        native: 'převor',
         text: 'Lidera um priorado ou ajuda o abade; pode administrar propriedades e rendas.',
       },
       {
         name: 'Padre',
+        native: 'farář',
         text: 'Pároco: celebra missas, administra sacramentos, aconselha os habitantes e participa da vida comunitária.',
       },
       {
         name: 'Monge',
         female: 'Monja',
+        native: 'mnich',
         text: 'Vive e serve em um mosteiro. Um monge não é necessariamente sacerdote.',
       },
       {
@@ -206,11 +219,13 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Diácono',
         female: 'Diaconisa',
+        native: 'jáhen',
         text: 'Auxilia o padre nas funções religiosas, sem a autoridade dele.',
       },
       {
         name: 'Acólito',
         female: 'Acólita',
+        native: 'akolyta',
         text: 'Serve ao altar e auxilia o clero nas cerimônias.',
       },
     ],
@@ -222,20 +237,24 @@ export const TIERS: readonly Tier[] = [
     titles: [
       {
         name: 'Burgomestre',
+        native: 'purkmistr',
         text: 'Prefeito: administra a cidade, coordena decisões municipais e representa seus interesses perante a nobreza.',
       },
       {
         name: 'Conselheiro municipal',
         female: 'Conselheira municipal',
+        native: 'konšel',
         text: 'Participa das decisões sobre impostos, mercados, manutenção urbana e leis locais.',
       },
       {
-        name: 'Alcaide da aldeia',
-        text: 'Representante da aldeia: recolhe informações, comunica ordens, organiza as obrigações da comunidade e serve de intermediário com o senhor local.',
+        name: 'Chefe da aldeia',
+        native: 'rychtář',
+        text: 'Representante da aldeia: o rychtář recolhe informações, comunica ordens, organiza as obrigações da comunidade e serve de intermediário com o senhor local.',
       },
       {
         name: 'Mestre de guilda',
         female: 'Mestra de guilda',
+        native: 'cechmistr',
         text: 'Lidera uma corporação profissional, fiscaliza a qualidade dos produtos e negocia privilégios para seus membros.',
       },
       {
@@ -255,6 +274,7 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Escrivão',
         female: 'Escrivã',
+        native: 'písař',
         text: 'Escreve e guarda os registros, as cartas e as contas.',
       },
       {
@@ -265,6 +285,7 @@ export const TIERS: readonly Tier[] = [
       {
         name: 'Administrador de hospedaria',
         female: 'Administradora de hospedaria',
+        native: 'hostinský',
         text: 'Tem a seu cargo uma hospedaria: os quartos, a cozinha e os criados.',
       },
       {
