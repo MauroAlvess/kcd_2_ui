@@ -1,11 +1,11 @@
 # Kingdom Come: Deliverance II — RP Brasil (site)
 
 Site do servidor **Kingdom RP BRASIL**: uma página só, com a **identidade nova** (2026-10-29, o pacote "Landing page" do dono): preto quente
-(`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da Casa do Leão e o pergaminho dos painéis, com o brasão dourado
+(`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da facção do Leão e o pergaminho dos painéis, com o brasão dourado
 "Roleplay Brasileiro". Títulos em Libre Caslon Display com a palavra em itálico dourado, botões em Spectral SC, rótulos em Cinzel e texto em EB
 Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "Os reis morreram. A coroa
 está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; segue com o reino (quatro
-linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas casas (Leão ou Corvo), as guildas (o registro em
+linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas facções (Leão ou Corvo), as guildas (o registro em
 pergaminho com os oito brasões), a hierarquia (a escada de sete degraus e todos os títulos dobrados), a história (o mapa e a crônica em sete linhas,
 com a crônica inteira dobrada) e o chamado final. Sem scripts, ou para quem pediu menos movimento, as quatro linhas do reino aparecem uma sob a outra.
 As imagens saem de `tools/make-landing-images.py` (rode com a pasta `assets` do zip extraído).

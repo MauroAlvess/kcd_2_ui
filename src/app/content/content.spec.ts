@@ -48,7 +48,7 @@ describe('content', () => {
     }
   });
 
-  it('has the two houses, the Lion on the red side and the Raven on the blue, each with its crest and a line on where it stands', () => {
+  it('has the two factions, the Lion on the red side and the Raven on the blue, each with its crest and a line on where it stands', () => {
     expect(HOUSES.map((house) => house.id)).toEqual(['leao', 'corvo']);
     for (const house of HOUSES) {
       expect(house.crest).toMatch(/^brasao-[a-z]+\.webp$/);
@@ -75,7 +75,7 @@ describe('content', () => {
   it('lists the sections of the page in the order it tells them, each once, with the realm first and the story last', () => {
     expect(NAV.map((item) => item.href)).toEqual([
       '#reino',
-      '#casas',
+      '#faccoes',
       '#guildas',
       '#hierarquia',
       '#lore',

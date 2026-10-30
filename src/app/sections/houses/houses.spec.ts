@@ -12,8 +12,8 @@ describe('Houses', () => {
     await fixture.whenStable();
   });
 
-  it('is the section the navigation calls "casas", named by its h2: Leão ou Corvo', () => {
-    const section = root.querySelector('section#casas');
+  it('is the section the navigation calls "faccoes", named by its h2: Leão ou Corvo', () => {
+    const section = root.querySelector('section#faccoes');
     expect(section).not.toBeNull();
     const heading = root.querySelector(`#${section?.getAttribute('aria-labelledby')}`);
     expect(heading?.tagName).toBe('H2');

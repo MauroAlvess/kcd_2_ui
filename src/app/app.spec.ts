@@ -32,7 +32,7 @@ describe('App', () => {
 
   it('reads as the opening, the chapters in the order of the story, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
-    expect(ids).toEqual(['topo', 'reino', 'casas', 'guildas', 'hierarquia', 'lore', 'entrar']);
+    expect(ids).toEqual(['topo', 'reino', 'faccoes', 'guildas', 'hierarquia', 'lore', 'entrar']);
   });
 
   it('keeps the small label of every section plain: its words, with no drawing before them', () => {
@@ -40,7 +40,7 @@ describe('App', () => {
     expect(labels.map((label) => label.textContent?.trim())).toEqual([
       'O primeiro RP brasileiro de KCD II',
       'O reino',
-      'As duas casas',
+      'As duas facções',
       'Guildas',
       'Hierarquia',
       'Crônica · 1402 – 1403',
@@ -103,7 +103,7 @@ describe('App', () => {
 
   it('shows the two crests of the houses and the eight of the guilds, all from the new set', () => {
     expect(
-      Array.from(root.querySelectorAll('#casas img.crest'), (image) => image.getAttribute('src')),
+      Array.from(root.querySelectorAll('#faccoes img.crest'), (image) => image.getAttribute('src')),
     ).toEqual(['img/brasao-leao.webp', 'img/brasao-corvo.webp']);
     expect(root.querySelectorAll('#guildas .frame img')).toHaveLength(8);
   });

@@ -17,7 +17,7 @@ export interface Chapter {
 export const LORE_EYEBROW = 'Crônica · 1402 – 1403';
 /** The title: the plain words, then the gilded ones. */
 export const LORE_TITLE = 'A Boêmia sem reis e a';
-export const LORE_TITLE_EM = 'Guerra das Casas.';
+export const LORE_TITLE_EM = 'Guerra das Facções.';
 export const LORE_LEAD = 'Dois reis em guerra, uma terra em chamas e duas facções pela coroa.';
 
 /** A line of the short version of the story, beside the map: what happened, in a breath. */

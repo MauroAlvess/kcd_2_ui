@@ -82,7 +82,7 @@ export const PILLARS: readonly Pillar[] = [
     id: 'coroa',
     label: 'IV · Uma coroa',
     title: 'Escolha um lado',
-    text: 'Duas casas disputam o reino, o Leão e o Corvo. Jurar lealdade é escolher um lado, e a escolha não tem volta.',
+    text: 'Duas facções disputam o reino, o Leão e o Corvo. Jurar lealdade é escolher um lado, e a escolha não tem volta.',
     large: 'pilar-coroa-1280.webp',
     small: 'pilar-coroa-720.webp',
     width: 1280,

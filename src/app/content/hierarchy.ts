@@ -18,7 +18,7 @@ export interface TreeLevel {
 
 export const TREE_LEVELS: readonly TreeLevel[] = [
   { id: 'coroa', name: 'A Coroa', example: 'Rei · Rainha' },
-  { id: 'casas', name: 'As duas casas', example: 'Casa do Leão Dourado · Casa do Corvo' },
+  { id: 'faccoes', name: 'As duas facções', example: 'Facção do Leão Dourado · Facção do Corvo' },
   { id: 'alta', name: 'Alta nobreza', example: 'Príncipe · Marquês · Lorde' },
   {
     id: 'oficiais',
