@@ -80,13 +80,8 @@ def wide(key, name, widths, quality=82):
 
 # The photographs, in the original's own size and one or two smaller (the page picks one by `srcset`).
 wide("hero", "hero", ["full", 1920, 960])
-wide("oficio", "pilar-oficio", ["full", 1280, 720])
-wide("familia", "pilar-familia", ["full", 1280, 720])
-wide("teto", "pilar-teto", ["full", 1280, 720])
-wide("coroa", "pilar-coroa", ["full", 1280, 720])
-wide("floresta", "galeria-floresta", ["full", 1200, 720])
-wide("mercado", "galeria-mercado", ["full", 1200, 720])
-wide("mapa", "mapa-kuttenberg", [1600, 1200, 700])
+# The pictures of the cards (the four lines of the realm and the two of the gallery) are made by tools/make-story-images.py from the user's own paintings (2026-10-31); the zip's are not used.
+# The map is made by tools/make-map.py from the project's own mapa.png (2026-10-31: the zip's had the wrong crest by Kuttenberg, Trosky's, where Pschitoky's belongs).
 wide("entrar", "entrar", ["full", 960])
 
 # The crests keep their transparency.

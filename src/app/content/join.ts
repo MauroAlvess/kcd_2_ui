@@ -23,6 +23,6 @@ export const JOIN_STEPS: readonly Step[] = [
   {
     numeral: '03',
     title: 'Nasça plebeu.',
-    text: 'Crie seu personagem e escolha onde nasce: os Leões, em Suchdol, ou os Corvos, em Malešov. Depois procure um escrivão ou um mestre de ofício: é ele quem cede a sua guilda.',
+    text: 'Crie seu personagem e escolha onde nasce: os Leões, em Suchdol, ou os Corvos, em Malešov. Depois vá ao comerciante da guilda que quer, na sua cidade: o primeiro ofício é de graça. Um escrivão ou um mestre de ofício também podem ceder a guilda.',
   },
 ];

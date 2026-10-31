@@ -36,7 +36,7 @@ describe('content', () => {
   });
 
   it('shows the game in two pictures of its own, each in two sizes with a description and a few words', () => {
-    expect(SHOTS.map((shot) => shot.id)).toEqual(['floresta', 'mercado']);
+    expect(SHOTS.map((shot) => shot.id)).toEqual(['floresta', 'estrada']);
     expect(unique(SHOTS.flatMap((shot) => [shot.large, shot.small]))).toBe(true);
     for (const shot of SHOTS) {
       expect(shot.large).toMatch(/^galeria-[a-z]+-1600\.webp$/);
