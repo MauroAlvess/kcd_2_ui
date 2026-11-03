@@ -1,3 +1,4 @@
+import { CHRONICLES, embedUrl, isVideoId, watchUrl } from './chronicles';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { JOIN_STEPS } from './join';
@@ -73,8 +74,9 @@ describe('content', () => {
     }
   });
 
-  it('lists the sections of the page in the order it tells them, each once, with the realm first and the story last', () => {
+  it('lists the sections of the page in the order it tells them, each once, with the chronicles first (right under the opening) and the story last', () => {
     expect(NAV.map((item) => item.href)).toEqual([
+      '#cronicas',
       '#reino',
       '#faccoes',
       '#guildas',
@@ -83,6 +85,34 @@ describe('content', () => {
     ]);
     expect(unique(NAV.map((item) => item.label))).toBe(true);
     expect(NAV.every((item) => filled(item.label))).toBe(true);
+  });
+
+  it('lists the chronicles with their own ids, covers and addresses, none twice (2026-11-03)', () => {
+    expect(CHRONICLES).toHaveLength(2);
+    expect(unique(CHRONICLES.map((one) => one.id))).toBe(true);
+    expect(unique(CHRONICLES.map((one) => one.video))).toBe(true);
+    expect(unique(CHRONICLES.map((one) => one.label))).toBe(true);
+    for (const one of CHRONICLES) {
+      expect(isVideoId(one.video), one.id).toBe(true);
+      expect([one.label, one.name, one.nameEm, one.alt].every(filled)).toBe(true);
+      // The covers are named by their width, the large one is the size the page declares.
+      expect(one.small).toMatch(/-640\.webp$/);
+      expect(one.large).toMatch(/-1280\.webp$/);
+      expect([one.width, one.height]).toEqual([1280, 720]);
+      expect(watchUrl(one.video)).toBe(`https://www.youtube.com/watch?v=${one.video}`);
+      expect(embedUrl(one.video)).toBe(
+        `https://www.youtube-nocookie.com/embed/${one.video}?autoplay=1&rel=0&playsinline=1`,
+      );
+    }
+  });
+
+  it('only trusts a video id of eleven plain characters: nothing else can be put in the address of the player', () => {
+    for (const bad of ['', 'short', '0Yt1FPSQWqQx', '0Yt1FPSQW/Q', '0Yt1FPSQ Qx', 'a".onload=x']) {
+      expect(isVideoId(bad), bad).toBe(false);
+    }
+    expect(isVideoId('0Yt1FPSQWqQ')).toBe(true);
+    expect(isVideoId('w9F0UUXOUj0')).toBe(true);
+    expect(isVideoId('a-b_c-d_e-f')).toBe(true);
   });
 
   it('numbers the steps of the way in without repeating a number', () => {
@@ -160,7 +190,14 @@ describe('content', () => {
     ]) {
       expect(text, fact).toContain(fact);
     }
-    for (const person of ['Radovan', 'Gunther', 'Silberhände', 'Schodal', 'Protetor da Coroa', 'bastardo']) {
+    for (const person of [
+      'Radovan',
+      'Gunther',
+      'Silberhände',
+      'Schodal',
+      'Protetor da Coroa',
+      'bastardo',
+    ]) {
       expect(text, person).not.toContain(person);
     }
     expect(LORE_ENDING.question).toBe('E você, a quem jurará sua lealdade?');

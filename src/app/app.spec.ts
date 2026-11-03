@@ -32,13 +32,23 @@ describe('App', () => {
 
   it('reads as the opening, the chapters in the order of the story, and the way in', () => {
     const ids = Array.from(root.querySelectorAll('main section[id]'), (section) => section.id);
-    expect(ids).toEqual(['topo', 'reino', 'faccoes', 'guildas', 'hierarquia', 'lore', 'entrar']);
+    expect(ids).toEqual([
+      'topo',
+      'cronicas',
+      'reino',
+      'faccoes',
+      'guildas',
+      'hierarquia',
+      'lore',
+      'entrar',
+    ]);
   });
 
   it('keeps the small label of every section plain: its words, with no drawing before them', () => {
     const labels = Array.from(root.querySelectorAll('main section .eyebrow'));
     expect(labels.map((label) => label.textContent?.trim())).toEqual([
       'O primeiro RP brasileiro de KCD II',
+      'Crônicas da Boêmia',
       'O reino',
       'As duas facções',
       'Guildas',
@@ -53,7 +63,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(7);
+    expect(sections).toHaveLength(8);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();

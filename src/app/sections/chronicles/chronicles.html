@@ -1,0 +1,113 @@
+<section id="cronicas" class="chronicles" aria-labelledby="cronicas-title">
+  <div class="wrap">
+    <header class="head">
+      <p class="lb rv eyebrow">{{ eyebrow }}</p>
+      <h2 id="cronicas-title" class="hd rv title">
+        {{ title }} <em>{{ titleEm }}</em>
+      </h2>
+      <p class="rv lead">{{ lead }}</p>
+    </header>
+
+    <div
+      class="deck rv"
+      role="group"
+      aria-roledescription="carrossel"
+      aria-label="Crônicas da Boêmia"
+      (keydown.arrowright)="move(1)"
+      (keydown.arrowleft)="move(-1)"
+    >
+      <div class="stage">
+        @for (slide of slides; track slide.id; let i = $index) {
+          <article
+            class="card"
+            role="group"
+            aria-roledescription="slide"
+            [attr.aria-label]="slide.label + ' de ' + slides.length"
+            [class.main]="offset(i) === 0"
+            [class.before]="offset(i) === -1"
+            [class.after]="offset(i) === 1"
+            [class.gone]="offset(i) < -1 || offset(i) > 1"
+            [class.before-far]="offset(i) < -1"
+            [attr.aria-hidden]="offset(i) < -1 || offset(i) > 1 ? 'true' : null"
+            [attr.inert]="offset(i) < -1 || offset(i) > 1 ? '' : null"
+          >
+            <div class="frame">
+              <img
+                class="poster"
+                [src]="'img/' + slide.large"
+                [attr.srcset]="srcset(slide)"
+                sizes="(max-width: 60rem) 84vw, min(52rem, 62vw)"
+                [alt]="slide.alt"
+                [attr.width]="slide.width"
+                [attr.height]="slide.height"
+                loading="lazy"
+                decoding="async"
+              />
+              @if (playing() === i) {
+                <iframe
+                  class="player"
+                  [src]="slide.embed"
+                  [title]="slide.title"
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  allowfullscreen
+                  referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+              } @else {
+                <span class="shade" aria-hidden="true"></span>
+                <span class="lb chip" aria-hidden="true">{{ slide.label }}</span>
+                <button
+                  type="button"
+                  class="hit"
+                  [attr.aria-label]="action(i)"
+                  (click)="choose(i)"
+                  (pointerenter)="dwell(i, $event)"
+                  (pointerleave)="stopDwell()"
+                >
+                  <span class="disc" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M8.5 5.2v13.6L19 12z" />
+                    </svg>
+                  </span>
+                </button>
+              }
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="captions" aria-live="polite">
+        @for (slide of slides; track slide.id; let i = $index) {
+          <div
+            class="caption"
+            [class.on]="i === active()"
+            [attr.aria-hidden]="i === active() ? null : 'true'"
+            [attr.inert]="i === active() ? null : ''"
+          >
+            <p class="lb label">{{ slide.label }}</p>
+            <h3 class="hd name">
+              {{ slide.name }} <em>{{ slide.nameEm }}</em>
+            </h3>
+            <a class="lb more" [href]="slide.watch" target="_blank" rel="noopener noreferrer"
+              >Assistir no YouTube</a
+            >
+          </div>
+        }
+      </div>
+
+      <div class="ticks" role="group" aria-label="Escolher o ato">
+        @for (slide of slides; track slide.id; let i = $index) {
+          <button
+            type="button"
+            class="tick"
+            [class.now]="i === active()"
+            [attr.aria-current]="i === active() ? 'true' : null"
+            [attr.aria-label]="slide.title"
+            (click)="select(i)"
+          >
+            <span class="lb numeral">{{ slide.numeral }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>

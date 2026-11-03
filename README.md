@@ -4,7 +4,7 @@ Site do servidor **Kingdom RP BRASIL**: uma página só, com a **identidade nova
 (`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da facção do Leão e o pergaminho dos painéis, com o brasão dourado
 "Roleplay Brasileiro". Títulos em Libre Caslon Display com a palavra em itálico dourado, botões em Spectral SC, rótulos em Cinzel e texto em EB
 Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "Os reis morreram. A coroa
-está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; segue com o reino (quatro
+está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; logo abaixo vêm as **Crônicas da Boêmia** (dois vídeos do canal do servidor, em carrossel: o ato em cartaz no meio, o outro espiando ao lado; passar o mouse um instante ou clicar no do lado o traz para o meio, e clicar no do meio toca o vídeo ali mesmo); segue com o reino (quatro
 linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas facções (Leão ou Corvo), as guildas (o registro em
 pergaminho com os oito brasões), a hierarquia (a escada de sete degraus e todos os títulos dobrados), a história (o mapa e a crônica em sete linhas,
 com a crônica inteira dobrada) e o chamado final. Sem scripts, ou para quem pediu menos movimento, as quatro linhas do reino aparecem uma sob a outra.
@@ -60,6 +60,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | palavras-chave                                                                                                                                 | `KEYWORDS` em `src/app/core/site.ts`                                                   |
 | itens do menu                                                                                                                                  | `NAV` em `src/app/core/site.ts`                                                        |
 | as quatro linhas e as três fotos do reino, as guildas, os passos para entrar e os títulos da hierarquia                                         | `src/app/content/*.ts`                                                                 |
+| os vídeos das Crônicas da Boêmia (atos, nomes, ids do YouTube) e os textos da seção                                                             | `src/app/content/chronicles.ts` (as capas: `tools/make-chronicles.py`)                 |
 | textos da lore                                                                                                                                 | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
 | a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral)                                                              | o `.html` de cada seção em `src/app/sections/`                                         |
 | cores, fontes, espaçamentos                                                                                                                    | `:root` em `src/styles.css`                                                            |
@@ -68,10 +69,10 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 
 ```
 src/app/
-  app.*                 a página: cabeçalho, a abertura, os 5 capítulos em ordem, rodapé
+  app.*                 a página: cabeçalho, a abertura, as crônicas, os capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o banner, sólido ao rolar; menu móvel abaixo de 52rem) e footer
-  sections/             uma pasta por seção: hero, pitch (o reino), guilds, hierarchy, lore, join
+  sections/             uma pasta por seção: hero, chronicles (os vídeos), pitch (o reino), guilds, hierarchy, lore, join
   shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo, título,
                         introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
                         guarda todos; hoje só os botões os usam), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
@@ -194,3 +195,20 @@ server {
     location = /index.html { add_header Cache-Control "no-cache"; }
 }
 ```
+
+## Crônicas da Boêmia (os vídeos)
+
+Pedido de 03/11/2026: *"vamos criar a seção Crônicas da Boêmia (essas histórias são baseadas no próprio roleplay desenvolvido totalmente por jogadores, sem intervenção alguma da staff)
+... os vídeos tipo carrossel ... ao passar o mouse ou clicar em um ele vai para o meio ocupando o local do outro ... logo abaixo do hero"*. Fica logo abaixo da abertura (`#cronicas`).
+
+- **Cada vídeo é um ato** em `src/app/content/chronicles.ts` (`CHRONICLES`): rótulo (*Ato I*), nome (*O primeiro conflito*), o id do vídeo no YouTube (o que vem depois de `v=`), as capas e o texto
+  alternativo. Hoje são dois: *Ato I, O primeiro conflito* (`0Yt1FPSQWqQ`) e *Ato II, Um novo lorde* (`w9F0UUXOUj0`). **Para pôr outro**, acrescente uma entrada ali e as capas dele
+  em `VIDEOS` de `tools/make-chronicles.py`, e rode `python tools/make-chronicles.py` (baixa a miniatura de 1280 x 720 do YouTube e escreve `public/img/cronica-ato-N-640|1280.webp`). A seção
+  já está pronta para mais de dois: os cartões a duas casas do meio ficam fora de vista.
+- **Como se comporta** (`sections/chronicles/`): o cartão do meio é o maior, com a moldura de canto em folha e as duas linhas douradas das outras imagens; o do lado fica menor e escurecido, aparecendo
+  por trás. Um **mouse que descansa** sobre o do lado por 260 ms (ou um **clique**, ou um **toque**, ou as **setas** do teclado, ou as abas I e II sob a legenda) traz esse cartão para o meio e leva o outro
+  para o lado de onde veio; um **clique no do meio** abre o vídeo no próprio cartão. Um vídeo que está tocando não é tirado do espectador por um mouse que passa ao lado (só um clique troca), e trocar de
+  cartão fecha o player.
+- **Privacidade e peso:** a página não carrega nada do YouTube até o clique: a capa é arquivo próprio (32 a 139 KB) e o player é o `youtube-nocookie.com`, que não grava cookie antes de tocar. Sem scripts, a capa
+  aparece e o link *Assistir no YouTube* da legenda leva ao vídeo.
+- **Os títulos do YouTube** são *As Crônicas da Boêmia - A Primeira Batalha* e *- Um Novo Lorde*; o cartão diz *O primeiro conflito* e *Um novo lorde*, como o dono pediu.

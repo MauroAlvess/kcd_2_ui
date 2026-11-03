@@ -59,6 +59,7 @@ export interface NavItem {
 
 /** The sections in the order the page tells them: the realm first, the story last before the way in (it has its own buttons). */
 export const NAV: readonly NavItem[] = [
+  { label: 'Crônicas', href: '#cronicas' },
   { label: 'O reino', href: '#reino' },
   { label: 'As facções', href: '#faccoes' },
   { label: 'Guildas', href: '#guildas' },
