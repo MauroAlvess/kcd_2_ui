@@ -22,7 +22,7 @@
             class="card"
             role="group"
             aria-roledescription="slide"
-            [attr.aria-label]="slide.label + ' de ' + slides.length"
+            [attr.aria-label]="i + 1 + ' de ' + slides.length"
             [class.main]="offset(i) === 0"
             [class.before]="offset(i) === -1"
             [class.after]="offset(i) === 1"
@@ -104,7 +104,7 @@
             [attr.aria-label]="slide.title"
             (click)="select(i)"
           >
-            <span class="lb numeral">{{ slide.numeral }}</span>
+            <span class="lb numeral">{{ slide.tick }}</span>
           </button>
         }
       </div>

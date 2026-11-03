@@ -1,6 +1,7 @@
 /**
  * The Crônicas da Boêmia (2026-11-03, the user: "essas histórias são baseadas no próprio roleplay desenvolvido totalmente por jogadores, sem intervenção alguma da staff"):
- * the videos the server's channel makes of what its players lived, one per act. There are two for now; the section is made for more (add an entry, and its cover with
+ * the videos the server's channel makes of what its players lived, one per act, in the order they were made. The server's first trailer opens the row (the same day the user added
+ * it: "aproveite e já add esse também, que é o primeiro trailer do servidor"); the acts that come next go at the end. The section is made for more (add an entry, and its cover with
  * `tools/make-chronicles.py`).
  */
 
@@ -13,8 +14,9 @@ export const CHRONICLES_LEAD =
 
 export interface Chronicle {
   readonly id: string;
-  /** The act's number in Roman, and its label ("Ato I"). */
-  readonly numeral: string;
+  /** What its tick under the caption says: the act's number in Roman, or a word. */
+  readonly tick: string;
+  /** What the card's label and the caption's say first: "Ato I". */
   readonly label: string;
   /** The act's name: the plain words, then the gilded one. */
   readonly name: string;
@@ -33,8 +35,21 @@ export interface Chronicle {
 
 export const CHRONICLES: readonly Chronicle[] = [
   {
+    id: 'trailer',
+    tick: 'Trailer',
+    label: 'Primeiro trailer',
+    name: 'Kingdom RP',
+    nameEm: 'Brasil',
+    video: 'Z5xjWIUd6Uo',
+    small: 'cronica-trailer-640.webp',
+    large: 'cronica-trailer-1280.webp',
+    width: 1280,
+    height: 720,
+    alt: 'Trailer de revelação do Kingdom RP Brasil: um cavaleiro de armadura sob um sol dourado, com o brasão do Roleplay Brasileiro e a bandeira do Brasil.',
+  },
+  {
     id: 'ato-1',
-    numeral: 'I',
+    tick: 'I',
     label: 'Ato I',
     name: 'O primeiro',
     nameEm: 'conflito',
@@ -47,7 +62,7 @@ export const CHRONICLES: readonly Chronicle[] = [
   },
   {
     id: 'ato-2',
-    numeral: 'II',
+    tick: 'II',
     label: 'Ato II',
     name: 'Um novo',
     nameEm: 'lorde',

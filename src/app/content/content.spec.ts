@@ -88,13 +88,16 @@ describe('content', () => {
   });
 
   it('lists the chronicles with their own ids, covers and addresses, none twice (2026-11-03)', () => {
-    expect(CHRONICLES).toHaveLength(2);
+    expect(CHRONICLES).toHaveLength(3);
+    // The server's first trailer opens the row, the acts follow in the order they were made.
+    expect(CHRONICLES.map((one) => one.id)).toEqual(['trailer', 'ato-1', 'ato-2']);
     expect(unique(CHRONICLES.map((one) => one.id))).toBe(true);
     expect(unique(CHRONICLES.map((one) => one.video))).toBe(true);
     expect(unique(CHRONICLES.map((one) => one.label))).toBe(true);
+    expect(unique(CHRONICLES.map((one) => one.tick))).toBe(true);
     for (const one of CHRONICLES) {
       expect(isVideoId(one.video), one.id).toBe(true);
-      expect([one.label, one.name, one.nameEm, one.alt].every(filled)).toBe(true);
+      expect([one.label, one.tick, one.name, one.nameEm, one.alt].every(filled)).toBe(true);
       // The covers are named by their width, the large one is the size the page declares.
       expect(one.small).toMatch(/-640\.webp$/);
       expect(one.large).toMatch(/-1280\.webp$/);

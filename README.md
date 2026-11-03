@@ -4,7 +4,7 @@ Site do servidor **Kingdom RP BRASIL**: uma página só, com a **identidade nova
 (`#110e0a`), osso para o texto, ouro (`#d5a156`) para o que é dourado, o vermelho da facção do Leão e o pergaminho dos painéis, com o brasão dourado
 "Roleplay Brasileiro". Títulos em Libre Caslon Display com a palavra em itálico dourado, botões em Spectral SC, rótulos em Cinzel e texto em EB
 Garamond (todas hospedadas junto do site, pelo `@fontsource`). Abre com a emboscada na estrada (`img/hero-*.webp`), a frase "Os reis morreram. A coroa
-está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; logo abaixo vêm as **Crônicas da Boêmia** (dois vídeos do canal do servidor, em carrossel: o ato em cartaz no meio, o outro espiando ao lado; passar o mouse um instante ou clicar no do lado o traz para o meio, e clicar no do meio toca o vídeo ali mesmo); segue com o reino (quatro
+está vaga." e um pergaminho, **"Escolha seu destino"**, com o servidor, quem está online, os três passos e os dois botões; logo abaixo vêm as **Crônicas da Boêmia** (os vídeos do canal do servidor, o primeiro trailer e os atos, em carrossel: o ato em cartaz no meio, o outro espiando ao lado; passar o mouse um instante ou clicar no do lado o traz para o meio, e clicar no do meio toca o vídeo ali mesmo); segue com o reino (quatro
 linhas que se revezam com uma foto cada enquanto a página fica parada, e duas fotos), as duas facções (Leão ou Corvo), as guildas (o registro em
 pergaminho com os oito brasões), a hierarquia (a escada de sete degraus e todos os títulos dobrados), a história (o mapa e a crônica em sete linhas,
 com a crônica inteira dobrada) e o chamado final. Sem scripts, ou para quem pediu menos movimento, as quatro linhas do reino aparecem uma sob a outra.
@@ -201,8 +201,9 @@ server {
 Pedido de 03/11/2026: *"vamos criar a seção Crônicas da Boêmia (essas histórias são baseadas no próprio roleplay desenvolvido totalmente por jogadores, sem intervenção alguma da staff)
 ... os vídeos tipo carrossel ... ao passar o mouse ou clicar em um ele vai para o meio ocupando o local do outro ... logo abaixo do hero"*. Fica logo abaixo da abertura (`#cronicas`).
 
-- **Cada vídeo é um ato** em `src/app/content/chronicles.ts` (`CHRONICLES`): rótulo (*Ato I*), nome (*O primeiro conflito*), o id do vídeo no YouTube (o que vem depois de `v=`), as capas e o texto
-  alternativo. Hoje são dois: *Ato I, O primeiro conflito* (`0Yt1FPSQWqQ`) e *Ato II, Um novo lorde* (`w9F0UUXOUj0`). **Para pôr outro**, acrescente uma entrada ali e as capas dele
+- **Cada vídeo é um cartão** em `src/app/content/chronicles.ts` (`CHRONICLES`, na ordem em que foram feitos): rótulo (*Ato I*), nome (*O primeiro conflito*), o texto da aba (*I*), o id do vídeo no YouTube (o que vem
+  depois de `v=`), as capas e o texto alternativo. Hoje são três: o *Primeiro trailer, Kingdom RP Brasil* (`Z5xjWIUd6Uo`, o trailer de revelação), o *Ato I, O primeiro conflito* (`0Yt1FPSQWqQ`) e o
+  *Ato II, Um novo lorde* (`w9F0UUXOUj0`). **Para pôr outro**, acrescente uma entrada ali e as capas dele
   em `VIDEOS` de `tools/make-chronicles.py`, e rode `python tools/make-chronicles.py` (baixa a miniatura de 1280 x 720 do YouTube e escreve `public/img/cronica-ato-N-640|1280.webp`). A seção
   já está pronta para mais de dois: os cartões a duas casas do meio ficam fora de vista.
 - **Como se comporta** (`sections/chronicles/`): o cartão do meio é o maior, com a moldura de canto em folha e as duas linhas douradas das outras imagens; o do lado fica menor e escurecido, aparecendo
@@ -211,4 +212,5 @@ Pedido de 03/11/2026: *"vamos criar a seção Crônicas da Boêmia (essas histó
   cartão fecha o player.
 - **Privacidade e peso:** a página não carrega nada do YouTube até o clique: a capa é arquivo próprio (32 a 139 KB) e o player é o `youtube-nocookie.com`, que não grava cookie antes de tocar. Sem scripts, a capa
   aparece e o link *Assistir no YouTube* da legenda leva ao vídeo.
-- **Os títulos do YouTube** são *As Crônicas da Boêmia - A Primeira Batalha* e *- Um Novo Lorde*; o cartão diz *O primeiro conflito* e *Um novo lorde*, como o dono pediu.
+- **Os títulos do YouTube** são *KINGDOM RP BRASIL | TRAILER DE REVELAÇÃO | KCD II*, *As Crônicas da Boêmia - A Primeira Batalha* e *- Um Novo Lorde*; os cartões dizem *Kingdom RP Brasil*, *O primeiro conflito* e *Um novo
+  lorde*, como o dono pediu. O link do trailer que o dono mandou tinha `&t=34s` (começar aos 34 s); o player abre do início. Para começar em outro ponto, acrescente `&start=34` ao `embedUrl`.
