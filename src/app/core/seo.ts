@@ -125,7 +125,12 @@ export class Seo {
         name: this.site.name,
         alternateName: ALTERNATE_NAMES,
         slogan: SLOGAN,
-        sameAs: [this.site.discord, this.site.social.instagram, this.site.social.youtube],
+        sameAs: [
+          this.site.discord,
+          this.site.social.instagram,
+          this.site.social.youtube,
+          this.site.social.tiktok,
+        ],
       },
     ];
 

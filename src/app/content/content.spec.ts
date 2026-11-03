@@ -1,4 +1,5 @@
 import { CHRONICLES, embedUrl, isVideoId, watchUrl } from './chronicles';
+import { SOCIAL_PAGES } from './social';
 import { TIERS, TREE_LEVELS } from './hierarchy';
 import { GUILDS } from './guilds';
 import { JOIN_STEPS } from './join';
@@ -82,9 +83,25 @@ describe('content', () => {
       '#guildas',
       '#hierarquia',
       '#lore',
+      '#redes',
     ]);
     expect(unique(NAV.map((item) => item.label))).toBe(true);
     expect(NAV.every((item) => filled(item.label))).toBe(true);
+  });
+
+  it('lists the pages on the social networks with their own ids, prints and addresses, none twice (2026-11-03)', () => {
+    expect(SOCIAL_PAGES.map((page) => page.id)).toEqual(['tiktok', 'instagram', 'youtube']);
+    expect(unique(SOCIAL_PAGES.map((page) => page.href))).toBe(true);
+    expect(unique(SOCIAL_PAGES.map((page) => page.large))).toBe(true);
+    for (const page of SOCIAL_PAGES) {
+      for (const text of [page.name, page.handle, page.line, page.action, page.alt]) {
+        expect(filled(text), page.id).toBe(true);
+      }
+      expect(page.href).toMatch(/^https:\/\/www\.[a-z]+\.com\/@?kingdomrpbrasil\/?$/);
+      expect(page.small).toBe(`social-${page.id}-480.webp`);
+      expect(page.large).toBe(`social-${page.id}-960.webp`);
+      expect([page.width, page.height]).toEqual([960, 540]);
+    }
   });
 
   it('lists the chronicles with their own ids, covers and addresses, none twice (2026-11-03)', () => {

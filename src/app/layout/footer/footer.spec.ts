@@ -12,18 +12,21 @@ describe('Footer', () => {
     await fixture.whenStable();
   });
 
-  it('links to the server on Instagram and YouTube, opened in a tab of their own', () => {
+  it('links to the server on Instagram, YouTube and TikTok, opened in a tab of their own', () => {
     const instagram = root.querySelector(`.social a[href="${SITE.social.instagram}"]`);
     const youtube = root.querySelector(`.social a[href="${SITE.social.youtube}"]`);
+    const tiktok = root.querySelector(`.social a[href="${SITE.social.tiktok}"]`);
     expect(SITE.social.instagram).toBe('https://www.instagram.com/kingdomrpbrasil/');
     expect(SITE.social.youtube).toBe('https://www.youtube.com/@kingdomrpbrasil');
-    for (const link of [instagram, youtube]) {
+    expect(SITE.social.tiktok).toBe('https://www.tiktok.com/@kingdomrpbrasil');
+    for (const link of [instagram, youtube, tiktok]) {
       expect(link).not.toBeNull();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toContain('noopener');
     }
     expect(instagram?.textContent).toContain('Instagram');
     expect(youtube?.textContent).toContain('YouTube');
+    expect(tiktok?.textContent).toContain('TikTok');
   });
 
   it('keeps the Discord among the links, and the small print beside them', () => {

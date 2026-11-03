@@ -1,0 +1,66 @@
+<section id="redes" class="social" aria-labelledby="redes-title">
+  <div class="wrap">
+    <header class="head">
+      <p class="lb rv eyebrow">{{ eyebrow }}</p>
+      <h2 id="redes-title" class="hd rv title">
+        {{ title }} <em>{{ titleEm }}</em>
+      </h2>
+      <p class="rv lead">{{ lead }}</p>
+    </header>
+
+    <ul class="pages">
+      @for (page of pages; track page.id) {
+        <li class="rv">
+          <a class="card" [href]="page.href" target="_blank" rel="noopener me">
+            <span class="frame">
+              <img
+                class="print"
+                [src]="'img/' + page.large"
+                [attr.srcset]="srcset(page)"
+                sizes="(max-width: 60rem) min(34rem, 92vw), min(26rem, 30vw)"
+                [alt]="page.alt"
+                [attr.width]="page.width"
+                [attr.height]="page.height"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <span class="words">
+              <span class="row">
+                <h3 class="hd name">{{ page.name }}</h3>
+                <span class="handle">{{ page.handle }}</span>
+              </span>
+              <span class="line">{{ page.line }}</span>
+              <span class="lb more">
+                {{ page.action }}
+                <span class="sr-only"> (abre em uma nova aba)</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <div class="parch band rv">
+      <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span
+      ><span class="brk br"></span>
+      <img
+        class="crest"
+        src="img/logo-rp.webp"
+        width="256"
+        height="253"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="talk">
+        <p class="lb label">{{ discord.name }}</p>
+        <h3 class="hd talk-title">
+          {{ discord.title }} <em>{{ discord.titleEm }}</em>
+        </h3>
+        <p class="talk-line">{{ discord.line }}</p>
+      </div>
+      <app-button class="go" [href]="site.discord" external>{{ discord.action }}</app-button>
+    </div>
+  </div>
+</section>

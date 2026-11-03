@@ -40,6 +40,7 @@ describe('App', () => {
       'guildas',
       'hierarquia',
       'lore',
+      'redes',
       'entrar',
     ]);
   });
@@ -54,6 +55,7 @@ describe('App', () => {
       'Guildas',
       'Hierarquia',
       'Crônica · 1402 – 1403',
+      'Redes sociais',
       'Um reino à espera',
     ]);
     for (const label of labels) {
@@ -63,7 +65,7 @@ describe('App', () => {
 
   it('names every section by a heading that exists', () => {
     const sections = root.querySelectorAll('main section[aria-labelledby]');
-    expect(sections).toHaveLength(8);
+    expect(sections).toHaveLength(9);
     sections.forEach((section) => {
       const heading = root.querySelector(`#${section.getAttribute('aria-labelledby')}`);
       expect(heading, section.id).not.toBeNull();

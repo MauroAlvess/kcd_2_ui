@@ -11,12 +11,13 @@ import { Houses } from './sections/houses/houses';
 import { Join } from './sections/join/join';
 import { Lore } from './sections/lore/lore';
 import { Pitch } from './sections/pitch/pitch';
+import { Social } from './sections/social/social';
 import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
 
 /**
  * The whole site is one page, short on purpose (2026-10-28, the user: "minimalista, simples, que venda a ideia sem ser gigante"): the
  * opening, the chronicles (the videos of what the players lived, 2026-11-03), what the realm offers and the game in three pictures, the war of the two houses, the guilds, the order of the realm, the story of the crown folded
- * behind one line, and the way in (the family and the holdings were folded into the first of them; the map of the houses, the
+ * behind one line, the server on the social networks (2026-11-03), and the way in (the family and the holdings were folded into the first of them; the map of the houses, the
  * supporter's band and the rules were taken off the same day).
  * Each section is a component of its own under `sections/`; what is shared lives under `shared/ui/`, the texts under
  * `content/`. The site's own scrollbar is hidden (see styles.css): a circle with an arrow in the corner takes its place at the top.
@@ -32,6 +33,7 @@ import { ScrollHint } from './shared/ui/scroll-hint/scroll-hint';
     Guilds,
     Hierarchy,
     Lore,
+    Social,
     Join,
     Footer,
     ScrollHint,

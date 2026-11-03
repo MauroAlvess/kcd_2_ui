@@ -60,6 +60,7 @@ As imagens são escritas com caminho relativo (`img/x.webp`, nunca `/img/x.webp`
 | palavras-chave                                                                                                                                 | `KEYWORDS` em `src/app/core/site.ts`                                                   |
 | itens do menu                                                                                                                                  | `NAV` em `src/app/core/site.ts`                                                        |
 | as quatro linhas e as três fotos do reino, as guildas, os passos para entrar e os títulos da hierarquia                                         | `src/app/content/*.ts`                                                                 |
+| as redes sociais (TikTok, Instagram, YouTube, Discord): os textos da seção                                                                      | `src/app/content/social.ts` (os endereços: `src/site.config.json`; os prints: `tools/make-social.py`) |
 | os vídeos das Crônicas da Boêmia (atos, nomes, ids do YouTube) e os textos da seção                                                             | `src/app/content/chronicles.ts` (as capas: `tools/make-chronicles.py`)                 |
 | textos da lore                                                                                                                                 | `src/app/content/lore.ts` (o título e a frase de abertura em `src/app/sections/lore/`) |
 | a frase do topo e os textos de cada capítulo (título, frase de abertura, numeral)                                                              | o `.html` de cada seção em `src/app/sections/`                                         |
@@ -72,7 +73,7 @@ src/app/
   app.*                 a página: cabeçalho, a abertura, as crônicas, os capítulos em ordem, rodapé
   core/                 site.ts (configuração, menu, palavras-chave) e seo.ts (título, metas, dados estruturados)
   layout/               header (fixo; transparente sobre o banner, sólido ao rolar; menu móvel abaixo de 52rem) e footer
-  sections/             uma pasta por seção: hero, chronicles (os vídeos), pitch (o reino), guilds, hierarchy, lore, join
+  sections/             uma pasta por seção: hero, chronicles (os vídeos), pitch (o reino), guilds, hierarchy, lore, social (as redes), join
   shared/ui/            peças reutilizáveis: button, section (a faixa preta, com foto ou cantos), reveal (aparecer ao rolar), section-heading (rótulo, título,
                         introdução), steps, icon (os desenhos de linha, no traço do painel do jogo: `icons.ts`
                         guarda todos; hoje só os botões os usam), rich (negrito da lore), server-badge (jogadores online), scroll-hint (a seta no canto) e
@@ -214,3 +215,12 @@ Pedido de 03/11/2026: *"vamos criar a seção Crônicas da Boêmia (essas histó
   aparece e o link *Assistir no YouTube* da legenda leva ao vídeo.
 - **Os títulos do YouTube** são *KINGDOM RP BRASIL | TRAILER DE REVELAÇÃO | KCD II*, *As Crônicas da Boêmia - A Primeira Batalha* e *- Um Novo Lorde*; os cartões dizem *Kingdom RP Brasil*, *O primeiro conflito* e *Um novo
   lorde*, como o dono pediu. O link do trailer que o dono mandou tinha `&t=34s` (começar aos 34 s); o player abre do início. Para começar em outro ponto, acrescente `&start=34` ao `embedUrl`.
+
+## Redes sociais
+
+Pedido de 03/11/2026: *"crie uma seção redes sociais, coloquei dentro do img os prints: TikTok, Instagram, YouTube e Discord ... vamos usar o mesmo layout do site e usar os prints lá para ficar legal"*. Fica antes do chamado final (`#redes`).
+
+- **Três cartões, cada um um link:** o print da página na moldura de canto em folha das outras imagens, o nome da rede, `@kingdomrpbrasil`, uma linha e o convite. Os textos estão em `src/app/content/social.ts`; os endereços, em `social` e `discord` do `src/site.config.json` (é deles que saem também o rodapé e os dados para os buscadores).
+- **O Discord não tem print:** é a faixa de pergaminho sob os cartões, com o brasão e o botão. Quando houver um print dele, dá para virar o quarto cartão.
+- **Os prints ficam um pouco escurecidos** até o mouse chegar neles, porque duas das três páginas são brancas e o site é escuro; no celular ficam mais claros, sem precisar de mouse.
+- **Para trocar um print:** ponha o arquivo novo em `img/` (na raiz do projeto, com o mesmo nome: `print tiktok.png`, `Print instagram.png`, `print youtube.png`) e rode `python tools/make-social.py`. Ele corta no formato do cartão (16:9, guardando o alto da página) e escreve `public/img/social-<rede>-480|960.webp`. Os números que aparecem num print são os do dia em que foi tirado.

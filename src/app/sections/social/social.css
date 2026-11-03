@@ -1,0 +1,252 @@
+.social {
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  padding: 6.25rem 0 7.5rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--gold);
+}
+
+.title {
+  margin-top: 1.25rem;
+  font-size: clamp(2.5rem, 4.8vw, 4.75rem);
+  line-height: 1.04;
+  color: var(--bone);
+}
+
+.lead {
+  margin-top: 1.5rem;
+  max-width: 38rem;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--bone-dim);
+}
+
+/* ---- The three pages: each card is a link, its picture in the frame of the page's other pictures. */
+.pages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin: 4.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 2.5rem 0 2.5rem 0;
+  background: var(--night-2);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  outline: 1px solid rgba(239, 227, 196, 0);
+  outline-offset: 6px;
+  transition: outline-color 0.4s;
+}
+
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(213, 161, 86, 0.35);
+  pointer-events: none;
+  transition: box-shadow 0.4s;
+}
+
+.print {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  /* Two of the three pages are white, on a page that is nearly black: they come up when the pointer reaches them. */
+  filter: brightness(0.78) sepia(0.12);
+  transition:
+    filter 0.5s,
+    transform 1.2s var(--ease);
+}
+
+.card:hover .print,
+.card:focus-visible .print {
+  filter: brightness(1) sepia(0);
+  transform: scale(1.03);
+}
+
+.card:hover .frame,
+.card:focus-visible .frame {
+  outline-color: rgba(239, 227, 196, 0.4);
+}
+
+.card:hover .frame::after,
+.card:focus-visible .frame::after {
+  box-shadow: inset 0 0 0 1px rgba(213, 161, 86, 0.6);
+}
+
+.card:focus-visible {
+  outline: none;
+}
+
+.card:focus-visible .frame {
+  outline: 2px solid var(--gold);
+}
+
+.words {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 1.75rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.875rem;
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+.handle {
+  font-family: var(--text);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.line {
+  margin-top: 0.625rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+
+.more {
+  margin-top: auto;
+  padding: 1.25rem 0 0.3rem;
+  font-size: 0.6875rem;
+  color: var(--gold-soft);
+  border-bottom: 1px solid rgba(213, 161, 86, 0.45);
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.card:hover .more,
+.card:focus-visible .more {
+  color: var(--bone);
+  border-color: var(--gold);
+}
+
+/* ---- The Discord: the parchment of the opening, with the crest, the words and the button in one line. */
+.band {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 4.5rem;
+  padding: 2.5rem 3.5rem;
+}
+
+/* The crest is gold, and gold does not read on parchment: on a dark seal, round like the pages' own pictures of it. */
+.crest {
+  width: 6.5rem;
+  height: auto;
+  padding: 0.8rem;
+  border-radius: 50%;
+  background: var(--night);
+  box-shadow:
+    0 0 0 1px rgba(213, 161, 86, 0.6),
+    0 0 0 5px rgba(17, 14, 10, 0.12);
+}
+
+.label {
+  font-size: 0.6875rem;
+  color: var(--red);
+}
+
+.talk-title {
+  margin-top: 0.5rem;
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* The gilded word of the dark pages does not read on parchment: red, as the panels' own. */
+.talk-title em {
+  color: var(--red);
+}
+
+.talk-line {
+  margin-top: 0.5rem;
+  max-width: 42rem;
+  font-size: 1.125rem;
+  line-height: 1.45;
+  color: var(--ink-mid);
+}
+
+@media (max-width: 60rem) {
+  .social {
+    padding: 4.5rem 0 5rem;
+  }
+
+  .pages {
+    grid-template-columns: minmax(0, 34rem);
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .frame {
+    border-radius: 1.5rem 0 1.5rem 0;
+    outline-offset: 4px;
+  }
+
+  /* No pointer to bring them up: a finger sees them as they are. */
+  .print {
+    filter: brightness(0.9) sepia(0.08);
+  }
+
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    gap: 1.25rem;
+    margin-top: 3.5rem;
+    padding: 2.5rem 2rem;
+  }
+
+  .crest {
+    width: 5rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .print,
+  .card:focus-visible .print {
+    transform: none;
+  }
+}
